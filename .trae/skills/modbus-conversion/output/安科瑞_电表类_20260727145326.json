@@ -1,0 +1,469 @@
+{
+	"prtlType": "MODBUS-RTU",
+	"modelNum": 440,
+	"classNum": 11,
+	"taskList": [
+		{
+			"labels": [
+				"voltageA",
+				"voltageB",
+				"voltageC",
+				"lineVoltageAB",
+				"lineVoltageBC",
+				"lineVoltageAC",
+				"currentA",
+				"currentB",
+				"currentC",
+				"activePowA",
+				"activePowB",
+				"activePowC",
+				"activePowT",
+				"reactivePowA",
+				"reactivePowB",
+				"reactivePowC",
+				"reactivePowT",
+				"powFactorA",
+				"powFactorB",
+				"powFactorC",
+				"powFactorsT",
+				"apparentPowA",
+				"apparentPowB",
+				"apparentPowC",
+				"apparentPowT",
+				"gridFrequency",
+				"absorbedActiveEnergy",
+				"releasedActiveEnergy",
+				"inductiveReactiveEnergy",
+				"capacitiveReactiveEnergy",
+				"dpt",
+				"dct",
+				"dpq",
+				"pqSign",
+				"ptRatio",
+				"ctRatio",
+				"commMode",
+				"alarmSelect"
+			]
+		}
+	],
+	"labelList": [
+		{
+			"name": "voltageA",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 37,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpt'-4))"
+			}
+		},
+		{
+			"name": "voltageB",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 38,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpt'-4))"
+			}
+		},
+		{
+			"name": "voltageC",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 39,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpt'-4))"
+			}
+		},
+		{
+			"name": "lineVoltageAB",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 40,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpt'-4))"
+			}
+		},
+		{
+			"name": "lineVoltageBC",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 41,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpt'-4))"
+			}
+		},
+		{
+			"name": "lineVoltageAC",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 42,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpt'-4))"
+			}
+		},
+		{
+			"name": "currentA",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 43,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dct'-4))"
+			}
+		},
+		{
+			"name": "currentB",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 44,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dct'-4))"
+			}
+		},
+		{
+			"name": "currentC",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 45,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dct'-4))"
+			}
+		},
+		{
+			"name": "activePowA",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 46,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpq'-4))*(1-2*(($'pqSign'&1)!=0))"
+			}
+		},
+		{
+			"name": "activePowB",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 47,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpq'-4))*(1-2*(($'pqSign'&2)!=0))"
+			}
+		},
+		{
+			"name": "activePowC",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 48,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpq'-4))*(1-2*(($'pqSign'&4)!=0))"
+			}
+		},
+		{
+			"name": "activePowT",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 49,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpq'-4))*(1-2*(($'pqSign'&8)!=0))"
+			}
+		},
+		{
+			"name": "reactivePowA",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 50,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpq'-4))*(1-2*(($'pqSign'&16)!=0))"
+			}
+		},
+		{
+			"name": "reactivePowB",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 51,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpq'-4))*(1-2*(($'pqSign'&32)!=0))"
+			}
+		},
+		{
+			"name": "reactivePowC",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 52,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpq'-4))*(1-2*(($'pqSign'&64)!=0))"
+			}
+		},
+		{
+			"name": "reactivePowT",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 53,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpq'-4))*(1-2*(($'pqSign'&128)!=0))"
+			}
+		},
+		{
+			"name": "powFactorA",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 54,
+				"addr_exprs": "",
+				"data_exprs": "$D/1000"
+			}
+		},
+		{
+			"name": "powFactorB",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 55,
+				"addr_exprs": "",
+				"data_exprs": "$D/1000"
+			}
+		},
+		{
+			"name": "powFactorC",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 56,
+				"addr_exprs": "",
+				"data_exprs": "$D/1000"
+			}
+		},
+		{
+			"name": "powFactorsT",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 57,
+				"addr_exprs": "",
+				"data_exprs": "$D/1000"
+			}
+		},
+		{
+			"name": "apparentPowA",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 58,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpq'-4))"
+			}
+		},
+		{
+			"name": "apparentPowB",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 59,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpq'-4))"
+			}
+		},
+		{
+			"name": "apparentPowC",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 60,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpq'-4))"
+			}
+		},
+		{
+			"name": "apparentPowT",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 61,
+				"addr_exprs": "",
+				"data_exprs": "$D*pow(10,($'dpq'-4))"
+			}
+		},
+		{
+			"name": "gridFrequency",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 62,
+				"addr_exprs": "",
+				"data_exprs": "$D/100"
+			}
+		},
+		{
+			"name": "absorbedActiveEnergy",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT32]",
+				"data_order": "ABCD",
+				"addr_base": 63,
+				"addr_exprs": "",
+				"data_exprs": "$D/1000*$'ptRatio'*$'ctRatio'"
+			}
+		},
+		{
+			"name": "releasedActiveEnergy",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT32]",
+				"data_order": "ABCD",
+				"addr_base": 65,
+				"addr_exprs": "",
+				"data_exprs": "$D/1000*$'ptRatio'*$'ctRatio'"
+			}
+		},
+		{
+			"name": "inductiveReactiveEnergy",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT32]",
+				"data_order": "ABCD",
+				"addr_base": 67,
+				"addr_exprs": "",
+				"data_exprs": "$D/1000*$'ptRatio'*$'ctRatio'"
+			}
+		},
+		{
+			"name": "capacitiveReactiveEnergy",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT32]",
+				"data_order": "ABCD",
+				"addr_base": 69,
+				"addr_exprs": "",
+				"data_exprs": "$D/1000*$'ptRatio'*$'ctRatio'"
+			}
+		},
+		{
+			"name": "dpt",
+			"read": {
+				"func_code": 3,
+				"data_type": "[8:15]",
+				"data_order": "AB",
+				"addr_base": 35,
+				"addr_exprs": "",
+				"data_exprs": ""
+			}
+		},
+		{
+			"name": "dct",
+			"read": {
+				"func_code": 3,
+				"data_type": "[0:7]",
+				"data_order": "AB",
+				"addr_base": 35,
+				"addr_exprs": "",
+				"data_exprs": ""
+			}
+		},
+		{
+			"name": "dpq",
+			"read": {
+				"func_code": 3,
+				"data_type": "[8:15]",
+				"data_order": "AB",
+				"addr_base": 36,
+				"addr_exprs": "",
+				"data_exprs": ""
+			}
+		},
+		{
+			"name": "pqSign",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 36,
+				"addr_exprs": "",
+				"data_exprs": ""
+			}
+		},
+		{
+			"name": "ptRatio",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 3,
+				"addr_exprs": "",
+				"data_exprs": ""
+			}
+		},
+		{
+			"name": "ctRatio",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 4,
+				"addr_exprs": "",
+				"data_exprs": ""
+			}
+		},
+		{
+			"name": "commMode",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 605,
+				"addr_exprs": "",
+				"data_exprs": ""
+			}
+		},
+		{
+			"name": "alarmSelect",
+			"read": {
+				"func_code": 3,
+				"data_type": "[UINT16]",
+				"data_order": "AB",
+				"addr_base": 608,
+				"addr_exprs": "",
+				"data_exprs": ""
+			}
+		}
+	]
+}

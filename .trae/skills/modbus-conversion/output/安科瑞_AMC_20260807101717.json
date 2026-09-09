@@ -1,0 +1,289 @@
+{
+  "prtlType": "MODBUS-RTU",
+  "modelNum": 440,
+  "classNum": 11,
+  "taskList": [
+    {
+      "labels": [
+        "PT",
+        "CT",
+        "DPT",
+        "DCT",
+        "DPQ",
+        "PQ",
+        "voltageA",
+        "voltageB",
+        "voltageC",
+        "currentA",
+        "currentB",
+        "currentC",
+        "activePowPhaseA",
+        "activePowPhaseB",
+        "activePowPhaseC",
+        "activePowT",
+        "reactivePowPhaseA",
+        "reactivePowPhaseB",
+        "reactivePowPhaseC",
+        "reactivePowT",
+        "powFactorsT",
+        "gridFrequency",
+        "indicatedFApT"
+      ]
+    }
+  ],
+  "labelList": [
+    {
+      "name": "PT",
+      "read": {
+        "addr_base": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "CT",
+      "read": {
+        "addr_base": 4,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "DPT",
+      "read": {
+        "addr_base": 35,
+        "data_type": "[8:15]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "DCT",
+      "read": {
+        "addr_base": 35,
+        "data_type": "[0:7]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "DPQ",
+      "read": {
+        "addr_base": 36,
+        "data_type": "[8:15]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "PQ",
+      "read": {
+        "addr_base": 36,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "voltageA",
+      "read": {
+        "addr_base": 37,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DPT'-4))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "voltageB",
+      "read": {
+        "addr_base": 38,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DPT'-4))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "voltageC",
+      "read": {
+        "addr_base": 39,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DPT'-4))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "currentA",
+      "read": {
+        "addr_base": 43,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DCT'-4))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "currentB",
+      "read": {
+        "addr_base": 44,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DCT'-4))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "currentC",
+      "read": {
+        "addr_base": 45,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DCT'-4))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "activePowPhaseA",
+      "read": {
+        "addr_base": 46,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DPQ'-4))*(1-2*(($'PQ'&2)!=0))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "activePowPhaseB",
+      "read": {
+        "addr_base": 47,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DPQ'-4))*(1-2*(($'PQ'&4)!=0))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "activePowPhaseC",
+      "read": {
+        "addr_base": 48,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DPQ'-4))*(1-2*(($'PQ'&8)!=0))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "activePowT",
+      "read": {
+        "addr_base": 49,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DPQ'-4))*(1-2*(($'PQ'&16)!=0))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "reactivePowPhaseA",
+      "read": {
+        "addr_base": 50,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DPQ'-4))*(1-2*(($'PQ'&128)!=0))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "reactivePowPhaseB",
+      "read": {
+        "addr_base": 51,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DPQ'-4))*(1-2*(($'PQ'&64)!=0))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "reactivePowPhaseC",
+      "read": {
+        "addr_base": 52,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DPQ'-4))*(1-2*(($'PQ'&32)!=0))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "reactivePowT",
+      "read": {
+        "addr_base": 53,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D*pow(10,($'DPQ'-4))*(1-2*(($'PQ'&128)!=0))",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "powFactorsT",
+      "read": {
+        "addr_base": 57,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D/1000",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "gridFrequency",
+      "read": {
+        "addr_base": 62,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_exprs": "",
+        "data_exprs": "$D/100",
+        "func_code": 3
+      }
+    },
+    {
+      "name": "indicatedFApT",
+      "read": {
+        "addr_base": 63,
+        "data_type": "[UINT32]",
+        "data_order": "ABCD",
+        "addr_exprs": "",
+        "data_exprs": "$D/1000*$'PT'*$'CT'",
+        "func_code": 3
+      }
+    }
+  ]
+}

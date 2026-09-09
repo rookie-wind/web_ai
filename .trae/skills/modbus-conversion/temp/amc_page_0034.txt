@@ -1,0 +1,49 @@
+0xE314 EP-F4 总有功电能谷一次值 R/W 2 float Wh
+0xE316 EP-F5 总有功电能深谷一次值 R/W 2 float Wh
+0xE318 EP-F6 保留 R/W 2 float Wh
+0xE31a EP-F7 保留 R/W 2 float Wh
+0xE31c EP-F8 保留 R/W 2 float Wh
+0xE31e EPI-F1 正向有功电能尖一次值 R/W 2 float Wh
+0xE320 EPI-F2 正向有功电能峰一次值 R/W 2 float Wh
+0xE322 EPI-F3 正向有功电能平一次值 R/W 2 float Wh
+0xE324 EPI-F4 正向有功电能谷一次值 R/W 2 float Wh
+0xE326 EPI-F5 正向有功电能深谷一次值 R/W 2 float Wh
+0xE328 EPI-F6 保留 R/W 2 float Wh
+0xE32a EPI-F7 保留 R/W 2 float Wh
+0xE32c EPI-F8 保留 R/W 2 float Wh
+历史电能地址表：
+地址 参数 R/W 字长 类型 备注
+1月：50D8
+2月：5OEA
+3月：50FC
+4月：510E
+5月：5120
+6月：5132
+1-12月总有功电能二次侧 R 2 Uint32 三位小数kWh
+7月：5144
+8月：5156
+9月：5168
+10月：517A
+11月：518C
+12月：519E
+1月：50DA
+2月：5OEC
+3月：50FE
+4月：5110
+5月：5122
+6月：5134
+1-12月尖有功电能二次侧 R 2 Uint32 三位小数kWh
+7月：5146
+8月：5158
+9月：516A
+10月：517C
+11月：518E
+12月：51A0
+1月：50DC
+2月：5OEE
+3月：5100
+1-12月峰有功电能二次侧 R 2 Uint32 三位小数kWh
+4月：5112
+5月：5124
+6月：5136
+31

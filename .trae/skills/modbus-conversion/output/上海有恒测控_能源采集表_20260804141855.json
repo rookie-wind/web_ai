@@ -1,0 +1,49 @@
+{
+  "prtlType": "MODBUS-RTU",
+  "modelNum": 421,
+  "classNum": 21,
+  "taskList": [
+    {
+      "labels": [
+        "tempInstant",
+        "pressInstant",
+        "instantFlowRate"
+      ]
+    }
+  ],
+  "labelList": [
+    {
+      "name": "tempInstant",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 7,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "pressInstant",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 9,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "instantFlowRate",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 13,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    }
+  ]
+}

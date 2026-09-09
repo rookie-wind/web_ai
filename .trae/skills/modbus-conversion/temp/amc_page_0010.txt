@@ -1,0 +1,61 @@
+UA UB UC UN IA*IA IB*IB IC*IC UA UB UC UN IA*IA IB*IB IC*IC
+11 12 13 14 4 5 6 7 8 9 11 12 13 14 4 5 6 7 8 9
+* * * * * *
+FUSES 注① FUSES
+注④ 注④
+L1 L1
+S1* S2 S1* S2
+L2 L2
+S1* S2 S1* S2
+L3 L3
+S1* S2 S1* S2
+N N
+3P4L/3CT(仪表设置为3P4L) 3P4L/3PT+3CT(仪表设置为3P4L)
+UA UB UC UN IA*IA IB*IB IC*IC UA UB UC UN IA*IA IB*IB IC*IC
+11 12 13 14 4 5 6 7 8 9 11 12 13 14 4 5 6 7 8 9
+* * * * * *
+FUSES FUSES
+注④ 注④
+L1 L1
+S1* S2 S1* S2
+L2 L2
+S1* S2 S1* S2
+L3 L3
+S1* S2 S1* S2
+N 3P3i/2PT+3CT(仪表设置为3P3i) 注③
+3P3L/3CT(仪表设置为3P4L) 注②
+UA UB UC UN IA*IA IB*IB IC*IC UA UB UC UN IA*IA IB*IB IC*IC
+11 12 13 14 4 5 6 7 8 9 11 12 13 14 4 5 6 7 8 9
+* * * *
+FUSES FUSES
+注④ 注④
+L1 L1
+S1* S2 S1* S2
+L2 L2
+L3 L3
+S1* S2 S1* S2
+3P3L/2CT(仪表设置为3P3L) 3P3L/2PT+2CT-1(仪表设置为3P3L)
+UA UB UC UN IA*IA IB*IB IC*IC UA UB UC UN IA*IA IB*IB IC*IC
+11 12 13 14 4 5 6 7 8 9 11 12 13 14 4 5 6 7 8 9
+* * * * * *
+FUSES FUSES
+注④ 注④
+* S1* S2
+L1 L1
+L2 L2
+*
+L3 L3
+S1* S2
+N
+3P3L/2PT+2CT-2(仪表设置为3P3L) 注③
+3P4L/2CT(仪表设置为3P4L) 注②
+注①： 为用于CT二次侧短接的试验端子。
+注②：仅适用于三相平衡负载
+注③：B相电流仅显示，不参与其他电量运算
+注④：FUSES必须安装保险丝，额定电流为1A
+图9 仪表信号接线示意图
+关于通讯部分的接线实例如下图所示：
+正确接线方式：通讯电缆屏蔽层接大地
+图10 RS485通讯接线示意图
+建议最末端仪表的A、B之间加匹配电阻，阻值范围为120Ω~10 kΩ。
+7

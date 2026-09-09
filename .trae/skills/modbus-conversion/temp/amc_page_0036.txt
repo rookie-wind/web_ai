@@ -1,0 +1,52 @@
+8月：5162
+9月：5174
+10月：5186
+11月：5198
+12月：51AA
+1月：50E6
+2月：5OF8
+3月：510A
+4月：511C
+5月：512E
+6月：5140
+保留 R 2 Uint32 三位小数kWh
+7月：5152
+8月：5164
+9月：5176
+10月：5188
+11月：519A
+12月：51AC
+1月：50E8
+2月：5OFA
+3月：510C
+4月：511E
+5月：5130
+6月：5142
+保留 R 2 Uint32 三位小数kWh
+7月：5154
+8月：5166
+9月：5178
+10月：518A
+11月：519C
+12月：51AE
+复费率时段时区设置：
+0xE000 ZoneNum1,ZoneMonth1 第一时区时段表号 R/W 21 Uint16
+,ZoneDay1 第一时区开始月,第一时
+ZoneNum2,ZoneMonth2 区日
+,ZoneDay2 第二时区时段表号
+ZoneNum3,ZoneMonth3 第二时区开始月,第二时 时段表号：
+,ZoneDay3 区日 第1时段，
+ZoneNum4,ZoneMonth4 第三时区时段表号 第2时段，
+,ZoneDay4 第三时区开始月,第三时 第3时段，
+ZoneNum5,ZoneMonth5 区日 第4时段，
+,ZoneDay5 第四时区时段表号 第5时段，
+ZoneNum6,ZoneMonth6 第四时区开始月,第四时 第6时段，
+,ZoneDay6 区日 第7时段，
+ZoneNum7,ZoneMonth7 第五时区时段表号 第8时段，
+,ZoneDay7 第五时区开始月,第五时 开始月：1-12
+ZoneNum8,ZoneMonth8 区日 开始日：1-31
+,ZoneDay8 第六时区时段表号
+ZoneNum9,ZoneMonth9 第六时区开始月,第六时
+,ZoneDay9 区日
+ZoneNum10,ZoneMonth 第七时区时段表号
+33

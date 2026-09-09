@@ -1,0 +1,181 @@
+{
+  "prtlType": "MODBUS-RTU",
+  "modelNum": 444,
+  "classNum": 11,
+  "taskList": [
+    {
+      "labels": [
+        "voltageA",
+        "voltageB",
+        "voltageC",
+        "currentA",
+        "currentB",
+        "currentC",
+        "activePowPhaseA",
+        "activePowPhaseB",
+        "activePowPhaseC",
+        "powFactorsPhaseA",
+        "powFactorsPhaseB",
+        "powFactorsPhaseC",
+        "indicatedFApT",
+        "indicatedRApT"
+      ]
+    }
+  ],
+  "labelList": [
+    {
+      "name": "voltageA",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT16]",
+        "data_order": "AB",
+        "addr_base": 0,
+        "addr_exprs": "",
+        "data_exprs": "$D/10"
+      }
+    },
+    {
+      "name": "voltageB",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT16]",
+        "data_order": "AB",
+        "addr_base": 1,
+        "addr_exprs": "",
+        "data_exprs": "$D/10"
+      }
+    },
+    {
+      "name": "voltageC",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT16]",
+        "data_order": "AB",
+        "addr_base": 2,
+        "addr_exprs": "",
+        "data_exprs": "$D/10"
+      }
+    },
+    {
+      "name": "currentA",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT16]",
+        "data_order": "AB",
+        "addr_base": 3,
+        "addr_exprs": "",
+        "data_exprs": "$D/100"
+      }
+    },
+    {
+      "name": "currentB",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT16]",
+        "data_order": "AB",
+        "addr_base": 4,
+        "addr_exprs": "",
+        "data_exprs": "$D/100"
+      }
+    },
+    {
+      "name": "currentC",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT16]",
+        "data_order": "AB",
+        "addr_base": 5,
+        "addr_exprs": "",
+        "data_exprs": "$D/100"
+      }
+    },
+    {
+      "name": "activePowPhaseA",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT16]",
+        "data_order": "AB",
+        "addr_base": 8,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "activePowPhaseB",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT16]",
+        "data_order": "AB",
+        "addr_base": 9,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "activePowPhaseC",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT16]",
+        "data_order": "AB",
+        "addr_base": 10,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "powFactorsPhaseA",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT16]",
+        "data_order": "AB",
+        "addr_base": 20,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "powFactorsPhaseB",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT16]",
+        "data_order": "AB",
+        "addr_base": 21,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "powFactorsPhaseC",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT16]",
+        "data_order": "AB",
+        "addr_base": 22,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "indicatedFApT",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT32]",
+        "data_order": "ABCD",
+        "addr_base": 39,
+        "addr_exprs": "",
+        "data_exprs": "$D/100"
+      }
+    },
+    {
+      "name": "indicatedRApT",
+      "read": {
+        "func_code": 3,
+        "data_type": "[SINT32]",
+        "data_order": "ABCD",
+        "addr_base": 49,
+        "addr_exprs": "",
+        "data_exprs": "$D/100"
+      }
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "protocol_name": "internal_mqtt",
+  "description": "内部MQTT统一数据格式（businessObjList结构）",
+  "direction": "source_for_mqtt / target_for_http",
+  "structure": {
+    "root": {
+      "udSign": { "type": "int", "description": "上行下行标识，1=上行", "default": 1 },
+      "taskId": { "type": "int", "description": "任务ID", "default": 1 },
+      "cmdType": { "type": "int", "description": "命令类型，2=电气量采集", "default": 2 },
+      "priority": { "type": "int", "description": "优先级", "default": 2 },
+      "businessObjList": { "type": "array", "description": "业务对象列表" },
+      "respResult": { "type": "object", "description": "响应结果" },
+      "sender": { "type": "string", "description": "发送方标识", "default": "iot_agent" }
+    },
+    "businessObjList_item": {
+      "dataObj": { "type": "object", "description": "数据对象" }
+    },
+    "dataObj": {
+      "timeType": { "type": "int", "description": "时间类型，0=实时", "default": 0 },
+      "dataItemList": { "type": "array", "description": "数据项列表" }
+    },
+    "dataItemList_item": {
+      "itemId": { "type": "string", "description": "数据项ID", "example": "38000005" },
+      "finshFlag": { "type": "int", "description": "完成标志，0=未完成", "default": 0 },
+      "itemBody": { "type": "array", "description": "数据体列表" }
+    },
+    "itemBody_item": {
+      "commAddr": { "type": "string", "description": "设备通信地址" },
+      "businessType": { "type": "int", "description": "业务类型", "default": 1 },
+      "deviceType": { "type": "int", "description": "设备类型", "default": 1 },
+      "item": { "type": "array", "description": "测点数据列表" }
+    },
+    "item_item": {
+      "voltageA": { "type": "double", "description": "A相电压" },
+      "voltageB": { "type": "double", "description": "B相电压" },
+      "voltageC": { "type": "double", "description": "C相电压" },
+      "currentA": { "type": "double", "description": "A相电流" },
+      "currentB": { "type": "double", "description": "B相电流" },
+      "currentC": { "type": "double", "description": "C相电流" },
+      "P": { "type": "double", "description": "有功功率" },
+      "Q": { "type": "double", "description": "无功功率" },
+      "timeStamp": { "type": "string", "description": "时间戳", "format": "yyyy-MM-dd HH:mm:ss" }
+    }
+  },
+  "source_paths": {
+    "device_list": "businessObjList[0].dataObj.dataItemList[0].itemBody[*]",
+    "measurement_points": "item[*]",
+    "field_map": {
+      "commAddr": "设备ID",
+      "voltageA": "A相电压",
+      "voltageB": "B相电压",
+      "voltageC": "C相电压",
+      "P": "有功功率",
+      "Q": "无功功率",
+      "timeStamp": "时间戳"
+    }
+  },
+  "target_template": {
+    "taskId": "int, 任务ID（HTTP采集时通常8220）",
+    "udSign": "int, 上行标识（1）",
+    "cmdType": "int, 命令类型",
+    "priority": "int, 优先级",
+    "commObj.commAddr": "string, 设备通信地址",
+    "businessObjList[0].dataObj.timeType": "int, 时间类型",
+    "businessObjList[0].dataObj.collCycle": "int, 采集周期（分钟）",
+    "businessObjList[0].dataObj.dataItemList[0].itemId": "string, 数据项ID",
+    "businessObjList[0].dataObj.dataItemList[0].itemBody[@]": "array, 数据体（遍历映射）",
+    "businessObjList[0].dataObj.dataItemList[0].itemBody[@].roadNo": "int, 通道号",
+    "businessObjList[0].dataObj.dataItemList[0].itemBody[@].dataTime": "string, 数据时间",
+    "businessObjList[0].dataObj.dataItemList[0].itemBody[@].item[@]": "array, 测点数据（遍历映射）"
+  }
+}

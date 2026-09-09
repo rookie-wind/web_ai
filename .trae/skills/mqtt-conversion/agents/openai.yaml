@@ -1,0 +1,3 @@
+interface:
+  display_name: "mqtt-conversion"
+  short_description: "MQTT 协议转换配置生成"

@@ -1,0 +1,1203 @@
+{
+  "prtlType": "MODBUS-RTU",
+  "modelNum": 421,
+  "classNum": 21,
+  "taskList": [{
+    "labels": [
+      "year",
+      "month",
+      "day",
+      "hour",
+      "minute",
+      "second",
+      "tempInstant",
+      "pressInstant",
+      "instantFlowRate",
+      "density",
+      "diffPressFreq",
+      "tolCumulativeFlow",
+      "instantHeatFlowRate",
+      "tolCumulativeHeat",
+      "powerOffTotalTime",
+      "powerOffCount",
+      "powerOffYear",
+      "powerOffMonth",
+      "powerOffDay",
+      "powerOffHour",
+      "powerOffMinute",
+      "powerOffSecond",
+      "powerOnYear",
+      "powerOnMonth",
+      "powerOnDay",
+      "powerOnHour",
+      "powerOnMinute",
+      "powerOnSecond",
+      "flowTotalAccumDbl",
+      "heatTotalAccumDbl",
+      "valleyAccum",
+      "peakAccum",
+      "flatAccum",
+      "k1RelayStatus",
+      "k2RelayStatus",
+      "k3RelayStatus",
+      "flowModel",
+      "sqrtSelect",
+      "flowCoeffDecimal",
+      "flowCoeff",
+      "flowInstantUnit",
+      "flowRangeDecimal",
+      "flowRangeUpper",
+      "flowSignalType",
+      "flowSignalUnit",
+      "flowSignalDecimal",
+      "flowSignalUpper",
+      "flowSignalCutoff",
+      "fixedDensityDecimal",
+      "fixedDensity",
+      "mediumCompMethod",
+      "stdTempDecimal",
+      "stdTemp",
+      "tempMethod",
+      "internalTempDecimal",
+      "internalTempValue",
+      "pressMethod",
+      "internalPressDecimal",
+      "internalPressValue",
+      "extTempSignalType",
+      "extTempUnit",
+      "extTempDecimal",
+      "extTempLower",
+      "extTempUpper",
+      "extTempCutoff",
+      "extTempFilter",
+      "extPressSignalType",
+      "extPressUnit",
+      "extPressDecimal",
+      "extPressLower",
+      "extPressUpper",
+      "extPressCutoff",
+      "extPressFilter",
+      "atmosPress"
+    ]
+  }],
+  "labelList": [
+    {
+      "name": "year",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 1,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "month",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 2,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "day",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 3,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "hour",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 4,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "minute",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 5,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "second",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 6,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "tempInstant",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 7,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "pressInstant",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 9,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "instantFlowRate",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 13,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "density",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 15,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "diffPressFreq",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 17,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "tolCumulativeFlow",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 19,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "instantHeatFlowRate",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 33,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "tolCumulativeHeat",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 35,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOffTotalTime",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT32]",
+        "data_order": "ABCD",
+        "addr_base": 39,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOffCount",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 41,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOffYear",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 42,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOffMonth",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 43,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOffDay",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 44,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOffHour",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 45,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOffMinute",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 46,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOffSecond",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 47,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOnYear",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 48,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOnMonth",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 49,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOnDay",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 50,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOnHour",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 51,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOnMinute",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 52,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "powerOnSecond",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 53,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flowTotalAccumDbl",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT64]",
+        "data_order": "ABCDEFGH",
+        "addr_base": 56,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "heatTotalAccumDbl",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT64]",
+        "data_order": "ABCDEFGH",
+        "addr_base": 60,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "valleyAccum",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT64]",
+        "data_order": "ABCDEFGH",
+        "addr_base": 64,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "peakAccum",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT64]",
+        "data_order": "ABCDEFGH",
+        "addr_base": 68,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flatAccum",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT64]",
+        "data_order": "ABCDEFGH",
+        "addr_base": 72,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "k1RelayStatus",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 76,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "k2RelayStatus",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 77,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "k3RelayStatus",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 78,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flowModel",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 256,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 256,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "sqrtSelect",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 257,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 257,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flowCoeffDecimal",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 258,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 258,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flowCoeff",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 259,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 16,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 259,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flowInstantUnit",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 261,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 261,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flowRangeDecimal",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 262,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 262,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flowRangeUpper",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 263,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 16,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 263,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flowSignalType",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 269,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 269,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flowSignalUnit",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 270,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 270,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flowSignalDecimal",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 271,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 271,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flowSignalUpper",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 274,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 16,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 274,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "flowSignalCutoff",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 276,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 276,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "fixedDensityDecimal",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 277,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 277,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "fixedDensity",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 278,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 16,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 278,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "mediumCompMethod",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 280,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 280,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "stdTempDecimal",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 281,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 281,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "stdTemp",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 282,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 16,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 282,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "tempMethod",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 284,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 284,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "internalTempDecimal",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 285,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 285,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "internalTempValue",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 286,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 16,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 286,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "pressMethod",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 288,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 288,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "internalPressDecimal",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 289,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 289,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "internalPressValue",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 290,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 16,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 290,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extTempSignalType",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 292,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 292,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extTempUnit",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 293,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 293,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extTempDecimal",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 294,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 294,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extTempLower",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 295,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 16,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 295,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extTempUpper",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 297,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 16,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 297,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extTempCutoff",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 299,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 299,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extTempFilter",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 300,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 300,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extPressSignalType",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 301,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 301,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extPressUnit",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 302,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 302,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extPressDecimal",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 303,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 303,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extPressLower",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 304,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 16,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 304,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extPressUpper",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 306,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 16,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 306,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extPressCutoff",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 308,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 308,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "extPressFilter",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 309,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 309,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "atmosPress",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 322,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 16,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 322,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    }
+  ]
+}

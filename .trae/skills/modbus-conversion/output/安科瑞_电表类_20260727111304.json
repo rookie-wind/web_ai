@@ -1,0 +1,587 @@
+{
+  "prtlType": "MODBUS-RTU",
+  "modelNum": 440,
+  "classNum": 11,
+  "taskList": [
+    {
+      "labels": [
+        "voltageA",
+        "voltageB",
+        "voltageC",
+        "lineVoltageAB",
+        "lineVoltageBC",
+        "lineVoltageAC",
+        "currentA",
+        "currentB",
+        "currentC",
+        "activePowA",
+        "activePowB",
+        "activePowC",
+        "activePowT",
+        "reactivePowA",
+        "reactivePowB",
+        "reactivePowC",
+        "reactivePowT",
+        "powFactorA",
+        "powFactorB",
+        "powFactorC",
+        "powFactorsT",
+        "apparentPowA",
+        "apparentPowB",
+        "apparentPowC",
+        "apparentPowT",
+        "gridFrequency",
+        "absorbActiveElecSec",
+        "releaseActiveElecSec",
+        "inductiveReactiveElecSec",
+        "capacitiveReactiveElecSec",
+        "absorbActiveElecPri",
+        "releaseActiveElecPri",
+        "inductiveReactiveElecPri",
+        "capacitiveReactiveElecPri",
+        "maxDemand",
+        "commMode",
+        "alarmSelect"
+      ]
+    }
+  ],
+  "labelList": [
+    {
+      "name": "voltageA",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 256,
+        "addr_exprs": "",
+        "data_exprs": "$D/10"
+      }
+    },
+    {
+      "name": "voltageB",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 257,
+        "addr_exprs": "",
+        "data_exprs": "$D/10"
+      }
+    },
+    {
+      "name": "voltageC",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 258,
+        "addr_exprs": "",
+        "data_exprs": "$D/10"
+      }
+    },
+    {
+      "name": "lineVoltageAB",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 259,
+        "addr_exprs": "",
+        "data_exprs": "$D/10"
+      }
+    },
+    {
+      "name": "lineVoltageBC",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 260,
+        "addr_exprs": "",
+        "data_exprs": "$D/10"
+      }
+    },
+    {
+      "name": "lineVoltageAC",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 261,
+        "addr_exprs": "",
+        "data_exprs": "$D/10"
+      }
+    },
+    {
+      "name": "currentA",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 262,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "currentB",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 263,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "currentC",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 264,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "activePowA",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 265,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "activePowB",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 266,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "activePowC",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 267,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "activePowT",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 268,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "reactivePowA",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 269,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "reactivePowB",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 270,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "reactivePowC",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 271,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "reactivePowT",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 272,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "powFactorA",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 273,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "powFactorB",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 274,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "powFactorC",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 275,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "powFactorsT",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 276,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "apparentPowA",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 277,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "apparentPowB",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 278,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "apparentPowC",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 279,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "apparentPowT",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 280,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "gridFrequency",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 281,
+        "addr_exprs": "",
+        "data_exprs": "$D/100"
+      }
+    },
+    {
+      "name": "absorbActiveElecSec",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT32]",
+        "data_order": "ABCD",
+        "addr_base": 63,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "releaseActiveElecSec",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT32]",
+        "data_order": "ABCD",
+        "addr_base": 65,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "inductiveReactiveElecSec",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT32]",
+        "data_order": "ABCD",
+        "addr_base": 67,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "capacitiveReactiveElecSec",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT32]",
+        "data_order": "ABCD",
+        "addr_base": 69,
+        "addr_exprs": "",
+        "data_exprs": "$D/1000"
+      }
+    },
+    {
+      "name": "absorbActiveElecPri",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 71,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "releaseActiveElecPri",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 73,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "inductiveReactiveElecPri",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 75,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "capacitiveReactiveElecPri",
+      "read": {
+        "func_code": 3,
+        "data_type": "[FLOAT32]",
+        "data_order": "ABCD",
+        "addr_base": 77,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "maxDemand",
+      "read": {
+        "func_code": 3,
+        "data_type": "[INT16]",
+        "data_order": "AB",
+        "addr_base": 79,
+        "addr_exprs": "",
+        "data_exprs": ""
+      }
+    },
+    {
+      "name": "commMode",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 605,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 605,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "convert": [
+        {
+          "name": "无校验",
+          "org": 0,
+          "reg": 0
+        },
+        {
+          "name": "2停止位",
+          "org": 1,
+          "reg": 1
+        },
+        {
+          "name": "奇校验",
+          "org": 2,
+          "reg": 2
+        },
+        {
+          "name": "偶校验",
+          "org": 3,
+          "reg": 3
+        }
+      ]
+    },
+    {
+      "name": "alarmSelect",
+      "read": {
+        "func_code": 3,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 608,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "write": {
+        "func_code": 6,
+        "data_type": "[UINT16]",
+        "data_order": "AB",
+        "addr_base": 608,
+        "addr_exprs": "",
+        "data_exprs": ""
+      },
+      "convert": [
+        {
+          "name": "远程控制",
+          "org": 0,
+          "reg": 0
+        },
+        {
+          "name": "UA",
+          "org": 1,
+          "reg": 1
+        },
+        {
+          "name": "UB",
+          "org": 2,
+          "reg": 2
+        },
+        {
+          "name": "UC",
+          "org": 3,
+          "reg": 3
+        },
+        {
+          "name": "三相相电压最值",
+          "org": 4,
+          "reg": 4
+        },
+        {
+          "name": "UAB",
+          "org": 5,
+          "reg": 5
+        },
+        {
+          "name": "UBC",
+          "org": 6,
+          "reg": 6
+        },
+        {
+          "name": "UCA",
+          "org": 7,
+          "reg": 7
+        },
+        {
+          "name": "IA",
+          "org": 9,
+          "reg": 9
+        },
+        {
+          "name": "IB",
+          "org": 10,
+          "reg": 10
+        },
+        {
+          "name": "IC",
+          "org": 11,
+          "reg": 11
+        },
+        {
+          "name": "PA",
+          "org": 13,
+          "reg": 13
+        },
+        {
+          "name": "P总",
+          "org": 16,
+          "reg": 16
+        },
+        {
+          "name": "QA",
+          "org": 17,
+          "reg": 17
+        },
+        {
+          "name": "Q总",
+          "org": 20,
+          "reg": 20
+        },
+        {
+          "name": "F",
+          "org": 29,
+          "reg": 29
+        },
+        {
+          "name": "电压不平衡",
+          "org": 30,
+          "reg": 30
+        },
+        {
+          "name": "电流不平衡",
+          "org": 31,
+          "reg": 31
+        }
+      ]
+    }
+  ]
+}

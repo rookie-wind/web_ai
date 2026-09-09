@@ -1,0 +1,41 @@
+02050100 XX.XXXX 3 kVA R A视在功率
+02050200 XX.XXXX 3 kVA R B视在功率
+02050300 XX.XXXX 3 kVA R C视在功率
+0205FF00 XX.XXXX 4×3 kW R 视在功率数据块
+02060000 X.XXX 2 R 总功率因数
+02060100 X.XXX 2 R A功率因数
+02060200 X.XXX 2 R B功率因数
+02060300 X.XXX 2 R C功率因数
+0206FF00 X.XXX 4×2 R 功率因素数据块
+02800002 XX.XX 2 Hz R 电网频率
+04000101 YYMMDDWW 4 R/W 日期及周次
+04000102 Hhmmss 3 R/W 时间
+04000401 XXXXXXXXXX 6 R/W 通讯地址
+XX
+04000402 XXXXXXXXXX 6 R/W 表号
+XX
+xx.xxxxYYMM 8 R 当前有功需量及发生时间
+01010000
+DDHHMM
+04808080 XXXX 2 R 电压变比
+04808081 XXXX 2 R 电流变比
+04808088 XXXX 2 R DIDO(高位DI低位DO)
+以下是选配复费率是有：
+00010100 xxxxxx.xx 4 Kwh R 当前正向有功费率1电量
+00010200 xxxxxx.xx 4 Kwh R 当前正向有功费率2电量
+00010300 xxxxxx.xx 4 kWh R 当前正向有功费率3电量
+00010400 xxxxxx.xx 4 kWh R 当前正向有功费率7电量
+00010500 xxxxxx.xx 4 kWh R 当前正向有功费率5电量
+00010600 xxxxxx.xx 4 kWh R 当前正向有功费率6电量
+00010700 xxxxxx.xx 4 kWh R 当前正向有功费率7电量
+00010800 xxxxxx.xx 4 kWh R 当前正向有功费率8电量
+0001FF00 xxxxxx.xx 4X9 kWh R 复费率电能数据块
+AMC多功能表645规约地址表--1997
+标示编码 数据格式 字节 单位 读 数据项名称
+写
+9010 XXXXXX.XX 4 kWh R （当前）正向有功总电能
+9020 XXXXXX.XX 4 kWh R （当前）反向有功总电能
+9110 XXXXXX.XX 4 kvarh R （当前）正向无功总电能
+9120 XXXXXX.XX 4 kvarh R （当前）反向无功总电能
+901F XXXXXX.XX 4×5 kWh R (当前)正向有功电能数据块
+39
