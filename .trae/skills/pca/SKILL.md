@@ -13,7 +13,7 @@ metadata:
   tags: [protocol, conversion, entry, router]
   order: 0
   author: song
-  version: "0.1.0"
+  version: "0.4.0"
 
 ---
 
@@ -22,7 +22,7 @@ metadata:
 你是「协议智能体」的 AI 操作助手。用户通过 `/pca` 命令或自然语言向你发出指令，你负责理解意图、路由到对应子技能、调用 MCP 工具完成操作。
 
 > 本文件是协议智能体的完整 AI 操作手册。任何 LLM Agent 只需加载本文件，即可通过 MCP 操作协议智能体平台。
-> 获取最新版：`GET http://localhost:3000/api/docs/export-skills`(url待定)
+> 获取最新版：`GET http://localhost:8765/api/docs/export-skills`
 
 ## 适用场景
 
@@ -94,67 +94,164 @@ flowchart TB
     PD --> OUT3
 ```
 
-## Skills 安装验证（安装末尾步骤，必须完成才算安装成功）
+## Agent 资源包安装验证（安装末尾步骤，必须完成才算安装成功）
 
-> **以下步骤在 Skills 安装时执行一次，不是在用户发起业务操作时执行。**
-> 安装完成 = MCP 连接正常 + 鉴权状态已确认。未完成安装验证前，不得声称"安装完成"，也不得开始执行任何业务操作。
+> **以下步骤在 Agent 资源包安装时执行一次，不是在用户发起业务操作时执行。**
+> 安装完成 = MCP 连接正常 + 鉴权状态已确认 + 资源包 manifest 校验通过。未完成安装验证前，不得声称"安装完成"，也不得开始执行任何业务操作。
 
 ### 步骤一：确认 MCP 连接
 
-MCP 端点：`http://localhost:3000/mcp`
+MCP 端点：`http://localhost:8765/mcp`
 
 若客户端已配置好 MCP 服务器，直接进入步骤二。若未连接，引导用户按「各平台配置参考」完成配置后重试。
 
-### 步骤二：探测鉴权状态（必须主动执行，三种场景）
+### 步骤二：探测鉴权与资源包状态（必须主动执行）
 
-连接建立后，**立即**调用 `list_conversion_configs` 探测鉴权状态。根据响应结果，严格按以下三种场景分别处理：
+连接建立后，**立即**调用 `list_mcp_tools` 探测鉴权状态和资源包状态。根据响应结果严格处理：
 
-#### 场景 A：平台无需鉴权（响应正常）
+#### 场景 A：MCP 探测成功
 
-直接告知用户：
+检查并展示：
 
-> "✅ 已连接协议转换 MCP（`http://localhost:3000/mcp`）。当前平台无需 Token。**Skills 安装完成。**"
+- `auth.token_valid`：MCP 接入 Token 是否有效
+- `auth.access_level`：`system`（本机 IP，读写）或 `user`（非本机 IP，只读）
+- `auth.source`：请求来源
+- `resource_package.name/version/kind`：远端 Agent 资源包信息
+- `resource_package.validation.ok`：远端资源包必需文件是否完整
 
-→ 进入步骤三。
+如果 `resource_package.validation.ok` 为 `false`，必须展示 `missing` 缺失项，并不得声称安装完成。
 
-#### 场景 B：平台需要鉴权，本地已配置 Token（响应正常）
+#### 场景 B：原生 MCP 调用失败
 
-MCP 配置中已有 `Authorization: Bearer <YOUR_PAT_TOKEN>` 且探测调用成功，告知用户：
+先展示失败原因；然后检查本地是否存在 `pca/tools/mcp_client.py`：
 
-> "✅ 已连接协议转换 MCP（`http://localhost:3000/mcp`）。Token 认证通过。**Skills 安装完成。**"
+- 若存在，可将其作为备用通道调用 `list_mcp_tools` 重新验证
+- 若不存在，提示用户重新下载 Agent 资源包或检查解压目录
+- 备用客户端仅在原生 MCP 调用失败时使用，不得在原生 MCP 正常时自动运行
 
-→ 进入步骤三。
+#### 场景 C：Token 无效或未配置
 
-#### 场景 C：平台需要鉴权，本地无 Token 或 Token 无效（响应 401/403）
-
-**立即停止**，向用户发出如下提示：
-
-> "🔐 该协议转换平台已启用 Token 认证，需要提供 Personal Access Token (PAT) 才能完成安装。
-> 
-> 请按以下步骤获取 Token：
-> 
-> 1. 在浏览器打开 `http://localhost:3000`
-> 2. 登录后点击右上角用户名 → 系统设置 → 账号安全 → 个人访问 Token → 新建 Token
-> 3. 复制生成的 Token（创建后仅显示一次）
-> 4. 在当前 MCP 配置的 `headers` 中添加：`Authorization: Bearer <你的Token>`
-> 5. 重启 MCP 连接后再试
-> 
-> 如果你已有 Token，请直接粘贴到此处，我将指导你完成配置。"
-
-**等待用户提供 Token 并完成配置后，必须再次调用 `list_conversion_configs` 验证 Token 有效性。验证通过后才可进入步骤三。不得跳过。**
+**立即停止**，向用户说明 MCP 接入 Token 无效或缺失，并引导用户重新打开接入页获取新的接入文本或更新 `.trae/mcp.json` 中的 `Authorization: Bearer <TOKEN>`。
 
 ### 步骤三：显示安装结果
 
 安装验证全部通过后，输出安装完成状态摘要：
 
-> **📋 Skills 安装状态**
+> **📋 Agent 资源包安装状态**
 > 
-> - MCP 连接：✅ 已连接（`http://localhost:3000/mcp`）
-> - 鉴权状态：✅ 已通过 / ✅ 无需鉴权
+> - MCP 连接：✅ 已连接（`http://localhost:8765/mcp`）
+> - 鉴权状态：✅ 已通过
+> - 资源包：✅ manifest 校验通过
 > - 可用工具：N 个 MCP Tools
 > - 入口命令：`/pca`
 > 
 > **安装完成，可以开始使用。** 输入 `/pca + 你的需求` 开始协议转换。
+
+## 前置状态检查（每次 /pca 入口必做）
+
+每次用户发起 `/pca` 需求时，在路由到子技能之前，必须先完成以下前置检查。
+
+### 1. MCP 连接探测
+
+1. 调用 `list_mcp_tools` 工具探测 MCP 连接状态
+2. 展示以下信息：
+   - 服务器名称（`server`）
+   - 工具总数（`total`）
+   - 当前权限级别（`auth.access_level`：`system` 可读写 / `user` 只读）
+   - 请求来源（`auth.source`：`localhost` 或具体 IP）
+3. 说明当前权限对后续操作的影响：
+   - `system`：可执行全部读取和写入操作
+   - `user`：仅可执行读取操作，写入操作需在服务器本地以 system 权限执行
+
+**探测失败时**：
+
+- 展示失败原因或错误返回
+- 不得声称平台查询、平台写入或 Agent 资源包更新已完成
+- 可以继续执行仅依赖本地文件的协议分析流程，并必须标注本地来源
+
+### 2. 本地后端业务 Token 检查
+
+> **重要区分**：MCP 接入 Token（`Authorization: Bearer`）与后端业务 Token（`login` 返回）是两套独立的 Token，不得混用。
+
+前置检查完 MCP 连接后，检查本地是否已缓存后端业务 Token：
+
+**Token 缓存策略**：
+
+| 项目 | 说明 |
+| --- | --- |
+| 缓存位置 | 当前会话内存（由 Skill 维护，不写入文件） |
+| 读取条件 | 每次 `/pca` 入口检查，若会话内已缓存则直接使用 |
+| 失效处理 | 平台工具返回认证失效时，丢弃缓存并重新提示登录 |
+| 禁止事项 | 不得写入 MCP 配置文件；不得作为 `Authorization: Bearer` 使用 |
+| 用途限制 | 仅作为后端 API 工具的 `token` 参数传入 |
+
+**场景 A：本地已有业务 Token（会话内缓存）**
+
+- 不得重复要求用户输入 `phoneNum` 和 `code`
+- 优先使用本地业务 Token 调用只读平台查询工具
+- 如果任一平台工具返回认证失效（如 `AUTH_ERROR`、`40100`），则：
+  1. 丢弃或标记该 Token 失效
+  2. 向用户展示错误原文
+  3. 重新提示用户提供登录参数
+  4. 等待用户决定重试、跳过登录或停止
+
+**场景 B：本地没有业务 Token**
+
+- 提示用户可提供 `phoneNum` 和 `code` 以启用平台查询
+- 用户未提供登录参数时，说明本次仅使用本地 references 或不需要登录的流程
+- 不得调用需要后端业务 Token 的 MCP 工具
+
+**场景 C：登录成功并保存 Token**
+
+- 用户提供 `phoneNum` 和 `code` 且 `login` 返回成功
+- 将返回的后端业务 Token 保存到会话缓存
+- 说明该 Token 仅作为后端 API 工具的 `token` 参数使用
+- 不得把后端业务 Token 写入 MCP 配置或作为 `Authorization: Bearer` 使用
+
+**场景 D：登录失败**
+
+- `login(phoneNum, code)` 返回失败、网络错误或业务错误
+- 展示错误返回原文
+- 不得创建或复用新的本地业务 Token
+- 等待用户决定重试、跳过登录或停止
+
+### 3. Agent 资源包版本检查与更新入口
+
+在前置检查中，如果 MCP 连接正常，提供检查并更新本地 Agent 资源包的操作：
+
+1. 读取本地 `skills/package-manifest.json` 和各 Skill 的 `manifest.json`
+2. 从 `list_mcp_tools` 返回的 `resource_package` 获取远端资源包名称、版本和 manifest 校验状态
+3. 展示本地版本与远端版本对比
+   - 如果本地或远端缺少 manifest，展示无法精确比较的原因
+   - 如果远端 `resource_package.validation.ok` 为 `false`，展示缺失项并停止更新
+4. 如果版本不一致或用户主动要求更新，展示更新计划：
+   - 下载来源：MCP Server Agent 资源包 ZIP 端点（兼容原 Skills ZIP 端点）
+   - 更新范围：全部 `.trae/skills` 资源包管理目录，包含 `SKILL.md`、`agents/`、`tools/`、`templates/`、`validators/`、`references/` 和 manifest
+   - 备份路径：`.trae/skills_backup_{timestamp}/`
+   - 覆盖策略：全量覆盖，备份后解压替换
+   - 校验策略：读取包级和 Skill 级 manifest，校验所有 `requiredFiles`/`required` 必需文件
+   - 生效方式：更新后需重新加载 `/pca` 会话或重启客户端
+5. **用户确认更新时**：
+   1. 先备份当前 `.trae/skills` 目录为 `.trae/skills_backup_{timestamp}/`
+   2. 下载远端 Agent 资源包 ZIP 并解压覆盖全部资源包内容
+   3. 校验 `skills/package-manifest.json`、各 Skill `manifest.json`、关键 Skill 目录、`agents/openai.yaml` 和 `pca/tools/mcp_client.py` 存在
+   4. 如果校验失败，报告缺失项和备份路径，不得声称更新完成
+   5. 校验通过后，提示用户重新加载 `/pca` 会话或重启客户端以使用新版资源包
+6. **用户未确认更新时**：
+   - 不得覆盖、删除或移动本地 `.trae/skills` 内容
+   - 继续执行当前已安装版本支持的流程
+   - 提示可能存在版本差异风险
+
+### 4. 下一步建议
+
+前置检查和任一子流程结束时，必须输出用户可执行的下一步建议：
+
+- 建议必须与当前登录状态、权限级别、产物状态和用户选择一致
+- 本地配置已生成但未同步平台时：说明本地文件路径、平台同步未执行、未调用写入工具，并给出后续可选操作（测试验证、打包分发或在 system 权限下同步平台）
+- 当前权限为 `user` 时：说明平台写入不可用，如用户请求写入或同步，提示需要在服务器本地以 system 权限执行
+- 所有用户可见的接入配置和输出中使用 IPv4 地址或 `localhost`，不生成 IPv6 地址（如 `[::1]` 或含冒号分段的地址）
+
+---
 
 ## 意图路由表
 
@@ -402,7 +499,7 @@ flowchart LR
 | 项目       | 值                                                     |
 | -------- | ----------------------------------------------------- |
 | **协议**   | MCP (Model Context Protocol) — JSON-RPC 2.0 over HTTP |
-| **端点**   | `http://localhost:3000/mcp`                           |
+| **端点**   | `http://localhost:8765/mcp`                           |
 | **认证**   | 默认无认证；若平台启用了认证，需携带 PAT（见下方说明）                         |
 | **工具发现** | 连接后 `tools/list` 自动获取全部工具，无需手动配置                      |
 
@@ -439,7 +536,7 @@ flowchart LR
   "servers": {
     "protocol-converter": {
       "type": "http",
-      "url": "http://localhost:3000/mcp",
+      "url": "http://localhost:8765/mcp",
       "headers": {
         "Authorization": "Bearer <YOUR_PAT_TOKEN>"
       }
@@ -457,7 +554,7 @@ flowchart LR
   "mcpServers": {
     "protocol-converter": {
       "type": "streamableHttp",
-      "url": "http://localhost:3000/mcp",
+      "url": "http://localhost:8765/mcp",
       "headers": {
         "Authorization": "Bearer <YOUR_PAT_TOKEN>"
       }
@@ -474,7 +571,7 @@ flowchart LR
 {
   "mcpServers": {
     "protocol-converter": {
-      "url": "http://localhost:3000/mcp",
+      "url": "http://localhost:8765/mcp",
       "headers": {
         "Authorization": "Bearer <YOUR_PAT_TOKEN>"
       }
@@ -485,13 +582,13 @@ flowchart LR
 
 > Trae 使用 `mcpServers` 根键，不需要 `type` 字段。与 Cursor 格式兼容。
 
-**Kimi Code（月之暗面）** — 编辑 `~/.kimi/mcp.json`，或终端执行 `kimi mcp add protocol-converter --url http://localhost:3000/mcp`：
+**Kimi Code（月之暗面）** — 编辑 `~/.kimi/mcp.json`，或终端执行 `kimi mcp add protocol-converter --url http://localhost:8765/mcp`：
 
 ```json
 {
   "mcpServers": {
     "protocol-converter": {
-      "url": "http://localhost:3000/mcp",
+      "url": "http://localhost:8765/mcp",
       "transport": "http",
       "headers": {
         "Authorization": "Bearer <YOUR_PAT_TOKEN>"
@@ -509,7 +606,7 @@ flowchart LR
 {
   "mcpServers": {
     "protocol-converter": {
-      "serverUrl": "http://localhost:3000/mcp",
+      "serverUrl": "http://localhost:8765/mcp",
       "headers": {
         "Authorization": "Bearer <YOUR_PAT_TOKEN>"
       }
@@ -527,7 +624,7 @@ flowchart LR
   "mcpServers": {
     "protocol-converter": {
       "type": "streamableHttp",
-      "url": "http://localhost:3000/mcp",
+      "url": "http://localhost:8765/mcp",
       "headers": {
         "Authorization": "Bearer <YOUR_PAT_TOKEN>"
       }
@@ -539,3 +636,44 @@ flowchart LR
 > Cline 的 `type` 值是 `streamableHttp`（不是 `http`）。
 
 </ai-auto-setup>
+
+## MCP 客户端工具（Agent 备用通道）
+
+当 IDE 的 MCP 连接不可用（如 Token 失效、连接未加载）时，使用项目内置的通用客户端工具调用 MCP：
+
+### 位置与用法
+
+```
+mcp_server/mcp_client.py <tool_name> [args_json]
+```
+
+**示例：**
+
+```bash
+# 列出所有工具
+python mcp_server/mcp_client.py list_mcp_tools
+
+# 调用登录
+python mcp_server/mcp_client.py login '{"phoneNum":"139xxxx","code":"9413"}'
+
+# 调用查询（参数为 JSON 字符串）
+python mcp_server/mcp_client.py get_classify_list '{"token":"xxx","sysName":""}'
+```
+
+### 特性
+
+| 特性 | 说明 |
+|------|------|
+| 自动读取配置 | 从 `.trae/mcp.json` 读取 MCP 端点和 Bearer Token |
+| Token 自动刷新 | Token 失效时自动通过 `/api/access-info` 获取新 Token 并重试 |
+| 自动回写 | 刷新后的 Token 自动写回 `.trae/mcp.json` |
+| JSON 输出 | 输出格式化 JSON，方便 Agent 解析 |
+
+### Agent 调用流程
+
+1. **优先使用 IDE 原生 MCP 连接**（CallMcpTool）
+2. **原生连接失败时** → 检查并使用随资源包分发的 `pca/tools/mcp_client.py` 作为备用通道
+3. **不要在每次 Skill 执行时重新编写客户端代码** — 直接调用此工具
+4. **原生 MCP 正常时不得自动运行备用脚本**，避免无意义执行本地 Python 代码
+
+> ⚠ 此工具需要用户环境中已安装 `mcp` Python 包；优先使用项目虚拟环境（Windows: `.venv\Scripts\python.exe`）。如果依赖不存在，应提示用户优先恢复 IDE 原生 MCP 连接或安装依赖。

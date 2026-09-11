@@ -224,7 +224,7 @@
 
 <div class="header">
     <h1>协议转换 MCP Server · 一键接入生成器</h1>
-    <div class="subtitle">服务器自动检测 IP 并分配 Token · Skills 包自动打包 · 无需手动配置</div>
+    <div class="subtitle">服务器自动检测 IP 并分配 Token · Agent 资源包自动打包 · 无需手动配置</div>
     <div class="flow">
         <span class="flow-step">打开本页面</span>
         <span class="flow-arrow">→</span>
@@ -308,10 +308,10 @@
             <h3>使用说明</h3>
             <ul>
                 <li><b>自动检测</b>：服务器自动检测你的 IP 并分配 Token，无需手动输入</li>
-                <li><b>权限分级</b>：localhost → 系统级（读写），其它 IP → 用户级（只读）</li>
-                <li><b>Skills 包</b>：服务器自动打包 .trae/skills/ 目录，<b>无需手动压缩</b></li>
-                <li><b>分发</b>：点击「复制到剪贴板」或「下载 .md」，将文本发送给其他用户</li>
-                <li><b>接入</b>：接收者将整段文本粘贴给 AI Agent（如 Trae），Agent 自动完成：写入 mcp.json → 安装 Skills → 调用 list_mcp_tools 验证</li>
+                <li><b>权限分级</b>：本机 IP（含 localhost 和网卡 IP）→ 系统级（读写），其它 IP → 用户级（只读）</li>
+                <li><b>Agent 资源包</b>：服务器自动打包 .trae/skills/ 目录，包含 Skill 文档、Agent 配置、工具、模板、校验器、参考资料和 manifest</li>
+                <li><b>分发</b>：点击「复制到剪贴板」或「下载 .md」，将接入文本发送给其他用户</li>
+                <li><b>接入</b>：接收者将整段文本粘贴给 AI Agent（如 Trae），Agent 完成：写入 mcp.json → 安装资源包 → 校验 manifest → 调用 list_mcp_tools 验证</li>
                 <li><b>安全</b>：Token 是临时凭证，请勿提交仓库、贴到群聊或写入日志</li>
             </ul>
         </div>
@@ -412,7 +412,7 @@ function fetchAccessInfo() {
             document.getElementById('loading').style.display = 'none';
             var errEl = document.getElementById('error');
             errEl.style.display = 'block';
-            errEl.textContent = '获取接入信息失败: ' + err.message + '\n请确保通过服务器访问本页面（http://服务器IP:3000/），而非直接打开文件。';
+            errEl.textContent = '获取接入信息失败: ' + err.message + '\n请确保通过服务器访问本页面（http://服务器IP:8765/），而非直接打开文件。';
         });
 }
 
@@ -469,35 +469,42 @@ function generateText() {
         '',
         '认证已开启：配置中的 Authorization header 已内置 Token，可直接粘贴完成接入。',
         '临时 Token 明文：' + token,
-        '权限说明：localhost 访问获得系统级权限（读写），其它来源获得用户级权限（只读）。',
+        '权限说明：本机 IP（含 localhost 和网卡 IP）访问获得系统级权限（读写），其它来源获得用户级权限（只读）。',
         '不要提交仓库、贴到群聊、写入日志或模型提示词模板。',
         '',
-        '## Skills 安装',
-        'Skills ZIP 包：' + baseUrl + '/api/docs/export-skills-package?baseUrl=' + encodedBaseUrl,
-        'Skills Markdown：' + baseUrl + '/api/docs/export-skills?baseUrl=' + encodedBaseUrl,
+        '## Agent 资源包安装',
+        'Agent 资源包 ZIP（兼容原 Skills ZIP 端点）：' + baseUrl + '/api/docs/export-skills-package?baseUrl=' + encodedBaseUrl,
+        'Agent 资源 Markdown 汇总：' + baseUrl + '/api/docs/export-skills?baseUrl=' + encodedBaseUrl,
         '',
         '安装步骤：',
-        '1. 下载 Skills 包并解压到 .trae/skills/ 目录，保持 pca、protocol-conversion、mqtt-conversion、http-conversion、modbus-conversion、test-validation、pack-distribution 等目录结构',
-        '2. 保留每个 Skill 目录下的 agents/openai.yaml',
-        '3. 不要把 pca 等目录名或展示名自动转换为首字母大写',
+        '1. 下载 Agent 资源包并解压到 .trae/skills/ 目录，保持 pca、protocol-conversion、mqtt-conversion、http-conversion、modbus-conversion、test-validation、pack-distribution 等目录结构',
+        '2. 保留 skills/package-manifest.json 和每个 Skill 目录下的 manifest.json',
+        '3. 按 manifest 校验 required/requiredFiles 声明的必需文件；缺失必需文件时不得声称安装完成',
+        '4. 保留每个 Skill 目录下的 agents/openai.yaml',
+        '5. 保留 pca/tools/mcp_client.py；当 IDE 原生 MCP 调用不可用时，Agent 可用它作为备用调用通道',
+        '6. 备用客户端不会在安装后自动运行，仅在原生 MCP 调用失败时作为 fallback 使用',
+        '7. 不要把 pca 等目录名或展示名自动转换为首字母大写',
         '',
         '## 安装完成后：',
-        '1. 保留每个 Skill 目录下的 agents/openai.yaml，尤其 pca/agents/openai.yaml 必须包含 interface.display_name: "pca"',
-        '2. 不要把 Skill 目录名或展示名自动转换为首字母大写，候选展示应保持 pca、protocol-conversion 等小写/kebab-case',
-        '3. 调用 list_mcp_tools 工具验证 MCP 连接和鉴权状态',
-        '4. 检查返回的 auth 字段：',
+        '1. 校验 skills/package-manifest.json 以及每个 Skill 的 manifest.json 可解析',
+        '2. 保留每个 Skill 目录下的 agents/openai.yaml，尤其 pca/agents/openai.yaml 必须包含 interface.display_name: "pca"',
+        '3. 不要把 Skill 目录名或展示名自动转换为首字母大写，候选展示应保持 pca、protocol-conversion 等小写/kebab-case',
+        '4. 调用 list_mcp_tools 工具验证 MCP 连接、鉴权状态和 resource_package 信息',
+        '5. 检查返回的 auth 字段：',
         '   - auth.token_valid: Token 是否有效',
-        '   - auth.access_level: "system"（localhost，读写）或 "user"（非 localhost，只读）',
+        '   - auth.access_level: "system"（本机 IP，读写）或 "user"（非本机 IP，只读）',
         '   - auth.source: 请求来源 IP',
-        '5. 读取已安装的 pca/SKILL.md 了解 /pca 操作入口',
-        '6. 用户输入 /pca + 任意需求即可操作协议转换平台（协议分析、配置生成、测试验证、打包分发等）',
-        '7. 根据用户意图调用 MCP 工具完成操作',
+        '6. 检查返回的 resource_package.validation.ok；若为 false，报告 missing 缺失项且不得声称安装完成',
+        '7. 校验 pca/tools/mcp_client.py 存在；原生 MCP 连接失败时可执行 python .trae/skills/pca/tools/mcp_client.py list_mcp_tools 作为备用验证',
+        '8. 读取已安装的 pca/SKILL.md 了解 /pca 操作入口',
+        '9. 用户输入 /pca + 任意需求即可操作协议转换平台（协议分析、配置生成、测试验证、打包分发等）',
+        '10. 根据用户意图调用 MCP 工具完成操作',
         '',
         '## 安全要求',
         '1. 删除、停止、写入等高风险操作前必须向用户确认',
         '2. 未收到 MCP 工具返回结果前，不得声称操作已完成',
         '3. 安装 Token 是临时凭证，用完后可在系统设置中撤销',
-        '4. 非 localhost 访问仅支持只读操作，写入操作需在服务器本地进行'
+        '4. 非本机 IP 访问仅支持只读操作，写入操作需在服务器本地进行'
     ];
 
     return lines.join('\n');

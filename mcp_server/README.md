@@ -75,28 +75,28 @@ python mcp_server/server.py
 
 ```
 [INFO] Token authentication enabled.
-[INFO] MCP Server starting on http://0.0.0.0:3000/mcp
+[INFO] MCP Server starting on http://0.0.0.0:8765/mcp
 [INFO] Tools: 7 (1 implemented + 6 stubs)
-INFO:     Uvicorn running on http://0.0.0.0:3000
+INFO:     Uvicorn running on http://0.0.0.0:8765
 ```
 
 ### 验证
 
 ```bash
 # 1. 列出所有工具（tools/list）
-curl -X POST http://localhost:3000/mcp ^
+curl -X POST http://localhost:8765/mcp ^
   -H "Content-Type: application/json" ^
   -H "Authorization: Bearer your_token_here" ^
   -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"params\":{}}"
 
 # 2. 调用 list_mcp_tools（鉴权探测）
-curl -X POST http://localhost:3000/mcp ^
+curl -X POST http://localhost:8765/mcp ^
   -H "Content-Type: application/json" ^
   -H "Authorization: Bearer your_token_here" ^
   -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/call\",\"params\":{\"name\":\"list_mcp_tools\",\"arguments\":{}}}"
 
 # 3. 调用写入工具（localhost 下允许，非 localhost 返回 FORBIDDEN）
-curl -X POST http://localhost:3000/mcp ^
+curl -X POST http://localhost:8765/mcp ^
   -H "Content-Type: application/json" ^
   -H "Authorization: Bearer your_token_here" ^
   -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/call\",\"params\":{\"name\":\"update_protocol_file\",\"arguments\":{\"file_name\":\"test.json\"}}}"
@@ -104,7 +104,7 @@ curl -X POST http://localhost:3000/mcp ^
 
 ## 一键接入页面
 
-服务器启动后，浏览器访问 `http://<服务器IP>:3000/` 即可打开接入页面。
+服务器启动后，浏览器访问 `http://<服务器IP>:8765/` 即可打开接入页面。
 
 ### 功能
 
@@ -126,8 +126,8 @@ curl -X POST http://localhost:3000/mcp ^
 
 服务器自动打包 `.trae/skills/` 目录，**无需手动压缩**：
 
-- ZIP 下载：`http://<服务器IP>:3000/api/docs/export-skills-package`
-- Markdown 摘要：`http://<服务器IP>:3000/api/docs/export-skills`
+- ZIP 下载：`http://<服务器IP>:8765/api/docs/export-skills-package`
+- Markdown 摘要：`http://<服务器IP>:8765/api/docs/export-skills`
 
 打包时自动排除 `dist/`、`__pycache__/`、`.git/` 等目录。
 
@@ -148,7 +148,7 @@ curl -X POST http://localhost:3000/mcp ^
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
 | `MCP_HOST` | `0.0.0.0` | 监听地址 |
-| `MCP_PORT` | `3000` | 监听端口 |
+| `MCP_PORT` | `8765` | 监听端口 |
 | `MCP_AUTH_TOKEN` | (空) | 管理员 Bearer Token。空则自动生成。用于 localhost 系统级访问 |
 
 ### MCP 客户端配置
@@ -159,7 +159,7 @@ curl -X POST http://localhost:3000/mcp ^
 {
   "mcpServers": {
     "protocol-converter": {
-      "url": "http://localhost:3000/mcp",
+      "url": "http://localhost:8765/mcp",
       "headers": {
         "Authorization": "Bearer your_token_here"
       }
