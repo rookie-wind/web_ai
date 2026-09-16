@@ -2,6 +2,8 @@
 
 <cite>
 **本文引用的文件**
+- [server.py](file://mcp_server/server.py)
+- [api_client.py](file://mcp_server/api_client.py)
 - [mcp server部署.md](file://mcp server部署.md)
 - [规约管理MCP服务化Spec.md](file://规约管理MCP服务化Spec.md)
 - [install.bat](file://mcp_server/install.bat)
@@ -9,6 +11,14 @@
 - [requirements.txt](file://mcp_server/requirements.txt)
 - [access.html](file://mcp_server/static/access.html)
 </cite>
+
+## 更新摘要
+**所做更改**
+- 将原有的7个工具（1个实现 + 6个桩函数）扩展为48个完整实现的工具
+- 新增login工具支持短信验证码认证，实现双令牌认证模型
+- 实现了分类管理、设备类型管理、品牌管理、模型管理、协议信息管理、数据项管理、脚本管理、系数管理、感知结构管理、字典类型管理、功能项管理等完整CRUD操作
+- 更新了工具注册机制和权限控制逻辑
+- 增强了错误处理和统一响应格式
 
 ## 目录
 1. [简介](#简介)
@@ -23,273 +33,370 @@
 10. [附录](#附录)
 
 ## 简介
-本参考文档面向 MCP 工具集的使用与扩展，重点说明：
-- list_mcp_tools 工具的完整能力：工具列表查询、鉴权状态探测、服务器信息获取。
-- 6 个桩函数的设计意图与预期功能（当前为占位实现）：query_device_classes、update_protocol_file、add_device_class、check_script_exists、publish_work_log、publish_converted_script。
-- 工具间的依赖关系与调用顺序。
-- 工具注册机制的实现细节与扩展开发指南。
-- 实际 API 调用示例与集成方案（基于仓库中的 Spec 与部署文档）。
+本参考文档面向 MCP 工具集的完整使用与扩展，重点说明：
+- **48个完整工具**的完整能力：包括探测、登录、查询、写入等全生命周期操作
+- **双令牌认证模型**：MCP接入Token与后端业务Token分离
+- **完善的权限控制**：系统级（读写）与用户级（只读）权限分级
+- **统一的API封装**：通过httpx异步客户端调用后端接口
+- **标准化的错误处理**：网络异常、HTTP异常、业务错误的统一归一化
+
+**重大更新**：从最初的7个工具（1个实现，6个桩函数）扩展到48个完整实现的工具，涵盖规约管理的完整业务流程。
 
 ## 项目结构
-本项目提供 MCP 服务端运行所需的脚本与静态页面，并通过部署文档与 Spec 描述工具集与后端交互方式。关键目录与文件：
-- mcp_server：包含安装与启动脚本、依赖声明与静态接入页。
-- openspec：变更任务与规格说明，定义工具清单、鉴权策略与错误处理约定。
-- 根目录文档：部署流程、工作原理与常见问题排查。
+本项目提供完整的MCP服务端运行环境，包含48个已实现的工具函数和统一的后端API封装。关键目录与文件：
+- mcp_server：包含服务器主程序、API客户端、安装启动脚本
+- openspec：详细的工具规格定义和API映射
+- 根目录文档：部署流程、工作原理与集成指南
 
 ```mermaid
 graph TB
 A["客户端/IDE"] --> B["Uvicorn(ASGI 服务器)"]
 B --> C["MCP 应用(server.py)"]
 C --> D["鉴权中间件(TokenManager/AuthMiddleware)"]
-C --> E["工具处理器(list_mcp_tools 等)"]
+C --> E["48个工具处理器"]
 E --> F["后端API(api_client.py, httpx)"]
 C --> G["静态页面(access.html)"]
+F --> H["后端服务(https://18091.chinadny.com)"]
 ```
 
-图表来源
-- [mcp server部署.md:110-260](file://mcp server部署.md#L110-L260)
-- [规约管理MCP服务化Spec.md:44-66](file://规约管理MCP服务化Spec.md#L44-L66)
+**图表来源**
+- [server.py:1509-1561](file://mcp_server/server.py#L1509-L1561)
+- [api_client.py:34-174](file://mcp_server/api_client.py#L34-L174)
 
-章节来源
+**章节来源**
 - [mcp server部署.md:25-126](file://mcp server部署.md#L25-L126)
 - [规约管理MCP服务化Spec.md:44-78](file://规约管理MCP服务化Spec.md#L44-L78)
 
 ## 核心组件
-- 工具注册与路由：由 MCP 框架在 server.py 中完成，将 Python 函数暴露为 MCP Tools。
-- 鉴权与权限：TokenManager 与 AuthMiddleware 负责 Token 校验与访问级别判定（系统级/用户级）。
-- 后端 API 封装：api_client.py 使用 httpx 异步请求后端接口，统一错误归一化。
-- 接入页面：access.html 提供一键生成配置与 Skills 包下载入口，辅助快速接入。
+- **工具注册与路由**：由FastMCP框架在server.py中完成，将48个Python函数暴露为MCP Tools
+- **双令牌鉴权**：TokenManager与AuthMiddleware负责MCP接入Token校验，业务Token用于后端API调用
+- **后端API封装**：api_client.py使用httpx异步请求后端接口，统一错误归一化和响应格式化
+- **权限控制系统**：基于IP地址的自动权限分配，localhost获得系统级权限，其他IP为用户级权限
+- **资源包管理**：自动打包Skills目录，支持一键下载和配置生成
 
-章节来源
-- [mcp server部署.md:110-260](file://mcp server部署.md#L110-L260)
-- [规约管理MCP服务化Spec.md:79-131](file://规约管理MCP服务化Spec.md#L79-L131)
-- [access.html:321-557](file://mcp_server/static/access.html#L321-L557)
+**章节来源**
+- [server.py:203-243](file://mcp_server/server.py#L203-L243)
+- [server.py:1304-1363](file://mcp_server/server.py#L1304-L1363)
+- [api_client.py:34-174](file://mcp_server/api_client.py#L34-L174)
 
 ## 架构总览
-MCP 工具集通过 ASGI 协议由 Uvicorn 承载，MCP 应用负责工具路由与业务编排；鉴权中间件对请求进行 Token 校验并区分本地与远程访问的权限级别；工具处理器调用后端 API 完成数据操作；接入页面协助生成 IDE 配置与 Skills 包。
+MCP工具集通过ASGI协议由Uvicorn承载，实现了从简单的探测工具到完整的规约管理系统。双令牌认证模型确保了MCP接入安全与后端业务调用的分离。
 
 ```mermaid
 sequenceDiagram
 participant Client as "客户端"
 participant Uvicorn as "Uvicorn"
-participant MCP as "MCP 应用"
 participant Auth as "鉴权中间件"
-participant Tool as "list_mcp_tools"
+participant Tool as "MCP工具"
 participant API as "后端API"
 Client->>Uvicorn : "HTTP GET /sse"
-Uvicorn->>MCP : "建立SSE连接"
+Uvicorn->>Auth : "建立SSE连接"
+Auth-->>Client : "返回鉴权状态"
 Client->>Uvicorn : "JSON-RPC tools/call"
-Uvicorn->>MCP : "转发请求"
-MCP->>Auth : "校验Token与来源IP"
-Auth-->>MCP : "返回访问级别(system/user)"
-MCP->>Tool : "执行工具逻辑"
-Tool->>API : "读取工具列表/鉴权探测"
-API-->>Tool : "返回结果"
-Tool-->>MCP : "组装响应"
-MCP-->>Client : "返回工具列表与鉴权信息"
+Uvicorn->>Auth : "转发请求"
+Auth->>Auth : "验证MCP Token"
+Auth-->>Tool : "设置访问级别(system/user)"
+Tool->>API : "调用业务API(携带业务Token)"
+API-->>Tool : "返回业务数据"
+Tool-->>Client : "返回标准化响应"
 ```
 
-图表来源
-- [mcp server部署.md:163-260](file://mcp server部署.md#L163-L260)
-- [规约管理MCP服务化Spec.md:123-131](file://规约管理MCP服务化Spec.md#L123-L131)
+**图表来源**
+- [server.py:1304-1363](file://mcp_server/server.py#L1304-L1363)
+- [api_client.py:105-174](file://mcp_server/api_client.py#L105-L174)
 
 ## 详细组件分析
 
-### list_mcp_tools 工具
-- 功能概述
-  - 列出所有可用工具名称、类型与说明。
-  - 探测鉴权状态：返回 token_valid、access_level、source。
-  - 获取服务器信息：返回 baseUrl、serverIPs 等。
-- 参数
-  - 无业务参数；鉴权由中间件注入。
-- 返回值格式
-  - 成功：{ tools: [...], auth: { token_valid, access_level, source }, server: { baseUrl, serverIPs } }
-  - 失败：{ error: true, code: "...", message: "..." }
-- 使用示例
-  - 通过 MCP 客户端调用 tools/call，method 为 list_mcp_tools。
-  - 在接入页生成的 Markdown 中，建议先调用该工具验证连接与鉴权。
-- 错误处理
-  - 网络异常：NETWORK_ERROR
-  - 后端非 20000：API_ERROR
-  - Token 无效/过期：AUTH_ERROR
-  - HTTP 状态码异常：HTTP_ERROR
-- 依赖关系
-  - 依赖鉴权中间件与后端 API 探测端点。
-- 调用顺序
-  - 通常在登录成功后立即调用，用于确认可用工具与权限级别。
+### 工具概览（48个完整实现）
 
-章节来源
-- [规约管理MCP服务化Spec.md:132-139](file://规约管理MCP服务化Spec.md#L132-L139)
-- [规约管理MCP服务化Spec.md:123-131](file://规约管理MCP服务化Spec.md#L123-L131)
-- [access.html:487-494](file://mcp_server/static/access.html#L487-L494)
+#### 探测与登录（2个工具）
+- **list_mcp_tools**：列出所有可用工具及鉴权状态探测
+- **login**：手机号+验证码登录，获取后端业务Token
 
-### 桩函数设计与预期功能
-以下 6 个桩函数当前仅返回 not_implemented，用于占位与后续扩展。每个函数的设计意图如下：
+#### 分类管理（4个工具）
+- **get_classify_list**：查询大类列表
+- **add_classify**：新增大类
+- **update_classify**：更新大类  
+- **del_classify**：删除大类
 
-- query_device_classes（设备类别查询）
-  - 意图：查询设备类别列表，支持分页与筛选。
-  - 输入：token、sysName、pageIndex、pageSize。
-  - 输出：data.rows 列表与 total。
-  - 错误：TOKEN 无效、网络异常、后端业务错误。
-  - 依赖：后端 GetSysClassifyList。
+#### 设备类型管理（4个工具）
+- **get_device_type_list**：查询设备类型列表
+- **add_device_type**：新增设备类型
+- **update_device_type**：更新设备类型
+- **del_device_type**：删除设备类型
 
-- update_protocol_file（协议文件更新）
-  - 意图：上传或更新协议文件，返回文件 ID 与路径。
-  - 输入：token、protocolId、fileData。
-  - 输出：fileId、filePath。
-  - 错误：文件过大、类型不支持、上传失败。
-  - 依赖：后端 UploadProtocolFile。
+#### 品牌管理（4个工具）
+- **get_brand_list**：查询品牌列表
+- **add_brand**：新增品牌
+- **update_brand**：更新品牌
+- **del_brand**：删除品牌
 
-- add_device_class（设备类别添加）
-  - 意图：新增设备类别，返回新记录 ID。
-  - 输入：token、deviceTypeName、deviceTypeCode、sysId。
-  - 输出：id。
-  - 错误：重复编码、必填字段缺失。
-  - 依赖：后端 AddProtocolDeviceType。
+#### 型号管理（5个工具）
+- **get_model_list**：查询型号列表
+- **add_model**：新增型号
+- **update_model**：更新型号
+- **del_model**：删除型号
+- **export_model_data**：导出型号统计数据
 
-- check_script_exists（脚本存在性检查）
-  - 意图：检查指定协议是否已生成脚本，返回存在性与脚本详情。
-  - 输入：token、protocolId、protoType。
-  - 输出：exists、scriptInfo。
-  - 错误：协议不存在、查询失败。
-  - 依赖：后端 GetDataScriptList。
+#### 协议信息管理（5个工具）
+- **get_protocol_info_list**：查询协议列表
+- **add_protocol_info**：新增协议
+- **update_protocol**：更新协议
+- **del_protocol_info**：删除协议
+- **upload_protocol_file**：上传协议文件
 
-- publish_work_log（工作日志发布）
-  - 意图：发布工作日志到后端，便于审计与追踪。
-  - 输入：token、logLevel、message、context。
-  - 输出：logId。
-  - 错误：日志过长、权限不足。
-  - 依赖：后端日志写入接口。
+#### 数据项管理（4个工具）
+- **get_data_item_list**：查询数据项列表
+- **add_data_item**：新增数据项
+- **update_data_item**：更新数据项
+- **del_data_item**：删除数据项
 
-- publish_converted_script（转换脚本发布）
-  - 意图：发布转换后的脚本资源，供下游使用。
-  - 输入：token、scriptId、version、payload。
-  - 输出：publishId。
-  - 错误：版本冲突、校验失败。
-  - 依赖：后端脚本发布接口。
+#### 脚本管理（5个工具）
+- **gen_script**：生成脚本
+- **get_script_list**：查询脚本列表
+- **get_json_detail**：获取脚本JSON内容
+- **del_script**：删除脚本
+- **export_data**：导出协议数据
 
-章节来源
-- [规约管理MCP服务化Spec.md:247-255](file://规约管理MCP服务化Spec.md#L247-L255)
-- [规约管理MCP服务化Spec.md:351-489](file://规约管理MCP服务化Spec.md#L351-L489)
+#### 系数管理（4个工具）
+- **get_coeff_list**：查询系数列表
+- **add_coeff**：新增系数
+- **update_coeff**：更新系数
+- **del_coeff**：删除系数
 
-### 工具注册机制与扩展指南
-- 注册方式
-  - 在 server.py 中使用 @mcp.tool() 装饰器将异步函数注册为 MCP 工具。
-  - 每个工具对应一个后端 API，参数与返回结构遵循 Spec 约定。
-- 鉴权与权限
-  - TokenManager 与 AuthMiddleware 负责 Token 校验与访问级别判定。
-  - 写入类工具需标记为 write，并在系统级权限下允许执行。
-- 错误处理
-  - api_client.py 统一封装网络异常、HTTP 异常与业务错误码，返回标准结构。
-- 扩展步骤
-  - 新增后端 API 后，在 api_client.py 中添加对应方法。
-  - 在 server.py 中新增工具函数，调用 api_client 方法。
-  - 更新 requirements.txt 与依赖安装脚本。
-  - 通过 list_mcp_tools 验证新工具可见性与类型。
+#### 感知管理（4个工具）
+- **get_sense_list**：查询感知结构列表
+- **add_sense**：新增感知结构
+- **update_sense**：更新感知结构
+- **del_sense**：删除感知结构
 
-章节来源
-- [规约管理MCP服务化Spec.md:247-293](file://规约管理MCP服务化Spec.md#L247-L293)
-- [mcp server部署.md:283-336](file://mcp server部署.md#L283-L336)
+#### 字典类型管理（3个工具）
+- **get_protocol_type_list**：查询规约类型字典
+- **save_protocol_type**：保存规约类型
+- **del_protocol_type**：删除规约类型
 
-### 典型调用流程（Skill 视角）
+#### 功能项管理（3个工具）
+- **get_function_type_list**：查询功能项列表
+- **save_function_item**：保存功能项
+- **del_function_item**：删除功能项
+
+### 双令牌认证模型
+
+#### MCP接入Token
+- **用途**：MCP协议通信的身份验证
+- **生成方式**：自动根据IP地址生成或管理员配置
+- **存储位置**：Authorization: Bearer头部
+- **权限控制**：基于IP地址决定系统级或用户级权限
+
+#### 后端业务Token
+- **用途**：调用后端API的业务身份验证
+- **获取方式**：通过login(phoneNum, code)获取
+- **传递方式**：作为工具参数传递给后端API
+- **有效期**：由后端服务控制
+
+```mermaid
+sequenceDiagram
+participant Client as "客户端"
+participant MCP as "MCP服务器"
+participant Backend as "后端服务"
+Note over Client,Backend : MCP接入阶段
+Client->>MCP : HTTP请求(Authorization : Bearer MCP_Token)
+MCP->>MCP : 验证MCP Token
+MCP-->>Client : 允许访问
+Note over Client,Backend : 业务调用阶段
+Client->>MCP : 调用工具(login)
+MCP->>Backend : POST /api/Auth/LoginByCode
+Backend-->>MCP : {token : Business_Token}
+MCP-->>Client : 返回Business_Token
+Note over Client,Backend : 后续业务操作
+Client->>MCP : 调用业务工具(Business_Token)
+MCP->>Backend : 调用业务API(Token : Business_Token)
+Backend-->>MCP : 返回业务数据
+MCP-->>Client : 返回结果
+```
+
+**图表来源**
+- [server.py:471-483](file://mcp_server/server.py#L471-L483)
+- [api_client.py:312-360](file://mcp_server/api_client.py#L312-L360)
+
+### 权限控制系统
+
+#### 自动权限分配
+- **localhost访问**：自动授予系统级权限（读写操作）
+- **远程访问**：默认用户级权限（只读操作）
+- **管理员Token**：可通过环境变量配置固定管理员Token
+
+#### 写入操作保护
+所有写入类工具都经过权限检查，非系统级用户尝试执行写入操作将返回FORBIDDEN错误。
+
+**章节来源**
+- [server.py:94-127](file://mcp_server/server.py#L94-L127)
+- [server.py:273-284](file://mcp_server/server.py#L273-L284)
+
+### 典型调用流程
+
 ```mermaid
 sequenceDiagram
 participant Skill as "Skill"
 participant MCP as "MCP Server"
 participant API as "后端API"
-Skill->>MCP : "login(phoneNum, code)"
-MCP->>API : "POST /api/Auth/LoginByCode"
-API-->>MCP : "{ token, user }"
-MCP-->>Skill : "{ token, user }"
-Skill->>MCP : "get_brand_list(token, deviceTypeId)"
-MCP->>API : "POST /api/Protocol/GetSysBrandList"
-API-->>MCP : "{ data : { rows, total } }"
-MCP-->>Skill : "{ data }"
-Skill->>MCP : "add_brand(token, nameCN, name, code, deviceTypeId)"
-MCP->>API : "POST /api/Protocol/AddSysBrand"
-API-->>MCP : "{ code : 20000, message : '成功' }"
-MCP-->>Skill : "{ result }"
+Note over Skill,MCP : 1. 登录获取业务Token
+Skill->>MCP : login("13912986342", "9413")
+MCP->>API : POST /api/Auth/LoginByCode
+API-->>MCP : {token : "A3AAF6FA...", user : {...}}
+MCP-->>Skill : {error : false, data : {token, user}}
+Note over Skill,MCP : 2. 查询品牌列表
+Skill->>MCP : get_brand_list(token, deviceTypeId=1)
+MCP->>API : POST /api/Protocol/GetSysBrandList
+API-->>MCP : {data : {rows : [...], total : N}}
+MCP-->>Skill : {error : false, data : {rows, total}}
+Note over Skill,MCP : 3. 新增品牌
+Skill->>MCP : add_brand(token, nameCN="华为", name="Huawei", code="HW", deviceTypeId=1)
+MCP->>API : POST /api/Protocol/AddSysBrand
+API-->>MCP : {code : 20000, message : "成功"}
+MCP-->>Skill : {error : false, code : 20000, message : "成功"}
 ```
 
-图表来源
+**图表来源**
 - [规约管理MCP服务化Spec.md:295-319](file://规约管理MCP服务化Spec.md#L295-L319)
 
 ## 依赖关系分析
-- 运行时依赖
-  - mcp：提供 MCP 协议支持与工具注册。
-  - uvicorn：ASGI 服务器，承载 MCP 应用。
-- 新增依赖（按 Spec）
-  - httpx：异步 HTTP 客户端，用于调用后端 API。
-- 脚本依赖
-  - install.bat：创建虚拟环境、安装依赖、生成 Token 与配置文件。
-  - start.bat：激活虚拟环境、读取 Token、启动 server.py。
+
+### 运行时依赖
+- **mcp>=1.0.0,<2.0.0**：MCP协议SDK，提供工具注册和协议处理
+- **uvicorn>=0.30.0**：ASGI服务器，高性能异步Web服务器
+- **httpx>=0.27.0**：异步HTTP客户端，用于调用后端API
+
+### 项目依赖关系图
 
 ```mermaid
 graph LR
 R["requirements.txt"] --> M["mcp"]
 R --> U["uvicorn"]
-Spec["Spec 变更"] --> H["httpx"]
+R --> H["httpx"]
+Spec["Spec 变更"] --> H
 I["install.bat"] --> R
 S["start.bat"] --> P["server.py"]
 P --> M
 P --> U
+P --> H
 ```
 
-图表来源
+**图表来源**
 - [requirements.txt:1-3](file://mcp_server/requirements.txt#L1-L3)
 - [install.bat:40-49](file://mcp_server/install.bat#L40-L49)
 - [start.bat:7-13](file://mcp_server/start.bat#L7-L13)
-- [规约管理MCP服务化Spec.md:287-293](file://规约管理MCP服务化Spec.md#L287-L293)
 
-章节来源
+**章节来源**
 - [requirements.txt:1-3](file://mcp_server/requirements.txt#L1-L3)
 - [install.bat:40-49](file://mcp_server/install.bat#L40-L49)
 - [start.bat:7-13](file://mcp_server/start.bat#L7-L13)
-- [规约管理MCP服务化Spec.md:287-293](file://规约管理MCP服务化Spec.md#L287-L293)
 
 ## 性能考虑
-- 异步 I/O：MCP 与 httpx 均支持异步，避免阻塞事件循环。
-- 连接复用：httpx.AsyncClient 可复用连接，减少握手开销。
-- 超时设置：为后端请求设置合理超时，防止长尾请求影响服务。
-- 并发模型：Uvicorn 基于事件循环，适合高并发 I/O 密集型场景。
 
-[本节为通用指导，不直接分析具体文件]
+### 异步I/O优化
+- **MCP框架**：原生支持async/await，避免阻塞事件循环
+- **httpx客户端**：使用AsyncClient进行异步HTTP请求
+- **连接复用**：httpx.AsyncClient实例复用，减少TCP握手开销
+
+### 并发处理能力
+- **Uvicorn服务器**：基于uvloop的高性能异步事件循环
+- **内存管理**：合理的对象生命周期管理，避免内存泄漏
+- **超时控制**：为后端请求设置合理超时时间（默认30秒）
+
+### 错误处理优化
+- **统一错误格式**：所有错误统一为{error: true, code: "...", message: "..."}格式
+- **错误分类**：NETWORK_ERROR、HTTP_ERROR、AUTH_ERROR、API_ERROR
+- **降级策略**：网络异常时提供友好的错误提示
 
 ## 故障排查指南
-- Python 未安装或版本过低
-  - 现象：install.bat 报错提示 Python 未找到或版本过低。
-  - 解决：安装 Python 3.10+，并确保加入 PATH。
-- 虚拟环境创建失败
-  - 现象：install.bat 提示虚拟环境创建失败。
-  - 解决：检查权限与磁盘空间，重新运行安装脚本。
-- 依赖安装失败
-  - 现象：pip 安装依赖失败。
-  - 解决：检查网络或使用国内镜像源，升级 pip。
-- 启动时找不到虚拟环境
-  - 现象：start.bat 提示未找到虚拟环境。
-  - 解决：确保已运行 install.bat，或手动创建 .venv。
-- Token 未配置
-  - 现象：start.bat 提示 MCP_AUTH_TOKEN 未设置。
-  - 解决：运行 install.bat 生成 Token，或手动创建 .env。
-- 端口被占用
-  - 现象：启动时报端口占用错误。
-  - 解决：查找并结束占用进程，或修改端口号。
 
-章节来源
+### 常见部署问题
+
+#### Python环境问题
+- **现象**：install.bat报错提示Python未找到或版本过低
+- **解决**：安装Python 3.10+，确保加入PATH环境变量
+
+#### 虚拟环境创建失败
+- **现象**：install.bat提示虚拟环境创建失败
+- **解决**：检查权限与磁盘空间，以管理员身份重新运行
+
+#### 依赖安装失败
+- **现象**：pip安装依赖失败
+- **解决**：检查网络连接或使用国内镜像源
+
+#### 启动配置问题
+- **现象**：start.bat提示MCP_AUTH_TOKEN未设置
+- **解决**：运行install.bat生成Token或手动创建.env文件
+
+#### 端口占用问题
+- **现象**：启动时报端口占用错误
+- **解决**：查找并结束占用进程，或修改server.py中的端口号
+
+### 运行时问题
+
+#### 鉴权失败
+- **现象**：调用工具返回Unauthorized错误
+- **解决**：检查MCP Token是否正确配置，确认IP地址是否在白名单
+
+#### 业务Token失效
+- **现象**：后端API返回40100错误
+- **解决**：重新调用login工具获取新的业务Token
+
+#### 网络超时
+- **现象**：调用后端API超时
+- **解决**：检查网络连接，调整超时配置或后端服务状态
+
+**章节来源**
 - [mcp server部署.md:505-632](file://mcp server部署.md#L505-L632)
 
 ## 结论
-本 MCP 工具集以 list_mcp_tools 为核心探测与发现入口，结合鉴权中间件与后端 API 封装，提供细粒度、可扩展的工具能力。6 个桩函数为未来功能预留接口，便于逐步替换为真实实现。通过部署脚本与接入页面，可实现快速部署与一键接入，满足开发与生产环境的差异化需求。
+本次更新将MCP工具集从简单的7个工具（1个实现，6个桩函数）扩展为完整的48个工具系统，实现了规约管理的完整业务流程。通过双令牌认证模型、完善的权限控制和统一的API封装，提供了企业级的工具服务能力。
 
-[本节为总结，不直接分析具体文件]
+**主要成就**：
+- 实现了完整的CRUD操作覆盖
+- 建立了安全的双令牌认证机制
+- 提供了统一的错误处理和响应格式
+- 支持灵活的权限控制和访问控制
+- 具备高并发和高性能的异步架构
+
+**未来展望**：
+- 可扩展更多业务模块的工具
+- 支持更复杂的业务流程编排
+- 增强监控和日志审计功能
+- 优化性能和用户体验
 
 ## 附录
-- 工具清单与 API 映射
-  - 详见 Spec 中的工具清单与接口规格，涵盖大类、设备类型、品牌、型号、规约信息、数据项、脚本、系数、感知、字典、功能项、导出与文件删除等模块。
-- 接入与集成
-  - 使用 access.html 生成各 IDE 的配置文本与 Skills 包，粘贴至 AI Agent 完成自动接入。
-  - 接入后调用 list_mcp_tools 验证连接与鉴权状态。
 
-章节来源
+### 工具清单完整映射
+
+| 模块 | 工具数量 | 主要功能 |
+|------|----------|----------|
+| 探测与登录 | 2 | 工具发现、用户认证 |
+| 分类管理 | 4 | 大类CRUD操作 |
+| 设备类型管理 | 4 | 设备类型CRUD操作 |
+| 品牌管理 | 4 | 品牌信息CRUD操作 |
+| 型号管理 | 5 | 型号信息CRUD及数据导出 |
+| 协议信息管理 | 5 | 协议配置及文件管理 |
+| 数据项管理 | 4 | 数据项CRUD操作 |
+| 脚本管理 | 5 | 脚本生成、查询、删除 |
+| 系数管理 | 4 | 数据项系数CRUD操作 |
+| 感知管理 | 4 | 感知结构CRUD操作 |
+| 字典类型管理 | 3 | 规约类型字典管理 |
+| 功能项管理 | 3 | 功能项CRUD操作 |
+
+### 集成方案
+
+#### IDE集成
+使用access.html生成的配置文件可直接粘贴到Claude Desktop、Trae IDE等支持MCP协议的编辑器中。
+
+#### API集成
+通过标准的MCP协议接口，任何支持JSON-RPC的客户端都可以调用这些工具。
+
+#### 自动化流程
+结合Skill概念，可以将多个工具组合成复杂的自动化工作流，如：
+1. 登录认证 → 查询设备类型 → 创建品牌 → 添加型号 → 配置协议 → 生成脚本
+
+**章节来源**
 - [规约管理MCP服务化Spec.md:132-245](file://规约管理MCP服务化Spec.md#L132-L245)
 - [access.html:445-503](file://mcp_server/static/access.html#L445-L503)

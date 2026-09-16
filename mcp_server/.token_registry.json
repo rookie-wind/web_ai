@@ -1,0 +1,32 @@
+{
+  "entries": {
+    "127.0.0.1": {
+      "token": "metam_pat_c1204a410bd14a85235883455414f7d1",
+      "accessLevel": "user",
+      "createdAt": 1789368497,
+      "lastSeenAt": 1789462170,
+      "revoked": false
+    },
+    "10.0.11.224": {
+      "token": "metam_pat_6761ac7de4adde31137b32365d6908db",
+      "accessLevel": "user",
+      "createdAt": 1789374615,
+      "lastSeenAt": 1789374635,
+      "revoked": false
+    },
+    "10.0.11.79": {
+      "token": "metam_pat_409e675f5764b22cc8ab4af67f3ac378",
+      "accessLevel": "user",
+      "createdAt": 1789374734,
+      "lastSeenAt": 1789374734,
+      "revoked": false
+    },
+    "10.0.11.103": {
+      "token": "metam_pat_591a5cc25cb94d8854e7b435dfd9c77b",
+      "accessLevel": "user",
+      "createdAt": 1789443129,
+      "lastSeenAt": 1789454884,
+      "revoked": false
+    }
+  }
+}

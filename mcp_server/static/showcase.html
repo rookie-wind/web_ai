@@ -1,0 +1,2582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>协议智能体 · 成果展示</title>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   设计令牌
+   ═══════════════════════════════════════════════════════════ */
+:root {
+    --bg:          #070b14;
+    --bg-elev:     #0c1220;
+    --bg-card:     #0f1725;
+    --line:        #1e2a3f;
+    --line-soft:   #16202f;
+    --text:        #e6edf7;
+    --text-dim:    #8b9bb4;
+    --text-mute:   #5a6b85;
+    --accent:      #00e5a0;
+    --accent-2:    #4f7cff;
+    --accent-dim:  rgba(0, 229, 160, 0.12);
+    --accent-glow: rgba(0, 229, 160, 0.38);
+    --warn:        #ff7a6b;
+    --warn-dim:    rgba(255, 122, 107, 0.12);
+    --mono: "Cascadia Code", "JetBrains Mono", "Fira Code", Consolas,
+            "Courier New", monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+            "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+    --maxw: 1180px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+::selection { background: var(--accent-glow); color: #04120c; }
+
+/* ═══════════════════════════════════════════════════════════
+   背景层：网格 + 噪点 + 鼠标光晕
+   ═══════════════════════════════════════════════════════════ */
+.bg-grid,
+.bg-noise,
+.bg-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.bg-grid {
+    z-index: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+    background-size: 58px 58px;
+    -webkit-mask-image: radial-gradient(ellipse 100% 78% at 50% 0%,
+                          #000 22%, transparent 92%);
+    mask-image: radial-gradient(ellipse 100% 78% at 50% 0%,
+                                #000 22%, transparent 92%);
+}
+
+.bg-noise {
+    z-index: 1;
+    opacity: 0.032;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.bg-glow {
+    z-index: 1;
+    background: radial-gradient(
+        620px circle at var(--mx, 50%) var(--my, 0%),
+        rgba(0, 229, 160, 0.055),
+        transparent 62%
+    );
+    transition: background 0.28s ease-out;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   顶栏
+   ═══════════════════════════════════════════════════════════ */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 13px 26px;
+    background: rgba(7, 11, 20, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line-soft);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.brand-mark {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: linear-gradient(140deg, var(--accent), #0aa87a);
+    display: grid;
+    place-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: #04120c;
+    box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.brand-ver {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-mute);
+    padding: 1px 6px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+}
+
+.navlinks {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.navlinks a {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 5px 11px;
+    border-radius: 6px;
+    transition: color 0.18s, background 0.18s;
+    white-space: nowrap;
+}
+
+.navlinks a:hover { color: var(--accent); background: var(--accent-dim); }
+
+.online {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    color: var(--text-dim);
+    padding: 5px 11px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--text-mute);
+    flex: none;
+}
+
+.dot.live {
+    background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent-glow);
+    animation: pulse 2.1s ease-out infinite;
+}
+
+.dot.dead { background: var(--warn); }
+
+@keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 var(--accent-glow); }
+    70%  { box-shadow: 0 0 0 8px rgba(0, 229, 160, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 229, 160, 0); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   通用布局
+   ═══════════════════════════════════════════════════════════ */
+.wrap {
+    position: relative;
+    z-index: 2;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 26px;
+}
+
+section { position: relative; z-index: 2; scroll-margin-top: 72px; }
+a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+
+.sec {
+    padding: 96px 0;
+    border-top: 1px solid var(--line-soft);
+}
+
+.sec-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+}
+
+.sec-tag::before {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.6;
+}
+
+.sec-title {
+    font-size: clamp(24px, 3.4vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
+
+.sec-sub {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    max-width: 640px;
+    margin-bottom: 42px;
+}
+
+/* 滚动入场 */
+.reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--d, 0ms);
+}
+
+.reveal.in { opacity: 1; transform: none; }
+
+/* ═══════════════════════════════════════════════════════════
+   幕1  HERO
+   ═══════════════════════════════════════════════════════════ */
+#hero { padding: 118px 0 78px; }
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+    gap: 54px;
+    align-items: stretch;
+}
+
+.hero-copy {
+    display: flex;
+    flex-direction: column;
+    min-height: 548px;
+}
+
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    width: fit-content;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.13em;
+    color: var(--text-dim);
+    padding: 5px 13px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--bg-elev);
+    margin-bottom: 26px;
+}
+
+h1.hero-title {
+    font-size: clamp(31px, 4.6vw, 54px);
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: -0.028em;
+    margin-bottom: 18px;
+}
+
+h1.hero-title .hl {
+    color: var(--accent);
+    text-shadow: 0 0 34px var(--accent-glow);
+}
+
+.hero-sub {
+    font-size: clamp(14.5px, 1.5vw, 17px);
+    color: var(--text-dim);
+    margin-bottom: 30px;
+    max-width: 520px;
+}
+
+.hero-sub code {
+    font-family: var(--mono);
+    font-size: 0.92em;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 1px 7px;
+    border-radius: 4px;
+}
+
+/* 终端窗口 */
+.term {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    background: #05080f;
+    border: 1px solid rgba(0, 229, 160, 0.22);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 30px 82px rgba(0, 0, 0, 0.62),
+                0 0 72px rgba(0, 229, 160, 0.09),
+                0 0 0 1px rgba(255, 255, 255, 0.025) inset;
+}
+
+.term-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 11px 15px;
+    background: linear-gradient(180deg, #0f1725, #090f1b);
+    border-bottom: 1px solid var(--line-soft);
+}
+
+.term-bar i {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: block;
+}
+
+.term-bar i:nth-child(1) { background: #ff5f57; }
+.term-bar i:nth-child(2) { background: #febc2e; }
+.term-bar i:nth-child(3) { background: #28c840; }
+
+.term-bar > span {
+    margin-left: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-mute);
+}
+
+.term-live {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+}
+
+.term-body {
+    flex: 1;
+    padding: 22px 24px 24px;
+    font-family: var(--mono);
+    font-size: 14.2px;
+    line-height: 2.02;
+    background:
+        radial-gradient(circle at 18% 8%, rgba(0, 229, 160, 0.055), transparent 36%),
+        linear-gradient(180deg, #05080f, #060b13);
+}
+
+.term-cmd { color: var(--text); white-space: pre-wrap; word-break: break-word; }
+.term-cmd .pr { color: var(--accent); }
+
+.cursor {
+    display: inline-block;
+    width: 7px;
+    height: 14px;
+    background: var(--accent);
+    vertical-align: -2px;
+    margin-left: 2px;
+    animation: blink 1.05s steps(2, start) infinite;
+}
+
+@keyframes blink { to { visibility: hidden; } }
+
+.term-out { margin-top: 14px; }
+
+.term-line {
+    display: grid;
+    grid-template-columns: 16px minmax(0, 1fr) auto;
+    column-gap: 9px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line-soft);
+    align-items: baseline;
+    color: var(--text-dim);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.34s ease, transform 0.34s ease;
+}
+
+.term-line.show { opacity: 1; transform: none; }
+.term-line .ok { color: var(--accent); flex: none; }
+.term-line .tm { grid-column: 3; grid-row: 1; color: var(--text-dim); font-size: 11.5px; }
+.term-line .detail { grid-column: 2 / 4; grid-row: 2; font-size: 12px; color: var(--text-dim); }
+.term-foot { padding: 14px 24px; display: flex; justify-content: space-between; gap: 12px;
+    border-top: 1px solid var(--line); font: 11px var(--mono); color: var(--text-dim); }
+.term-foot b { color: var(--accent); font-weight: 500; }
+
+/* 数字条 */
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: auto;
+}
+
+.metric {
+    padding: 19px 12px 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: linear-gradient(180deg, var(--bg-card), var(--bg-elev));
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.metric::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.45;
+}
+
+.metric b {
+    display: block;
+    font-family: var(--mono);
+    font-size: clamp(28px, 3.4vw, 42px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text);
+    letter-spacing: -0.02em;
+}
+
+.metric span {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+}
+
+/* 数据流转架构图 */
+.arch-sec { padding-top: 104px; }
+
+.arch-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 28px;
+    align-items: flex-end;
+    margin-bottom: 28px;
+}
+
+.arch-head .sec-sub { margin-bottom: 0; }
+
+.arch-badge {
+    flex: none;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 229, 160, 0.28);
+    border-radius: 999px;
+    background: rgba(0, 229, 160, 0.075);
+}
+
+.pipeline-box {
+    position: relative;
+    padding: 18px;
+    border: 1px solid rgba(79, 124, 255, 0.18);
+    border-radius: 22px;
+    background:
+        radial-gradient(circle at 50% 42%, rgba(0, 229, 160, 0.10), transparent 36%),
+        linear-gradient(180deg, rgba(15, 23, 37, 0.92), rgba(8, 13, 23, 0.94));
+    box-shadow: 0 32px 96px rgba(0, 0, 0, 0.46),
+                0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+    overflow: hidden;
+}
+
+.pipeline-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+    background-size: 38px 38px;
+    mask-image: radial-gradient(ellipse at center, #000 20%, transparent 86%);
+    opacity: 0.9;
+}
+
+.pipeline {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.pl-node {
+    fill: rgba(15, 23, 37, 0.94);
+    stroke: rgba(139, 155, 180, 0.24);
+    stroke-width: 1.3;
+}
+
+.pl-node.core {
+    stroke: rgba(0, 229, 160, 0.62);
+    fill: #071b17;
+    filter: drop-shadow(0 0 14px rgba(0, 229, 160, 0.22));
+}
+
+.pl-node.ai { stroke: rgba(0, 229, 160, 0.40); fill: #0a1718; }
+.pl-node.leaf { stroke: rgba(79, 124, 255, 0.40); fill: #0b1222; }
+.pl-node.out { stroke: rgba(255, 196, 107, 0.35); fill: #171209; }
+
+.pl-txt {
+    fill: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 700;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+.pl-txt.small { font-size: 14px; font-weight: 500; fill: #a4b4cd; }
+.pl-txt.title { font-size: 22px; }
+.pl-txt.layer { font: 12px var(--mono); fill: #a4b4cd; text-anchor: start; letter-spacing: 2px; }
+.arch-scroll { position: relative; overflow-x: auto; scrollbar-color: var(--line) var(--bg); }
+.arch-note { position: relative; color: var(--text-dim); font-size: 12px;
+    padding: 12px 8px 0; border-top: 1px solid var(--line); }
+.arch-scroll-hint { display: none; }
+.pl-txt.num { font-family: var(--mono); fill: var(--accent); font-weight: 700; }
+.pl-txt.warn { fill: #ffc46b; }
+
+.pl-link {
+    fill: none;
+    stroke: rgba(139, 155, 180, 0.24);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pl-flow {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-dasharray: 8 18;
+    opacity: 0.82;
+    animation: dash 1.5s linear infinite;
+    filter: drop-shadow(0 0 5px var(--accent-glow));
+}
+
+.pl-flow.alt { stroke: var(--accent-2); animation-duration: 1.9s; }
+.pl-flow.warn { stroke: #ffc46b; animation-duration: 2.2s; }
+
+@keyframes dash { to { stroke-dashoffset: -52; } }
+
+.pl-halo { animation: halo 3.4s ease-in-out infinite; transform-origin: center; }
+
+.pl-step {
+    fill: rgba(5, 8, 15, 0.88);
+    stroke: rgba(0, 229, 160, 0.22);
+    stroke-width: 1;
+}
+
+.pl-chip {
+    fill: rgba(0, 229, 160, 0.10);
+    stroke: rgba(0, 229, 160, 0.25);
+}
+
+@keyframes halo {
+    0%, 100% { opacity: 0.18; }
+    50%      { opacity: 0.54; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   幕2  能力矩阵墙
+   ═══════════════════════════════════════════════════════════ */
+.domains {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
+    gap: 13px;
+}
+
+.domain {
+    border: 1px solid var(--line-soft);
+    border-radius: 9px;
+    background: var(--bg-elev);
+    padding: 13px 14px 14px;
+    transition: border-color 0.22s, transform 0.22s, background 0.22s;
+}
+
+.domain:hover {
+    border-color: rgba(0, 229, 160, 0.34);
+    background: var(--bg-card);
+    transform: translateY(-2px);
+}
+
+.domain-hd {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--line-soft);
+}
+
+.domain-hd h4 { font-size: 13.5px; font-weight: 600; letter-spacing: 0.01em; }
+
+.domain-hd em {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 1px 7px;
+    border-radius: 10px;
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.chip {
+    position: relative;
+    font-family: var(--mono);
+    font-size: 10.6px;
+    color: var(--text-dim);
+    background: #0a1120;
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    padding: 2.5px 6px;
+    cursor: default;
+    transition: color 0.16s, border-color 0.16s, background 0.16s;
+    white-space: nowrap;
+}
+
+.chip:hover {
+    color: var(--accent);
+    border-color: rgba(0, 229, 160, 0.45);
+    background: var(--accent-dim);
+    z-index: 5;
+}
+
+.chip[data-t="write"]:hover { color: #ffc46b; border-color: rgba(255, 196, 107, 0.45); background: rgba(255, 196, 107, 0.10); }
+
+/* 提示气泡 */
+#tip {
+    position: fixed;
+    z-index: 200;
+    max-width: 290px;
+    padding: 7px 11px;
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--text);
+    background: #05080f;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity 0.15s, transform 0.15s;
+}
+
+#tip.on { opacity: 1; transform: none; }
+#tip b { font-family: var(--mono); font-size: 11.5px; color: var(--accent); display: block; margin-bottom: 2px; }
+
+.legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+    font-size: 12px;
+    color: var(--text-mute);
+}
+
+.legend i {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    margin-right: 6px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   幕3  BEFORE / AFTER
+   ═══════════════════════════════════════════════════════════ */
+.contrast {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    align-items: stretch;
+}
+
+.panel {
+    border-radius: 12px;
+    padding: 24px 22px 26px;
+    border: 1px solid var(--line-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+.panel.before { background: #0a0d14; }
+
+.panel.after {
+    background: linear-gradient(165deg, #08130f, #0a1a2a 130%);
+    border-color: rgba(0, 229, 160, 0.26);
+    box-shadow: 0 0 62px rgba(0, 229, 160, 0.07) inset;
+}
+
+.panel-tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.before .panel-tag { color: var(--text-mute); }
+.after  .panel-tag { color: var(--accent); }
+
+.panel h3 { font-size: 18px; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.01em; }
+.before h3 { color: var(--text-dim); }
+
+/* BEFORE：拥挤的步骤格 */
+.steps-dense { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+
+.step-d {
+    font-size: 11.5px;
+    color: var(--text-mute);
+    background: #10151f;
+    border: 1px solid #1a2231;
+    border-radius: 5px;
+    padding: 5px 9px;
+    position: relative;
+}
+
+.step-d .n {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: #3d4a5f;
+    margin-right: 5px;
+}
+
+.risks { border-top: 1px solid var(--line-soft); padding-top: 16px; }
+.risks h5 {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--warn);
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+}
+
+.risk-item {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    font-size: 12.5px;
+    color: var(--text-dim);
+    margin-bottom: 7px;
+}
+
+.risk-item::before {
+    content: "!";
+    flex: none;
+    width: 15px;
+    height: 15px;
+    margin-top: 3px;
+    border-radius: 50%;
+    background: var(--warn-dim);
+    color: var(--warn);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+}
+
+.cost-line {
+    margin-top: 18px;
+    padding: 11px 13px;
+    border-radius: 7px;
+    font-size: 12.5px;
+    background: #10151f;
+    border: 1px solid var(--line-soft);
+    color: var(--text-mute);
+}
+
+.cost-line b { color: var(--warn); font-family: var(--mono); font-weight: 600; }
+
+/* AFTER：极简 */
+.after-cmd {
+    font-family: var(--mono);
+    font-size: clamp(13px, 1.5vw, 16px);
+    color: var(--accent);
+    background: #04120c;
+    border: 1px solid rgba(0, 229, 160, 0.28);
+    border-radius: 8px;
+    padding: 15px 17px;
+    margin-bottom: 24px;
+    box-shadow: 0 0 34px rgba(0, 229, 160, 0.09);
+    word-break: break-word;
+}
+
+.flowline { list-style: none; margin-bottom: 22px; }
+
+.flowline li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 0;
+    font-size: 13.5px;
+    color: var(--text);
+    border-bottom: 1px dashed var(--line-soft);
+}
+
+.flowline li:last-child { border-bottom: none; }
+
+.flowline .idx {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+}
+
+.flowline .out {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-mute);
+}
+
+.gain-line {
+    padding: 11px 13px;
+    border-radius: 7px;
+    font-size: 12.5px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(0, 229, 160, 0.22);
+    color: var(--accent);
+}
+
+.gain-line b { font-family: var(--mono); }
+
+/* ═══════════════════════════════════════════════════════════
+   幕4  真实交付记录
+   ═══════════════════════════════════════════════════════════ */
+.stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+    margin-bottom: 34px;
+}
+
+.stat {
+    border: 1px solid var(--line-soft);
+    border-radius: 10px;
+    background: var(--bg-elev);
+    padding: 18px 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.55;
+}
+
+.stat b {
+    display: block;
+    font-family: var(--mono);
+    font-size: clamp(26px, 3.2vw, 38px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+}
+
+.stat b small { font-size: 0.46em; color: var(--text-mute); font-weight: 500; margin-left: 3px; }
+.stat span { display: block; margin-top: 6px; font-size: 12px; color: var(--text-dim); }
+.stat i { display: block; font-style: normal; font-size: 11px; color: var(--text-mute); margin-top: 2px; }
+
+.block-hd {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.block-hd h4 { font-size: 15px; font-weight: 600; }
+.block-hd em {
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-mute);
+}
+
+/* 台账 */
+.ledger { width: 100%; border-collapse: collapse; font-size: 12.8px; }
+
+.ledger th {
+    text-align: left;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+}
+
+.ledger td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--line-soft);
+    color: var(--text-dim);
+}
+
+.ledger tr:hover td { background: var(--bg-elev); color: var(--text); }
+.ledger td:first-child { color: var(--text); font-weight: 500; }
+.ledger .num { font-family: var(--mono); color: var(--accent); text-align: right; }
+.ledger .dt { font-family: var(--mono); font-size: 11.5px; color: var(--text-mute); white-space: nowrap; }
+
+.ledger-wrap {
+    border: 1px solid var(--line-soft);
+    border-radius: 10px;
+    overflow: hidden auto;
+    background: var(--bg-elev);
+    margin-bottom: 34px;
+    max-height: 340px;
+}
+
+/* 测试面板 */
+.test-grid { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 18px; margin-bottom: 34px; }
+
+.test-card {
+    border: 1px solid rgba(0, 229, 160, 0.24);
+    border-radius: 10px;
+    background: linear-gradient(165deg, #08130f, var(--bg-elev));
+    padding: 20px;
+    text-align: center;
+}
+
+.test-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(0, 229, 160, 0.3);
+    border-radius: 20px;
+    padding: 3px 13px;
+    margin-bottom: 14px;
+}
+
+.test-big {
+    font-family: var(--mono);
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.test-big s { text-decoration: none; color: var(--text-mute); font-size: 0.5em; }
+.test-card p { font-size: 12px; color: var(--text-dim); margin-top: 8px; }
+
+.test-split { display: flex; justify-content: center; gap: 18px; margin-top: 15px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
+.test-split div { font-family: var(--mono); font-size: 11.5px; color: var(--text-mute); }
+.test-split b { display: block; font-size: 17px; color: var(--text); }
+.test-split .pass b { color: var(--accent); }
+.test-split .fail b { color: var(--text-dim); }
+
+.suites { display: flex; flex-wrap: wrap; gap: 7px; align-content: flex-start; }
+
+.suite {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    background: var(--bg-elev);
+    border: 1px solid var(--line-soft);
+    border-radius: 5px;
+    padding: 5px 9px;
+    transition: border-color 0.18s, color 0.18s;
+}
+
+.suite:hover { border-color: rgba(0, 229, 160, 0.4); color: var(--accent); }
+.suite b { color: var(--accent); font-weight: 600; margin-left: 6px; }
+.suite.skip b { color: var(--text-mute); }
+
+/* 焦点标注：data_exprs */
+.focus {
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: #05080f;
+    padding: 22px 22px 24px;
+    margin-bottom: 34px;
+    position: relative;
+    overflow: hidden;
+}
+
+.focus::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(520px circle at 22% 0%, rgba(0, 229, 160, 0.075), transparent 62%);
+    pointer-events: none;
+}
+
+.focus-lbl {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.expr {
+    font-family: var(--mono);
+    font-size: clamp(13px, 1.9vw, 20px);
+    line-height: 2.1;
+    color: var(--text);
+    word-break: break-all;
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.expr .seg { position: relative; padding: 2px 3px; border-radius: 4px; }
+.expr .seg.a { color: #7fd4ff; background: rgba(127, 212, 255, 0.10); }
+.expr .seg.b { color: #ffc46b; background: rgba(255, 196, 107, 0.10); }
+.expr .seg.c { color: var(--accent); background: var(--accent-dim); }
+
+.expr-notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; position: relative; }
+
+.expr-note { border-left: 2px solid var(--line); padding-left: 12px; }
+.expr-note.a { border-color: #7fd4ff; }
+.expr-note.b { border-color: #ffc46b; }
+.expr-note.c { border-color: var(--accent); }
+.expr-note h6 { font-size: 12.5px; font-weight: 600; margin-bottom: 3px; }
+.expr-note p { font-size: 11.5px; color: var(--text-mute); line-height: 1.6; }
+
+.focus-foot {
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid var(--line-soft);
+    font-size: 13px;
+    color: var(--text-dim);
+    position: relative;
+}
+
+.focus-foot b { color: var(--accent); font-weight: 600; }
+
+/* 产出物槽 */
+.slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+.slot {
+    border: 1px solid var(--line-soft);
+    border-radius: 10px;
+    background: var(--bg-elev);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.22s, transform 0.22s;
+}
+
+.slot:hover { border-color: rgba(0, 229, 160, 0.32); transform: translateY(-2px); }
+
+.slot-hd {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 12px;
+    background: #0a0f1a;
+    border-bottom: 1px solid var(--line-soft);
+}
+
+.slot-hd i { width: 9px; height: 9px; border-radius: 50%; display: block; }
+.slot-hd i:nth-child(1) { background: #ff5f57; }
+.slot-hd i:nth-child(2) { background: #febc2e; }
+.slot-hd i:nth-child(3) { background: #28c840; }
+
+.slot-hd span {
+    margin-left: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.slot-body { flex: 1; }
+
+.slot pre {
+    margin: 0;
+    padding: 13px 14px;
+    font-family: var(--mono);
+    font-size: 11.3px;
+    line-height: 1.72;
+    color: var(--text-dim);
+    overflow: auto;
+    max-height: 292px;
+    white-space: pre;
+    tab-size: 2;
+}
+
+.slot-ft {
+    padding: 8px 13px;
+    border-top: 1px solid var(--line-soft);
+    font-family: var(--mono);
+    font-size: 10.3px;
+    color: var(--text-mute);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 空槽占位 */
+.slot-empty {
+    padding: 22px 16px;
+    text-align: center;
+    border: 1px dashed #26334a;
+    border-radius: 7px;
+    margin: 13px;
+    background: rgba(255, 255, 255, 0.012);
+}
+
+.slot-empty .ico {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    color: #4d5f7a;
+    border: 1px solid #26334a;
+    border-radius: 20px;
+    padding: 3px 12px;
+    display: inline-block;
+    margin-bottom: 13px;
+}
+
+.slot-empty p { font-size: 11.8px; color: var(--text-mute); line-height: 1.65; }
+.slot-empty code {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10.6px;
+    color: #6d8099;
+    background: #080d16;
+    border: 1px solid var(--line-soft);
+    border-radius: 5px;
+    padding: 7px 9px;
+    margin-top: 10px;
+    word-break: break-all;
+    line-height: 1.6;
+    text-align: left;
+}
+
+/* 语法高亮 */
+.j-key { color: #7fd4ff; }
+.j-str { color: #9ee493; }
+.j-num { color: #ffc46b; }
+.j-bool { color: #ff9ecb; }
+.j-null { color: #8b9bb4; }
+.j-punc { color: #4d5f7a; }
+
+/* ═══════════════════════════════════════════════════════════
+   幕5  生态与护栏
+   ═══════════════════════════════════════════════════════════ */
+.plats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 11px; margin-bottom: 38px; }
+.plat > div:last-child { min-width: 0; }
+.plat span { overflow-wrap: anywhere; }
+
+.plat {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 13px 14px;
+    border: 1px solid var(--line-soft);
+    border-radius: 9px;
+    background: var(--bg-elev);
+    transition: border-color 0.2s, transform 0.2s, background 0.2s;
+}
+
+.plat:hover { border-color: rgba(79, 124, 255, 0.42); transform: translateY(-2px); background: var(--bg-card); }
+
+.plat-logo {
+    flex: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 7px;
+    display: grid;
+    place-items: center;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: #07101f;
+    background: linear-gradient(140deg, #6f9bff, var(--accent-2));
+}
+
+.plat b { display: block; font-size: 12.8px; font-weight: 600; line-height: 1.35; }
+.plat span { display: block; font-family: var(--mono); font-size: 10.3px; color: var(--text-mute); }
+
+.guards { display: grid; grid-template-columns: repeat(auto-fit, minmax(248px, 1fr)); gap: 13px; }
+
+.guard {
+    padding: 17px 18px;
+    border: 1px solid var(--line-soft);
+    border-left: 2px solid var(--accent);
+    border-radius: 8px;
+    background: var(--bg-elev);
+}
+
+.guard h5 { font-size: 13.5px; font-weight: 600; margin-bottom: 6px; }
+.guard p { font-size: 12.3px; color: var(--text-dim); line-height: 1.68; }
+.guard code {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 0 5px;
+    border-radius: 3px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   幕6  结尾
+   ═══════════════════════════════════════════════════════════ */
+#closing { padding: 108px 0 96px; text-align: center; border-top: 1px solid var(--line-soft); }
+
+.closing-line {
+    font-size: clamp(22px, 3.6vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.024em;
+    line-height: 1.35;
+    max-width: 800px;
+    margin: 0 auto 20px;
+}
+
+.closing-line .hl { color: var(--accent); text-shadow: 0 0 36px var(--accent-glow); }
+.closing-sub { font-size: 14px; color: var(--text-mute); margin-bottom: 34px; }
+
+.cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 11px 24px;
+    border: 1px solid rgba(0, 229, 160, 0.34);
+    border-radius: 8px;
+    background: var(--accent-dim);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.cta:hover { background: rgba(0, 229, 160, 0.2); border-color: var(--accent); transform: translateY(-1px); }
+.cta .ar { transition: transform 0.2s; }
+.cta:hover .ar { transform: translateX(3px); }
+
+.foot {
+    margin-top: 56px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line-soft);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-mute);
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   响应式
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 1000px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hero-copy { min-height: 0; }
+    .term { min-height: 480px; }
+    .pipeline-box { padding: 14px; }
+    .pipeline { min-width: 940px; }
+    .arch-head { align-items: flex-start; flex-direction: column; gap: 16px; }
+    .arch-scroll-hint { display: inline; }
+    .plats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .contrast { grid-template-columns: 1fr; }
+    .test-grid { grid-template-columns: 1fr; }
+    .slots { grid-template-columns: 1fr; }
+    .navlinks { display: none; }
+}
+
+@media (max-width: 680px) {
+    .wrap { padding: 0 17px; }
+    .sec { padding: 68px 0; }
+    #hero { padding: 96px 0 56px; }
+    .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .term-body { padding: 18px 16px; font-size: 13px; }
+    .term-foot { padding: 12px 16px; flex-wrap: wrap; }
+    .term-live { display: none; }
+    .pipeline-box { padding: 10px; border-radius: 14px; }
+    .plat { padding: 12px 10px; gap: 8px; }
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .expr-notes { grid-template-columns: 1fr; }
+    .topbar { padding: 11px 15px; }
+    .brand-ver { display: none; }
+}
+
+/* 减弱动画 */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+    .pl-flow { stroke-dasharray: none; opacity: 0.5; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+<div class="bg-glow" id="glow"></div>
+<div id="tip"></div>
+
+<!-- ════════════ 顶栏 ════════════ -->
+<nav class="topbar">
+    <div class="brand">
+        <div class="brand-mark">P</div>
+        <span id="brand-name">协议智能体</span>
+        <span class="brand-ver" id="brand-ver">v0.1.0</span>
+    </div>
+    <div class="navlinks">
+        <a href="#hero">概览</a>
+        <a href="#architecture">流转架构</a>
+        <a href="#capability">能力矩阵</a>
+        <a href="#contrast">效率对比</a>
+        <a href="#delivery">交付记录</a>
+        <a href="#ecosystem">生态与护栏</a>
+    </div>
+    <div class="online">
+        <i class="dot" id="status-dot"></i>
+        <span id="status-txt">DETECTING</span>
+    </div>
+</nav>
+
+<!-- ════════════ 幕1  HERO ════════════ -->
+<section id="hero">
+    <div class="wrap">
+        <div class="hero-grid">
+
+            <div class="hero-copy">
+                <div class="hero-eyebrow reveal">
+                    <i class="dot live"></i>
+                    <span id="eyebrow-txt">MCP SERVER · 已交付</span>
+                </div>
+
+                <h1 class="hero-title reveal" style="--d:70ms" id="hero-title"></h1>
+                <p class="hero-sub reveal" style="--d:140ms" id="hero-sub"></p>
+
+                <div class="metrics reveal" style="--d:210ms" id="metrics"></div>
+            </div>
+
+            <div class="term reveal" style="--d:180ms">
+                <div class="term-bar">
+                    <i></i><i></i><i></i>
+                    <span id="term-title">pca · agent session</span>
+                    <div class="term-live">AGENT WORKFLOW</div>
+                </div>
+                <div class="term-body">
+                    <div class="term-cmd" id="term-cmd"></div>
+                    <div class="term-out" id="term-out"></div>
+                </div>
+                <div class="term-foot"><b>自然语言 → 可交付配置</b><span>JSON / TEST / ZIP</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════ 协议识别 · 工具编排 · 交付闭环 ════════════ -->
+<section id="architecture" class="sec arch-sec">
+    <div class="wrap">
+        <div class="arch-head reveal">
+            <div>
+                <div class="sec-tag">Agent Architecture</div>
+                <h2 class="sec-title">从一句需求，到可上线的协议能力</h2>
+                <p class="sec-sub">AI 理解意图，技能承载专家规则，MCP 连接业务能力。<br>分析、生成、验证、交付，串成一条完整路径。</p>
+            </div>
+            <div class="arch-badge">协议识别 / 工具编排 / 交付产物</div>
+        </div>
+        <div class="pipeline-box reveal" style="--d:100ms">
+            <div class="arch-scroll" tabindex="0" role="region" aria-label="协议智能体数据流转架构图，可横向滚动">
+                <svg class="pipeline" viewBox="0 0 1080 640" role="img" aria-labelledby="arch-title arch-desc">
+                    <title id="arch-title">协议智能体数据流转架构图</title>
+                    <desc id="arch-desc">用户需求交给 AI 理解意图，识别 Modbus、MQTT 或 HTTP 协议并路由技能，通过 MCP 工具网关编排业务能力，完成配置生成、测试验证、打包分发和上线运行；验证不通过时返回修正配置。</desc>
+                    <defs>
+                        <marker id="arch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M0 0 L10 5 L0 10 Z" fill="#00e5a0" />
+                        </marker>
+                        <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14" /></filter>
+                    </defs>
+                    <text class="pl-txt layer" x="24" y="26">01 / 协议识别 · 从自然语言到执行意图</text>
+                    <ellipse class="pl-halo" cx="540" cy="304" rx="420" ry="64" fill="#00e5a0" filter="url(#soft)" />
+
+                    <!-- 连线位于节点下方，流光表示方向，不代表实时运行状态。 -->
+                    <g marker-end="url(#arch-arrow)">
+                        <path class="pl-link" d="M284 110 H324" />
+                        <path class="pl-link" d="M628 110 H668" />
+                        <path class="pl-link" d="M862 166 V244" />
+                        <path class="pl-link" d="M148 364 V452" />
+                        <path class="pl-link" d="M264 504 H296" />
+                        <path class="pl-link" d="M526 504 H558" />
+                        <path class="pl-link" d="M788 504 H820" />
+                    </g>
+                    <g aria-hidden="true">
+                        <path class="pl-flow" d="M284 110 H324 M628 110 H668 M862 166 V244" />
+                        <path class="pl-flow" d="M148 364 V452" />
+                        <path class="pl-flow alt" d="M264 504 H296 M526 504 H558 M788 504 H820" />
+                    </g>
+
+                    <rect class="pl-node" x="24" y="54" width="260" height="112" rx="14" />
+                    <text class="pl-txt title" x="154" y="87">用户需求</text>
+                    <text class="pl-txt small" x="154" y="120">“请帮我分析这份协议文档”</text>
+                    <text class="pl-txt small" x="154" y="145">协议文档 + 目标格式</text>
+
+                    <rect class="pl-node ai" x="328" y="54" width="300" height="112" rx="14" />
+                    <text class="pl-txt title" x="478" y="87">AI 智能体理解意图</text>
+                    <text class="pl-txt small" x="478" y="120">pca 入口 · 任务拆解 · 流程编排</text>
+                    <text class="pl-txt num" x="478" y="145">专家规则 → 可执行技能</text>
+
+                    <rect class="pl-node leaf" x="672" y="54" width="384" height="112" rx="14" />
+                    <text class="pl-txt title" x="864" y="87">协议识别与技能路由</text>
+                    <text class="pl-txt small" x="864" y="120">Modbus / MQTT / HTTP</text>
+                    <text class="pl-txt small" x="864" y="145">字节序 · 比例系数 · 符号位 · 字段映射</text>
+
+                    <text class="pl-txt layer" x="24" y="220">02 / 工具编排 · 连接业务数据与专家能力</text>
+                    <text class="pl-txt small" x="962" y="209">按需调用 ↓</text>
+                    <rect class="pl-node core" x="24" y="248" width="1032" height="116" rx="18" />
+                    <text class="pl-txt title" x="210" y="290">MCP 工具网关</text>
+                    <text class="pl-txt small" x="210" y="324">统一接入 · 权限校验 · 原子调用</text>
+                    <path class="pl-link" d="M394 273 V339 M668 273 V339" />
+                    <text class="pl-txt num title" x="532" y="290" id="pl-tool-count">48 TOOLS</text>
+                    <text class="pl-txt small" x="532" y="324">13 个业务域 · 按需组合</text>
+                    <text class="pl-txt" x="860" y="290">规约 / 数据项 / 原子标签 / 脚本</text>
+                    <text class="pl-txt small" x="860" y="324">运维平台数据支撑 · 写入前确认</text>
+
+                    <text class="pl-txt layer" x="318" y="413">03 / 交付产物 · 从配置到上线，结果可验证</text>
+                    <rect class="pl-node leaf" x="24" y="456" width="240" height="104" rx="14" />
+                    <text class="pl-txt title" x="144" y="486">配置生成</text>
+                    <text class="pl-txt small" x="144" y="516">统一格式 · 字段映射</text>
+                    <text class="pl-txt num" x="144" y="541">config.json</text>
+
+                    <rect class="pl-node leaf" x="300" y="456" width="226" height="104" rx="14" />
+                    <text class="pl-txt title" x="413" y="486">测试验证</text>
+                    <text class="pl-txt small" x="413" y="516">边界条件 · 数据比对</text>
+                    <text class="pl-txt num" x="413" y="541">test-report</text>
+
+                    <rect class="pl-node leaf" x="562" y="456" width="226" height="104" rx="14" />
+                    <text class="pl-txt title" x="675" y="486">打包分发</text>
+                    <text class="pl-txt small" x="675" y="516">配置 + 映射报告 + 测试报告</text>
+                    <text class="pl-txt num" x="675" y="541">protocol-pack.zip</text>
+
+                    <rect class="pl-node out" x="824" y="456" width="232" height="104" rx="14" />
+                    <text class="pl-txt title warn" x="940" y="486">上线运行</text>
+                    <text class="pl-txt small" x="940" y="516">部署到网关 · C 引擎读取配置</text>
+                    <text class="pl-txt warn" x="940" y="541">协议能力交付</text>
+
+                    <!-- 验证不通过时回到配置生成，形成修正闭环。 -->
+                    <path class="pl-link" d="M413 560 V603 H144 V564" marker-end="url(#arch-arrow)" />
+                    <path class="pl-flow warn" d="M413 560 V603 H144 V564" />
+                    <text class="pl-txt small" x="280" y="625">验证未通过 → 修正配置</text>
+                    <text class="pl-txt small" x="838" y="604">从文档到交付，规则与产物一起沉淀</text>
+                </svg>
+            </div>
+            <p class="arch-note"><span class="arch-scroll-hint">左右滑动查看完整架构 · </span>流程架构示意；平台写入与上线部署按权限和用户确认执行。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════ 幕2  能力矩阵墙 ════════════ -->
+<section id="capability" class="sec">
+    <div class="wrap">
+        <div class="sec-tag reveal">Capability Matrix</div>
+        <h2 class="sec-title reveal" style="--d:60ms">
+            48 个原子工具，覆盖规约管理全域
+        </h2>
+        <p class="sec-sub reveal" style="--d:120ms">
+            每一个后端接口都被封装为独立的 MCP 原子工具，按 13 个业务域组织。
+            鼠标悬停任意格子查看该工具的职责。
+        </p>
+
+        <div class="domains" id="domains"></div>
+
+        <div class="legend reveal">
+            <span><i style="background:#00e5a0"></i>只读查询 <b id="lg-read">14</b></span>
+            <span><i style="background:#ffc46b"></i>写入操作 <b id="lg-write">32</b></span>
+            <span><i style="background:#4f7cff"></i>探测与登录 <b id="lg-other">2</b></span>
+            <span style="margin-left:auto">四级级联：大类 → 设备类型 → 品牌 → 型号 → 规约</span>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════ 幕3  BEFORE / AFTER ════════════ -->
+<section id="contrast" class="sec">
+    <div class="wrap">
+        <div class="sec-tag reveal">Before / After</div>
+        <h2 class="sec-title reveal" style="--d:60ms">
+            同一件事，两种做法
+        </h2>
+        <p class="sec-sub reveal" style="--d:120ms">
+            左边是接入一个新设备协议的手工全过程，右边交给 AI 智能体，一句话跑完全程。
+        </p>
+
+        <div class="contrast">
+
+            <div class="panel before reveal">
+                <div class="panel-tag">Before · 手工</div>
+                <h3>逐页录入，逐字手写</h3>
+
+                <div class="steps-dense" id="before-steps"></div>
+
+                <div class="risks">
+                    <h5>三个高频出错点</h5>
+                    <div id="before-risks"></div>
+                </div>
+
+                <div class="cost-line" id="before-cost"></div>
+            </div>
+
+            <div class="panel after reveal" style="--d:110ms">
+                <div class="panel-tag">After · /pca</div>
+                <h3 style="color:var(--text)">一行命令，全程自动</h3>
+
+                <div class="after-cmd" id="after-cmd"></div>
+
+                <ul class="flowline" id="after-steps"></ul>
+
+                <div class="gain-line" id="after-gain"></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ════════════ 幕4  真实交付记录 ════════════ -->
+<section id="delivery" class="sec">
+    <div class="wrap">
+        <div class="sec-tag reveal">Delivery Record</div>
+        <h2 class="sec-title reveal" style="--d:60ms">
+            已经交付的东西
+        </h2>
+        <p class="sec-sub reveal" style="--d:120ms">
+            不是演示样例，是近两个月里为真实设备生成的转换配置与测试记录。
+        </p>
+
+        <div class="stat-row reveal" id="delivery-stats"></div>
+
+        <div class="block-hd reveal">
+            <h4>交付台账</h4>
+            <em id="ledger-note"></em>
+        </div>
+        <div class="ledger-wrap reveal" style="--d:60ms">
+            <table class="ledger">
+                <thead>
+                    <tr>
+                        <th>品牌</th>
+                        <th>设备类型</th>
+                        <th>协议</th>
+                        <th style="text-align:right">配置份数</th>
+                        <th>产出时间</th>
+                    </tr>
+                </thead>
+                <tbody id="ledger-body"></tbody>
+            </table>
+        </div>
+
+        <div class="block-hd reveal">
+            <h4>回归测试</h4>
+            <em>protocol-conversion 映射核心</em>
+        </div>
+        <div class="test-grid reveal" style="--d:60ms">
+            <div class="test-card">
+                <div class="test-badge" id="test-status">PASSED</div>
+                <div class="test-big">
+                    <span id="test-passed">89</span><s>/<span id="test-total">91</span></s>
+                </div>
+                <p>项测试通过</p>
+                <div class="test-split">
+                    <div class="pass"><b id="test-ok">89</b>passed</div>
+                    <div class="fail"><b id="test-failed">0</b>failed</div>
+                    <div class="fail"><b id="test-skipped">2</b>skipped</div>
+                </div>
+            </div>
+            <div>
+                <div class="suites" id="test-suites"></div>
+            </div>
+        </div>
+
+        <div class="focus reveal">
+            <div class="focus-lbl">Focus · 一行表达式里的三处专家经验</div>
+            <div class="expr" id="focus-expr"></div>
+            <div class="expr-notes" id="focus-notes"></div>
+            <div class="focus-foot" id="focus-foot"></div>
+        </div>
+
+        <div class="block-hd reveal">
+            <h4>真实产出物</h4>
+            <em>点击代码区可滚动查看</em>
+        </div>
+        <div class="slots reveal" style="--d:60ms" id="slots"></div>
+    </div>
+</section>
+
+<!-- ════════════ 幕5  生态与护栏 ════════════ -->
+<section id="ecosystem" class="sec">
+    <div class="wrap">
+        <div class="sec-tag reveal">Ecosystem &amp; Guardrails</div>
+        <h2 class="sec-title reveal" style="--d:60ms">
+            不绑定单一工具，也不裸奔
+        </h2>
+        <p class="sec-sub reveal" style="--d:120ms">
+            资源包由服务端自动打包分发，兼容主流 AI IDE；
+            同时用权限分级与完整性校验把写操作护在护栏内。
+        </p>
+
+        <div class="block-hd reveal">
+            <h4>兼容客户端</h4>
+            <em>8 个平台·配置文本一键生成</em>
+        </div>
+        <div class="plats reveal" style="--d:60ms" id="plats"></div>
+
+        <div class="block-hd reveal">
+            <h4>安全护栏</h4>
+            <em>四道约束</em>
+        </div>
+        <div class="guards reveal" style="--d:60ms" id="guards"></div>
+    </div>
+</section>
+
+<!-- ════════════ 幕6  结尾 ════════════ -->
+<section id="closing">
+    <div class="wrap">
+        <div class="closing-line reveal" id="closing-line"></div>
+        <p class="closing-sub reveal" style="--d:80ms" id="closing-sub"></p>
+        <a class="cta reveal" style="--d:150ms" href="/access">
+            <span>进入一键接入工具</span>
+            <span class="ar">→</span>
+        </a>
+        <div class="foot reveal" style="--d:220ms" id="foot"></div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     产出物素材槽（SLOT-1 / SLOT-2 / SLOT-3）
+
+     ★ 你只需要把真实 JSON 文件内容直接粘贴到下面对应的
+       <script> 标签内部即可，不需要转义引号，也不需要动
+       任何 JS 代码。页面会自动格式化并上语法高亮。
+
+     推荐素材路径：
+       SLOT-1  .trae/skills/modbus-conversion/output/
+                 蓝控电子科技_环境传感器_20260721.json
+       SLOT-2  .trae/skills/mqtt-conversion/scripts/
+                 mqtt_mapper_202608261100.json
+       SLOT-3  .trae/skills/http-conversion/scripts/
+                 protocol_mapping_output_20260827_113000.json
+
+     留空时页面会渲染成“待填充”占位卡，不影响整体展示。
+     建议只粘贴前 30~40 行，代码区可滚动。
+     ═══════════════════════════════════════════════════════ -->
+<script type="application/json" id="art-modbus"></script>
+<script type="application/json" id="art-mqtt"></script>
+<script type="application/json" id="art-http"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   SHOWCASE_DATA
+   ★ 全部硬编码内容集中在这一个对象里。
+     改文案 / 改数字 / 改台账，只动这里，不用翻 HTML。
+   ═══════════════════════════════════════════════════════ */
+var SHOWCASE_DATA = {
+
+    meta: {
+        name: '协议智能体',
+        version: 'v0.1.0',
+        server: 'protocol-converter MCP Server',
+        package: 'pca-agent-assets'
+    },
+
+    hero: {
+        eyebrow: 'MCP SERVER · 已交付',
+        // hl 标记的部分会用强调色渲染
+        title: '老师傅的经验，<hl>现在跑在服务器上</hl>',
+        sub: '把复杂繁琐的协议接入工作，压缩成一句 <code>/pca</code>。'
+           + '字节序、比例系数、符号位——这些原来只存在于少数人脑子里的判断，'
+           + '现在固化在可校验的技能资产里。',
+        termTitle: 'pca · agent session',
+        // 终端第一行的命令，会逐字打出
+        cmd: '/pca 请帮我分析这份协议文档',
+        // 命令打完后逐行出现的执行结果
+        out: [
+            { t: '协议分析完成', d: 'MODBUS-RTU · 23 个寄存器', ms: '1.8s' },
+            { t: '字段映射完成', d: '已处理字节序 / 系数 / 符号位', ms: '2.4s' },
+            { t: '生成转换配置', d: 'config.json', ms: '0.6s' },
+            { t: '回归测试通过', d: '91 项 / 89 passed / 0 failed', ms: '3.1s' },
+            { t: '打包完成', d: 'modbus-pack.zip', ms: '0.4s' }
+        ]
+    },
+
+    // 首屏四个 count-up 数字
+    metrics: [
+        { value: 48, label: 'MCP 原子工具' },
+        { value: 8,  label: '领域技能' },
+        { value: 8,  label: '兼容 AI IDE' },
+        { value: 3,  label: '协议方向' }
+    ],
+
+    /* 48 个工具按 13 个业务域分组。
+       t: read = 只读（绿） / write = 写入（橙） / other = 探测登录（蓝） */
+    domains: [
+        { name: '探测与登录', items: [
+            { n: 'list_mcp_tools', t: 'other', d: '列出全部工具并探测鉴权状态、权限级别、资源包版本与 capabilities' },
+            { n: 'login', t: 'other', d: '手机号 + 验证码登录，返回后端业务 Token' }
+        ]},
+        { name: '大类管理', items: [
+            { n: 'get_classify_list', t: 'read', d: '查询大类列表（大类编号 id、名称 sysName）' },
+            { n: 'add_classify', t: 'write', d: '新增大类' },
+            { n: 'update_classify', t: 'write', d: '更新大类' },
+            { n: 'del_classify', t: 'write', d: '删除大类' }
+        ]},
+        { name: '设备类型', items: [
+            { n: 'get_device_type_list', t: 'read', d: '查询设备类型列表（deviceTypeCode 即 modelNum 来源）' },
+            { n: 'add_device_type', t: 'write', d: '新增设备类型' },
+            { n: 'update_device_type', t: 'write', d: '更新设备类型' },
+            { n: 'del_device_type', t: 'write', d: '删除设备类型' }
+        ]},
+        { name: '品牌管理', items: [
+            { n: 'get_brand_list', t: 'read', d: '查询品牌列表' },
+            { n: 'add_brand', t: 'write', d: '新增品牌' },
+            { n: 'update_brand', t: 'write', d: '更新品牌' },
+            { n: 'del_brand', t: 'write', d: '删除品牌' }
+        ]},
+        { name: '型号管理', items: [
+            { n: 'get_model_list', t: 'read', d: '查询型号列表' },
+            { n: 'add_model', t: 'write', d: '新增型号' },
+            { n: 'update_model', t: 'write', d: '更新型号' },
+            { n: 'del_model', t: 'write', d: '删除型号' },
+            { n: 'export_model_data', t: 'read', d: '导出型号统计数据（文件流）' }
+        ]},
+        { name: '规约信息', items: [
+            { n: 'get_protocol_info_list', t: 'read', d: '查询规约列表（支持四级级联过滤）' },
+            { n: 'add_protocol_info', t: 'write', d: '新增规约' },
+            { n: 'update_protocol', t: 'write', d: '更新规约' },
+            { n: 'del_protocol_info', t: 'write', d: '删除规约' },
+            { n: 'del_protocol_file', t: 'write', d: '删除规约文档文件' }
+        ]},
+        { name: '数据项', items: [
+            { n: 'get_data_item_list', t: 'read', d: '按规约查询采集点位配置' },
+            { n: 'add_data_item', t: 'write', d: '新增数据项' },
+            { n: 'update_data_item', t: 'write', d: '更新数据项' },
+            { n: 'del_data_item', t: 'write', d: '删除数据项' }
+        ]},
+        { name: '脚本管理', items: [
+            { n: 'gen_script', t: 'write', d: '生成转换脚本' },
+            { n: 'get_script_list', t: 'read', d: '查询脚本列表' },
+            { n: 'get_json_detail', t: 'read', d: '获取脚本 JSON 内容' },
+            { n: 'del_script', t: 'write', d: '删除脚本' },
+            { n: 'export_data', t: 'read', d: '导出协议数据项（文件流）' }
+        ]},
+        { name: '系数管理', items: [
+            { n: 'get_coeff_list', t: 'read', d: '查询数据项系数列表' },
+            { n: 'add_coeff', t: 'write', d: '新增数据项系数' },
+            { n: 'update_coeff', t: 'write', d: '更新数据项系数' },
+            { n: 'del_coeff', t: 'write', d: '删除数据项系数' }
+        ]},
+        { name: '感知结构', items: [
+            { n: 'get_sense_list', t: 'read', d: '查询感知结构列表' },
+            { n: 'add_sense', t: 'write', d: '新增感知结构' },
+            { n: 'update_sense', t: 'write', d: '更新感知结构' },
+            { n: 'del_sense', t: 'write', d: '删除感知结构' }
+        ]},
+        { name: '规约类型字典', items: [
+            { n: 'get_protocol_type_list', t: 'read', d: '查询规约类型字典列表' },
+            { n: 'save_protocol_type', t: 'write', d: '保存规约类型字典项' },
+            { n: 'del_protocol_type', t: 'write', d: '删除规约类型字典项' }
+        ]},
+        { name: '功能项·原子标签', items: [
+            { n: 'get_function_type_list', t: 'read', d: '原子标签查询入口（API-E10 GetProtocoFunctionTypeList）' },
+            { n: 'save_function_item', t: 'write', d: '保存功能项' },
+            { n: 'del_function_item', t: 'write', d: '删除功能项' }
+        ]},
+        { name: '文件上传', items: [
+            { n: 'upload_protocol_file', t: 'write', d: '上传规约文档文件（multipart）' }
+        ]}
+    ],
+
+    /* ── 幕3  BEFORE / AFTER ── */
+    before: {
+        steps: [
+            '阅读协议文档', '登录运维平台', '新增大类', '新增设备类型',
+            '新增品牌', '新增型号', '新增规约信息', '上传规约文档',
+            '配置数据项', '设置比例系数', '手写 JSON 映射', '处理字节序',
+            '处理符号位', '构造测试数据', '人工比对结果', '修正配置',
+            '手工打包', '分发到网关'
+        ],
+        risks: [
+            '字节序 / 字序 / 位序判断错，数值全盘偏移',
+            '比例系数与动态精度遗漏，上报值差一个数量级',
+            '符号位未处理，负温度直接变成三万多'
+        ],
+        cost: '单个协议接入需要 <b>重复查看文档</b>，且强依赖少数熟练工，经验不可复制'
+    },
+
+    after: {
+        cmd: '/pca 把这份 Modbus 文档转成内部格式并打包',
+        steps: [
+            { t: '协议分析', d: '逐项提取寄存器与功能码', out: 'modbus-conversion' },
+            { t: '字段映射', d: '引用共享映射核心规则', out: 'protocol-conversion' },
+            { t: '生成配置', d: '输出供 C 引擎读取的 JSON', out: 'config.json' },
+            { t: '回归测试', d: '构造测试数据并验证输出', out: 'test-validation' },
+            { t: '打包分发', d: '配置 + 文档打包为 ZIP', out: 'pack-distribution' }
+        ],
+        gain: '全程 <b>小时级</b>，规则固化在 8 个 SKILL.md 里，新人可直接上手'
+    },
+
+    /* ── 幕4  交付记录 ── */
+    delivery: {
+        stats: [
+            { v: 19, u: '份', l: '已生成转换配置', i: 'Modbus 16 · HTTP 2 · MQTT 1' },
+            { v: 7,  u: '个', l: '覆盖设备品牌', i: '安科瑞 / 德力西 / 上海信衡 等' },
+            { v: 5,  u: '类', l: '覆盖设备类型', i: '电表 / 传感器 / 采集表 / 积算仪 / 温控仪' },
+            { v: 91, u: '项', l: '回归测试用例', i: '89 passed · 0 failed · 2 skipped' }
+        ],
+        note: '数据取自 .trae/skills/*/output 与 scripts 目录真实产出文件',
+        ledger: [
+            { b: '安科瑞',       d: 'AMC 系列 / 电表类',   p: 'MODBUS-RTU', n: 7, t: '2026-07-27 ~ 09-11' },
+            { b: '蓝控电子科技', d: '环境传感器',         p: 'MODBUS-RTU', n: 2, t: '2026-07-21 ~ 07-22' },
+            { b: '上海有恒测控', d: '能源采集表',         p: 'MODBUS-RTU', n: 2, t: '2026-07-22 ~ 08-04' },
+            { b: 'DTS2016T',     d: '电表类',               p: 'MODBUS-RTU', n: 2, t: '2026-08-05' },
+            { b: '上海信衡',     d: 'F3000X 流量积算仪',   p: 'MODBUS-RTU', n: 1, t: '2026-09-11' },
+            { b: '德力西',       d: '电表类',               p: 'MODBUS-RTU', n: 1, t: '2026-08-05' },
+            { b: '力得',         d: '温控仪',               p: 'MODBUS-RTU', n: 1, t: '2026-07-22' },
+            { b: '平台 MQTT',    d: '电表数据上报',         p: 'MQTT→MQTT',  n: 1, t: '2026-08-26' },
+            { b: '第三方接口',   d: '数据采集',             p: 'HTTP→MQTT',  n: 2, t: '2026-08-26 ~ 08-27' }
+        ],
+        test: {
+            status: 'PASSED',
+            total: 91,
+            passed: 89,
+            failed: 0,
+            errors: 0,
+            skipped: 2,
+            suites: [
+                { n: 'TestTypeConversion',        c: 22 },
+                { n: 'TestGenerators',            c: 12 },
+                { n: 'TestPathResolution',        c: 12 },
+                { n: 'TestEdgeCases',             c: 7 },
+                { n: 'TestHTTPTransform',         c: 7 },
+                { n: 'TestMQTTTransform',         c: 6 },
+                { n: 'TestArrayForeach',          c: 5 },
+                { n: 'TestEnsurePath',            c: 5 },
+                { n: 'TestTemplateSubstitute',    c: 5 },
+                { n: 'TestEngineDifferences',     c: 4 },
+                { n: 'TestUnifiedCodeConsistency', c: 4 },
+                { n: 'TestRealConfigs',           c: 2, skip: true }
+            ]
+        },
+        /* ★ 焦点标注：一行表达式里的三处专家经验
+           取自蓝控电子科技_环境传感器 的 envTemp 测点 */
+        focus: {
+            source: '蓝控电子科技_环境传感器_20260721.json → labelList[0].read.data_exprs',
+            segments: [
+                { txt: '($D&32767)',            cls: 'a' },
+                { txt: '/10',                   cls: 'b' },
+                { txt: '*(1-2*($D>32768))',     cls: 'c' }
+            ],
+            notes: [
+                { cls: 'a', h: '掩码取位', p: '取低 15 位有效数据，剥离高位状态标志' },
+                { cls: 'b', h: '比例系数', p: '原始寄存器值除 10 得到实际温度' },
+                { cls: 'c', h: '符号位翻转', p: '超过 32768 判定为负数，自动取反' }
+            ],
+            foot: '这三个判断原来全靠工程师记忆，错一个就得到一堆废数据。'
+                + '现在由 <b>modbus-conversion</b> 技能根据协议文档自动生成，'
+                + '并被 <b>91 项回归测试</b>持续看护。'
+        }
+    },
+
+    /* ── 幕4  产出物槽（代码内容从上方 JSON script 标签读取）── */
+    artifacts: [
+        { slot: 'art-modbus', title: 'Modbus 转换配置',
+          file: '.trae/skills/modbus-conversion/output/安科瑞_AMC系列_20260911115258.json' },
+        { slot: 'art-mqtt',   title: 'MQTT 映射配置',
+          file: '.trae/skills/mqtt-conversion/scripts/mqtt_mapper_202608261100.json' },
+        { slot: 'art-http',   title: 'HTTP 映射配置',
+          file: '.trae/skills/http-conversion/scripts/protocol_mapping_output_20260827_113000.json' }
+    ],
+
+    /* ── 幕5  生态与护栏 ── */
+    platforms: [
+        { n: 'Trae',           by: '字节跳动',   k: 'mcpServers', i: 'T' },
+        { n: 'Cursor',         by: 'AI-First IDE', k: 'servers',    i: 'C' },
+        { n: 'VS Code',        by: 'GitHub Copilot', k: 'servers',  i: 'V' },
+        { n: 'Claude Desktop', by: 'Anthropic',  k: 'streamableHttp', i: 'C' },
+        { n: 'Windsurf',       by: 'Codeium',    k: 'serverUrl',    i: 'W' },
+        { n: 'Cline',          by: 'VS Code 插件', k: 'streamableHttp', i: 'C' },
+        { n: 'Kimi Code',      by: '月之暗面',   k: 'transport',    i: 'K' },
+                { n: 'Qoder',          by: '阿里巴巴',   k: 'mcpServers',   i: 'Q' }
+    ],
+
+    guardrails: [
+        { h: '权限分级',
+          p: '本机 IP 获得 <code>system</code> 读写权限，其它来源 IP 仅 <code>user</code> 只读，写入请求直接返回 FORBIDDEN' },
+        { h: '写前必须确认',
+          p: '删除、停止、写入等高风险操作前必须向用户展示计划并等待确认，未收到工具返回结果前不得声称完成' },
+        { h: 'Token 按 IP 绑定',
+          p: '非本机 Token 持久化到 <code>.token_registry.json</code>，服务器重启后仍有效，支持撤销，已排除出版本控制' },
+        { h: 'manifest 完整性校验',
+          p: '资源包 <code>requiredFiles</code> 缺失时报告 missing 并停止，不得声称安装完成' }
+    ],
+
+    /* ── 幕6  结尾 ── */
+    closing: {
+        line: '协议接入这件事，<hl>从此不再是瓶颈</hl>',
+        sub: '48 个原子工具 · 8 个领域技能 · 8 个客户端 · 19 份已交付配置',
+        foot: ['protocol-converter MCP Server v0.1.0',
+               'pca-agent-assets',
+               'FastMCP · Streamable HTTP',
+               '端口 8765']
+    }
+};
+</script>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   渲染与动效
+   以下代码从 SHOWCASE_DATA 读取内容渲染页面，
+   正常情况下不需要修改。
+   ═══════════════════════════════════════════════════════ */
+(function () {
+    'use strict';
+
+    var D = SHOWCASE_DATA;
+    var $ = function (id) { return document.getElementById(id); };
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ── 小工具 ── */
+
+    // 把数据里的 <hl> 标记换成强调色 span
+    function markup(s) {
+        return String(s)
+            .replace(/<hl>/g, '<span class="hl">')
+            .replace(/<\/hl>/g, '</span>');
+    }
+
+    function esc(s) {
+        return String(s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+
+    // JSON 语法高亮
+    function hlJson(src) {
+        var e = esc(src);
+        return e.replace(
+            /("(?:\\u[a-fA-F0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(?:true|false)\b|\bnull\b|-?\d+(?:\.\d+)?(?:[eE][+\-]?\d+)?)/g,
+            function (m) {
+                var cls = 'j-num';
+                if (/^"/.test(m)) {
+                    cls = /:\s*$/.test(m) ? 'j-key' : 'j-str';
+                } else if (/^(true|false)$/.test(m)) {
+                    cls = 'j-bool';
+                } else if (/^null$/.test(m)) {
+                    cls = 'j-null';
+                }
+                return '<span class="' + cls + '">' + m + '</span>';
+            }
+        );
+    }
+
+    /* ── 顶栏与元信息 ── */
+
+    $('brand-name').textContent = D.meta.name;
+    $('brand-ver').textContent = D.meta.version;
+    $('eyebrow-txt').textContent = D.hero.eyebrow;
+    $('term-title').textContent = D.hero.termTitle;
+
+    /* ── 幕1  标题与副标题 ── */
+
+    $('hero-title').innerHTML = markup(D.hero.title);
+    $('hero-sub').innerHTML = markup(D.hero.sub);
+
+    /* ── 幕1  终端打字机 ── */
+
+    function runTerminal() {
+        var cmdEl = $('term-cmd');
+        var outEl = $('term-out');
+        var cmd = D.hero.cmd;
+        outEl.innerHTML = '';
+
+        var lines = D.hero.out.map(function (o) {
+            var row = document.createElement('div');
+            row.className = 'term-line';
+
+            var ok = document.createElement('span');
+            ok.className = 'ok';
+            ok.textContent = '✓';
+
+            var txt = document.createElement('span');
+            txt.textContent = o.t;
+
+            var det = document.createElement('span');
+            det.className = 'detail';
+            det.textContent = o.d;
+
+            var tm = document.createElement('span');
+            tm.className = 'tm';
+            tm.textContent = o.ms;
+
+            row.appendChild(ok);
+            row.appendChild(txt);
+            row.appendChild(det);
+            row.appendChild(tm);
+            outEl.appendChild(row);
+            return row;
+        });
+
+        if (reduced) {
+            cmdEl.innerHTML = '<span class="pr">❯ </span>' + esc(cmd);
+            lines.forEach(function (r) { r.classList.add('show'); });
+            return;
+        }
+
+        var i = 0;
+        (function type() {
+            cmdEl.innerHTML = '<span class="pr">❯ </span>'
+                + esc(cmd.slice(0, i)) + '<span class="cursor"></span>';
+            i += 1;
+            if (i <= cmd.length) {
+                setTimeout(type, 34);
+            } else {
+                cmdEl.innerHTML = '<span class="pr">❯ </span>' + esc(cmd);
+                lines.forEach(function (row, idx) {
+                    setTimeout(function () { row.classList.add('show'); },
+                               210 + idx * 300);
+                });
+            }
+        })();
+    }
+
+    /* ── 幕1  count-up 数字 ── */
+
+    function renderMetrics() {
+        var box = $('metrics');
+        box.innerHTML = '';
+        D.metrics.forEach(function (m) {
+            var el = document.createElement('div');
+            el.className = 'metric';
+            var b = document.createElement('b');
+            b.textContent = '0';
+            var s = document.createElement('span');
+            s.textContent = m.label;
+            el.appendChild(b);
+            el.appendChild(s);
+            box.appendChild(el);
+            countUp(b, m.value);
+        });
+
+        // 管道图上的工具数同步
+        var total = D.domains.reduce(function (a, g) { return a + g.items.length; }, 0);
+        $('pl-tool-count').textContent = total + ' TOOLS';
+        document.title = D.meta.name + ' · 成果展示';
+    }
+
+    var counters = [];
+
+    // 含计数器的容器 id：进入视口时才滚动该区数字
+    var COUNTER_BOX_IDS = ['metrics', 'delivery-stats'];
+
+    function countUp(el, target) {
+        counters.push({ el: el, target: target, done: false });
+    }
+
+    // 返回 node 自身或其内部第一个计数器容器，找不到返回 null
+    function findCounterBox(node) {
+        for (var i = 0; i < COUNTER_BOX_IDS.length; i++) {
+            if (node.id === COUNTER_BOX_IDS[i]) { return node; }
+            var inner = node.querySelector('#' + COUNTER_BOX_IDS[i]);
+            if (inner) { return inner; }
+        }
+        return null;
+    }
+
+    // scope 为空时运行全部计数器，否则只运行该容器内的
+    function runCounters(scope) {
+        counters.forEach(function (c) {
+            if (c.done) { return; }
+            if (scope && !scope.contains(c.el)) { return; }
+            c.done = true;
+            if (reduced) { c.el.textContent = c.target; return; }
+            var t0 = null;
+            var dur = 1150;
+            function step(ts) {
+                if (t0 === null) { t0 = ts; }
+                var p = Math.min((ts - t0) / dur, 1);
+                var eased = 1 - Math.pow(1 - p, 3);
+                c.el.textContent = Math.round(c.target * eased);
+                if (p < 1) { requestAnimationFrame(step); }
+            }
+            requestAnimationFrame(step);
+        });
+    }
+
+    /* ── 幕2  能力矩阵墙 ── */
+
+    function renderDomains() {
+        var box = $('domains');
+        box.innerHTML = '';
+        var tally = { read: 0, write: 0, other: 0 };
+
+        D.domains.forEach(function (g, gi) {
+            var card = document.createElement('div');
+            card.className = 'domain reveal';
+            card.style.setProperty('--d', (gi * 34) + 'ms');
+
+            var hd = document.createElement('div');
+            hd.className = 'domain-hd';
+            var h4 = document.createElement('h4');
+            h4.textContent = g.name;
+            var em = document.createElement('em');
+            em.textContent = g.items.length;
+            hd.appendChild(h4);
+            hd.appendChild(em);
+            card.appendChild(hd);
+
+            var chips = document.createElement('div');
+            chips.className = 'chips';
+
+            g.items.forEach(function (it) {
+                tally[it.t] = (tally[it.t] || 0) + 1;
+                var c = document.createElement('span');
+                c.className = 'chip';
+                c.setAttribute('data-t', it.t);
+                c.setAttribute('data-n', it.n);
+                c.setAttribute('data-d', it.d);
+                c.textContent = it.n;
+                chips.appendChild(c);
+            });
+
+            card.appendChild(chips);
+            box.appendChild(card);
+        });
+
+        $('lg-read').textContent = tally.read || 0;
+        $('lg-write').textContent = tally.write || 0;
+        $('lg-other').textContent = tally.other || 0;
+        observe(box.querySelectorAll('.reveal'));
+    }
+
+    /* 工具提示气泡 */
+    function bindTip() {
+        var tip = $('tip');
+        document.addEventListener('mouseover', function (e) {
+            var c = e.target.closest ? e.target.closest('.chip') : null;
+            if (!c) { return; }
+            tip.innerHTML = '';
+            var b = document.createElement('b');
+            b.textContent = c.getAttribute('data-n');
+            tip.appendChild(b);
+            tip.appendChild(document.createTextNode(c.getAttribute('data-d')));
+            tip.classList.add('on');
+        });
+
+        document.addEventListener('mousemove', function (e) {
+            if (!tip.classList.contains('on')) { return; }
+            var x = e.clientX + 14;
+            var y = e.clientY + 16;
+            var w = tip.offsetWidth;
+            var h = tip.offsetHeight;
+            if (x + w > window.innerWidth - 12) { x = e.clientX - w - 14; }
+            if (y + h > window.innerHeight - 12) { y = e.clientY - h - 14; }
+            tip.style.left = x + 'px';
+            tip.style.top = y + 'px';
+        });
+
+        document.addEventListener('mouseout', function (e) {
+            var c = e.target.closest ? e.target.closest('.chip') : null;
+            if (c) { tip.classList.remove('on'); }
+        });
+    }
+
+    /* ── 幕3  BEFORE / AFTER ── */
+
+    function renderContrast() {
+        var bs = $('before-steps');
+        bs.innerHTML = '';
+        D.before.steps.forEach(function (s, i) {
+            var el = document.createElement('div');
+            el.className = 'step-d';
+            var n = document.createElement('span');
+            n.className = 'n';
+            n.textContent = String(i + 1).padStart(2, '0');
+            el.appendChild(n);
+            el.appendChild(document.createTextNode(s));
+            bs.appendChild(el);
+        });
+
+        var br = $('before-risks');
+        br.innerHTML = '';
+        D.before.risks.forEach(function (r) {
+            var el = document.createElement('div');
+            el.className = 'risk-item';
+            el.textContent = r;
+            br.appendChild(el);
+        });
+
+        $('before-cost').innerHTML = D.before.cost;
+        $('after-cmd').textContent = D.after.cmd;
+
+        var as = $('after-steps');
+        as.innerHTML = '';
+        D.after.steps.forEach(function (s, i) {
+            var li = document.createElement('li');
+            var idx = document.createElement('span');
+            idx.className = 'idx';
+            idx.textContent = i + 1;
+            var main = document.createElement('span');
+            main.textContent = s.t;
+            var det = document.createElement('span');
+            det.style.color = 'var(--text-mute)';
+            det.style.fontSize = '12.3px';
+            det.textContent = ' — ' + s.d;
+            var out = document.createElement('span');
+            out.className = 'out';
+            out.textContent = s.out;
+            li.appendChild(idx);
+            li.appendChild(main);
+            li.appendChild(det);
+            li.appendChild(out);
+            as.appendChild(li);
+        });
+
+        $('after-gain').innerHTML = D.after.gain;
+    }
+
+    /* ── 幕4  交付记录 ── */
+
+    function renderDelivery() {
+        var sr = $('delivery-stats');
+        sr.innerHTML = '';
+        D.delivery.stats.forEach(function (s) {
+            var el = document.createElement('div');
+            el.className = 'stat';
+            var b = document.createElement('b');
+            b.textContent = '0';
+            var small = document.createElement('small');
+            small.textContent = s.u;
+            b.appendChild(small);
+            var l = document.createElement('span');
+            l.textContent = s.l;
+            var i = document.createElement('i');
+            i.textContent = s.i;
+            el.appendChild(b);
+            el.appendChild(l);
+            el.appendChild(i);
+            sr.appendChild(el);
+            countUp(b, s.v);
+        });
+
+        $('ledger-note').textContent = D.delivery.note;
+
+        var tb = $('ledger-body');
+        tb.innerHTML = '';
+        D.delivery.ledger.forEach(function (r) {
+            var tr = document.createElement('tr');
+            [[r.b, ''], [r.d, ''], [r.p, ''], [String(r.n), 'num'], [r.t, 'dt']]
+                .forEach(function (cell) {
+                    var td = document.createElement('td');
+                    if (cell[1]) { td.className = cell[1]; }
+                    td.textContent = cell[0];
+                    tr.appendChild(td);
+                });
+            tb.appendChild(tr);
+        });
+
+        var t = D.delivery.test;
+        $('test-status').textContent = t.status;
+        $('test-passed').textContent = t.passed;
+        $('test-total').textContent = t.total;
+        $('test-ok').textContent = t.passed;
+        $('test-failed').textContent = t.failed;
+        $('test-skipped').textContent = t.skipped;
+
+        var su = $('test-suites');
+        su.innerHTML = '';
+        t.suites.forEach(function (s) {
+            var el = document.createElement('span');
+            el.className = 'suite' + (s.skip ? ' skip' : '');
+            el.appendChild(document.createTextNode(s.n));
+            var b = document.createElement('b');
+            b.textContent = s.skip ? s.c + ' skip' : s.c;
+            el.appendChild(b);
+            su.appendChild(el);
+        });
+
+        // 焦点表达式
+        var f = D.delivery.focus;
+        var ex = $('focus-expr');
+        ex.innerHTML = '';
+        ex.appendChild(document.createTextNode('"data_exprs": '));
+        f.segments.forEach(function (seg) {
+            var sp = document.createElement('span');
+            sp.className = 'seg ' + seg.cls;
+            sp.textContent = seg.txt;
+            ex.appendChild(sp);
+        });
+
+        var nt = $('focus-notes');
+        nt.innerHTML = '';
+        f.notes.forEach(function (n) {
+            var el = document.createElement('div');
+            el.className = 'expr-note ' + n.cls;
+            var h = document.createElement('h6');
+            h.textContent = n.h;
+            var p = document.createElement('p');
+            p.textContent = n.p;
+            el.appendChild(h);
+            el.appendChild(p);
+            nt.appendChild(el);
+        });
+
+        $('focus-foot').innerHTML = f.foot;
+    }
+
+    /* ── 幕4  产出物槽 ── */
+
+    function renderSlots() {
+        var box = $('slots');
+        box.innerHTML = '';
+
+        D.artifacts.forEach(function (a) {
+            var holder = $(a.slot);
+            var raw = holder ? (holder.textContent || '').trim() : '';
+
+            var card = document.createElement('div');
+            card.className = 'slot';
+
+            var hd = document.createElement('div');
+            hd.className = 'slot-hd';
+            for (var k = 0; k < 3; k++) { hd.appendChild(document.createElement('i')); }
+            var ttl = document.createElement('span');
+            ttl.textContent = a.title;
+            hd.appendChild(ttl);
+            card.appendChild(hd);
+
+            var body = document.createElement('div');
+            body.className = 'slot-body';
+
+            if (raw) {
+                var pretty = raw;
+                try { pretty = JSON.stringify(JSON.parse(raw), null, 2); } catch (err) { /* 非 JSON 则原样展示 */ }
+                var pre = document.createElement('pre');
+                pre.innerHTML = hlJson(pretty);
+                body.appendChild(pre);
+            } else {
+                var ph = document.createElement('div');
+                ph.className = 'slot-empty';
+                var ico = document.createElement('div');
+                ico.className = 'ico';
+                ico.textContent = 'SLOT 待填充';
+                var p = document.createElement('p');
+                p.textContent = '将下列文件的 JSON 内容粘贴到 HTML 中对应的 script 标签内';
+                var code = document.createElement('code');
+                code.textContent = '<script type="application/json" id="' + a.slot + '">\n  … 粘贴到此处 …\n</' + 'script>\n\n素材：' + a.file;
+                ph.appendChild(ico);
+                ph.appendChild(p);
+                ph.appendChild(code);
+                body.appendChild(ph);
+            }
+
+            card.appendChild(body);
+
+            var ft = document.createElement('div');
+            ft.className = 'slot-ft';
+            ft.textContent = raw ? a.file : 'id="' + a.slot + '"';
+            card.appendChild(ft);
+
+            box.appendChild(card);
+        });
+    }
+
+    /* ── 幕5  生态与护栏 ── */
+
+    function renderEcosystem() {
+        var pb = $('plats');
+        pb.innerHTML = '';
+        D.platforms.forEach(function (p) {
+            var el = document.createElement('div');
+            el.className = 'plat';
+            var lg = document.createElement('div');
+            lg.className = 'plat-logo';
+            lg.textContent = p.i;
+            var tx = document.createElement('div');
+            var b = document.createElement('b');
+            b.textContent = p.n;
+            var s = document.createElement('span');
+            s.textContent = p.by + ' · ' + p.k;
+            tx.appendChild(b);
+            tx.appendChild(s);
+            el.appendChild(lg);
+            el.appendChild(tx);
+            pb.appendChild(el);
+        });
+
+        var gb = $('guards');
+        gb.innerHTML = '';
+        D.guardrails.forEach(function (g) {
+            var el = document.createElement('div');
+            el.className = 'guard';
+            var h = document.createElement('h5');
+            h.textContent = g.h;
+            var p = document.createElement('p');
+            p.innerHTML = g.p;
+            el.appendChild(h);
+            el.appendChild(p);
+            gb.appendChild(el);
+        });
+    }
+
+    /* ── 幕6  结尾 ── */
+
+    function renderClosing() {
+        $('closing-line').innerHTML = markup(D.closing.line);
+        $('closing-sub').textContent = D.closing.sub;
+        var f = $('foot');
+        f.innerHTML = '';
+        D.closing.foot.forEach(function (t) {
+            var s = document.createElement('span');
+            s.textContent = t;
+            f.appendChild(s);
+        });
+    }
+
+    /* ── 滚动入场 ── */
+
+    var io = null;
+
+    function observe(nodes) {
+        if (!('IntersectionObserver' in window)) {
+            Array.prototype.forEach.call(nodes, function (n) { n.classList.add('in'); });
+            runCounters();
+            return;
+        }
+        if (!io) {
+            io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (en) {
+                    if (!en.isIntersecting) { return; }
+                    en.target.classList.add('in');
+                    var cbox = findCounterBox(en.target);
+                    if (cbox) { runCounters(cbox); }
+                    io.unobserve(en.target);
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+        }
+        Array.prototype.forEach.call(nodes, function (n) { io.observe(n); });
+    }
+
+    /* ── 鼠标光晕 ── */
+
+    function bindGlow() {
+        if (reduced || 'ontouchstart' in window) { return; }
+        var glow = $('glow');
+        var pending = false;
+        var px = 0;
+        var py = 0;
+        document.addEventListener('mousemove', function (e) {
+            px = e.clientX;
+            py = e.clientY;
+            if (pending) { return; }
+            pending = true;
+            requestAnimationFrame(function () {
+                glow.style.setProperty('--mx', px + 'px');
+                glow.style.setProperty('--my', py + 'px');
+                pending = false;
+            });
+        });
+    }
+
+    /* ── 实时在线探测
+       数字全部硬编码，但 ONLINE 徽章实时探测 /api/access-info（免鉴权）。
+       探测失败不影响页面展示，仅徽章置灰。 ── */
+
+    function probeStatus() {
+        var dot = $('status-dot');
+        var txt = $('status-txt');
+        fetch('/api/access-info', { cache: 'no-store' })
+            .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+            .then(function (info) {
+                dot.className = 'dot live';
+                var lv = info.accessLevel === 'system' ? 'SYSTEM' : 'USER';
+                txt.textContent = 'ONLINE · ' + lv;
+            })
+            .catch(function () {
+                dot.className = 'dot dead';
+                txt.textContent = 'OFFLINE';
+            });
+    }
+
+    /* ── 启动 ── */
+
+    renderMetrics();
+    renderDomains();
+    renderContrast();
+    renderDelivery();
+    renderSlots();
+    renderEcosystem();
+    renderClosing();
+    bindTip();
+    bindGlow();
+    probeStatus();
+    observe(document.querySelectorAll('.reveal'));
+
+    // 首屏统计：加载即触发，不等滚动。
+    // 笔记本视口下该区块贴近首屏底部，可见比例不足以让
+    // IntersectionObserver 触发，会导致打开页面只看到一排 0。
+    setTimeout(function () {
+        var heroBox = $('metrics');
+        if (!heroBox) { return; }
+        heroBox.classList.add('in');
+        runCounters(heroBox);
+    }, reduced ? 0 : 320);
+
+    // 首屏终端延迟启动，等入场动画落定
+    setTimeout(runTerminal, reduced ? 0 : 620);
+})();
+</script>
+
+</body>
+</html>

@@ -159,9 +159,13 @@ MCP 端点：`http://localhost:8765/mcp`
    - 工具总数（`total`）
    - 当前权限级别（`auth.access_level`：`system` 可读写 / `user` 只读）
    - 请求来源（`auth.source`：`localhost` 或具体 IP）
+   - MCP Server 版本（`version`）
+   - 远端 Agent 资源包名称与版本（`resource_package.name` / `resource_package.version`）
+   - 远端资源包 manifest 校验状态（`resource_package.validation.ok`，失败时展示 `missing`）
+   - 服务器支持的特性列表（`capabilities`，例如 `persistent_user_token`、`function_type_atomic_tag`、`capability_matrix_report`）
 3. 说明当前权限对后续操作的影响：
-   - `system`：可执行全部读取和写入操作
-   - `user`：仅可执行读取操作，写入操作需在服务器本地以 system 权限执行
+   - `system`：可执行全部读取和写入操作，写入仍需逐项确认
+   - `user`：仅可执行读取和本地 JSON 生成，平台新增/平台同步不可用
 
 **探测失败时**：
 
@@ -224,31 +228,76 @@ MCP 端点：`http://localhost:8765/mcp`
 3. 展示本地版本与远端版本对比
    - 如果本地或远端缺少 manifest，展示无法精确比较的原因
    - 如果远端 `resource_package.validation.ok` 为 `false`，展示缺失项并停止更新
-4. 如果版本不一致或用户主动要求更新，展示更新计划：
+4. 版本比较结果分三类：
+   - **版本一致**：只展示简短摘要，不阻塞后续流程
+   - **远端较新但当前任务不依赖新能力**：提示存在可选更新，不强制先更新才能继续
+   - **当前任务依赖新能力**（本地资源包缺少服务器 `capabilities` 中声明的特性，例如需要 `function_type_atomic_tag` 但本地 Skill 尚未支持）：提示版本兼容风险与可能缺失的能力，建议先更新资源包，并展示不更新继续执行的风险或受限范围
+5. 如果版本不一致或用户主动要求更新，展示更新计划：
    - 下载来源：MCP Server Agent 资源包 ZIP 端点（兼容原 Skills ZIP 端点）
    - 更新范围：全部 `.trae/skills` 资源包管理目录，包含 `SKILL.md`、`agents/`、`tools/`、`templates/`、`validators/`、`references/` 和 manifest
    - 备份路径：`.trae/skills_backup_{timestamp}/`
    - 覆盖策略：全量覆盖，备份后解压替换
    - 校验策略：读取包级和 Skill 级 manifest，校验所有 `requiredFiles`/`required` 必需文件
    - 生效方式：更新后需重新加载 `/pca` 会话或重启客户端
-5. **用户确认更新时**：
+6. **用户确认更新时**：
    1. 先备份当前 `.trae/skills` 目录为 `.trae/skills_backup_{timestamp}/`
    2. 下载远端 Agent 资源包 ZIP 并解压覆盖全部资源包内容
    3. 校验 `skills/package-manifest.json`、各 Skill `manifest.json`、关键 Skill 目录、`agents/openai.yaml` 和 `pca/tools/mcp_client.py` 存在
    4. 如果校验失败，报告缺失项和备份路径，不得声称更新完成
    5. 校验通过后，提示用户重新加载 `/pca` 会话或重启客户端以使用新版资源包
-6. **用户未确认更新时**：
+7. **用户未确认更新时**：
    - 不得覆盖、删除或移动本地 `.trae/skills` 内容
    - 继续执行当前已安装版本支持的流程
    - 提示可能存在版本差异风险
+   - 不得把版本更新作为默认执行动作
 
-### 4. 下一步建议
+### 4. 能力矩阵提示
+
+在前置检查完成后，必须根据当前会话状态输出能力矩阵，用于说明哪些能力可用、哪些需要条件、哪些不可用。
+
+能力矩阵覆盖以下能力项：
+
+| 能力项 | 说明 |
+| --- | --- |
+| MCP 工具调用 | 是否可调用 `list_mcp_tools` 等 MCP 工具 |
+| 平台只读查询 | 是否可调用 `get_*` 工具（需要后端业务 Token） |
+| 本地 references 分析 | 是否可使用本地参考文档 |
+| 本地 JSON 生成 | 是否可生成 MODBUS/MQTT/HTTP 转换 JSON |
+| 平台新增 | 是否可调用 `add_*` / `save_*` 等写入工具 |
+| 平台同步 | 是否可调用 `upload_protocol_file` / `gen_script` 等同步工具 |
+| Agent 资源包更新 | 是否可下载并更新本地 `.trae/skills` |
+
+按权限与登录状态输出不同矩阵：
+
+- **system 权限**：
+  - MCP 工具调用：可用
+  - 平台只读查询：可用（需业务 Token）
+  - 本地 references 分析：可用
+  - 本地 JSON 生成：可用
+  - 平台新增 / 平台同步：可确认后执行（写入前必须展示计划并等待用户确认）
+  - Agent 资源包更新：可用
+- **user 权限**：
+  - MCP 工具调用：可用
+  - 平台只读查询：可用（需业务 Token）
+  - 本地 references 分析：可用
+  - 本地 JSON 生成：可用
+  - 平台新增 / 平台同步：不可用（需要在服务器本机以 system 权限执行）
+  - Agent 资源包更新：可用
+  - 不得把后端业务 Token 展示为写入授权来源
+- **未登录业务 Token**：
+  - 平台只读查询：不可用（需要业务 Token）
+  - 不依赖业务 Token 的本地分析仍可继续
+  - 提示用户提供 `phoneNum` 和 `code` 以启用平台查询
+
+### 5. 下一步建议
 
 前置检查和任一子流程结束时，必须输出用户可执行的下一步建议：
 
-- 建议必须与当前登录状态、权限级别、产物状态和用户选择一致
+- 建议必须与当前登录状态、权限级别、版本状态、产物状态和用户选择一致
 - 本地配置已生成但未同步平台时：说明本地文件路径、平台同步未执行、未调用写入工具，并给出后续可选操作（测试验证、打包分发或在 system 权限下同步平台）
-- 当前权限为 `user` 时：说明平台写入不可用，如用户请求写入或同步，提示需要在服务器本地以 system 权限执行
+- 当前权限为 `user` 时：说明平台写入不可用，不展示平台新增或平台同步的确认选项，如用户请求写入或同步，提示需要在服务器本地以 system 权限执行
+- 存在可选更新但当前任务可继续时：将更新作为可选下一步展示，不用更新提示阻塞当前已可执行的只读查询或本地生成流程
+- 当前任务依赖新能力时：提示建议先更新资源包，并展示不更新继续执行的风险或受限范围
 - 所有用户可见的接入配置和输出中使用 IPv4 地址或 `localhost`，不生成 IPv6 地址（如 `[::1]` 或含冒号分段的地址）
 
 ---

@@ -35,6 +35,7 @@ import json
 import os
 import secrets
 import socket
+import time
 import zipfile
 import contextvars
 from pathlib import Path
@@ -55,6 +56,9 @@ PROJECT_ROOT = SCRIPT_DIR.parent
 SKILLS_DIR = PROJECT_ROOT / ".trae" / "skills"
 PACKAGE_MANIFEST_PATH = SKILLS_DIR / "package-manifest.json"
 HTML_PATH = SCRIPT_DIR / "static" / "access.html"
+SHOWCASE_HTML_PATH = SCRIPT_DIR / "static" / "showcase.html"
+# Token Registry 持久化文件路径（本地敏感运行态文件，不得提交版本控制）
+TOKEN_REGISTRY_PATH = SCRIPT_DIR / ".token_registry.json"
 
 # ── 常量 ──
 LOCALHOST_IPS = {"127.0.0.1", "::1", "localhost"}
@@ -161,7 +165,7 @@ TOOL_DEFINITIONS = [
     {"name": "del_protocol_info", "type": "write", "description": "删除规约"},
     {"name": "del_protocol_file", "type": "write", "description": "删除规约文档文件"},
     # 数据项
-    {"name": "get_data_item_list", "type": "read", "description": "查询协议数据项列表（原子标签查询入口）"},
+    {"name": "get_data_item_list", "type": "read", "description": "查询协议数据项列表（按规约查询采集点位配置）"},
     {"name": "add_data_item", "type": "write", "description": "新增数据项（首期仅基础信息）"},
     {"name": "update_data_item", "type": "write", "description": "更新数据项"},
     {"name": "del_data_item", "type": "write", "description": "删除数据项"},
@@ -186,7 +190,7 @@ TOOL_DEFINITIONS = [
     {"name": "save_protocol_type", "type": "write", "description": "保存规约类型字典项"},
     {"name": "del_protocol_type", "type": "write", "description": "删除规约类型字典项"},
     # 功能项
-    {"name": "get_function_type_list", "type": "read", "description": "查询功能项列表"},
+    {"name": "get_function_type_list", "type": "read", "description": "查询功能项列表（原子标签查询入口，API-E10 GetProtocoFunctionTypeList）"},
     {"name": "save_function_item", "type": "write", "description": "保存功能项"},
     {"name": "del_function_item", "type": "write", "description": "删除功能项"},
     # 文件
@@ -204,27 +208,98 @@ class TokenManager:
     """管理 Token 的生成、验证和 IP 关联。
 
     - localhost: 使用管理员 Token（MCP_AUTH_TOKEN），系统级权限
-    - 非 localhost: 自动生成 Token，用户级权限（只读）
-    - Token 存储在内存中，服务器重启后重新生成
+    - 非 localhost: 按 IP 固定自动生成 Token，用户级权限（只读）
+    - 非本机 IP 的 Token 持久化到本地 .token_registry.json，
+      服务器重启后旧 Token 继续有效
+    - Token Registry 为本地敏感运行态文件，不得打包分发或提交版本控制
     """
 
-    def __init__(self, admin_token: str = ""):
+    def __init__(self, admin_token: str = "", registry_path: Path = TOKEN_REGISTRY_PATH):
         self.admin_token = admin_token
-        self.ip_tokens: dict[str, str] = {}
+        self.registry_path = Path(registry_path)
+        # ip -> {token, accessLevel, createdAt, lastSeenAt, revoked}
+        self.ip_tokens: dict[str, dict] = {}
+        # token -> ip 反向索引，用于鉴权时快速查找
+        self._token_to_ip: dict[str, str] = {}
+        self._load_registry()
+
+    def _load_registry(self) -> None:
+        """从磁盘加载 Token Registry，不存在则创建空注册表。"""
+        if not self.registry_path.exists():
+            self.ip_tokens = {}
+            self._token_to_ip = {}
+            return
+        try:
+            data = json.loads(self.registry_path.read_text(encoding="utf-8"))
+            entries = data.get("entries", {})
+            self.ip_tokens = {
+                ip: entry for ip, entry in entries.items() if isinstance(entry, dict)
+            }
+            self._token_to_ip = {
+                entry["token"]: ip
+                for ip, entry in self.ip_tokens.items()
+                if entry.get("token")
+            }
+        except (json.JSONDecodeError, OSError):
+            # 注册表损坏时回退为空，不阻塞启动
+            self.ip_tokens = {}
+            self._token_to_ip = {}
+
+    def _save_registry(self) -> None:
+        """持久化 Token Registry 到磁盘。"""
+        try:
+            payload = {"entries": self.ip_tokens}
+            tmp_path = self.registry_path.with_suffix(".tmp")
+            tmp_path.write_text(
+                json.dumps(payload, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            os.replace(tmp_path, self.registry_path)
+        except OSError:
+            # 写入失败不阻塞请求，仅影响重启后复用
+            pass
 
     def get_or_create_token(self, ip: str) -> str:
-        """为指定 IP 获取或创建 Token。"""
+        """为指定 IP 获取或创建 Token。
+
+        - 本机 IP 返回管理员 Token（不写入 Registry）
+        - 非本机 IP 在 Registry 中查找；不存在则新建并持久化
+        - 已撤销的 IP 会生成新 Token 并覆盖旧记录
+        """
         if _is_local_ip(ip) and self.admin_token:
             return self.admin_token
-        if ip not in self.ip_tokens:
-            self.ip_tokens[ip] = "metam_pat_" + secrets.token_hex(16)
-        return self.ip_tokens[ip]
+        entry = self.ip_tokens.get(ip)
+        if entry and not entry.get("revoked"):
+            entry["lastSeenAt"] = int(time.time())
+            self._save_registry()
+            return entry["token"]
+        new_token = "metam_pat_" + secrets.token_hex(16)
+        now = int(time.time())
+        self.ip_tokens[ip] = {
+            "token": new_token,
+            "accessLevel": "user",
+            "createdAt": now,
+            "lastSeenAt": now,
+            "revoked": False,
+        }
+        self._token_to_ip[new_token] = ip
+        self._save_registry()
+        return new_token
 
     def is_valid(self, token: str) -> bool:
-        """验证 Token 是否有效。"""
+        """验证 Token 是否有效。
+
+        - 管理员 Token 精确匹配
+        - Registry 中未撤销的 user Token 视为有效
+        """
         if self.admin_token and token == self.admin_token:
             return True
-        return token in self.ip_tokens.values()
+        if token in self._token_to_ip:
+            ip = self._token_to_ip[token]
+            entry = self.ip_tokens.get(ip)
+            if entry and not entry.get("revoked") and entry.get("token") == token:
+                return True
+        return False
 
     def get_token_info(self, ip: str) -> dict:
         """获取 IP 对应的 Token 和权限信息。"""
@@ -240,6 +315,27 @@ class TokenManager:
             "accessLevel": "user",
             "source": ip,
         }
+
+    def revoke_token(self, ip: str) -> bool:
+        """撤销指定 IP 的 Token（预留管理接口）。"""
+        entry = self.ip_tokens.get(ip)
+        if not entry:
+            return False
+        old_token = entry.get("token")
+        if old_token and self._token_to_ip.get(old_token) == ip:
+            self._token_to_ip.pop(old_token, None)
+        entry["revoked"] = True
+        entry["lastSeenAt"] = int(time.time())
+        self._save_registry()
+        return True
+
+    def touch_ip_last_seen(self, ip: str) -> None:
+        """更新已存在 IP 记录的 lastSeenAt（不改变 Token）。"""
+        entry = self.ip_tokens.get(ip)
+        if not entry or entry.get("revoked"):
+            return
+        entry["lastSeenAt"] = int(time.time())
+        self._save_registry()
 
 
 # ── 权限上下文 ──
@@ -257,7 +353,7 @@ mcp = FastMCP(
     port=PORT,
 )
 
-# ── 接入页面 ──
+# ── 静态页面 ──
 try:
     ACCESS_HTML = HTML_PATH.read_text(encoding="utf-8")
 except FileNotFoundError:
@@ -265,6 +361,12 @@ except FileNotFoundError:
         "<html><body><h1>access.html not found</h1>"
         "<p>Ensure mcp_server/static/access.html exists.</p></body></html>"
     )
+
+try:
+    SHOWCASE_HTML = SHOWCASE_HTML_PATH.read_text(encoding="utf-8")
+except FileNotFoundError:
+    # 展示页缺失时回退到接入页面，保证根路径始终可访问
+    SHOWCASE_HTML = ACCESS_HTML
 
 
 # ── 辅助函数 ──
@@ -442,7 +544,9 @@ def _create_skills_markdown() -> str:
 def list_mcp_tools() -> dict:
     """列出当前 MCP 服务器支持的所有工具及其状态，同时用于鉴权探测。
 
-    返回包含服务器信息、鉴权状态、权限级别和完整工具列表。
+    返回包含服务器信息、鉴权状态、权限级别、完整工具列表、
+    MCP Server 版本、Agent 资源包版本、manifest 校验状态和
+    服务器支持的特性列表（capabilities）。
     安装验证时调用此工具探测 Token 是否有效及当前权限级别。
     """
     package_manifest = _load_package_manifest()
@@ -457,6 +561,11 @@ def list_mcp_tools() -> dict:
             "manifest_path": "skills/package-manifest.json",
             "validation": package_validation,
         },
+        "capabilities": [
+            "persistent_user_token",
+            "function_type_atomic_tag",
+            "capability_matrix_report",
+        ],
         "auth": {
             "token_required": True,
             "token_valid": True,
@@ -941,14 +1050,16 @@ async def upload_protocol_file(
     return await api_client.upload_protocol_file(token, file_name, content)
 
 
-# ── 数据项（原子标签查询入口） ──
+# ── 数据项（按规约查询采集点位配置） ──
 
 
 @mcp.tool()
 async def get_data_item_list(
     token: str, protocolId: int, protoType: int, pageIndex: int = 1, pageSize: int = 9999
 ) -> dict:
-    """查询协议数据项列表（原子标签查询入口）。
+    """查询协议数据项列表（按规约查询采集点位配置）。
+
+    注意：原子标签/功能项查询请使用 get_function_type_list（API-E10）。
 
     Args:
         token: 登录后获取的后端业务 Token
@@ -1245,7 +1356,7 @@ async def del_protocol_type(token: str, type_id: int) -> dict:
     return await api_client.del_protocol_type(token, type_id)
 
 
-# ── 功能项管理 ──
+# ── 功能项管理（原子标签查询入口，API-E10） ──
 
 
 @mcp.tool()
@@ -1256,7 +1367,10 @@ async def get_function_type_list(
     pageIndex: int = 1,
     pageSize: int = 9999,
 ) -> dict:
-    """查询功能项列表。
+    """查询功能项列表（原子标签查询入口，API-E10 GetProtocoFunctionTypeList）。
+
+    MODBUS 原子标签匹配应优先使用本工具查询平台功能项候选，
+    而不是 get_data_item_list。
 
     Args:
         token: 登录后获取的后端业务 Token
@@ -1338,6 +1452,8 @@ class AuthMiddleware:
             access_level_var.set("system")
             source_var.set("localhost")
         else:
+            # 非本机 user Token 鉴权通过后，刷新 Registry 中的 lastSeenAt
+            self.token_manager.touch_ip_last_seen(client_ip)
             access_level_var.set("user")
             source_var.set(client_ip)
 
@@ -1366,21 +1482,29 @@ class AuthMiddleware:
 
 
 class CompositeApp:
-    """ASGI 复合路由：接入页面 + API + 鉴权 MCP。
+    """ASGI 复合路由：展示页面 + 接入页面 + API + 鉴权 MCP。
 
     路由规则：
-      /                         -> 接入页面 HTML（无需鉴权）
-      /access                   -> 接入页面 HTML（无需鉴权）
+      /                         -> 价值展示页面 HTML（无需鉴权）
+      /showcase                 -> 价值展示页面 HTML（无需鉴权）
+      /access                   -> 接入工具页面 HTML（无需鉴权）
       /api/access-info          -> 自动检测的接入信息 JSON（无需鉴权）
       /api/docs/export-skills-package -> Skills ZIP 下载（无需鉴权）
       /api/docs/export-skills   -> Skills Markdown 摘要（无需鉴权）
       /mcp 及其它                -> 鉴权 MCP 端点（需要 Bearer Token）
     """
 
-    def __init__(self, mcp_app, html_content, token_manager: TokenManager):
+    def __init__(
+        self,
+        mcp_app,
+        html_content,
+        token_manager: TokenManager,
+        showcase_content: str = "",
+    ):
         self.mcp_app = mcp_app
         self.auth = AuthMiddleware(mcp_app, token_manager)
         self.html_content = html_content
+        self.showcase_content = showcase_content or html_content
         self.token_manager = token_manager
 
     async def __call__(self, scope, receive, send):
@@ -1390,9 +1514,12 @@ class CompositeApp:
 
         path = scope.get("path", "")
 
-        # 接入页面
-        if path in ("/", "/access"):
-            body = self.html_content.encode("utf-8")
+        # 静态页面：/ 与 /showcase 为价值展示页，/access 为接入工具页
+        if path in ("/", "/showcase", "/access"):
+            if path == "/access":
+                body = self.html_content.encode("utf-8")
+            else:
+                body = self.showcase_content.encode("utf-8")
             await send(
                 {
                     "type": "http.response.start",
@@ -1529,13 +1656,16 @@ if __name__ == "__main__":
         )
     app = get_app()
 
-    wrapped_app = CompositeApp(app, ACCESS_HTML, token_manager)
+    wrapped_app = CompositeApp(
+        app, ACCESS_HTML, token_manager, showcase_content=SHOWCASE_HTML
+    )
 
     server_ips = _get_server_ips()
     display = "localhost" if HOST in ("0.0.0.0", "::") else HOST
     access_url = f"http://localhost:{PORT}/"
     print(f"[INFO] MCP Server starting on http://{display}:{PORT}")
-    print(f"[INFO]   Access Page:  {access_url}")
+    print(f"[INFO]   Showcase Page: {access_url}")
+    print(f"[INFO]   Access Page:  http://localhost:{PORT}/access")
     print(f"[INFO]   MCP Endpoint: http://{display}:{PORT}/mcp")
     print(f"[INFO]   Skills Download: http://{display}:{PORT}/api/docs/export-skills-package")
     _tool_types = [t["type"] for t in TOOL_DEFINITIONS]

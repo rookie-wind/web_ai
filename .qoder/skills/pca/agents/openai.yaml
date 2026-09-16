@@ -1,0 +1,3 @@
+interface:
+  display_name: "pca"
+  short_description: "协议转换 AI 操作入口"

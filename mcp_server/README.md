@@ -4,17 +4,16 @@
 
 ## 工具清单
 
-| # | 工具名 | 类型 | 状态 | 说明 |
-|---|--------|------|------|------|
-| 1 | `list_mcp_tools` | 只读 | 已实现 | 列出所有工具 + 鉴权探测 |
-| 2 | `query_device_classes` | 只读 | 桩 | 查询运维平台品牌、型号、原子标签 |
-| 3 | `update_protocol_file` | 写入 | 桩 | 更新内部协议参考文件到本地 |
-| 4 | `add_device_class` | 写入 | 桩 | 写入运维平台品牌、型号数据 |
-| 5 | `check_script_exists` | 只读 | 桩 | 查找是否已有同品牌型号的转换脚本 |
-| 6 | `publish_work_log` | 写入 | 桩 | 上传脚本创建记录 |
-| 7 | `publish_converted_script` | 写入 | 桩 | 发布生成的转换脚本到平台 |
+`server.py` 实际注册了 48 个 MCP 工具，分为探测、登录、只读、写入四类。完整清单通过调用 `list_mcp_tools` 工具实时获取。
 
-> 桩工具已注册完整参数 schema，返回占位响应 `{"status": "not_implemented", ...}`。
+| 类型 | 数量 | 示例 |
+|------|------|------|
+| probe（探测） | 1 | `list_mcp_tools` |
+| login（登录） | 1 | `login` |
+| read（只读） | 28+ | `get_classify_list`、`get_device_type_list`、`get_brand_list`、`get_model_list`、`get_protocol_info_list`、`get_data_item_list`、`get_function_type_list`、`get_script_list`、`get_coeff_list`、`get_sense_list`、`get_protocol_type_list` 等 |
+| write（写入） | 18+ | `add_*`、`update_*`、`del_*`、`save_*`、`upload_protocol_file`、`gen_script` |
+
+> 写入类工具统一要求 `system` 权限（localhost 访问），非 localhost 的 `user` 权限调用时返回 `FORBIDDEN`。
 
 ## 鉴权模型
 
@@ -24,15 +23,27 @@
 
 | 来源 | 权限级别 | Token 来源 | 只读工具 | 写入工具 |
 |------|---------|-----------|---------|---------|
-| localhost (127.0.0.1 / ::1) | system | 管理员 Token (MCP_AUTH_TOKEN) | 允许 | 允许 |
-| 其它 IP | user | 自动生成 Token | 允许 | 拒绝 (FORBIDDEN) |
+| localhost (127.0.0.1 / ::1 / 本机网卡 IP) | system | 管理员 Token (MCP_AUTH_TOKEN) | 允许 | 允许（需用户确认） |
+| 其它 IP | user | 按 IP 固定自动生成的 Token | 允许 | 拒绝（不询问、不调用） |
 
 - **Token 自动分配**：访问接入页面时，服务器根据 IP 自动生成 Token，无需手动输入
+- **Token 按 IP 固定**：非本机 Token 与访问 IP 绑定，持久化到本地 `.token_registry.json`，服务器重启后旧 Token 仍可继续使用，无需重新获取
+- **IP 变化需重新获取**：如果访问 IP 发生变化（DHCP 重新分配、更换网络等），需重新打开接入页获取新 Token
 - **管理员 Token**：通过 `MCP_AUTH_TOKEN` 环境变量配置，用于 localhost 系统级访问
-- **用户 Token**：非 localhost 访问时自动生成，仅限只读操作
+- **用户 Token**：非 localhost 访问时按 IP 固定生成，仅限只读操作
 - **MCP 端点**：所有 `/mcp` 请求需携带 `Authorization: Bearer <TOKEN>`
 - **接入页面和 Skills 下载**：无需鉴权
-- 鉴权探测：调用 `list_mcp_tools` 返回 `auth` 字段，包含 `token_valid` / `access_level` / `source`
+- 鉴权探测：调用 `list_mcp_tools` 返回 `auth` 字段，包含 `token_valid` / `access_level` / `source`，以及 `capabilities` 字段说明服务器支持的特性（如 `persistent_user_token`、`function_type_atomic_tag`、`capability_matrix_report`）
+
+### Token Registry（本地敏感运行态文件）
+
+服务器在 `mcp_server/.token_registry.json` 中持久化非本机 IP 的 user Token 绑定关系：
+
+- 每个记录包含 `ip`、`token`、`accessLevel`、`createdAt`、`lastSeenAt`、`revoked`
+- 服务器启动时自动加载，访问接入页或 MCP 鉴权通过后自动更新 `lastSeenAt`
+- 已 `revoked` 的 Token 会被鉴权中间件拒绝
+- **该文件为本地敏感运行态文件，不得提交到版本控制，不得打包到 Agent 资源包，不得分发给其他用户**
+- 已在项目 `.gitignore` 中排除 `mcp_server/.token_registry.json` 和 `.tmp` 临时文件
 
 ## 部署
 
@@ -74,9 +85,13 @@ python mcp_server/server.py
 启动后输出：
 
 ```
-[INFO] Token authentication enabled.
-[INFO] MCP Server starting on http://0.0.0.0:8765/mcp
-[INFO] Tools: 7 (1 implemented + 6 stubs)
+[INFO] Admin token authentication enabled.
+[INFO] MCP Server starting on http://0.0.0.0:8765
+[INFO]   Access Page:  http://localhost:8765/
+[INFO]   MCP Endpoint: http://0.0.0.0:8765/mcp
+[INFO]   Skills Download: http://0.0.0.0:8765/api/docs/export-skills-package
+[INFO]   Tools:         48 (read: 28, write: 18)
+[INFO]   Skills Dir:    E:\codeGIT\pca-mcp-server\.trae\skills
 INFO:     Uvicorn running on http://0.0.0.0:8765
 ```
 
@@ -174,23 +189,25 @@ curl -X POST http://localhost:8765/mcp ^
 
 ```
 mcp_server/
-├── server.py            # FastMCP 入口 + AuthMiddleware + CompositeApp + 7 个工具
+├── server.py            # FastMCP 入口 + AuthMiddleware + CompositeApp + 48 个工具
+├── api_client.py        # 规约管理后端 API 客户端（httpx 异步）
 ├── requirements.txt     # Python 依赖
 ├── install.bat           # 一键安装（创建虚拟环境 + 安装依赖 + 配置 Token）
 ├── start.bat             # 日常启动
 ├── .env                  # install.bat 自动生成，保存 Token
+├── .token_registry.json  # 本地敏感运行态文件，按 IP 持久化 user Token（不得提交版本控制）
 ├── static/
 │   └── access.html       # 一键接入生成器页面
 └── README.md            # 本文件
 ```
 
+> `.token_registry.json` 是本地敏感运行态文件，已在 `.gitignore` 中排除。不要手动编辑或分发给其他用户。
+
 ## 后续开发
 
-6 个桩工具的实现优先级（按 dev-plan 路线图）：
+当前 48 个工具已覆盖规约管理后端 API 的全部原子操作（大类、设备类型、品牌、型号、规约、数据项、脚本、系数、感知、规约类型字典、功能项、文件上传等）。后续扩展方向：
 
-1. `query_device_classes` — Phase 2，查询数据库
-2. `check_script_exists` — Phase 2，幂等检查
-3. `update_protocol_file` — Phase 2，文件系统操作
-4. `add_device_class` — Phase 3，数据库写入
-5. `publish_work_log` — Phase 3，审计日志
-6. `publish_converted_script` — Phase 3，脚本发布（需先通过测试验证）
+1. 原子标签查询入口已明确为 `get_function_type_list`（API-E10 `GetProtocoFunctionTypeList`），`get_data_item_list` 仅用于查询采集点位配置
+2. 持续完善 `/pca` 前置检查、能力矩阵、版本探测和 Agent 资源包更新流程
+3. 持续完善 MODBUS 原子标签批量匹配、置信度、权限分支、续跑摘要和变更影响提示
+4. 按需新增 MQTT/HTTP 协议转换的专属工具和 Skill

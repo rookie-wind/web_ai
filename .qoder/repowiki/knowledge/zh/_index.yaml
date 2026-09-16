@@ -3,11 +3,11 @@ schema_version: 1
 locale: zh-CN
 branch: master
 nodes_managed: true
-exported_at: "2026-09-09T09:29:07Z"
+exported_at: "2026-09-11T09:27:37Z"
 modules:
     "":
-        dir_name: 规约管理 MCP 服务化项目（协议转换与基础数据）
-        title: 规约管理 MCP 服务化项目（协议转换与基础数据）
+        dir_name: 规约管理 MCP 服务化项目根
+        title: 规约管理 MCP 服务化项目根
         scope:
             - .trae/
             - mcp server部署.md
@@ -16,26 +16,14 @@ modules:
         source_files: []
         children:
             - mcp_server
-            - openspec
         depends_on: []
         related_to: []
     mcp_server:
-        dir_name: 协议转换 MCP Server（FastMCP 鉴权与接入生成）
-        title: 协议转换 MCP Server（FastMCP 鉴权与接入生成）
+        dir_name: 协议转换 MCP 服务器（FastMCP 工具网关）
+        title: 协议转换 MCP 服务器（FastMCP 工具网关）
         scope:
             - mcp_server/
         source_files: []
         children: []
         depends_on: []
-        related_to:
-            - path: openspec
-    openspec:
-        dir_name: OpenSpec 变更工件目录（MODBUS MCP 工作流增强）
-        title: OpenSpec 变更工件目录（MODBUS MCP 工作流增强）
-        scope:
-            - openspec/
-        source_files: []
-        children: []
-        depends_on: []
-        related_to:
-            - path: mcp_server
+        related_to: []

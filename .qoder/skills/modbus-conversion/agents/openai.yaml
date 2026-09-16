@@ -1,0 +1,3 @@
+interface:
+  display_name: "modbus-conversion"
+  short_description: "Modbus 协议转换配置生成"

@@ -1,9 +1,0 @@
-schema_version: 1
-module_path: mcp_server
-title: 协议转换 MCP Server（FastMCP 鉴权与接入生成）
-scope:
-    - mcp_server/
-source_files: []
-depends_on: []
-related_to:
-    - path: openspec

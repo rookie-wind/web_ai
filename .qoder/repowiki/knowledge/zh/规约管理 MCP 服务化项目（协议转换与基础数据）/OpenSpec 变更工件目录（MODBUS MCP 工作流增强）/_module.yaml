@@ -1,9 +1,0 @@
-schema_version: 1
-module_path: openspec
-title: OpenSpec 变更工件目录（MODBUS MCP 工作流增强）
-scope:
-    - openspec/
-source_files: []
-depends_on: []
-related_to:
-    - path: mcp_server

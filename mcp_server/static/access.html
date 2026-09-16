@@ -5,238 +5,181 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>协议转换 MCP Server · 一键接入生成器</title>
     <style>
+        /* 与成果展示页共用视觉令牌，保持单文件部署。 */
+        :root {
+            color-scheme: dark;
+            --bg: #070b14; --bg-elev: #0c1220; --bg-card: #0f1725;
+            --line: #1e2a3f; --text: #e6edf7; --dim: #9aabc3;
+            --accent: #00e5a0; --blue: #4f7cff; --warn: #ffc46b;
+            --mono: "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+            --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #f1f5f9;
-            color: #1e293b;
-            line-height: 1.6;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
-            padding: 36px 20px 48px;
-            text-align: center;
-        }
-        .header h1 { font-size: 22px; font-weight: 700; }
-        .header .subtitle { margin-top: 6px; opacity: 0.85; font-size: 14px; }
-
-        /* Flow */
-        .flow {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin-top: 18px;
-            flex-wrap: wrap;
-            font-size: 13px;
-        }
-        .flow-step {
-            background: rgba(255,255,255,0.15);
-            padding: 4px 12px;
-            border-radius: 20px;
-            white-space: nowrap;
-        }
-        .flow-arrow { opacity: 0.6; }
-
-        /* Container */
-        .container {
-            max-width: 880px;
-            margin: -24px auto 40px;
-            padding: 0 16px;
-        }
-
-        /* Card */
-        .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
-            padding: 24px;
-            margin-bottom: 16px;
-        }
-
-        /* Loading */
-        .loading {
-            text-align: center;
-            padding: 40px 20px;
-            color: #64748b;
-            font-size: 14px;
-        }
-        .loading .spinner {
-            display: inline-block;
-            width: 28px;
-            height: 28px;
-            border: 3px solid #e2e8f0;
-            border-top-color: #3b82f6;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-bottom: 10px;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Form */
-        .form-group { margin-bottom: 18px; }
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 6px;
-            font-size: 14px;
-            color: #334155;
-        }
-        .form-group select {
-            width: 100%;
-            padding: 9px 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            background: white;
-            transition: border-color 0.15s, box-shadow 0.15s;
-        }
-        .form-group select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
-        }
-
-        /* Info display */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 18px;
-        }
-        @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
-        .info-item {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 10px 14px;
-        }
-        .info-label {
-            font-size: 12px;
-            color: #64748b;
-            margin-bottom: 2px;
-        }
-        .info-value {
-            font-size: 14px;
-            font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
-            color: #1e293b;
-            word-break: break-all;
-        }
-        .badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        .badge-system { background: #dcfce7; color: #166534; }
-        .badge-user { background: #fef3c7; color: #92400e; }
-
-        .server-ip-note {
-            margin-top: 8px;
-            padding: 8px 12px;
-            background: #eff6ff;
-            border-radius: 6px;
-            font-size: 13px;
-            color: #1e40af;
-        }
-
-        /* Buttons */
-        .btn {
-            padding: 9px 18px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.15s;
-            font-family: inherit;
-        }
-        .btn-primary { background: #2563eb; color: white; }
-        .btn-primary:hover { background: #1d4ed8; }
-        .btn-secondary { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
-        .btn-secondary:hover { background: #e2e8f0; }
-        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
-
-        /* Preview */
-        .preview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .preview-header h2 { font-size: 15px; font-weight: 600; }
-        .copy-feedback {
-            color: #16a34a;
-            font-size: 13px;
-            font-weight: 500;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
+        body { background: var(--bg); color: var(--text); font: 14px/1.7 var(--sans); }
+        body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+            background: radial-gradient(ellipse at 18% 0%, #00e5a014, transparent 50%),
+                radial-gradient(ellipse at 90% 30%, #4f7cff12, transparent 50%),
+                linear-gradient(#ffffff04 1px, transparent 1px),
+                linear-gradient(90deg, #ffffff04 1px, transparent 1px);
+            background-size: auto, auto, 58px 58px, 58px 58px; }
+        ::selection { background: #00e5a04d; }
+        button, a { -webkit-tap-highlight-color: transparent; }
+        button { font-family: inherit; }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+        .topbar { height: 64px; border-bottom: 1px solid var(--line); background: #070b14d9;
+            display: flex; align-items: center; gap: 16px; padding: 0 26px; }
+        .back { display: grid; place-items: center; width: 36px; height: 36px; color: var(--accent);
+            border: 1px solid #00e5a047; border-radius: 9px; background: #00e5a00d;
+            transition: background .2s, transform .2s; }
+        .back:hover { background: #00e5a026; transform: translateX(-2px); }
+        .back svg { width: 20px; height: 20px; }
+        .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+        .brand-mark { display: grid; place-items: center; width: 24px; height: 24px;
+            font: bold 12px var(--mono); color: #04120c; border-radius: 6px;
+            background: linear-gradient(140deg, var(--accent), #0aa87a); box-shadow: 0 0 16px #00e5a040; }
+        .topbar small { margin-left: auto; color: var(--dim); font: 11px var(--mono); letter-spacing: 2px; }
+        .header, .container { position: relative; max-width: 1180px; margin: 0 auto; padding: 0 26px; }
+        .header { padding-top: 54px; padding-bottom: 34px; }
+        .eyebrow { font: 11px var(--mono); letter-spacing: 3px; color: var(--accent); margin-bottom: 14px; }
+        .header h1 { font-size: clamp(28px, 4vw, 46px); letter-spacing: -1px; line-height: 1.25; }
+        .header h1 span { color: var(--accent); text-shadow: 0 0 38px #00e5a02e; }
+        .subtitle { margin-top: 14px; color: var(--dim); }
+        .flow { display: flex; align-items: center; gap: 12px; margin-top: 25px; flex-wrap: wrap; }
+        .flow-step { font-size: 12px; color: var(--dim); }
+        .flow-step b { color: var(--accent); font: 11px var(--mono); margin-right: 7px; }
+        .flow-arrow { color: #546784; }
+        .container { margin-bottom: 48px; }
+        .card { border: 1px solid var(--line); border-radius: 16px; padding: 26px;
+            margin-bottom: 22px; background: linear-gradient(140deg, #0f1725f2, #0a111df5);
+            box-shadow: 0 20px 64px #00000026; }
+        #form-card { border-top-color: #00e5a05c; }
+        .setup-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 30px; }
+        .section-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+        .section-heading span { font: 11px var(--mono); color: var(--accent); }
+        .section-heading h2 { font-size: 15px; font-weight: 600; }
+        .section-heading small { margin-left: auto; color: var(--dim); font: 11px var(--mono); }
+        .platform-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+        .platform-card { display: flex; align-items: center; gap: 10px; position: relative;
+            min-height: 80px; padding: 15px 12px; text-align: left; background: #080e19;
+            border: 1px solid var(--line); border-radius: 10px; color: var(--text); cursor: pointer;
+            transition: border-color .2s, background .2s, transform .2s, box-shadow .2s; }
+        .platform-card:hover { border-color: #4f7cff99; transform: translateY(-2px); background: #101c30; }
+        .platform-card[aria-pressed="true"] { border-color: var(--accent); background: #00e5a00c;
+            box-shadow: 0 0 24px #00e5a010, inset 0 0 18px #00e5a006; }
+        .platform-card[aria-pressed="true"]::after { content: "✓"; position: absolute; right: 9px;
+            top: 5px; color: var(--accent); font-size: 11px; }
+        .platform-icon { flex: none; width: 32px; height: 32px; border-radius: 8px; display: grid;
+            place-items: center; font: bold 15px var(--mono); color: #9ab5ff; background: #4f7cff1c; }
+        .platform-card[aria-pressed="true"] .platform-icon { color: var(--accent); background: #00e5a01c; }
+        .platform-card b { display: block; font-size: 12px; line-height: 1.45; }
+        .platform-card small { display: block; color: var(--dim); font-size: 10px; margin-top: 3px; }
+        .platform-hint { margin-top: 15px; font-size: 12px; color: var(--dim); }
+        .info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+        .info-item { background: #070c16; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+        .info-item.wide { grid-column: 1 / -1; }
+        .info-label { font-size: 11px; color: var(--dim); margin-bottom: 4px; }
+        .info-value { font: 12px/1.65 var(--mono); overflow-wrap: anywhere; color: var(--text); }
+        #server-addr { color: #83cfff; }
+        #token-display { color: var(--accent); }
+        .badge { display: inline-block; border-radius: 5px; padding: 2px 8px; font: 11px/1.6 var(--sans); }
+        .badge-system { color: var(--accent); background: #00e5a018; border: 1px solid #00e5a040; }
+        .badge-user { color: var(--warn); background: #ffc46b18; border: 1px solid #ffc46b40; }
+        .server-ip-note { margin-top: 10px; font-size: 11px; color: var(--dim); overflow-wrap: anywhere; }
+        .security { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 14px; }
+        .security-title { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--accent); }
+        .security-title svg { width: 17px; height: 17px; }
+        .security-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+        .security-tags span { border: 1px solid #00e5a024; background: #00e5a008;
+            color: var(--dim); border-radius: 4px; padding: 2px 7px; font-size: 10px; }
+        .security-tags .warning { color: var(--warn); border-color: #ffc46b33; }
+        .actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            gap: 16px; border-top: 1px solid var(--line); margin-top: 24px; padding-top: 22px; }
+        .btn { border-radius: 8px; padding: 11px 16px; font-size: 12px; cursor: pointer;
+            border: 1px solid var(--line); transition: background .2s, box-shadow .2s; }
+        .btn-primary { color: #04120c; background: var(--accent); border-color: var(--accent); font-weight: 700; }
+        .btn-primary:hover { background: #57f3c1; box-shadow: 0 0 30px #00e5a030; }
+        .btn-secondary { color: var(--text); background: #111c2e; }
+        .btn-secondary:hover { background: #1c2c44; border-color: #4f7cff88; }
+        .btn-group { display: flex; flex-wrap: wrap; gap: 8px; }
+        #generated-status { font-size: 12px; color: var(--accent); }
+        #next-step { font-size: 11px; color: var(--dim); margin-top: 3px; }
+        #preview-card { padding: 0; overflow: hidden; }
+        .preview-header { display: flex; align-items: center; gap: 10px; padding: 14px 20px;
+            border-bottom: 1px solid var(--line); background: #101927; flex-wrap: wrap; }
+        .editor-dots { display: flex; gap: 5px; margin-right: 6px; }
+        .editor-dots i { width: 8px; height: 8px; border-radius: 50%; background: #ff5f57; }
+        .editor-dots i:nth-child(2) { background: #febc2e; }
+        .editor-dots i:nth-child(3) { background: #28c840; }
+        .preview-header h2 { font: 12px var(--mono); font-weight: 500; }
+        .file-type { font: 10px var(--mono); color: var(--dim); border: 1px solid var(--line); padding: 1px 6px; border-radius: 4px; }
+        .copy-feedback { margin-left: auto; color: var(--accent); font-size: 12px; opacity: 0; }
         .copy-feedback.show { opacity: 1; }
-        textarea {
-            width: 100%;
-            min-height: 420px;
-            padding: 14px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            font-family: "Cascadia Code", "Fira Code", Consolas, "Courier New", monospace;
-            font-size: 13px;
-            line-height: 1.65;
-            resize: vertical;
-            background: #f8fafc;
-            color: #1e293b;
-            white-space: pre;
-            overflow-x: auto;
+        .editor-scroll { overflow: auto; max-height: 520px; background: #050910; scrollbar-color: #273953 #050910; }
+        #output { margin: 0; padding: 16px 0; counter-reset: code-line; min-width: 100%; width: max-content;
+            font: 12px/1.95 var(--mono); tab-size: 2; }
+        .code-line { display: block; min-height: 1.95em; padding-right: 24px; counter-increment: code-line; }
+        .code-line::before { content: counter(code-line); display: inline-block; width: 50px; margin-right: 18px;
+            padding-right: 12px; text-align: right; color: #72849e; border-right: 1px solid #16202f; user-select: none; }
+        .code-line.heading { color: var(--accent); }
+        .code-line.json { color: #95cfff; background: #4f7cff06; }
+        .code-line.fence { color: #b2a0f5; }
+        .editor-footer { display: flex; gap: 16px; justify-content: space-between; flex-wrap: wrap;
+            border-top: 1px solid var(--line); padding: 10px 20px; color: var(--dim); font-size: 11px; }
+        .notes h3 { font-size: 14px; margin-bottom: 16px; }
+        .notes ul { padding-left: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 34px;
+            font-size: 12px; color: var(--dim); }
+        .notes b { color: var(--text); }
+        .loading { text-align: center; padding: 60px 20px; color: var(--dim); }
+        .spinner { display: inline-block; width: 28px; height: 28px; margin-bottom: 10px;
+            border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; }
+        .error-msg { color: #ff9e93; font-size: 14px; padding: 30px; text-align: center; white-space: pre-line; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @media (max-width: 1000px) {
+            .setup-grid { grid-template-columns: 1fr; }
+            .platform-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .platform-card { flex-direction: column; align-items: flex-start; }
         }
-        textarea:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+        @media (max-width: 680px) {
+            .header, .container { padding-left: 17px; padding-right: 17px; }
+            .header { padding-top: 32px; }
+            .topbar { padding: 0 17px; }
+            .topbar small { display: none; }
+            .card { padding: 18px; }
+            .platform-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .platform-card { flex-direction: row; align-items: center; }
+            .notes ul { grid-template-columns: 1fr; }
+            .btn-group { width: 100%; }
+            .btn-primary { width: 100%; }
+            .btn-secondary { flex: 1; }
+            .preview-header { padding: 12px; }
+            .editor-dots { display: none; }
         }
-
-        /* Notes */
-        .notes {
-            padding: 18px 20px;
-            background: #eff6ff;
-            border-radius: 8px;
-            border-left: 3px solid #3b82f6;
-        }
-        .notes h3 { font-size: 14px; margin-bottom: 8px; color: #1e40af; }
-        .notes ul { padding-left: 18px; font-size: 13px; color: #475569; }
-        .notes li { margin-bottom: 5px; }
-        .notes b { color: #1e293b; }
-
-        /* Error */
-        .error-msg {
-            color: #dc2626;
-            font-size: 14px;
-            padding: 20px;
-            text-align: center;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
         }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>协议转换 MCP Server · 一键接入生成器</h1>
-    <div class="subtitle">服务器自动检测 IP 并分配 Token · Agent 资源包自动打包 · 无需手动配置</div>
-    <div class="flow">
-        <span class="flow-step">打开本页面</span>
-        <span class="flow-arrow">→</span>
-        <span class="flow-step">选择平台</span>
-        <span class="flow-arrow">→</span>
-        <span class="flow-step">复制文本</span>
-        <span class="flow-arrow">→</span>
-        <span class="flow-step">发送给用户</span>
-        <span class="flow-arrow">→</span>
-        <span class="flow-step">粘贴到 AI Agent</span>
+<nav class="topbar" aria-label="页面导航">
+    <a class="back" href="/showcase" aria-label="返回成果展示页" title="返回成果展示页">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 6l-6 6 6 6M8 12h13" /></svg>
+    </a>
+    <div class="brand"><span class="brand-mark">P</span>协议智能体</div>
+    <small>CONNECTION / MCP</small>
+</nav>
+<header class="header">
+    <div class="eyebrow">CONNECT YOUR AI WORKSPACE</div>
+    <h1>让协议能力，<span>接入你的 AI</span></h1>
+    <div class="subtitle">一键接入生成器 · 自动检测 IP 与权限，生成专属配置，让 Agent 随时就绪。</div>
+    <div class="flow" aria-label="接入步骤">
+        <span class="flow-step"><b>01</b>选择目标平台</span>
+        <span class="flow-arrow" aria-hidden="true">→</span>
+        <span class="flow-step"><b>02</b>复制接入配置</span>
+        <span class="flow-arrow" aria-hidden="true">→</span>
+        <span class="flow-step"><b>03</b>交给 AI Agent 安装与验证</span>
     </div>
-</div>
+</header>
 
 <div class="container">
     <!-- Form -->
@@ -247,25 +190,21 @@
         </div>
 
         <div id="content" style="display:none;">
-            <div class="form-group">
-                <label for="platform">目标平台</label>
-                <select id="platform">
-                    <option value="trae">Trae（字节跳动）</option>
-                    <option value="cursor">Cursor</option>
-                    <option value="vscode">VS Code Copilot</option>
-                    <option value="claude">Claude Desktop</option>
-                    <option value="windsurf">Windsurf (Codeium)</option>
-                    <option value="cline">Cline</option>
-                    <option value="kimi">Kimi Code（月之暗面）</option>
-                </select>
+            <div class="setup-grid">
+            <div class="platform-panel">
+                <div class="section-heading"><span>01 /</span><h2 id="platform-label">选择目标平台</h2><small>8 CLIENTS</small></div>
+                <input type="hidden" id="platform" value="trae">
+                <div class="platform-grid" id="platform-cards" role="group" aria-labelledby="platform-label"></div>
+                <p class="platform-hint">配置随平台自动适配 · 点击卡片即可切换</p>
             </div>
-
+            <div class="connection-panel">
+            <div class="section-heading"><span>02 /</span><h2>你的接入凭证</h2><small>ACCESS PROFILE</small></div>
             <div class="info-grid">
-                <div class="info-item">
+                <div class="info-item wide">
                     <div class="info-label">服务器地址（自动检测）</div>
                     <div class="info-value" id="server-addr">-</div>
                 </div>
-                <div class="info-item">
+                <div class="info-item wide">
                     <div class="info-label">Token（自动分配）</div>
                     <div class="info-value" id="token-display">-</div>
                 </div>
@@ -282,11 +221,23 @@
             </div>
 
             <div id="server-ip-note" style="display:none;"></div>
-
-            <div class="btn-group">
-                <button class="btn btn-primary" onclick="generate()">生成接入文本</button>
-                <button class="btn btn-secondary" onclick="copyText()">复制到剪贴板</button>
-                <button class="btn btn-secondary" onclick="download()">下载 .md</button>
+            <div class="security">
+                <div class="security-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3l8 3v6c0 5-8 9-8 9s-8-4-8-9V6zM8 12l3 3 5-6" /></svg>
+                    Token 安全边界
+                </div>
+                <div class="security-tags"><span>按 IP 识别</span><span>权限分级</span><span>自动分配</span><span class="warning">凭证请勿外传</span></div>
+                <div id="token-persist-note" style="display:none;" class="server-ip-note"></div>
+            </div>
+            </div>
+            </div>
+            <div class="actions">
+                <div><p id="generated-status" role="status">等待生成接入配置</p><p id="next-step"></p></div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" onclick="generate()">生成专属接入配置</button>
+                    <button type="button" class="btn btn-secondary" onclick="copyText()">复制到剪贴板</button>
+                    <button type="button" class="btn btn-secondary" onclick="download()">下载 .md</button>
+                </div>
             </div>
         </div>
 
@@ -296,10 +247,14 @@
     <!-- Preview -->
     <div class="card" id="preview-card" style="display:none;">
         <div class="preview-header">
-            <h2>接入文本预览</h2>
-            <span class="copy-feedback" id="copyFeedback">已复制</span>
+            <div class="editor-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <h2>mcp-access.md</h2><span class="file-type">MARKDOWN</span>
+            <span class="copy-feedback" id="copyFeedback" role="status"></span>
         </div>
-        <textarea id="output" readonly></textarea>
+        <div class="editor-scroll" tabindex="0" role="region" aria-label="接入文本预览，可横向及纵向滚动">
+            <pre><code id="output"></code></pre>
+        </div>
+        <div class="editor-footer"><span id="editor-meta">UTF-8 · Markdown</span><span>含当前 IP 的 Token · 仅用于你自己的接入</span></div>
     </div>
 
     <!-- Notes -->
@@ -309,10 +264,12 @@
             <ul>
                 <li><b>自动检测</b>：服务器自动检测你的 IP 并分配 Token，无需手动输入</li>
                 <li><b>权限分级</b>：本机 IP（含 localhost 和网卡 IP）→ 系统级（读写），其它 IP → 用户级（只读）</li>
+                <li><b>Token 按 IP 固定</b>：非本机 Token 与你的访问 IP 绑定，服务器重启后仍可继续使用，无需重新获取</li>
+                <li><b>IP 变化需重新获取</b>：如果你的 IP 发生变化（DHCP、更换网络等），请重新打开本页面获取新 Token</li>
                 <li><b>Agent 资源包</b>：服务器自动打包 .trae/skills/ 目录，包含 Skill 文档、Agent 配置、工具、模板、校验器、参考资料和 manifest</li>
-                <li><b>分发</b>：点击「复制到剪贴板」或「下载 .md」，将接入文本发送给其他用户</li>
-                <li><b>接入</b>：接收者将整段文本粘贴给 AI Agent（如 Trae），Agent 完成：写入 mcp.json → 安装资源包 → 校验 manifest → 调用 list_mcp_tools 验证</li>
-                <li><b>安全</b>：Token 是临时凭证，请勿提交仓库、贴到群聊或写入日志</li>
+                <li><b>分发</b>：向其他用户分享本接入页地址，由其独立获取 Token；复制与下载的配置仅供当前用户使用</li>
+                <li><b>接入</b>：将整段文本粘贴给所选平台的 AI Agent，完成：写入平台 MCP 配置 → 安装资源包 → 校验 manifest → 调用 list_mcp_tools 验证</li>
+                <li><b>安全</b>：Token 是临时凭证，请勿提交仓库、贴到群聊或写入日志；每个 IP 需独立打开本页面获取自己的 Token</li>
             </ul>
         </div>
     </div>
@@ -327,7 +284,20 @@ var accessInfo = {
     serverIPs: []
 };
 
+// 原始 Markdown 与可视预览分离，复制和下载始终读取原文。
+var generatedText = '';
+var feedbackTimer = null;
+
 var PLATFORMS = {
+    qoder: {
+        name: 'Qoder',
+        ideName: 'Qoder',
+        configLocation: 'Qoder 设置 → MCP → 添加 MCP Server → 粘贴 JSON 配置',
+        buildServerEntry: function(url, token) {
+            return { url: url + '/mcp', headers: { Authorization: 'Bearer ' + token } };
+        },
+        rootKey: 'mcpServers'
+    },
     trae: {
         name: 'Trae（字节跳动）',
         ideName: 'Trae IDE',
@@ -398,10 +368,56 @@ var PLATFORMS = {
     }
 };
 
+function renderPlatformCards() {
+    var cards = document.getElementById('platform-cards');
+    var labels = [
+        ['trae', 'Trae', '字节跳动', 'T'],
+        ['cursor', 'Cursor', 'AI-First IDE', 'C'],
+        ['vscode', 'VS Code Copilot', 'GitHub Copilot', 'V'],
+        ['claude', 'Claude Desktop', 'Anthropic', 'C'],
+        ['windsurf', 'Windsurf', 'Codeium', 'W'],
+        ['cline', 'Cline', 'VS Code 插件', 'C'],
+        ['kimi', 'Kimi Code', '月之暗面', 'K'],
+        ['qoder', 'Qoder', '阿里巴巴', 'Q']
+    ];
+    labels.forEach(function(item) {
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'platform-card';
+        button.dataset.platform = item[0];
+        button.setAttribute('aria-pressed', String(item[0] === document.getElementById('platform').value));
+        var icon = document.createElement('span');
+        icon.className = 'platform-icon';
+        icon.setAttribute('aria-hidden', 'true');
+        icon.textContent = item[3];
+        var text = document.createElement('span');
+        var name = document.createElement('b');
+        name.textContent = item[1];
+        var by = document.createElement('small');
+        by.textContent = item[2];
+        text.appendChild(name);
+        text.appendChild(by);
+        button.appendChild(icon);
+        button.appendChild(text);
+        button.addEventListener('click', function() {
+            document.getElementById('platform').value = item[0];
+            cards.querySelectorAll('button').forEach(function(card) {
+                card.setAttribute('aria-pressed', String(card === button));
+            });
+            generate();
+        });
+        cards.appendChild(button);
+    });
+}
+
 function fetchAccessInfo() {
-    fetch('/api/access-info')
-        .then(function(r) { return r.json(); })
+    fetch('/api/access-info', { cache: 'no-store' })
+        .then(function(r) {
+            if (!r.ok) { throw new Error('HTTP ' + r.status); }
+            return r.json();
+        })
         .then(function(data) {
+            if (!data.token || !data.baseUrl) { throw new Error('接入信息不完整'); }
             accessInfo = data;
             displayInfo();
             document.getElementById('loading').style.display = 'none';
@@ -412,7 +428,7 @@ function fetchAccessInfo() {
             document.getElementById('loading').style.display = 'none';
             var errEl = document.getElementById('error');
             errEl.style.display = 'block';
-            errEl.textContent = '获取接入信息失败: ' + err.message + '\n请确保通过服务器访问本页面（http://服务器IP:8765/），而非直接打开文件。';
+            errEl.textContent = '获取接入信息失败: ' + err.message + '\n请确保通过服务器访问本页面（http://服务器IP:8765/access），而非直接打开文件。';
         });
 }
 
@@ -436,9 +452,23 @@ function displayInfo() {
         note.className = 'server-ip-note';
         note.style.display = 'block';
         var ipList = accessInfo.serverIPs.map(function(ip) {
-            return 'http://' + ip + ':' + (accessInfo.baseUrl.match(/:(\d+)$/)||[])[1];
+            return 'http://' + ip + ':' + (new URL(accessInfo.baseUrl).port || '80') + '/access';
         }).join('、');
         note.textContent = '服务器网络地址: ' + ipList + '。其他用户请通过这些地址访问本页面。';
+    }
+
+    // Token 持久化与 IP 绑定提示
+    var tokenNote = document.getElementById('token-persist-note');
+    if (tokenNote) {
+        tokenNote.style.display = 'block';
+        if (accessInfo.accessLevel === 'system') {
+            tokenNote.textContent = '当前为本机访问，使用管理员 Token。管理员 Token 由 MCP_AUTH_TOKEN 环境变量提供，不受 IP 绑定影响。';
+        } else {
+            tokenNote.textContent = '当前 Token 已绑定你的访问 IP（' + (accessInfo.source || '') + '）。' +
+                '服务器重启后该 Token 仍可继续使用，无需重新获取。' +
+                '如果你的 IP 发生变化（如 DHCP 重新分配、更换网络），请重新打开本页面获取新 Token。' +
+                '请勿将 Token 发送给其他 IP 的同事，每个 IP 需独立打开本页面获取自己的 Token。';
+        }
     }
 }
 
@@ -470,7 +500,9 @@ function generateText() {
         '认证已开启：配置中的 Authorization header 已内置 Token，可直接粘贴完成接入。',
         '临时 Token 明文：' + token,
         '权限说明：本机 IP（含 localhost 和网卡 IP）访问获得系统级权限（读写），其它来源获得用户级权限（只读）。',
-        '不要提交仓库、贴到群聊、写入日志或模型提示词模板。',
+        'Token 按 IP 固定：非本机 Token 与你的访问 IP 绑定，服务器重启后仍可继续使用，无需重新获取。',
+        'IP 变化需重新获取：如果你的 IP 发生变化（DHCP、更换网络等），请重新打开接入页获取新 Token。',
+        '不要提交仓库、贴到群聊、写入日志或模型提示词模板。不要将 Token 发送给其他 IP 的同事，每个 IP 需独立打开接入页获取自己的 Token。',
         '',
         '## Agent 资源包安装',
         'Agent 资源包 ZIP（兼容原 Skills ZIP 端点）：' + baseUrl + '/api/docs/export-skills-package?baseUrl=' + encodedBaseUrl,
@@ -512,12 +544,40 @@ function generateText() {
 
 function generate() {
     if (!accessInfo.token) return;
+    generatedText = generateText();
+    var output = document.getElementById('output');
+    output.textContent = '';
+    var inJson = false;
+    var lines = generatedText.split('\n');
+    lines.forEach(function(line) {
+        var span = document.createElement('span');
+        span.className = 'code-line';
+        if (line.indexOf('```') === 0) {
+            inJson = !inJson;
+            span.classList.add('fence');
+        } else if (inJson) {
+            span.classList.add('json');
+        } else if (line.indexOf('#') === 0) {
+            span.classList.add('heading');
+        }
+        // 只用文本节点，Token 和用户可见内容不会被解释成 HTML。
+        span.textContent = line + '\n';
+        output.appendChild(span);
+    });
     document.getElementById('preview-card').style.display = 'block';
-    document.getElementById('output').value = generateText();
+    var scroll = document.querySelector('.editor-scroll');
+    scroll.scrollTop = 0;
+    scroll.scrollLeft = 0;
+    var platform = PLATFORMS[document.getElementById('platform').value];
+    document.getElementById('generated-status').textContent = '已为 ' + platform.name + ' 生成接入配置';
+    document.getElementById('next-step').textContent = '下一步：复制或下载，然后交给 ' + platform.ideName + ' 的 AI Agent。';
+    document.getElementById('editor-meta').textContent = 'UTF-8 · ' + lines.length + ' 行 · ' + platform.name;
+    clearTimeout(feedbackTimer);
+    document.getElementById('copyFeedback').classList.remove('show');
 }
 
 function copyText() {
-    var text = document.getElementById('output').value;
+    var text = generatedText;
     if (!text) return;
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(function() {
@@ -531,20 +591,30 @@ function copyText() {
 }
 
 function fallbackCopy(text) {
-    var ta = document.getElementById('output');
+    var previousFocus = document.activeElement;
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.readOnly = true;
+    ta.style.cssText = 'position:fixed;left:-9999px;top:0;';
+    document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand('copy'); } catch (e) {}
-    showFeedback();
+    var copied = false;
+    try { copied = document.execCommand('copy'); } catch (e) { copied = false; }
+    document.body.removeChild(ta);
+    if (previousFocus && previousFocus.focus) { previousFocus.focus(); }
+    showFeedback(copied ? '已复制原始接入文本' : '复制受限，请使用下载 .md');
 }
 
-function showFeedback() {
+function showFeedback(message) {
     var fb = document.getElementById('copyFeedback');
+    fb.textContent = message || '已复制原始接入文本';
     fb.classList.add('show');
-    setTimeout(function() { fb.classList.remove('show'); }, 2000);
+    clearTimeout(feedbackTimer);
+    feedbackTimer = setTimeout(function() { fb.classList.remove('show'); }, 4000);
 }
 
 function download() {
-    var text = document.getElementById('output').value;
+    var text = generatedText;
     if (!text) return;
     var blob = new Blob([text], { type: 'text/markdown;charset=utf-8' });
     var url = URL.createObjectURL(blob);
@@ -554,13 +624,14 @@ function download() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
 }
 
 // Re-generate on platform change
 document.getElementById('platform').addEventListener('change', generate);
 
-// Fetch access info on load
+// 初始化平台卡片，再获取接入信息。
+renderPlatformCards();
 fetchAccessInfo();
 </script>
 
