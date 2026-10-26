@@ -607,13 +607,59 @@ h1.hero-title .hl {
 /* ═══════════════════════════════════════════════════════════
    幕2  能力矩阵墙
    ═══════════════════════════════════════════════════════════ */
+.matrix-panel {
+    border: 1px solid var(--line-soft);
+    border-radius: 10px;
+    background: var(--bg-elev);
+    overflow: hidden;
+}
+.matrix-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px;
+    border-bottom: 1px solid var(--line-soft);
+}
+.matrix-toolbar label { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.matrix-toolbar input, .matrix-toolbar select {
+    min-width: 0;
+    max-width: 100%;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 8px;
+}
+.matrix-toolbar input { width: 220px; }
+.matrix-toolbar output { margin-left: auto; color: var(--text-mute); font-size: 12px; }
+.domains-wrap {
+    height: clamp(320px, 60vh, 560px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 14px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+    scrollbar-gutter: stable;
+}
+.matrix-empty { color: var(--text-mute); padding: 24px; }
+.domains-wrap:focus-visible, .chip:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+}
+.direction-list { margin-top: 10px; color: var(--text-mute); font-size: 12px; }
+.domains-wrap::-webkit-scrollbar { width: 6px; }
+.domains-wrap::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+.domains-wrap::-webkit-scrollbar-track { background: transparent; }
 .domains {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(258px, 100%), 1fr));
     gap: 13px;
+    align-items: start;
 }
 
 .domain {
+    min-width: 0;
     border: 1px solid var(--line-soft);
     border-radius: 9px;
     background: var(--bg-elev);
@@ -662,7 +708,10 @@ h1.hero-title .hl {
     padding: 2.5px 6px;
     cursor: default;
     transition: color 0.16s, border-color 0.16s, background 0.16s;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    max-width: 100%;
+    text-align: left;
 }
 
 .chip:hover {
@@ -673,6 +722,10 @@ h1.hero-title .hl {
 }
 
 .chip[data-t="write"]:hover { color: #ffc46b; border-color: rgba(255, 196, 107, 0.45); background: rgba(255, 196, 107, 0.10); }
+.chip[data-t="other"]:hover { color: #8baaff; border-color: rgba(79, 124, 255, 0.45); }
+.chip[data-t="read"] { border-left-color: #00e5a0; }
+.chip[data-t="write"] { border-left-color: #ffc46b; }
+.chip[data-t="other"] { border-left-color: #4f7cff; }
 
 /* 提示气泡 */
 #tip {
@@ -694,7 +747,8 @@ h1.hero-title .hl {
 }
 
 #tip.on { opacity: 1; transform: none; }
-#tip b { font-family: var(--mono); font-size: 11.5px; color: var(--accent); display: block; margin-bottom: 2px; }
+#tip b { font-family: var(--mono); font-size: 11.5px; color: var(--accent); display: block; margin-bottom: 2px; overflow-wrap: anywhere; }
+#tip { max-width: min(290px, calc(100vw - 24px)); }
 
 .legend {
     display: flex;
@@ -983,19 +1037,6 @@ h1.hero-title .hl {
     text-align: center;
 }
 
-.test-badge {
-    display: inline-block;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    color: var(--accent);
-    background: var(--accent-dim);
-    border: 1px solid rgba(0, 229, 160, 0.3);
-    border-radius: 20px;
-    padding: 3px 13px;
-    margin-bottom: 14px;
-}
-
 .test-big {
     font-family: var(--mono);
     font-size: 46px;
@@ -1007,12 +1048,6 @@ h1.hero-title .hl {
 .test-big s { text-decoration: none; color: var(--text-mute); font-size: 0.5em; }
 .test-card p { font-size: 12px; color: var(--text-dim); margin-top: 8px; }
 
-.test-split { display: flex; justify-content: center; gap: 18px; margin-top: 15px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
-.test-split div { font-family: var(--mono); font-size: 11.5px; color: var(--text-mute); }
-.test-split b { display: block; font-size: 17px; color: var(--text); }
-.test-split .pass b { color: var(--accent); }
-.test-split .fail b { color: var(--text-dim); }
-
 .suites { display: flex; flex-wrap: wrap; gap: 7px; align-content: flex-start; }
 
 .suite {
@@ -1023,6 +1058,8 @@ h1.hero-title .hl {
     border: 1px solid var(--line-soft);
     border-radius: 5px;
     padding: 5px 9px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
     transition: border-color 0.18s, color 0.18s;
 }
 
@@ -1371,7 +1408,7 @@ h1.hero-title .hl {
     <div class="brand">
         <div class="brand-mark">P</div>
         <span id="brand-name">协议智能体</span>
-        <span class="brand-ver" id="brand-ver">v0.1.0</span>
+        <span class="brand-ver" id="brand-ver">—</span>
     </div>
     <div class="navlinks">
         <a href="#hero">概览</a>
@@ -1402,12 +1439,13 @@ h1.hero-title .hl {
                 <p class="hero-sub reveal" style="--d:140ms" id="hero-sub"></p>
 
                 <div class="metrics reveal" style="--d:210ms" id="metrics"></div>
+                <div class="direction-list" id="direction-list">协议方向加载中</div>
             </div>
 
             <div class="term reveal" style="--d:180ms">
                 <div class="term-bar">
                     <i></i><i></i><i></i>
-                    <span id="term-title">pca · agent session</span>
+                    <span id="term-title">xlpa · agent session</span>
                     <div class="term-live">AGENT WORKFLOW</div>
                 </div>
                 <div class="term-body">
@@ -1435,7 +1473,7 @@ h1.hero-title .hl {
             <div class="arch-scroll" tabindex="0" role="region" aria-label="协议智能体数据流转架构图，可横向滚动">
                 <svg class="pipeline" viewBox="0 0 1080 640" role="img" aria-labelledby="arch-title arch-desc">
                     <title id="arch-title">协议智能体数据流转架构图</title>
-                    <desc id="arch-desc">用户需求交给 AI 理解意图，识别 Modbus、MQTT 或 HTTP 协议并路由技能，通过 MCP 工具网关编排业务能力，完成配置生成、测试验证、打包分发和上线运行；验证不通过时返回修正配置。</desc>
+                    <desc id="arch-desc">用户需求交给 AI 理解意图，按已发布的顶层方向路由技能，通过 MCP 工具网关编排业务能力；验证不通过时返回修正配置。</desc>
                     <defs>
                         <marker id="arch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                             <path d="M0 0 L10 5 L0 10 Z" fill="#00e5a0" />
@@ -1468,12 +1506,12 @@ h1.hero-title .hl {
 
                     <rect class="pl-node ai" x="328" y="54" width="300" height="112" rx="14" />
                     <text class="pl-txt title" x="478" y="87">AI 智能体理解意图</text>
-                    <text class="pl-txt small" x="478" y="120">pca 入口 · 任务拆解 · 流程编排</text>
+                    <text class="pl-txt small" x="478" y="120">xlpa 入口 · 任务拆解 · 流程编排</text>
                     <text class="pl-txt num" x="478" y="145">专家规则 → 可执行技能</text>
 
                     <rect class="pl-node leaf" x="672" y="54" width="384" height="112" rx="14" />
                     <text class="pl-txt title" x="864" y="87">协议识别与技能路由</text>
-                    <text class="pl-txt small" x="864" y="120">Modbus / MQTT / HTTP</text>
+                    <text class="pl-txt small" x="864" y="120" id="pl-directions">方向加载中</text>
                     <text class="pl-txt small" x="864" y="145">字节序 · 比例系数 · 符号位 · 字段映射</text>
 
                     <text class="pl-txt layer" x="24" y="220">02 / 工具编排 · 连接业务数据与专家能力</text>
@@ -1482,8 +1520,8 @@ h1.hero-title .hl {
                     <text class="pl-txt title" x="210" y="290">MCP 工具网关</text>
                     <text class="pl-txt small" x="210" y="324">统一接入 · 权限校验 · 原子调用</text>
                     <path class="pl-link" d="M394 273 V339 M668 273 V339" />
-                    <text class="pl-txt num title" x="532" y="290" id="pl-tool-count">48 TOOLS</text>
-                    <text class="pl-txt small" x="532" y="324">13 个业务域 · 按需组合</text>
+                    <text class="pl-txt num title" x="532" y="290" id="pl-tool-count">— TOOLS</text>
+                    <text class="pl-txt small" x="532" y="324" id="pl-domain-count">业务域加载中</text>
                     <text class="pl-txt" x="860" y="290">规约 / 数据项 / 原子标签 / 脚本</text>
                     <text class="pl-txt small" x="860" y="324">运维平台数据支撑 · 写入前确认</text>
 
@@ -1525,19 +1563,29 @@ h1.hero-title .hl {
     <div class="wrap">
         <div class="sec-tag reveal">Capability Matrix</div>
         <h2 class="sec-title reveal" style="--d:60ms">
-            48 个原子工具，覆盖规约管理全域
+            <span id="matrix-title">工具目录加载中</span>
         </h2>
         <p class="sec-sub reveal" style="--d:120ms">
-            每一个后端接口都被封装为独立的 MCP 原子工具，按 13 个业务域组织。
-            鼠标悬停任意格子查看该工具的职责。
+            每一个后端接口都被封装为独立的 MCP 原子工具，按业务域组织。
+            可搜索、筛选并滚动查看；悬停、聚焦或点击工具查看职责。注册工具不代表当前账号可直接执行。
         </p>
 
-        <div class="domains" id="domains"></div>
+        <div class="matrix-panel reveal">
+            <div class="matrix-toolbar">
+                <label>搜索工具<input id="matrix-search" type="search" placeholder="名称或说明" autocomplete="off"></label>
+                <label>业务域<select id="matrix-domain"><option value="">全部业务域</option></select></label>
+                <output id="matrix-count" aria-live="polite">加载中</output>
+            </div>
+            <div class="domains-wrap" id="matrix-scroll" tabindex="0" role="region" aria-label="能力矩阵，可上下滚动">
+                <div class="domains" id="domains"></div>
+                <p class="matrix-empty" id="matrix-empty">正在获取工具目录</p>
+            </div>
+        </div>
 
         <div class="legend reveal">
-            <span><i style="background:#00e5a0"></i>只读查询 <b id="lg-read">14</b></span>
-            <span><i style="background:#ffc46b"></i>写入操作 <b id="lg-write">32</b></span>
-            <span><i style="background:#4f7cff"></i>探测与登录 <b id="lg-other">2</b></span>
+            <span><i style="background:#00e5a0"></i>只读查询 <b id="lg-read">—</b></span>
+            <span><i style="background:#ffc46b"></i>写入操作 <b id="lg-write">—</b></span>
+            <span><i style="background:#4f7cff"></i>探测、登录与辅助 <b id="lg-other">—</b></span>
             <span style="margin-left:auto">四级级联：大类 → 设备类型 → 品牌 → 型号 → 规约</span>
         </div>
     </div>
@@ -1571,7 +1619,7 @@ h1.hero-title .hl {
             </div>
 
             <div class="panel after reveal" style="--d:110ms">
-                <div class="panel-tag">After · /pca</div>
+                <div class="panel-tag">After · /xlpa</div>
                 <h3 style="color:var(--text)">一行命令，全程自动</h3>
 
                 <div class="after-cmd" id="after-cmd"></div>
@@ -1619,20 +1667,14 @@ h1.hero-title .hl {
 
         <div class="block-hd reveal">
             <h4>回归测试</h4>
-            <em>protocol-conversion 映射核心</em>
+            <em>mcp_server/tests · 完整服务端回归</em>
         </div>
         <div class="test-grid reveal" style="--d:60ms">
             <div class="test-card">
-                <div class="test-badge" id="test-status">PASSED</div>
                 <div class="test-big">
-                    <span id="test-passed">89</span><s>/<span id="test-total">91</span></s>
+                    <span id="test-total">—</span><s> 项</s>
                 </div>
-                <p>项测试通过</p>
-                <div class="test-split">
-                    <div class="pass"><b id="test-ok">89</b>passed</div>
-                    <div class="fail"><b id="test-failed">0</b>failed</div>
-                    <div class="fail"><b id="test-skipped">2</b>skipped</div>
-                </div>
+                <p>回归测试用例</p>
             </div>
             <div>
                 <div class="suites" id="test-suites"></div>
@@ -1668,7 +1710,7 @@ h1.hero-title .hl {
 
         <div class="block-hd reveal">
             <h4>兼容客户端</h4>
-            <em>8 个平台·配置文本一键生成</em>
+            <em id="platform-count">客户端目录加载中</em>
         </div>
         <div class="plats reveal" style="--d:60ms" id="plats"></div>
 
@@ -1718,124 +1760,48 @@ h1.hero-title .hl {
 <script>
 /* ═══════════════════════════════════════════════════════
    SHOWCASE_DATA
-   ★ 全部硬编码内容集中在这一个对象里。
-     改文案 / 改数字 / 改台账，只动这里，不用翻 HTML。
+   ★ 仅维护文案、历史案例及动态数据占位。
+     能力目录和统计值由服务端统一提供。
    ═══════════════════════════════════════════════════════ */
 var SHOWCASE_DATA = {
 
     meta: {
         name: '协议智能体',
-        version: 'v0.1.0',
-        server: 'protocol-converter MCP Server',
-        package: 'pca-agent-assets'
+        version: '—',
+        server: 'xl-protocol-agent MCP Server',
+        package: 'xlpa-agent-assets'
     },
 
     hero: {
         eyebrow: 'MCP SERVER · 已交付',
         // hl 标记的部分会用强调色渲染
         title: '老师傅的经验，<hl>现在跑在服务器上</hl>',
-        sub: '把复杂繁琐的协议接入工作，压缩成一句 <code>/pca</code>。'
+        sub: '把复杂繁琐的协议接入工作，压缩成一句 <code>/xlpa</code>。'
            + '字节序、比例系数、符号位——这些原来只存在于少数人脑子里的判断，'
            + '现在固化在可校验的技能资产里。',
-        termTitle: 'pca · agent session',
+        termTitle: 'xlpa · agent session',
         // 终端第一行的命令，会逐字打出
-        cmd: '/pca 请帮我分析这份协议文档',
+        cmd: '/xlpa 请帮我分析这份协议文档',
         // 命令打完后逐行出现的执行结果
         out: [
             { t: '协议分析完成', d: 'MODBUS-RTU · 23 个寄存器', ms: '1.8s' },
             { t: '字段映射完成', d: '已处理字节序 / 系数 / 符号位', ms: '2.4s' },
             { t: '生成转换配置', d: 'config.json', ms: '0.6s' },
-            { t: '回归测试通过', d: '91 项 / 89 passed / 0 failed', ms: '3.1s' },
+            { t: '回归测试', d: '由 test-validation 返回验证结果', ms: '3.1s' },
             { t: '打包完成', d: 'modbus-pack.zip', ms: '0.4s' }
         ]
     },
 
-    // 首屏四个 count-up 数字
+    // 首屏数字仅来自服务端，未知值不显示为零。
     metrics: [
-        { value: 48, label: 'MCP 原子工具' },
-        { value: 8,  label: '领域技能' },
-        { value: 8,  label: '兼容 AI IDE' },
-        { value: 3,  label: '协议方向' }
+        { value: null, label: 'MCP 原子工具' },
+        { value: null, label: '领域技能' },
+        { value: null, label: '兼容 AI 客户端' },
+        { value: null, label: '协议方向' }
     ],
 
-    /* 48 个工具按 13 个业务域分组。
-       t: read = 只读（绿） / write = 写入（橙） / other = 探测登录（蓝） */
-    domains: [
-        { name: '探测与登录', items: [
-            { n: 'list_mcp_tools', t: 'other', d: '列出全部工具并探测鉴权状态、权限级别、资源包版本与 capabilities' },
-            { n: 'login', t: 'other', d: '手机号 + 验证码登录，返回后端业务 Token' }
-        ]},
-        { name: '大类管理', items: [
-            { n: 'get_classify_list', t: 'read', d: '查询大类列表（大类编号 id、名称 sysName）' },
-            { n: 'add_classify', t: 'write', d: '新增大类' },
-            { n: 'update_classify', t: 'write', d: '更新大类' },
-            { n: 'del_classify', t: 'write', d: '删除大类' }
-        ]},
-        { name: '设备类型', items: [
-            { n: 'get_device_type_list', t: 'read', d: '查询设备类型列表（deviceTypeCode 即 modelNum 来源）' },
-            { n: 'add_device_type', t: 'write', d: '新增设备类型' },
-            { n: 'update_device_type', t: 'write', d: '更新设备类型' },
-            { n: 'del_device_type', t: 'write', d: '删除设备类型' }
-        ]},
-        { name: '品牌管理', items: [
-            { n: 'get_brand_list', t: 'read', d: '查询品牌列表' },
-            { n: 'add_brand', t: 'write', d: '新增品牌' },
-            { n: 'update_brand', t: 'write', d: '更新品牌' },
-            { n: 'del_brand', t: 'write', d: '删除品牌' }
-        ]},
-        { name: '型号管理', items: [
-            { n: 'get_model_list', t: 'read', d: '查询型号列表' },
-            { n: 'add_model', t: 'write', d: '新增型号' },
-            { n: 'update_model', t: 'write', d: '更新型号' },
-            { n: 'del_model', t: 'write', d: '删除型号' },
-            { n: 'export_model_data', t: 'read', d: '导出型号统计数据（文件流）' }
-        ]},
-        { name: '规约信息', items: [
-            { n: 'get_protocol_info_list', t: 'read', d: '查询规约列表（支持四级级联过滤）' },
-            { n: 'add_protocol_info', t: 'write', d: '新增规约' },
-            { n: 'update_protocol', t: 'write', d: '更新规约' },
-            { n: 'del_protocol_info', t: 'write', d: '删除规约' },
-            { n: 'del_protocol_file', t: 'write', d: '删除规约文档文件' }
-        ]},
-        { name: '数据项', items: [
-            { n: 'get_data_item_list', t: 'read', d: '按规约查询采集点位配置' },
-            { n: 'add_data_item', t: 'write', d: '新增数据项' },
-            { n: 'update_data_item', t: 'write', d: '更新数据项' },
-            { n: 'del_data_item', t: 'write', d: '删除数据项' }
-        ]},
-        { name: '脚本管理', items: [
-            { n: 'gen_script', t: 'write', d: '生成转换脚本' },
-            { n: 'get_script_list', t: 'read', d: '查询脚本列表' },
-            { n: 'get_json_detail', t: 'read', d: '获取脚本 JSON 内容' },
-            { n: 'del_script', t: 'write', d: '删除脚本' },
-            { n: 'export_data', t: 'read', d: '导出协议数据项（文件流）' }
-        ]},
-        { name: '系数管理', items: [
-            { n: 'get_coeff_list', t: 'read', d: '查询数据项系数列表' },
-            { n: 'add_coeff', t: 'write', d: '新增数据项系数' },
-            { n: 'update_coeff', t: 'write', d: '更新数据项系数' },
-            { n: 'del_coeff', t: 'write', d: '删除数据项系数' }
-        ]},
-        { name: '感知结构', items: [
-            { n: 'get_sense_list', t: 'read', d: '查询感知结构列表' },
-            { n: 'add_sense', t: 'write', d: '新增感知结构' },
-            { n: 'update_sense', t: 'write', d: '更新感知结构' },
-            { n: 'del_sense', t: 'write', d: '删除感知结构' }
-        ]},
-        { name: '规约类型字典', items: [
-            { n: 'get_protocol_type_list', t: 'read', d: '查询规约类型字典列表' },
-            { n: 'save_protocol_type', t: 'write', d: '保存规约类型字典项' },
-            { n: 'del_protocol_type', t: 'write', d: '删除规约类型字典项' }
-        ]},
-        { name: '功能项·原子标签', items: [
-            { n: 'get_function_type_list', t: 'read', d: '原子标签查询入口（API-E10 GetProtocoFunctionTypeList）' },
-            { n: 'save_function_item', t: 'write', d: '保存功能项' },
-            { n: 'del_function_item', t: 'write', d: '删除功能项' }
-        ]},
-        { name: '文件上传', items: [
-            { n: 'upload_protocol_file', t: 'write', d: '上传规约文档文件（multipart）' }
-        ]}
-    ],
+    // 工具和分组来自服务端唯一目录，不在 HTML 复制清单。
+    domains: [],
 
     /* ── 幕3  BEFORE / AFTER ── */
     before: {
@@ -1855,7 +1821,7 @@ var SHOWCASE_DATA = {
     },
 
     after: {
-        cmd: '/pca 把这份 Modbus 文档转成内部格式并打包',
+        cmd: '/xlpa 把这份 Modbus 文档转成内部格式并打包',
         steps: [
             { t: '协议分析', d: '逐项提取寄存器与功能码', out: 'modbus-conversion' },
             { t: '字段映射', d: '引用共享映射核心规则', out: 'protocol-conversion' },
@@ -1863,18 +1829,18 @@ var SHOWCASE_DATA = {
             { t: '回归测试', d: '构造测试数据并验证输出', out: 'test-validation' },
             { t: '打包分发', d: '配置 + 文档打包为 ZIP', out: 'pack-distribution' }
         ],
-        gain: '全程 <b>小时级</b>，规则固化在 8 个 SKILL.md 里，新人可直接上手'
+        gain: '全程 <b>小时级</b>，规则固化在可校验的 Skill 资源里，新人可直接上手'
     },
 
     /* ── 幕4  交付记录 ── */
     delivery: {
         stats: [
-            { v: 19, u: '份', l: '已生成转换配置', i: 'Modbus 16 · HTTP 2 · MQTT 1' },
-            { v: 7,  u: '个', l: '覆盖设备品牌', i: '安科瑞 / 德力西 / 上海信衡 等' },
-            { v: 5,  u: '类', l: '覆盖设备类型', i: '电表 / 传感器 / 采集表 / 积算仪 / 温控仪' },
-            { v: 91, u: '项', l: '回归测试用例', i: '89 passed · 0 failed · 2 skipped' }
+            { v: null, u: '份', l: '已生成转换配置', i: '本地事件统计' },
+            { v: null, u: '个', l: '覆盖设备品牌', i: '平台统计' },
+            { v: null, u: '类', l: '覆盖设备类型', i: '平台统计' },
+            { v: null, u: '项', l: '回归测试用例', i: '' }
         ],
-        note: '数据取自 .trae/skills/*/output 与 scripts 目录真实产出文件',
+        note: '数据取自真实产出文件',
         ledger: [
             { b: '安科瑞',       d: 'AMC 系列 / 电表类',   p: 'MODBUS-RTU', n: 7, t: '2026-07-27 ~ 09-11' },
             { b: '蓝控电子科技', d: '环境传感器',         p: 'MODBUS-RTU', n: 2, t: '2026-07-21 ~ 07-22' },
@@ -1886,28 +1852,7 @@ var SHOWCASE_DATA = {
             { b: '平台 MQTT',    d: '电表数据上报',         p: 'MQTT→MQTT',  n: 1, t: '2026-08-26' },
             { b: '第三方接口',   d: '数据采集',             p: 'HTTP→MQTT',  n: 2, t: '2026-08-26 ~ 08-27' }
         ],
-        test: {
-            status: 'PASSED',
-            total: 91,
-            passed: 89,
-            failed: 0,
-            errors: 0,
-            skipped: 2,
-            suites: [
-                { n: 'TestTypeConversion',        c: 22 },
-                { n: 'TestGenerators',            c: 12 },
-                { n: 'TestPathResolution',        c: 12 },
-                { n: 'TestEdgeCases',             c: 7 },
-                { n: 'TestHTTPTransform',         c: 7 },
-                { n: 'TestMQTTTransform',         c: 6 },
-                { n: 'TestArrayForeach',          c: 5 },
-                { n: 'TestEnsurePath',            c: 5 },
-                { n: 'TestTemplateSubstitute',    c: 5 },
-                { n: 'TestEngineDifferences',     c: 4 },
-                { n: 'TestUnifiedCodeConsistency', c: 4 },
-                { n: 'TestRealConfigs',           c: 2, skip: true }
-            ]
-        },
+        test: {},
         /* ★ 焦点标注：一行表达式里的三处专家经验
            取自蓝控电子科技_环境传感器 的 envTemp 测点 */
         focus: {
@@ -1924,35 +1869,28 @@ var SHOWCASE_DATA = {
             ],
             foot: '这三个判断原来全靠工程师记忆，错一个就得到一堆废数据。'
                 + '现在由 <b>modbus-conversion</b> 技能根据协议文档自动生成，'
-                + '并被 <b>91 项回归测试</b>持续看护。'
+                + '映射核心的独立测试不计入上方 MCP 服务端回归统计。'
         }
     },
 
     /* ── 幕4  产出物槽（代码内容从上方 JSON script 标签读取）── */
     artifacts: [
         { slot: 'art-modbus', title: 'Modbus 转换配置',
-          file: '.trae/skills/modbus-conversion/output/安科瑞_AMC系列_20260911115258.json' },
+          file: '安科瑞_AMC系列_20260911115258.json' },
         { slot: 'art-mqtt',   title: 'MQTT 映射配置',
-          file: '.trae/skills/mqtt-conversion/scripts/mqtt_mapper_202608261100.json' },
+          file: 'mqtt_mapper_202608261100.json' },
         { slot: 'art-http',   title: 'HTTP 映射配置',
-          file: '.trae/skills/http-conversion/scripts/protocol_mapping_output_20260827_113000.json' }
+          file: 'protocol_mapping_output_20260827_113000.json' },
+        { slot: 'art-archive',   title: '设备建档配置',
+          file: '设备建档模板_20260923101153.xlsx' }
     ],
 
     /* ── 幕5  生态与护栏 ── */
-    platforms: [
-        { n: 'Trae',           by: '字节跳动',   k: 'mcpServers', i: 'T' },
-        { n: 'Cursor',         by: 'AI-First IDE', k: 'servers',    i: 'C' },
-        { n: 'VS Code',        by: 'GitHub Copilot', k: 'servers',  i: 'V' },
-        { n: 'Claude Desktop', by: 'Anthropic',  k: 'streamableHttp', i: 'C' },
-        { n: 'Windsurf',       by: 'Codeium',    k: 'serverUrl',    i: 'W' },
-        { n: 'Cline',          by: 'VS Code 插件', k: 'streamableHttp', i: 'C' },
-        { n: 'Kimi Code',      by: '月之暗面',   k: 'transport',    i: 'K' },
-                { n: 'Qoder',          by: '阿里巴巴',   k: 'mcpServers',   i: 'Q' }
-    ],
+    platforms: [],
 
     guardrails: [
         { h: '权限分级',
-          p: '本机 IP 获得 <code>system</code> 读写权限，其它来源 IP 仅 <code>user</code> 只读，写入请求直接返回 FORBIDDEN' },
+          p: 'MCP 接入 Token 一律 <code>user</code> 级；云端平台写权限来自业务登录账号命中超级账号表，与来源 IP 无关' },
         { h: '写前必须确认',
           p: '删除、停止、写入等高风险操作前必须向用户展示计划并等待确认，未收到工具返回结果前不得声称完成' },
         { h: 'Token 按 IP 绑定',
@@ -1964,9 +1902,9 @@ var SHOWCASE_DATA = {
     /* ── 幕6  结尾 ── */
     closing: {
         line: '协议接入这件事，<hl>从此不再是瓶颈</hl>',
-        sub: '48 个原子工具 · 8 个领域技能 · 8 个客户端 · 19 份已交付配置',
-        foot: ['protocol-converter MCP Server v0.1.0',
-               'pca-agent-assets',
+        sub: '正在获取能力统计',
+        foot: ['xl-protocol-agent MCP Server',
+               'xlpa-agent-assets',
                'FastMCP · Streamable HTTP',
                '端口 8765']
     }
@@ -2091,145 +2029,145 @@ var SHOWCASE_DATA = {
         })();
     }
 
-    /* ── 幕1  count-up 数字 ── */
+    /* ── 动态数字：复用节点，不重播计数动画 ── */
+
+    function displayNumber(value) {
+        return typeof value === 'number' && isFinite(value) && value >= 0 ? String(value) : '—';
+    }
+
+    function setText(el, text) {
+        text = String(text);
+        if (el.textContent !== text) { el.textContent = text; }
+    }
 
     function renderMetrics() {
         var box = $('metrics');
-        box.innerHTML = '';
-        D.metrics.forEach(function (m) {
-            var el = document.createElement('div');
-            el.className = 'metric';
-            var b = document.createElement('b');
-            b.textContent = '0';
-            var s = document.createElement('span');
-            s.textContent = m.label;
-            el.appendChild(b);
-            el.appendChild(s);
-            box.appendChild(el);
-            countUp(b, m.value);
-        });
-
-        // 管道图上的工具数同步
-        var total = D.domains.reduce(function (a, g) { return a + g.items.length; }, 0);
-        $('pl-tool-count').textContent = total + ' TOOLS';
-        document.title = D.meta.name + ' · 成果展示';
-    }
-
-    var counters = [];
-
-    // 含计数器的容器 id：进入视口时才滚动该区数字
-    var COUNTER_BOX_IDS = ['metrics', 'delivery-stats'];
-
-    function countUp(el, target) {
-        counters.push({ el: el, target: target, done: false });
-    }
-
-    // 返回 node 自身或其内部第一个计数器容器，找不到返回 null
-    function findCounterBox(node) {
-        for (var i = 0; i < COUNTER_BOX_IDS.length; i++) {
-            if (node.id === COUNTER_BOX_IDS[i]) { return node; }
-            var inner = node.querySelector('#' + COUNTER_BOX_IDS[i]);
-            if (inner) { return inner; }
-        }
-        return null;
-    }
-
-    // scope 为空时运行全部计数器，否则只运行该容器内的
-    function runCounters(scope) {
-        counters.forEach(function (c) {
-            if (c.done) { return; }
-            if (scope && !scope.contains(c.el)) { return; }
-            c.done = true;
-            if (reduced) { c.el.textContent = c.target; return; }
-            var t0 = null;
-            var dur = 1150;
-            function step(ts) {
-                if (t0 === null) { t0 = ts; }
-                var p = Math.min((ts - t0) / dur, 1);
-                var eased = 1 - Math.pow(1 - p, 3);
-                c.el.textContent = Math.round(c.target * eased);
-                if (p < 1) { requestAnimationFrame(step); }
+        D.metrics.forEach(function (m, index) {
+            var el = box.children[index];
+            if (!el) {
+                el = document.createElement('div');
+                el.className = 'metric';
+                el.appendChild(document.createElement('b'));
+                el.appendChild(document.createElement('span'));
+                box.appendChild(el);
             }
-            requestAnimationFrame(step);
+            setText(el.children[0], displayNumber(m.value));
+            setText(el.children[1], m.label);
         });
+        setText($('pl-tool-count'), displayNumber(D.metrics[0].value) + ' TOOLS');
+        setText($('pl-domain-count'), (D.catalogReady ? D.domains.length : '—') + ' 个业务域 · 按需组合');
+        setText($('matrix-title'), displayNumber(D.metrics[0].value) + ' 个原子工具，覆盖规约管理与边缘建档全域');
+        document.title = D.meta.name + ' · 成果展示';
     }
 
     /* ── 幕2  能力矩阵墙 ── */
 
     function renderDomains() {
         var box = $('domains');
+        var scroll = $('matrix-scroll');
+        var top = scroll.scrollTop;
+        var active = box.contains(document.activeElement) ? document.activeElement.dataset.n : null;
+        var select = $('matrix-domain');
+        var chosen = select.value;
+        var names = D.domains.map(function (g) { return g.name; });
+        if (chosen && names.indexOf(chosen) < 0) { names.push(chosen); }
+        var signature = JSON.stringify(names);
+        if (select.dataset.signature !== signature) {
+            select.innerHTML = '<option value="">全部业务域</option>';
+            names.forEach(function (name) {
+                var option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                select.appendChild(option);
+            });
+            select.value = chosen;
+            select.dataset.signature = signature;
+        }
         box.innerHTML = '';
+        $('tip').classList.remove('on');
         var tally = { read: 0, write: 0, other: 0 };
-
-        D.domains.forEach(function (g, gi) {
+        var query = $('matrix-search').value.trim().toLowerCase();
+        var shown = 0;
+        var restore = null;
+        D.domains.forEach(function (g) {
+            g.items.forEach(function (it) { tally[it.t] += 1; });
+            var items = g.items.filter(function (it) {
+                return (!chosen || chosen === g.name) &&
+                    (!query || (it.n + ' ' + it.d).toLowerCase().indexOf(query) >= 0);
+            });
+            if (!items.length) { return; }
+            shown += items.length;
             var card = document.createElement('div');
-            card.className = 'domain reveal';
-            card.style.setProperty('--d', (gi * 34) + 'ms');
-
+            card.className = 'domain';
             var hd = document.createElement('div');
             hd.className = 'domain-hd';
             var h4 = document.createElement('h4');
             h4.textContent = g.name;
             var em = document.createElement('em');
-            em.textContent = g.items.length;
+            em.textContent = items.length;
             hd.appendChild(h4);
             hd.appendChild(em);
             card.appendChild(hd);
-
             var chips = document.createElement('div');
             chips.className = 'chips';
-
-            g.items.forEach(function (it) {
-                tally[it.t] = (tally[it.t] || 0) + 1;
-                var c = document.createElement('span');
+            items.forEach(function (it) {
+                var c = document.createElement('button');
+                c.type = 'button';
                 c.className = 'chip';
-                c.setAttribute('data-t', it.t);
-                c.setAttribute('data-n', it.n);
-                c.setAttribute('data-d', it.d);
+                c.dataset.t = it.t;
+                c.dataset.n = it.n;
+                c.dataset.d = it.d;
+                c.setAttribute('aria-label', it.n + '：' + it.d);
                 c.textContent = it.n;
+                if (it.n === active) { restore = c; }
                 chips.appendChild(c);
             });
-
             card.appendChild(chips);
             box.appendChild(card);
         });
-
-        $('lg-read').textContent = tally.read || 0;
-        $('lg-write').textContent = tally.write || 0;
-        $('lg-other').textContent = tally.other || 0;
-        observe(box.querySelectorAll('.reveal'));
+        ['read', 'write', 'other'].forEach(function (kind) {
+            setText($('lg-' + kind), D.catalogReady ? tally[kind] : '—');
+        });
+        setText($('matrix-count'), '已显示 ' + shown + ' / ' + displayNumber(D.metrics[0].value));
+        $('matrix-empty').hidden = shown > 0;
+        setText($('matrix-empty'), D.catalogReady ? '没有匹配的工具' : '工具目录暂不可用');
+        if (active) { (restore || scroll).focus({ preventScroll: true }); }
+        scroll.scrollTop = top;
     }
 
     /* 工具提示气泡 */
     function bindTip() {
         var tip = $('tip');
-        document.addEventListener('mouseover', function (e) {
+        tip.setAttribute('role', 'tooltip');
+        function hide() { tip.classList.remove('on'); }
+        function show(e) {
             var c = e.target.closest ? e.target.closest('.chip') : null;
-            if (!c) { return; }
+            if (!c) { if (e.type === 'click') { hide(); } return; }
             tip.innerHTML = '';
             var b = document.createElement('b');
-            b.textContent = c.getAttribute('data-n');
+            b.textContent = c.dataset.n;
             tip.appendChild(b);
-            tip.appendChild(document.createTextNode(c.getAttribute('data-d')));
+            tip.appendChild(document.createTextNode(c.dataset.d));
             tip.classList.add('on');
-        });
-
-        document.addEventListener('mousemove', function (e) {
-            if (!tip.classList.contains('on')) { return; }
-            var x = e.clientX + 14;
-            var y = e.clientY + 16;
-            var w = tip.offsetWidth;
-            var h = tip.offsetHeight;
-            if (x + w > window.innerWidth - 12) { x = e.clientX - w - 14; }
-            if (y + h > window.innerHeight - 12) { y = e.clientY - h - 14; }
+            var rect = c.getBoundingClientRect();
+            var x = Math.max(12, Math.min(rect.left, window.innerWidth - tip.offsetWidth - 12));
+            var y = rect.bottom + 8;
+            if (y + tip.offsetHeight > window.innerHeight - 12) {
+                y = Math.max(12, rect.top - tip.offsetHeight - 8);
+            }
             tip.style.left = x + 'px';
             tip.style.top = y + 'px';
+        }
+        ['mouseover', 'focusin', 'click'].forEach(function (event) {
+            document.addEventListener(event, show);
         });
-
         document.addEventListener('mouseout', function (e) {
-            var c = e.target.closest ? e.target.closest('.chip') : null;
-            if (c) { tip.classList.remove('on'); }
+            if (e.target.closest && e.target.closest('.chip')) { hide(); }
         });
+        document.addEventListener('focusout', hide);
+        document.addEventListener('scroll', hide, true);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { hide(); } });
+        window.addEventListener('resize', hide);
     }
 
     /* ── 幕3  BEFORE / AFTER ── */
@@ -2288,28 +2226,62 @@ var SHOWCASE_DATA = {
 
     /* ── 幕4  交付记录 ── */
 
-    function renderDelivery() {
+    function renderDeliveryStats() {
         var sr = $('delivery-stats');
-        sr.innerHTML = '';
-        D.delivery.stats.forEach(function (s) {
-            var el = document.createElement('div');
-            el.className = 'stat';
-            var b = document.createElement('b');
-            b.textContent = '0';
-            var small = document.createElement('small');
-            small.textContent = s.u;
-            b.appendChild(small);
-            var l = document.createElement('span');
-            l.textContent = s.l;
-            var i = document.createElement('i');
-            i.textContent = s.i;
-            el.appendChild(b);
-            el.appendChild(l);
-            el.appendChild(i);
-            sr.appendChild(el);
-            countUp(b, s.v);
+        D.delivery.stats.forEach(function (s, index) {
+            var el = sr.children[index];
+            if (!el) {
+                el = document.createElement('div');
+                el.className = 'stat';
+                var b = document.createElement('b');
+                b.appendChild(document.createTextNode('—'));
+                b.appendChild(document.createElement('small'));
+                el.appendChild(b);
+                el.appendChild(document.createElement('span'));
+                el.appendChild(document.createElement('i'));
+                sr.appendChild(el);
+            }
+            var value = displayNumber(s.v);
+            if (el.children[0].firstChild.nodeValue !== value) {
+                el.children[0].firstChild.nodeValue = value;
+            }
+            setText(el.children[0].children[0], s.u);
+            setText(el.children[1], s.l);
+            setText(el.children[2], s.i);
+            el.children[2].style.display = s.i ? '' : 'none';
         });
+    }
 
+    function renderTestReport(data) {
+        var counts = [data.testTotal, data.testPassed, data.testFailed, data.testErrors, data.testSkipped];
+        var ready = data.testAvailable === true && data.testScope === 'mcp_server/tests' &&
+            counts.every(validCount) && counts[0] > 0 &&
+            counts[0] === counts.slice(1).reduce(function (sum, n) { return sum + n; }, 0) &&
+            typeof data.testRunAt === 'string' && Number.isFinite(Date.parse(data.testRunAt));
+        D.delivery.stats[3].v = ready ? data.testTotal : null;
+        D.delivery.stats[3].i = '';
+        setText($('test-total'), displayNumber(D.delivery.stats[3].v));
+        var suites = ready && Array.isArray(data.testSuites) ? data.testSuites : [];
+        var su = $('test-suites');
+        var signature = JSON.stringify(suites);
+        if (su.dataset.signature !== signature) {
+            su.textContent = '';
+            suites.forEach(function (s) {
+                if (!s || typeof s.name !== 'string' || !validCount(s.total)) { return; }
+                var el = document.createElement('span');
+                el.className = 'suite';
+                el.appendChild(document.createTextNode(s.name));
+                var b = document.createElement('b');
+                b.textContent = s.total;
+                el.appendChild(b);
+                su.appendChild(el);
+            });
+            su.dataset.signature = signature;
+        }
+    }
+
+    function renderDelivery() {
+        renderDeliveryStats();
         $('ledger-note').textContent = D.delivery.note;
 
         var tb = $('ledger-body');
@@ -2326,25 +2298,7 @@ var SHOWCASE_DATA = {
             tb.appendChild(tr);
         });
 
-        var t = D.delivery.test;
-        $('test-status').textContent = t.status;
-        $('test-passed').textContent = t.passed;
-        $('test-total').textContent = t.total;
-        $('test-ok').textContent = t.passed;
-        $('test-failed').textContent = t.failed;
-        $('test-skipped').textContent = t.skipped;
-
-        var su = $('test-suites');
-        su.innerHTML = '';
-        t.suites.forEach(function (s) {
-            var el = document.createElement('span');
-            el.className = 'suite' + (s.skip ? ' skip' : '');
-            el.appendChild(document.createTextNode(s.n));
-            var b = document.createElement('b');
-            b.textContent = s.skip ? s.c + ' skip' : s.c;
-            el.appendChild(b);
-            su.appendChild(el);
-        });
+        renderTestReport(D.delivery.test);
 
         // 焦点表达式
         var f = D.delivery.focus;
@@ -2437,6 +2391,7 @@ var SHOWCASE_DATA = {
     function renderEcosystem() {
         var pb = $('plats');
         pb.innerHTML = '';
+        setText($('platform-count'), D.clientsReady ? D.platforms.length + ' 个平台 · 配置文本一键生成' : '客户端目录暂不可用');
         D.platforms.forEach(function (p) {
             var el = document.createElement('div');
             el.className = 'plat';
@@ -2456,7 +2411,7 @@ var SHOWCASE_DATA = {
         });
 
         var gb = $('guards');
-        gb.innerHTML = '';
+        if (gb.children.length) { return; }
         D.guardrails.forEach(function (g) {
             var el = document.createElement('div');
             el.className = 'guard';
@@ -2473,14 +2428,15 @@ var SHOWCASE_DATA = {
     /* ── 幕6  结尾 ── */
 
     function renderClosing() {
-        $('closing-line').innerHTML = markup(D.closing.line);
-        $('closing-sub').textContent = D.closing.sub;
+        if (!$('closing-line').children.length) {
+            $('closing-line').innerHTML = markup(D.closing.line);
+        }
+        setText($('closing-sub'), D.closing.sub);
         var f = $('foot');
-        f.innerHTML = '';
-        D.closing.foot.forEach(function (t) {
-            var s = document.createElement('span');
-            s.textContent = t;
-            f.appendChild(s);
+        D.closing.foot.forEach(function (t, index) {
+            var s = f.children[index];
+            if (!s) { s = document.createElement('span'); f.appendChild(s); }
+            setText(s, t);
         });
     }
 
@@ -2491,7 +2447,6 @@ var SHOWCASE_DATA = {
     function observe(nodes) {
         if (!('IntersectionObserver' in window)) {
             Array.prototype.forEach.call(nodes, function (n) { n.classList.add('in'); });
-            runCounters();
             return;
         }
         if (!io) {
@@ -2499,8 +2454,6 @@ var SHOWCASE_DATA = {
                 entries.forEach(function (en) {
                     if (!en.isIntersecting) { return; }
                     en.target.classList.add('in');
-                    var cbox = findCounterBox(en.target);
-                    if (cbox) { runCounters(cbox); }
                     io.unobserve(en.target);
                 });
             }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
@@ -2529,25 +2482,164 @@ var SHOWCASE_DATA = {
         });
     }
 
-    /* ── 实时在线探测
-       数字全部硬编码，但 ONLINE 徽章实时探测 /api/access-info（免鉴权）。
-       探测失败不影响页面展示，仅徽章置灰。 ── */
+    /* ── 同一快照驱动目录与计数，静态案例不参与轮询 ── */
 
-    function probeStatus() {
-        var dot = $('status-dot');
-        var txt = $('status-txt');
-        fetch('/api/access-info', { cache: 'no-store' })
-            .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
-            .then(function (info) {
-                dot.className = 'dot live';
-                var lv = info.accessLevel === 'system' ? 'SYSTEM' : 'USER';
-                txt.textContent = 'ONLINE · ' + lv;
-            })
-            .catch(function () {
-                dot.className = 'dot dead';
-                txt.textContent = 'OFFLINE';
-            });
+    var toolSignature = null;
+    var clientSignature = null;
+    var hasSuccessfulSnapshot = false;
+
+    function validCount(value) {
+        return Number.isInteger(value) && value >= 0;
     }
+
+    function validateCatalog(items, key, count) {
+        if (!Array.isArray(items) || items.length !== count) { return false; }
+        var seen = new Set();
+        return items.every(function (item) {
+            var id = key ? item && item[key] : item;
+            if (typeof id !== 'string' || !id.trim() || seen.has(id)) { return false; }
+            seen.add(id);
+            return true;
+        });
+    }
+
+    function applyShowcaseData(data) {
+        // 完整校验后才应用，拒绝目录与总数不一致的快照。
+        if (!data || !validateCatalog(data.tools, 'name', data.toolCount) ||
+            !validateCatalog(data.clients, 'id', data.clientCount) ||
+            (data.skillsAvailable !== false && !validateCatalog(data.skills, null, data.skillCount))) {
+            throw new Error('能力目录不可用');
+        }
+        var directionsReady = data.protocolDirectionsAvailable === true &&
+            validateCatalog(data.protocolDirections, 'id', data.protocolDirectionCount) &&
+            data.protocolDirections.every(function (d) { return typeof d.name === 'string'; });
+        D.metrics[0].value = data.tools.length;
+        D.metrics[1].value = data.skillsAvailable === false ? null : data.skills.length;
+        D.metrics[2].value = data.clients.length;
+        D.metrics[3].value = directionsReady ? data.protocolDirections.length : null;
+        D.catalogReady = true;
+        D.clientsReady = true;
+        var nextTools = JSON.stringify(data.tools);
+        if (nextTools !== toolSignature) {
+            var groups = new Map();
+            data.tools.forEach(function (tool) {
+                var name = tool.domain || '其他';
+                if (!groups.has(name)) { groups.set(name, { name: name, items: [] }); }
+                groups.get(name).items.push({
+                    n: tool.name, d: tool.description || '',
+                    t: ['read', 'write'].indexOf(tool.operation) >= 0 ? tool.operation : 'other'
+                });
+            });
+            D.domains = Array.from(groups.values());
+            renderDomains();
+            toolSignature = nextTools;
+        }
+        var nextClients = JSON.stringify(data.clients);
+        if (nextClients !== clientSignature) {
+            D.platforms = data.clients.map(function (p) {
+                return { n: p.displayName || p.name, by: p.vendor, k: p.rootKey, i: p.icon };
+            });
+            renderEcosystem();
+            clientSignature = nextClients;
+        }
+        var directionText = directionsReady
+            ? data.protocolDirections.map(function (d) { return d.name; }).join(' · ') || '暂无顶层方向'
+            : '协议方向暂不可用';
+        setText($('direction-list'), '顶层方向：' + directionText);
+        setText($('pl-directions'), directionText);
+        // 长列表在架构图中缩放，完整名称始终保留在概览与可访问说明中。
+        $('pl-directions').setAttribute('textLength', '340');
+        $('pl-directions').setAttribute('lengthAdjust', 'spacingAndGlyphs');
+        setText($('arch-desc'), '顶层方向：' + directionText + '。按意图路由技能，经 MCP 工具编排完成交付。');
+        if (data.serverVersion && data.serverVersion !== 'unknown') {
+            D.meta.version = 'v' + data.serverVersion;
+            D.closing.foot[0] = 'xl-protocol-agent MCP Server ' + D.meta.version;
+        }
+        if (data.packageVersion && data.packageVersion !== 'unknown') {
+            D.closing.foot[1] = data.packageName + ' ' + data.packageVersion;
+        }
+        setText($('brand-ver'), D.meta.version);
+        D.delivery.stats[0].v = validCount(data.scriptsGenerated) ? data.scriptsGenerated : null;
+        ['brandCount', 'deviceTypeCount'].forEach(function (key, index) {
+            var platform = data.platform || {};
+            D.delivery.stats[index + 1].v = platform.available && validCount(platform[key]) ? platform[key] : null;
+            D.delivery.stats[index + 1].i = !platform.available ? '平台暂不可用' :
+                (data.dataSource === 'live' ? '平台实时统计' : '最近成功平台缓存');
+        });
+        D.delivery.test = data;
+        renderTestReport(data);
+        D.closing.sub = D.metrics.map(function (m) {
+            return displayNumber(m.value) + ' 个' + m.label;
+        }).join(' · ');
+        renderMetrics();
+        $('metrics').children[1].title = data.skillsAvailable === false ? 'Skill 目录暂不可用' :
+            '按实际 SKILL.md 统计（含独立子技能）：' + data.skills.join('、');
+        renderDeliveryStats();
+        renderClosing();
+        hasSuccessfulSnapshot = true;
+        $('status-dot').className = 'dot live';
+        setText($('status-txt'), 'ONLINE');
+    }
+
+    /* ── 可见时每 60 秒查询；单在途请求、超时及过期响应保护 ── */
+
+    var pollInterval = 60000;
+    var pollTimer = null;
+    var activeRequest = null;
+    var lastRequestAt = null;
+    var pageSuspended = false;
+
+    function schedulePoll() {
+        clearTimeout(pollTimer);
+        pollTimer = null;
+        if (document.hidden || pageSuspended || activeRequest) { return; }
+        var delay = lastRequestAt === null ? 0 : Math.max(0, pollInterval - (Date.now() - lastRequestAt));
+        pollTimer = setTimeout(loadShowcaseData, delay);
+    }
+
+    function loadShowcaseData() {
+        if (activeRequest || pageSuspended) { return; }
+        clearTimeout(pollTimer);
+        pollTimer = null;
+        var request = { controller: new AbortController(), timer: null, cancel: null };
+        activeRequest = request;
+        lastRequestAt = Date.now();
+        var deadline = new Promise(function (resolve, reject) {
+            request.cancel = function () {
+                request.controller.abort();
+                reject(new Error('请求已取消或超时'));
+            };
+            request.timer = setTimeout(request.cancel, 30000);
+        });
+        var response = Promise.resolve().then(function () {
+            return fetch('/api/showcase/data', { cache: 'no-store', signal: request.controller.signal });
+        }).then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('查询失败')); });
+        Promise.race([response, deadline]).then(function (data) {
+            if (activeRequest === request && !pageSuspended) { applyShowcaseData(data); }
+        }).catch(function () {
+            if (activeRequest !== request || pageSuspended) { return; }
+            $('status-dot').className = 'dot dead';
+            setText($('status-txt'), 'UPDATE FAILED');
+            if (!hasSuccessfulSnapshot) {
+                setText($('direction-list'), '协议方向暂不可用');
+                setText($('pl-directions'), '方向暂不可用');
+                setText($('closing-sub'), '能力统计暂不可用');
+            }
+        }).finally(function () {
+            clearTimeout(request.timer);
+            if (activeRequest === request) { activeRequest = null; schedulePoll(); }
+        });
+    }
+
+    document.addEventListener('visibilitychange', schedulePoll);
+    window.addEventListener('pagehide', function () {
+        pageSuspended = true;
+        clearTimeout(pollTimer);
+        if (activeRequest) { activeRequest.cancel(); }
+    });
+    window.addEventListener('pageshow', function () { pageSuspended = false; schedulePoll(); });
+    $('matrix-search').addEventListener('input', renderDomains);
+    $('matrix-domain').addEventListener('change', renderDomains);
 
     /* ── 启动 ── */
 
@@ -2560,18 +2652,13 @@ var SHOWCASE_DATA = {
     renderClosing();
     bindTip();
     bindGlow();
-    probeStatus();
     observe(document.querySelectorAll('.reveal'));
 
-    // 首屏统计：加载即触发，不等滚动。
-    // 笔记本视口下该区块贴近首屏底部，可见比例不足以让
-    // IntersectionObserver 触发，会导致打开页面只看到一排 0。
-    setTimeout(function () {
-        var heroBox = $('metrics');
-        if (!heroBox) { return; }
-        heroBox.classList.add('in');
-        runCounters(heroBox);
-    }, reduced ? 0 : 320);
+    // 动态加载 showcase 数据（工具数量、技能数量、版本、平台统计）
+    loadShowcaseData();
+
+    // 首屏指标不受视口入场比例影响。
+    $('metrics').classList.add('in');
 
     // 首屏终端延迟启动，等入场动画落定
     setTimeout(runTerminal, reduced ? 0 : 620);

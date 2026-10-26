@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>设备建档与协议智能体 · Web 化方案汇报</title>
+<style>
+:root{
+  --bg:#0e1420; --panel:#161d2c; --panel2:#1e2637; --ink:#eef3fb; --muted:#9aa8bd;
+  --a:#5ad1a8; --a2:#4aa8ff; --warn:#f2b544; --bad:#f0685f; --line:#28324a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;
+  padding:clamp(20px,3.2vw,52px) clamp(20px,4.2vw,80px) clamp(6px,1.2vh,14px);overflow:auto}
+.slide.on{display:flex}
+.k{font-size:clamp(12px,1.1vw,14px);letter-spacing:.24em;text-transform:uppercase;color:var(--a);
+  font-weight:700;margin-bottom:clamp(6px,.9vh,12px)}
+h1{font-size:clamp(30px,6vw,72px);line-height:1.08;font-weight:800;letter-spacing:-.5px}
+h2{font-size:clamp(22px,3.2vw,42px);line-height:1.14;font-weight:750;margin-bottom:clamp(10px,1.6vh,20px)}
+h3{font-size:clamp(15px,1.6vw,20px);font-weight:700;margin:0 0 8px}
+p,li,td,th{font-size:clamp(14px,1.5vw,19px);line-height:1.6}
+p{color:var(--muted);margin-bottom:10px}
+b,strong{color:var(--ink);font-weight:700}
+.hl{color:var(--a);font-weight:700}.hr{color:var(--warn);font-weight:700}.bd{color:var(--bad);font-weight:700}
+.row{display:flex;gap:clamp(14px,1.8vw,26px);flex-wrap:wrap;align-items:stretch}
+.col{flex:1 1 300px;min-width:0}
+.crd{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+  padding:clamp(14px,1.6vw,22px)}
+.crd.acc{border-left:3px solid var(--a)}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);
+  border-radius:16px;overflow:hidden}
+th{background:var(--panel2);text-align:left;font-weight:700;white-space:nowrap}
+th,td{padding:clamp(8px,.9vw,13px) clamp(10px,1.2vw,16px);border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+ul{margin-left:1.15em}li{color:var(--muted);margin-bottom:7px}li b{color:var(--ink)}
+.tag{display:inline-block;font-size:clamp(12px,1.1vw,14.5px);padding:3px 11px;border-radius:999px;
+  border:1px solid var(--line);background:var(--panel2);color:var(--muted);margin:0 7px 7px 0}
+.tag.ok{color:#08120d;background:var(--a);border-color:var(--a);font-weight:700}
+.tag.pt{color:#1a1204;background:var(--warn);border-color:var(--warn);font-weight:700}
+.tag.no{color:#ffe0dd;background:#4a1a18;border-color:var(--bad);font-weight:700}
+.dense th,.dense td{padding:clamp(5px,.6vw,8px) clamp(8px,.95vw,13px);
+  font-size:clamp(13px,1.35vw,16.5px)}
+.dense p,.dense li{font-size:clamp(13px,1.35vw,16.5px);margin-bottom:6px}
+.dense .crd{padding:clamp(10px,1.15vw,15px)}
+.dense h2{margin-bottom:clamp(6px,1vh,10px)}
+.dense .foot{padding-top:5px}
+.mono{font-family:ui-monospace,Consolas,monospace}
+.foot{position:sticky;bottom:0;margin-top:auto;padding:8px 100px 3px 0;display:flex;flex:0 0 auto;
+  justify-content:space-between;align-items:center;gap:12px;font-size:clamp(12px,1.05vw,13.5px);
+  color:#8b99ae;font-family:ui-monospace,Consolas,monospace;
+  background:linear-gradient(180deg,rgba(14,20,32,0),var(--bg) 55%)}
+#bar{position:fixed;left:0;bottom:0;height:3px;background:var(--a);width:0;transition:width .2s;z-index:20}
+.nav{position:fixed;right:clamp(12px,2vw,26px);bottom:clamp(12px,2vh,22px);display:flex;gap:8px;z-index:21}
+.nav button{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--panel);
+  color:var(--ink);font-size:19px;cursor:pointer}
+.nav button:hover{border-color:var(--a)}
+
+/* ===== 手机 / 屏幕 mockup ===== */
+.stagewrap{display:flex;gap:clamp(14px,2vw,30px);flex-wrap:wrap;align-items:flex-start;margin-top:0}
+.win{flex:1 1 380px;min-width:280px;background:#0b1018;border:1px solid var(--line);border-radius:16px;
+  overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.win .bar{background:var(--panel2);padding:9px 14px;font-size:12.5px;color:var(--muted);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.win .bar i{width:10px;height:10px;border-radius:50%;background:#384560;display:inline-block}
+.body{padding:14px;min-height:300px;max-height:58vh;overflow:auto}
+.ph{width:250px;flex:0 0 auto;background:#0b1018;border:11px solid #222c40;border-radius:26px;
+  overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.ph .bar{background:var(--panel2);padding:7px 12px;font-size:11px;color:var(--muted);text-align:center}
+.ph .body{padding:11px;min-height:400px;max-height:44vh}
+.msg{margin-bottom:7px;opacity:0;transform:translateY(8px);transition:all .35s ease}
+.msg.in{opacity:1;transform:none}
+.me{margin-left:auto;max-width:82%;background:var(--a2);color:#04101f;border-radius:14px 14px 4px 14px;
+  padding:8px 12px;font-size:clamp(12.5px,1.25vw,15.5px);font-weight:600}
+.ai{margin-right:auto;max-width:92%;background:var(--panel);border:1px solid var(--line);
+  border-radius:14px 14px 14px 4px;padding:8px 12px;font-size:clamp(12px,1.2vw,15px);color:#dbe5f4}
+.steps{list-style:none;margin:6px 0;padding:0}
+.steps li{display:none;align-items:center;gap:8px;margin:0 0 6px;font-size:clamp(12px,1.15vw,14.5px);
+  color:var(--muted)}
+.steps li.on{display:flex}
+.steps li .dot{width:15px;height:15px;border-radius:50%;border:2px solid var(--a);flex:0 0 auto;
+  position:relative}
+.steps li.done .dot{background:var(--a)}
+.steps li.done .dot::after{content:"";position:absolute;left:3px;top:1px;width:4px;height:7px;
+  border:solid #08120d;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.card2{display:none;background:var(--panel2);border:1px solid var(--a);border-radius:14px;padding:11px;
+  margin:6px 0 8px;opacity:0;transform:translateY(10px);transition:all .4s}
+.card2.on{display:block;opacity:1;transform:none}
+.card2 h4{font-size:clamp(12.5px,1.25vw,15.5px);margin-bottom:6px;color:var(--ink)}
+.rows{font-size:clamp(12px,1.12vw,14.5px);color:var(--muted);line-height:1.7}
+.rows span{color:#dbe5f4}
+.btns{display:flex;gap:8px;margin-top:9px}
+.b1{flex:1;text-align:center;background:var(--a);color:#08120d;font-weight:700;border-radius:9px;
+  padding:8px 6px;font-size:clamp(12px,1.2vw,15px)}
+.b2{flex:1;text-align:center;background:transparent;border:1px solid var(--line);color:var(--muted);
+  border-radius:9px;padding:8px 6px;font-size:clamp(12px,1.2vw,15px)}
+.b1.click{animation:press .5s ease}
+@keyframes press{0%{transform:scale(1)}40%{transform:scale(.94);filter:brightness(1.25)}100%{transform:scale(1)}}
+.prog{display:none;gap:5px;margin-top:8px}
+.prog.on{display:flex}
+.prog div{flex:1;height:6px;border-radius:3px;background:#2b3550;overflow:hidden}
+.prog div i{display:block;height:100%;width:0;background:var(--a);transition:width .5s ease}
+.ctrl{display:flex;align-items:center;gap:10px;margin-top:8px}
+.ctrl button{background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:9px;
+  padding:7px 14px;font-size:13.5px;cursor:pointer}
+.ctrl button:hover{border-color:var(--a)}
+.ctrl span{font-size:12.5px;color:var(--muted)}
+.live{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--a);
+  animation:blink 1.1s infinite;margin-right:6px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.cmp{display:flex;gap:clamp(12px,1.6vw,22px);flex-wrap:wrap;margin-top:6px}
+.cmp>div{flex:1 1 320px}
+.chain{font-family:ui-monospace,Consolas,monospace;font-size:clamp(12px,1.2vw,15px);line-height:1.9;
+  color:var(--muted);white-space:pre-wrap}
+.chain b{color:var(--ink)}
+.flow{display:none}
+svg.arch{width:100%;height:auto;max-height:56vh}
+svg.arch text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;fill:var(--ink)}
+.dash{stroke-dasharray:7 7;animation:flow 1.1s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-28}}
+.pop{animation:pop .5s ease}
+@keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+@media (max-width:520px){
+  .slide{padding-top:14px}
+  .ph{width:210px}
+  .ph .body{min-height:230px;max-height:32vh}
+  .win .body{max-height:42vh;min-height:230px}
+}
+@media print{
+  body{overflow:visible;background:#fff;color:#111}
+  .slide{position:relative;display:flex !important;page-break-after:always;height:auto;
+    min-height:100vh;overflow:visible;padding:20px 28px;background:#fff;color:#111}
+  .body{max-height:none !important;min-height:0;overflow:visible}
+  .foot{position:static;padding-right:0;background:none}
+  .crd,table,.win,.ph{background:#f5f7fa;border-color:#ccd3de;color:#111}
+  p,li,.rows,.chain{color:#3d4657}h2,h3,td,th,b{color:#111}
+  .msg{opacity:1;transform:none}.steps li{display:flex}.card2{display:block;opacity:1;transform:none}
+  .prog{display:flex}.nav,#bar{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- 01 封面 -->
+<section class="slide on">
+  <div class="k">方案汇报 · 设备建档与协议智能体</div>
+  <h1>一句话就能建档<br>不需要会装工具、不需要会 IDE</h1>
+  <p style="margin-top:18px;max-width:64ch">把现在只能在开发工具里完成的建档与协议转换流程，
+  搬到<b>一个网页对话框</b>：现场人员在手机上说一句话，系统自己取模板、校验、规划、
+  请人确认后写入，并把结果回读给他。</p>
+  <div style="margin-top:clamp(14px,2.4vh,28px)">
+    <span class="tag ok">现有服务与工具零改动</span>
+    <span class="tag ok">复用已有的 71 个工具与 9 套作业规范</span>
+    <span class="tag pt">三阶段交付，第一阶段先打通"取模板 + 查询"</span>
+  </div>
+  <div class="foot"><span>内部汇报材料</span><span>01</span></div>
+</section>
+
+<!-- 02 现状问题 -->
+<section class="slide">
+  <div class="k">01 · 现状</div>
+  <h2>今天这件事有多重</h2>
+  <div class="row">
+    <div class="col crd acc"><h3>门槛在工具，不在业务</h3>
+      <p>要装开发工具、配连接、输指令，现场人员无法自助；每一次建档都要懂行的人陪着操作。</p></div>
+    <div class="col crd acc"><h3>动作散在多个环节</h3>
+      <p>取模板、填表、校验、建档案、存参数、核对结果，靠人在几个界面之间来回搬数据，
+      出错只能逐条重查。</p></div>
+    <div class="col crd acc"><h3>结果不好追溯</h3>
+      <p>改了什么、谁批准的、成没成功，散在聊天记录和个人电脑里，事后难以还原。</p></div>
+  </div>
+  <div style="margin-top:clamp(12px,2vh,22px)">
+    <span class="tag">服务端能力其实已经齐了</span>
+    <span class="tag">缺的只是一个"普通人能用"的入口</span>
+  </div>
+  <div class="foot"><span>设备建档与协议智能体 · Web 化方案</span><span>02</span></div>
+</section>
+
+<!-- 03 前后对比 -->
+<section class="slide">
+  <div class="k">02 · 目标</div>
+  <h2>做成之后，同一条路变成这样</h2>
+  <div class="cmp">
+    <div class="crd">
+      <h3 class="bd">现在</h3>
+      <div class="chain">装开发工具 → 配连接参数 → 输指令
+→ 人工逐步操作 → 人工核对结果
+
+<b>参与人：懂工具的人</b>
+<b>耗时：每次都要人盯全程</b></div>
+    </div>
+    <div class="crd">
+      <h3 class="hl">之后</h3>
+      <div class="chain">打开网页 → 登录 → 说一句话
+→ 系统执行并逐项请示 → 结果与凭证可下载
+
+<b>参与人：现场人员，手机即可</b>
+<b>耗时：人只在决策点出现</b></div>
+    </div>
+  </div>
+  <div class="row" style="margin-top:clamp(10px,1.6vh,18px)">
+    <div class="col crd"><h3>三个真实使用场景</h3>
+      <ul>
+        <li><b>取最新建档模板</b> —— 一句话拿到当期标准模板文件</li>
+        <li><b>批量建档与参数保存</b> —— 上传填好的表，系统给计划，人确认后执行并回读</li>
+        <li><b>协议转换作业</b> —— 交文档，系统出配置、校验、报告与交付包（第三阶段）</li>
+      </ul></div>
+    <div class="col crd"><h3>不改变任何既有工作方式</h3>
+      <p>原有开发工具接入路径、服务端接口与全部作业能力<b>保持不变</b>；
+      网页只是新增一种用法。</p></div>
+  </div>
+  <div class="foot"><span>设备建档与协议智能体 · Web 化方案</span><span>03</span></div>
+</section>
+
+<!-- 04 演示一 -->
+<section class="slide">
+  <div class="k">03 · 效果演示（一）</div>
+  <h2>一句话取建档模板 <span style="font-size:.62em;color:var(--muted);font-weight:600">自动播放，可重播</span></h2>
+  <div class="stagewrap" id="d1">
+    <div class="win">
+      <div class="bar"><i></i><i></i><i></i> &nbsp;设备建档助手 · 电脑端</div>
+      <div class="body">
+        <div class="msg"><div class="me">给我一份最新的建档模板</div></div>
+        <div class="msg"><div class="ai"><span class="live"></span>正在识别任务并准备模板…</div></div>
+        <div class="msg">
+          <div class="ai">按当前标准生成模板，共 <b>4 张表</b>（网关 / 电表 / 照明 / 配电房）：
+            <ul class="steps">
+              <li><span class="dot"></span>校验服务端与资源包版本一致</li>
+              <li><span class="dot"></span>读取平台字典与类型定义</li>
+              <li><span class="dot"></span>生成模板文件并登记归属</li>
+              <li><span class="dot"></span>出具有效期与填写说明</li>
+            </ul></div>
+        </div>
+        <div class="msg"><div class="card2">
+          <h4>建档模板_设备建档_当前版.xlsx</h4>
+          <div class="rows">归属：<span>张工（139****）</span> · 大小：<span>42 KB</span>
+            · 有效期：<span>30 天</span><br>填写要求：<span>系统连接表需填目标地址与账号</span></div>
+          <div class="btns"><div class="b1">下载模板</div><div class="b2">先看填写说明</div></div>
+        </div></div>
+        <div class="msg"><div class="ai">模板已备好。填完后直接把文件发给我，我会先给你<b>执行计划</b>，
+          经你确认后才写入。</div></div>
+      </div>
+    </div>
+    <div class="ph">
+      <div class="bar">手机端 · 同一会话</div>
+      <div class="body">
+        <div class="msg"><div class="me">查一下 XX 站今年建档了多少台</div></div>
+        <div class="msg"><div class="ai">正在查询…</div></div>
+        <div class="msg"><div class="ai">该站现有档案：<b>网关 2 台</b>、
+          <b>电表 41 台</b>、<b>照明 6 台</b>。需要导出清单吗？</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ctrl">
+    <button data-play="d1">▶ 重播演示</button>
+    <span>演示为界面示意；工具名称、字段与流程环节均取自现有服务的真实能力。</span>
+  </div>
+  <div class="foot"><span>设备建档与协议智能体 · Web 化方案</span><span>04</span></div>
+</section>
+
+<!-- 05 演示二 -->
+<section class="slide">
+  <div class="k">03 · 效果演示（二）</div>
+  <h2>建档闭环：系统给计划，人做决定</h2>
+  <div class="stagewrap" id="d2">
+    <div class="win">
+      <div class="bar"><i></i><i></i><i></i> &nbsp;建档执行 · 计划确认</div>
+      <div class="body">
+        <div class="msg"><div class="me">（上传已填表）按这个表建档</div></div>
+        <div class="msg"><div class="ai">已读取文件，检查现场现状并生成计划…
+          <ul class="steps">
+            <li><span class="dot"></span>校验表格结构与必填项</li>
+            <li><span class="dot"></span>比对现场已有档案，识别新建 / 更新</li>
+            <li><span class="dot"></span>计算参数差异与冲突项</li>
+            <li><span class="dot"></span>生成执行计划（待确认）</li>
+          </ul></div></div>
+        <div class="msg"><div class="card2">
+          <h4>执行计划 · 共 49 个对象（新建 47，更新 2）</h4>
+          <div class="rows">
+            可执行：<span>是</span> · 冲突：<span>0</span> · 阻塞项：<span>1</span><br>
+            ① 网关 GW01 — 新建，通信地址 <span>10.0.17.23:8080</span><br>
+            ② 电表 A01 — 新建并挂载至 GW01，参数 <span>当前 12 → 计划 20</span><br>
+            ③ 电表 A02 — <span>阻塞</span>：缺少通信地址，需补充<br>
+            ④ 照明 L01 — 更新：仅保存参数，不重建档案
+          </div>
+          <div class="btns"><div class="b1">确认执行</div><div class="b2">取消</div><div class="b2">补充信息</div></div>
+        </div></div>
+        <div class="msg"><div class="ai">正在执行并逐项回读核对…
+          <div class="prog"><div><i></i></div><div><i></i></div><div><i></i></div><div><i></i></div></div>
+          <ul class="steps">
+            <li><span class="dot"></span>联通校验</li>
+            <li><span class="dot"></span>档案写入（47 新建 / 2 更新）</li>
+            <li><span class="dot"></span>参数保存并全字段回读</li>
+            <li><span class="dot"></span>出具阶段报告与未执行清单</li>
+          </ul></div></div>
+        <div class="msg"><div class="ai">完成 <b>48/49</b>。未执行 1 项（电表 A02 缺通信地址）。
+          <div class="rows">报告与操作凭证可下载，<b>下发 / 召测不在本次范围</b>（通信契约待核实）。</div></div></div>
+      </div>
+    </div>
+    <div class="col" style="flex:1 1 300px">
+      <div class="crd acc"><h3>关键设计：确认权在服务端</h3>
+        <p>"我已确认"这句话<b>不由机器自己说</b>。页面上点下确认按钮时，服务端针对这一份计划发一张
+        一次性凭证，写入动作必须带这张凭证才执行；凭证过期、复用或校验服务不可用，一律<b>拒绝</b>。</p></div>
+      <div class="crd"><h3>结果一定带"没做什么"</h3>
+        <p>每次执行都产出阶段报告与未执行清单；失败项不猜测成功，回执未知的标记为"未确认"。</p></div>
+    </div>
+  </div>
+  <div class="ctrl">
+    <button data-play="d2">▶ 重播演示</button>
+    <span>计划字段与阶段划分沿用现有服务的真实返回结构。</span>
+  </div>
+  <div class="foot"><span>设备建档与协议智能体 · Web 化方案</span><span>05</span></div>
+</section>
+
+<!-- 06 怎么做 -->
+<section class="slide">
+  <div class="k">04 · 方案怎么做</div>
+  <h2>三句话讲清架构</h2>
+  <svg class="arch pop" viewBox="0 0 980 300" role="img" aria-label="分层架构示意">
+    <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#5ad1a8"/></marker></defs>
+    <rect x="18" y="105" rx="16" width="200" height="90" fill="#161d2c" stroke="#28324a"/>
+    <text x="118" y="140" text-anchor="middle" font-size="19" font-weight="700">网页对话框</text>
+    <text x="118" y="166" text-anchor="middle" font-size="14" fill="#9aa8bd">输入 · 看中间结果</text>
+    <text x="118" y="184" text-anchor="middle" font-size="14" fill="#9aa8bd">确认 / 补充</text>
+
+    <rect x="288" y="105" rx="16" width="200" height="90" fill="#161d2c" stroke="#5ad1a8"/>
+    <text x="388" y="140" text-anchor="middle" font-size="19" font-weight="700">新增后端</text>
+    <text x="388" y="166" text-anchor="middle" font-size="14" fill="#9aa8bd">会话 · 身份 · 权限凭证</text>
+    <text x="388" y="184" text-anchor="middle" font-size="14" fill="#9aa8bd">结果推送 · 留痕</text>
+
+    <rect x="558" y="105" rx="16" width="200" height="90" fill="#161d2c" stroke="#4aa8ff"/>
+    <text x="658" y="140" text-anchor="middle" font-size="19" font-weight="700">智能体运行时</text>
+    <text x="658" y="166" text-anchor="middle" font-size="14" fill="#9aa8bd">理解意图 · 决定步骤</text>
+    <text x="658" y="184" text-anchor="middle" font-size="14" fill="#9aa8bd">按作业规范执行</text>
+
+    <rect x="828" y="105" rx="16" width="134" height="90" fill="#161d2c" stroke="#28324a"/>
+    <text x="895" y="142" text-anchor="middle" font-size="18" font-weight="700">现有服务</text>
+    <text x="895" y="168" text-anchor="middle" font-size="14" fill="#9aa8bd">71 个能力</text>
+    <text x="895" y="186" text-anchor="middle" font-size="14" fill="#9aa8bd">不改一行</text>
+
+    <line class="dash" x1="218" y1="150" x2="284" y2="150" stroke="#5ad1a8" stroke-width="2" marker-end="url(#ah)"/>
+    <line class="dash" x1="488" y1="150" x2="554" y2="150" stroke="#5ad1a8" stroke-width="2" marker-end="url(#ah)"/>
+    <line class="dash" x1="758" y1="150" x2="824" y2="150" stroke="#5ad1a8" stroke-width="2" marker-end="url(#ah)"/>
+    <path d="M895 195 L895 250 L388 250 L388 199" fill="none" stroke="#4aa8ff" stroke-width="2" class="dash"/>
+    <text x="640" y="243" text-anchor="middle" font-size="13.5" fill="#9aa8bd">每个会话一条独立通道，互不串号</text>
+  </svg>
+  <div class="row">
+    <div class="col crd"><h3>① 复用，不重写</h3><p>作业规范、校验规则、建档引擎、平台对接全部沿用现有
+      服务端与规范文件，网页只是新入口。</p></div>
+    <div class="col crd"><h3>② 一人一条通道</h3><p>每个登录会话有独立的执行环境与独立凭证，
+      避免不同人互相顶掉身份与数据归属。</p></div>
+    <div class="col crd"><h3>③ 人只在决策点出现</h3><p>中间过程实时可见，写入必须人确认；
+      确认权由服务端凭证承载。</p></div>
+  </div>
+  <div class="foot"><span>设备建档与协议智能体 · Web 化方案</span><span>06</span></div>
+</section>
+
+<!-- 07 为什么成本低 -->
+<section class="slide dense">
+  <div class="k">05 · 投入判断</div>
+  <h2>为什么这件事比看上去便宜</h2>
+  <table>
+    <tr><th>看起来要新建的东西</th><th>实际情况（已存在）</th></tr>
+    <tr><td>网页后端的登录、鉴权、文件上传、结果下载</td>
+        <td>现有服务已提供 <b>10 条非 MCP 端点</b>（3 个页面 + 7 个 API），含带凭证的表格上传与模板下载，范式可直接沿用</td></tr>
+    <tr><td>建档的全部业务动作</td>
+        <td>已封装为 <b>71 个可调用能力</b>（查询 / 建档 / 挂载 / 参数 / 报告 / 协议管理）</td></tr>
+    <tr><td>让机器按公司规范干活</td>
+        <td>已积累 <b>9 套作业规范文件</b>（入口路由、字段映射、校验、打包），可直接喂给运行时</td></tr>
+    <tr><td>写入前的"人确认"机制</td>
+        <td>已有<b>计划 + 确认</b>两段式门禁，本次只是把"确认"从对话文本升级为服务端凭证</td></tr>
+    <tr><td>确认页面上要展示什么</td>
+        <td>现有返回已含<b>可执行标志、冲突、阻塞项、逐项参数差异、批次</b>，<b>无需新增字段</b></td></tr>
+    <tr><td>谁做了什么、成没成</td>
+        <td>已有<b>写操作留痕与阶段报告</b>存储机制，按使用者分区可回看</td></tr>
+  </table>
+  <div class="row" style="margin-top:clamp(10px,1.6vh,18px)">
+    <div class="col crd acc"><h3>真正要新写的三块</h3>
+      <ul><li>网页界面与消息推送</li><li>后端会话与凭证管理、执行环境调度</li>
+      <li>权限与数据归属的加固改造（涉及既有凭证分配规则调整，属规格级变更）</li></ul></div>
+    <div class="col crd"><h3>第三阶段不是白送</h3>
+      <p>协议转换中的"跑校验、出报告、打交付包"目前在规范里标记为待补的服务端能力，
+      需要补齐 <b>6 项能力</b>并同步升级作业规范，因此排在第三阶段。</p></div>
+  </div>
+  <div class="foot"><span>设备建档与协议智能体 · Web 化方案</span><span>07</span></div>
+</section>
+
+<!-- 08 分期 -->
+<section class="slide">
+  <div class="k">06 · 交付节奏</div>
+  <h2>三期交付，每期都有能用的东西</h2>
+  <div class="row">
+    <div class="col crd acc"><h3><span class="tag ok">第 0 步</span>先清理，再验证</h3>
+      <p>先做两件不改业务代码的清理：<b>改动前文件级快照</b>（不建 git 基线，但必须有回滚点）与
+      <b>技能目录只读治理</b>（中间产物现写进技能目录，须改落会话工作区）；
+      再用 1~2 天确认：能否连上自家服务、中途能否请示、失败能否恢复。</p></div>
+    <div class="col crd acc"><h3><span class="tag">第一期</span>能查、能取模板</h3>
+      <p>登录准入 + 网页对话 + 实时过程展示；查询、字典、模板生成与下载全链路可用。
+      <b>这是最快能给人用的版本。</b></p></div>
+    <div class="col crd acc"><h3><span class="tag">第二期</span>能建档</h3>
+      <p>上传已填表 → 计划卡片 → 确认 → 写入 → 回读 → 阶段报告；权限凭证与留痕闭环。
+      <b>这是价值最大的一期。</b></p></div>
+  </div>
+  <div class="row" style="margin-top:clamp(10px,1.6vh,18px)">
+    <div class="col crd"><h3><span class="tag">第三期</span>能转换协议</h3>
+      <p>补齐 6 项服务端执行能力并升级作业规范后，交文档出配置、校验、报告与交付包可在网页完成；
+      同时让开发工具端也受益（不再依赖个人电脑环境）。</p></div>
+    <div class="col crd"><h3>每一期的验收口径</h3>
+      <ul><li>第一期：一句话拿到当期模板并能下载</li>
+      <li>第二期：不点确认就写不进去；确认后结果与报告可核对</li>
+      <li>第三期：交一份文档能拿到可交付包与测试报告</li></ul></div>
+  </div>
+  <p style="margin-top:8px">工期在第 0 步验证后给出；<b>现在给数字是不负责任的。</b></p>
+  <div class="foot"><span>设备建档与协议智能体 · Web 化方案</span><span>08</span></div>
+</section>
+
+<!-- 09 安全 -->
+<section class="slide dense">
+  <div class="k">07 · 安全与管控</div>
+  <h2>四道闸门，讲清楚谁能干什么</h2>
+  <table>
+    <tr><th>问题</th><th>怎么控制</th></tr>
+    <tr><td>谁能进门？</td><td>手机号 + 验证码登录，并且必须在<b>准入名单</b>内；名单缺失时一律拒绝</td></tr>
+    <tr><td>进门能干什么？</td><td>接入凭证只授予"能调用能力"，<b>不代表可写平台</b>；
+      云端写入仍需业务账号命中超级账号配置</td></tr>
+    <tr><td>谁批准动手？</td><td>写入动作必须带<b>服务端一次性凭证</b>；机器自己声称"已确认"无效，
+      校验不通就拒绝（不做默认放行）</td></tr>
+    <tr><td>机器会不会乱来？</td><td>第一期<b>关闭命令执行能力</b>，读写限制在本次会话的独立工作区；
+      服务代码、规范源目录、凭据文件一律拒绝访问</td></tr>
+    <tr><td>事后怎么查？</td><td>按使用者留痕与阶段报告；拦截行为也留痕，可复盘</td></tr>
+  </table>
+  <div class="row" style="margin-top:clamp(10px,1.6vh,18px)">
+    <div class="col crd"><h3 class="hr">需要领导知情的两条前提</h3>
+      <ul><li>对话与文档内容会经由<b>外部智能体服务</b>处理（需求方已确认可接受）；
+        含凭据的建档表格只在内部处理，且保留期短于一般文件</li>
+      <li>新入口与现有服务<b>同机部署</b>，隔离依赖权限规则与工作区限制，不依赖物理分离；
+        若要更严，可后续改为独立主机或容器，不影响其它设计</li></ul></div>
+    <div class="col crd"><h3>用量控制</h3>
+      <ul><li>每人每日对话次数上限（默认 100，可调）</li>
+      <li>同时运行数量上限（默认 4，超限明确提示繁忙）</li>
+      <li>单轮步骤上限，防止无限循环</li>
+      <li>文件与产物按类别保留 30 天，含凭据文件 7 天</li></ul></div>
+  </div>
+  <div class="foot"><span>设备建档与协议智能体 · Web 化方案</span><span>09</span></div>
+</section>
+
+<!-- 10 风险 -->
+<section class="slide dense">
+  <div class="k">08 · 风险与前提</div>
+  <h2>我不承诺没验证的事</h2>
+  <table>
+    <tr><th>事项</th><th>状态</th><th>不成立时的退路</th></tr>
+    <tr><td>外部运行时可被我们的后端驱动，并连回自家服务</td><td><span class="tag pt">待验证</span></td>
+        <td>改为自研执行循环，工作量与规范复用度重估</td></tr>
+    <tr><td>执行中途能把"要不要写入"交回页面请示</td><td><span class="tag pt">待验证</span></td>
+        <td>确认机制改在服务端改造，方案形态调整</td></tr>
+    <tr><td>会话可恢复（空闲回收后再唤起不丢上下文）</td><td><span class="tag pt">待验证</span></td>
+        <td>提高并发预留，或缩短空闲回收</td></tr>
+    <tr><td>外部智能体账号用于多人服务的授权与额度口径</td><td><span class="tag no">需商务确认</span></td>
+        <td>收敛为内部少量人使用，或改用可控模型通道</td></tr>
+    <tr><td>手机拍照的协议文档识别质量</td><td><span class="tag pt">待实测</span></td>
+        <td>第一期只收文本与电子表格，照片推后</td></tr>
+    <tr><td>现场"隔天继续上次任务"的能力</td><td><span class="tag pt">待核实</span></td>
+        <td>明确限定为重新规划，进度以报告为准</td></tr>
+  </table>
+  <div class="card2 on" style="margin-top:clamp(10px,1.6vh,18px);border-color:var(--warn)">
+    <h3>已知的业务边界（不是本次引入，方案里不掩盖）</h3>
+    <p style="color:var(--ink)">设备<b>下发与监测点召测</b>因现场通信契约尚未完全核实，
+    当前状态为<b>受限</b>：网页版不会绕过该限制，也不会把未确认的结果报成成功。
+    建档、参数保存、回读与报告不受此项影响。</p></div>
+  <div class="foot"><span>设备建档与协议智能体 · Web 化方案</span><span>10</span></div>
+</section>
+
+<!-- 11 需要什么 -->
+<section class="slide">
+  <div class="k">09 · 需要的支持</div>
+  <h2>还需要三件事（名单与账号已到位）</h2>
+  <div class="row">
+    <div class="col crd acc"><h3>1 · 对外形态与 HTTPS 证书</h3>
+      <p>一期直接公网：需定域名或 IP:端口、证书由哪里签发、用哪个代理组件，
+      并要求代理层关闭流式缓冲。<b>该项未定不得进入部署配置。</b></p></div>
+    <div class="col crd acc"><h3>2 · 账号额度的使用口径</h3>
+      <p>智能体账号已确定（含免费模型档位），但用它支撑<b>多人对外服务</b>的额度与并发上限
+      需实测并作商务确认；这直接决定能开多少人。</p></div>
+    <div class="col crd acc"><h3>3 · 一次现场验证机会</h3>
+      <p>技术确认 + 一期试用需要一台目标环境做一次真实建档，验收口径见第 8 页。</p></div>
+  </div>
+  <div style="margin-top:clamp(12px,2vh,22px)">
+    <span class="tag">已到位：准入手机号（2 个）· 智能体账号</span>
+    <span class="tag">已产出：完整方案文档</span>
+    <span class="tag">已产出：规格与任务清单（16 组 67 项）</span>
+    <span class="tag pt">先决：文件级快照 + 技能目录只读治理</span>
+    <span class="tag ok">现有功能零改动 · 未动任何服务代码</span>
+  </div>
+  <div class="foot"><span>设备建档与协议智能体 · Web 化方案</span><span>11</span></div>
+</section>
+
+<!-- 12 结尾 -->
+<section class="slide">
+  <div class="k">结论</div>
+  <h2>做成之后的样子</h2>
+  <div class="row">
+    <div class="col crd acc"><h3 class="hl">对人</h3>
+      <p>现场人员手机上说一句话就能取模板、建档、查结果；<b>懂工具的人从"每次陪做"
+      变成"只看异常"</b>。</p></div>
+    <div class="col crd acc"><h3 class="hl">对事</h3>
+      <p>批量建档从人工逐台操作变成一次规划、一次确认、逐项回读；<b>没做的部分必须说明</b>。</p></div>
+    <div class="col crd acc"><h3 class="hl">对管理</h3>
+      <p>谁进门、谁批准、做了什么、结果如何，<b>全部留痕可复盘</b>，包括被拦下的动作。</p></div>
+  </div>
+  <div class="crd" style="margin-top:clamp(10px,1.6vh,18px)">
+    <h3>一句话概括方案</h3>
+    <p style="color:var(--ink);font-size:clamp(15px,1.7vw,21px)">
+      <b>现有服务不动，作业规范不动；新增一个网页入口与一层会话管控，
+      由智能体运行时替人干活，人只在写入前点一次确认。</b></p></div>
+  <div style="margin-top:clamp(10px,1.6vh,18px)">
+    <span class="tag">下一步：第 0 步技术确认（1~2 天）</span>
+    <span class="tag">确认通过即启动第一期</span></div>
+  <div class="foot"><span>设备建档与协议智能体 · Web 化方案</span><span>12</span></div>
+</section>
+
+<div class="nav"><button id="prev" aria-label="上一页">&larr;</button><button id="next" aria-label="下一页">&rarr;</button></div>
+<div id="bar"></div>
+
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide')),i=0;
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){s.classList.toggle('on',k===i)});
+  document.getElementById('bar').style.width=((i+1)/slides.length*100)+'%';
+  if(location.hash!=='#'+(i+1))history.replaceState(null,'','#'+(i+1));
+  var s=slides[i],d=s.querySelector('.stagewrap');
+  if(d)play(d.id);
+}
+/* ---- 演示自动播放 ---- */
+var timers={};
+function play(id){
+  var root=document.getElementById(id);
+  if(!root){return}
+  (timers[id]||[]).forEach(function(t){clearTimeout(t)});
+  timers[id]=[];
+  var msgs=[].slice.call(root.querySelectorAll('.msg'));
+  var lis=[].slice.call(root.querySelectorAll('.steps li'));
+  var cards=[].slice.call(root.querySelectorAll('.card2'));
+  var btns=[].slice.call(root.querySelectorAll('.b1'));
+  var progs=[].slice.call(root.querySelectorAll('.prog'));
+  msgs.forEach(function(m){m.classList.remove('in')});
+  lis.forEach(function(l){l.classList.remove('on','done')});
+  cards.forEach(function(c){c.classList.remove('on')});
+  btns.forEach(function(b){b.classList.remove('click')});
+  progs.forEach(function(p){
+    p.classList.remove('on');
+    [].forEach.call(p.children,function(b){b.firstChild.style.width='0'});
+  });
+  var ST=420,SP=620,acc=0,tm=[];
+  var bodies=[].slice.call(root.querySelectorAll('.body'));
+  function at(ms,fn){
+    tm.push(setTimeout(function(){
+      fn();
+      bodies.forEach(function(b){b.scrollTop=b.scrollHeight});
+    },ms));
+  }
+  function fillBars(p){
+    [].forEach.call(p.children,function(b,k){
+      tm.push(setTimeout(function(){b.firstChild.style.width='100%'},k*260+120));
+    });
+  }
+  msgs.forEach(function(m){
+    at(acc,function(){m.classList.add('in')});
+    acc+=ST;
+    var ls=[].slice.call(m.querySelectorAll('.steps li'));
+    if(ls.length){
+      ls.forEach(function(l,k){
+        at(acc+k*SP*0.55,function(){l.classList.add('on','done')});
+      });
+      acc+=ls.length*SP*0.55+300;
+    }
+    var cd=[].slice.call(m.querySelectorAll('.card2'));
+    if(cd.length){
+      at(acc,function(){cd[0].classList.add('on')});
+      acc+=620;
+      var bb=[].slice.call(m.querySelectorAll('.b1'));
+      if(bb.length){
+        at(acc,function(){bb[0].classList.add('click')});
+        acc+=420;
+      }
+    }
+    var pg=[].slice.call(m.querySelectorAll('.prog'));
+    if(pg.length){
+      at(acc,function(){pg[0].classList.add('on');fillBars(pg[0])});
+      acc+=SP;
+    }
+  });
+  timers[id]=tm;
+}
+document.getElementById('next').addEventListener('click',function(){show(i+1)});
+document.getElementById('prev').addEventListener('click',function(){show(i-1)});
+document.addEventListener('click',function(e){
+  var b=e.target.closest('button[data-play]');
+  if(b){play(b.getAttribute('data-play'));return}
+  if(e.target.closest('a,button,table,.win,.ph'))return;
+  var w=window.innerWidth,x=e.clientX;
+  if(x>w*0.66)show(i+1);else if(x<w*0.2)show(i-1);
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();show(i+1)}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1)}
+  else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);
+  else if(e.key==='p'||e.key==='P')window.print();
+});
+var sx=null;
+function free(e){var t=e.target;return !(t.closest&&t.closest('.win,.ph,table,pre,button,a'))}
+document.addEventListener('touchstart',function(e){sx=free(e)?e.changedTouches[0].clientX:null},{passive:true});
+document.addEventListener('touchend',function(e){
+  if(sx===null)return;var d=e.changedTouches[0].clientX-sx;
+  if(d<-45)show(i+1);else if(d>45)show(i-1);sx=null;
+},{passive:true});
+var h=parseInt((location.hash||'').slice(1),10);
+show(isNaN(h)?0:h-1);
+</script>
+</body>
+</html>

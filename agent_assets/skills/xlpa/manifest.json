@@ -1,0 +1,19 @@
+{
+  "name": "xlpa",
+  "version": "0.6.0",
+  "kind": "skill-assets",
+  "entry": "SKILL.md",
+  "required": [
+    "SKILL.md",
+    "agents/openai.yaml",
+    "tools/mcp_client.py"
+  ],
+  "optional": [
+    "templates/",
+    "validators/",
+    "references/"
+  ],
+  "related_skills": [
+    "xlpa-device-archiving"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "serverName": "xl-protocol-agent",
+  "serverVersion": "0.33.0",
+  "schemaVersion": 1,
+  "note": "MCP Server 版本事实源，由开发者维护；用户可见输出不得再硬编码版本。Agent 资源包版本另见 agent_assets/skills/package-manifest.json。"
+}

@@ -1,0 +1,3 @@
+interface:
+  display_name: "xlpa-device-archiving"
+  short_description: "XLPA 边缘自动建档编排"

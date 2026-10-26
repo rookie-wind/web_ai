@@ -1,0 +1,10 @@
+{
+  "systemAccount": {
+    "phone": "13912986342",
+    "code": "9413"
+  },
+  "superAccounts": {
+    "userIds": [],
+    "phones": ["13912986342"]
+  }
+}

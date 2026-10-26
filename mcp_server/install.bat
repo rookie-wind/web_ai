@@ -66,10 +66,27 @@ REM Write .env
 > "%SCRIPT_DIR%.env" echo MCP_AUTH_TOKEN=%TOKEN%
 echo     Saved mcp_server\.env
 
-REM Write .trae/mcp.json
-if not exist "%ROOT_DIR%\.trae" mkdir "%ROOT_DIR%\.trae"
-echo {"mcpServers":{"protocol-converter":{"url":"http://localhost:8765/mcp","headers":{"Authorization":"Bearer %TOKEN%"}}}} > "%ROOT_DIR%\.trae\mcp.json"
-echo     Updated .trae\mcp.json
+REM Optional: pre-generate Trae client config (server is tool-agnostic by default)
+REM Each AI client's Agent writes its own MCP config via the access page
+REM (http://<server>:8765/access), so the server no longer presumes any tool.
+echo.
+set "WRITE_TRAE="
+set /p "WRITE_TRAE=    Pre-write .trae\mcp.json for Trae? [y/N]: "
+if /i "%WRITE_TRAE%"=="y" (
+    if not exist "%ROOT_DIR%\.trae" mkdir "%ROOT_DIR%\.trae"
+    echo {"mcpServers":{"xl-protocol-agent":{"url":"http://localhost:8765/mcp","headers":{"Authorization":"Bearer %TOKEN%"}}}} > "%ROOT_DIR%\.trae\mcp.json"
+    echo     Updated .trae\mcp.json
+) else (
+    echo     Skipped. Open the access page to let your AI client register MCP automatically.
+)
+
+REM Copy permissions template if not exists
+if not exist "%SCRIPT_DIR%permissions.json" (
+    copy "%SCRIPT_DIR%permissions.template.json" "%SCRIPT_DIR%permissions.json" >nul
+    echo     Created permissions.json from template
+) else (
+    echo     permissions.json exists, skip
+)
 echo.
 
 REM 5. Done

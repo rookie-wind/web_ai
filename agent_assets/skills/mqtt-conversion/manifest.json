@@ -1,0 +1,19 @@
+{
+  "name": "mqtt-conversion",
+  "version": "2.1.0",
+  "kind": "skill-assets",
+  "entry": "SKILL.md",
+  "protocolDirections": [
+    { "id": "mqtt", "name": "MQTT", "level": "top" }
+  ],
+  "required": [
+    "SKILL.md",
+    "agents/openai.yaml"
+  ],
+  "optional": [
+    "tools/",
+    "templates/",
+    "validators/",
+    "references/"
+  ]
+}

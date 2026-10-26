@@ -1,0 +1,16 @@
+{
+  "name": "protocol-conversion",
+  "version": "1.3.0",
+  "kind": "skill-assets",
+  "entry": "SKILL.md",
+  "required": [
+    "SKILL.md",
+    "agents/openai.yaml"
+  ],
+  "optional": [
+    "tools/",
+    "templates/",
+    "validators/",
+    "references/"
+  ]
+}

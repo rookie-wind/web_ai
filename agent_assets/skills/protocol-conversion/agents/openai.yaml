@@ -1,0 +1,13 @@
+interface:
+  display_name: protocol-conversion
+  description: 统一协议转换配置生成（MQTT→MQTT / HTTP→MQTT）
+  icon: exchange
+  category: protocol
+capabilities:
+  - protocol-analysis
+  - field-mapping
+  - config-generation
+  - mcp-integration
+  - reference-file-management
+version: "3.0.0"
+author: hub_port_test

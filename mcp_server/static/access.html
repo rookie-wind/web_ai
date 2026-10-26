@@ -165,7 +165,7 @@
     <a class="back" href="/showcase" aria-label="返回成果展示页" title="返回成果展示页">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 6l-6 6 6 6M8 12h13" /></svg>
     </a>
-    <div class="brand"><span class="brand-mark">P</span>协议智能体</div>
+    <div class="brand"><span class="brand-mark">X</span>协议智能体</div>
     <small>CONNECTION / MCP</small>
 </nav>
 <header class="header">
@@ -192,7 +192,7 @@
         <div id="content" style="display:none;">
             <div class="setup-grid">
             <div class="platform-panel">
-                <div class="section-heading"><span>01 /</span><h2 id="platform-label">选择目标平台</h2><small>8 CLIENTS</small></div>
+                <div class="section-heading"><span>01 /</span><h2 id="platform-label">选择目标平台</h2><small id="client-count">加载中</small></div>
                 <input type="hidden" id="platform" value="trae">
                 <div class="platform-grid" id="platform-cards" role="group" aria-labelledby="platform-label"></div>
                 <p class="platform-hint">配置随平台自动适配 · 点击卡片即可切换</p>
@@ -257,16 +257,100 @@
         <div class="editor-footer"><span id="editor-meta">UTF-8 · Markdown</span><span>含当前 IP 的 Token · 仅用于你自己的接入</span></div>
     </div>
 
+    <!-- 本次操作日志 -->
+    <style>
+        #oplog-card .oplog-kpi { display: flex; flex-wrap: wrap; gap: 10px 18px;
+            padding: 10px 12px; margin-top: 12px; border: 1px solid var(--line);
+            border-radius: 10px; background: var(--bg-elev); font: 12px var(--mono); }
+        #oplog-card .oplog-kpi b { font-weight: 700; }
+        #oplog-card .oplog-kpi .k-ok { color: var(--accent); }
+        #oplog-card .oplog-kpi .k-warn { color: var(--warn); }
+        #oplog-card .oplog-kpi .k-fail { color: #ff6b81; }
+        #oplog-card .oplog-kpi .k-pending { color: var(--dim); }
+        #oplog-card .oplog-toolbar { display: flex; flex-wrap: wrap; gap: 10px;
+            align-items: center; margin: 10px 0; }
+        #oplog-card .oplog-filters { display: flex; flex-wrap: wrap; gap: 6px; }
+        #oplog-card .oplog-chip { cursor: pointer; border: 1px solid var(--line);
+            background: #060a12; color: var(--dim); border-radius: 999px;
+            padding: 4px 10px; font: 11px var(--mono); }
+        #oplog-card .oplog-chip.is-on { color: #04120c; background: var(--accent); border-color: var(--accent); }
+        #oplog-card .oplog-sort { margin-left: auto; color: var(--dim); font: 11px var(--mono); }
+        #oplog-card .oplog-sort select { background: #060a12; color: var(--text);
+            border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; font: 11px var(--mono); }
+        #oplog-card .oplog-updates { display: block; width: 100%; cursor: pointer; margin-bottom: 8px;
+            border: 1px solid var(--accent); background: #00e5a01a; color: var(--accent);
+            border-radius: 8px; padding: 7px; font: 12px var(--mono); }
+        #oplog-card .oplog-groups { display: flex; flex-direction: column; gap: 10px; }
+        #oplog-card .oplog-group { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+        #oplog-card .oplog-group > summary { cursor: pointer; list-style: none; display: flex;
+            flex-wrap: wrap; gap: 8px 14px; align-items: baseline; padding: 10px 12px;
+            background: var(--bg-card); font: 12px var(--mono); }
+        #oplog-card .oplog-group > summary::-webkit-details-marker { display: none; }
+        #oplog-card .oplog-gtool { color: var(--blue); font-weight: 600; }
+        #oplog-card .oplog-gcount { color: var(--dim); }
+        #oplog-card .oplog-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline;
+            padding: 8px 12px; border-top: 1px solid var(--line); font: 12px var(--mono); }
+        #oplog-card .oplog-entry > summary.oplog-row { cursor: pointer; list-style: none; }
+        #oplog-card .oplog-entry > summary.oplog-row::-webkit-details-marker { display: none; }
+        #oplog-card .oplog-glyph { width: 20px; text-align: center; font-weight: 700; }
+        #oplog-card .oplog-road { min-width: 62px; color: var(--text); font-weight: 600;
+            text-align: right; font-variant-numeric: tabular-nums; }
+        #oplog-card .oplog-name { color: var(--text); }
+        #oplog-card .oplog-tag { color: var(--dim); }
+        #oplog-card .oplog-dur { margin-left: auto; color: var(--dim);
+            text-align: right; font-variant-numeric: tabular-nums; }
+        #oplog-card .oplog-dur.is-slow { color: var(--warn); font-weight: 700; }
+        #oplog-card .oplog-flag { color: #ff6b81; }
+        #oplog-card .g-ok { color: var(--accent); } #oplog-card .g-warn { color: var(--warn); }
+        #oplog-card .g-fail { color: #ff6b81; } #oplog-card .g-pending { color: var(--dim); }
+        #oplog-card .g-unknown { color: var(--dim); }
+        #oplog-card .oplog-empty { color: var(--dim); font: 12px var(--mono); padding: 14px 4px; }
+        #oplog-card .oplog-detail { padding: 8px 12px 12px; background: #060a12; border-top: 1px solid var(--line); }
+        #oplog-card .oplog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 4px 16px; font: 11.5px var(--mono); color: #cfe3ff; margin-bottom: 8px; }
+        #oplog-card .oplog-grid span { color: var(--dim); }
+        #oplog-card .oplog-sub { color: var(--dim); font: 11px var(--mono); margin: 8px 0 4px; }
+        #oplog-card pre.oplog-json { background: #05080f; border: 1px solid var(--line); border-radius: 8px;
+            padding: 8px 10px; margin: 0; overflow-x: auto; font: 11.5px/1.6 var(--mono);
+            color: #cfe3ff; white-space: pre-wrap; word-break: break-word; }
+        #oplog-card .oplog-legend { margin-top: 10px; color: var(--dim); font: 11px var(--mono);
+            border-top: 1px dashed var(--line); padding-top: 8px; }
+    </style>
+    <div class="card" id="oplog-card" style="display:none;">
+        <div class="section-heading"><span>03 /</span><h2>本次操作日志</h2><small>OPERATION TRACE</small></div>
+        <div class="oplog-kpi" id="oplog-kpi"></div>
+        <div class="oplog-toolbar">
+            <div class="oplog-filters" id="oplog-filters">
+                <button type="button" class="oplog-chip is-on" data-f="all">全部</button>
+                <button type="button" class="oplog-chip" data-f="nonok">仅看非成功</button>
+                <button type="button" class="oplog-chip" data-f="ok">✓ 生效</button>
+                <button type="button" class="oplog-chip" data-f="warn">⚠ 未验证</button>
+                <button type="button" class="oplog-chip" data-f="fail">✗ 拒绝</button>
+                <button type="button" class="oplog-chip" data-f="pending">◌ 未回执</button>
+            </div>
+            <label class="oplog-sort">排序
+                <select id="oplog-sort">
+                    <option value="time">时间(新→旧)</option>
+                    <option value="road">分路号</option>
+                    <option value="duration">耗时(高→低)</option>
+                </select>
+            </label>
+        </div>
+        <button type="button" class="oplog-updates" id="oplog-updates" style="display:none;"></button>
+        <div class="oplog-groups" id="oplog-list"></div>
+        <div class="oplog-legend">判据 ⓘ：✓生效 = transport_stage=COMPLETE 且 rtnCode=0（召测再要求 monitor_valid=true）；✗拒绝 = rtnCode≠0 或 ACCEPTED/TIMEOUT/HTTP_ERROR/NOT_CONFIGURED（ACCEPTED=HTTP200但业务失败，即“假成功”）；⚠未验证 = 结构/回读未过；◌未回执 = 已发出尚无回执。服务端 stage_state 与客户端复判不一致时标 ⚑。</div>
+    </div>
+
     <!-- Notes -->
     <div class="card">
         <div class="notes">
             <h3>使用说明</h3>
             <ul>
                 <li><b>自动检测</b>：服务器自动检测你的 IP 并分配 Token，无需手动输入</li>
-                <li><b>权限分级</b>：本机 IP（含 localhost 和网卡 IP）→ 系统级（读写），其它 IP → 用户级（只读）</li>
-                <li><b>Token 按 IP 固定</b>：非本机 Token 与你的访问 IP 绑定，服务器重启后仍可继续使用，无需重新获取</li>
+                <li><b>权限分级</b>：MCP 接入 Token 仅用于连接；调用 login(手机号, 验证码) 后获得读权限，写操作需超级账号登录</li>
+                <li><b>Token 按 IP 固定</b>：Token 与你的访问 IP 绑定，服务器重启后仍可继续使用，无需重新获取</li>
                 <li><b>IP 变化需重新获取</b>：如果你的 IP 发生变化（DHCP、更换网络等），请重新打开本页面获取新 Token</li>
-                <li><b>Agent 资源包</b>：服务器自动打包 .trae/skills/ 目录，包含 Skill 文档、Agent 配置、工具、模板、校验器、参考资料和 manifest</li>
+                <li><b>Agent 资源包</b>：服务器自动打包 skills 目录，包含 Skill 文档、Agent 配置、工具、模板、校验器、参考资料和 manifest；安装目录随所选平台变化（如 Qoder 为 .qoder/skills/，Trae 为 .trae/skills/）</li>
                 <li><b>分发</b>：向其他用户分享本接入页地址，由其独立获取 Token；复制与下载的配置仅供当前用户使用</li>
                 <li><b>接入</b>：将整段文本粘贴给所选平台的 AI Agent，完成：写入平台 MCP 配置 → 安装资源包 → 校验 manifest → 调用 list_mcp_tools 验证</li>
                 <li><b>安全</b>：Token 是临时凭证，请勿提交仓库、贴到群聊或写入日志；每个 IP 需独立打开本页面获取自己的 Token</li>
@@ -288,98 +372,17 @@ var accessInfo = {
 var generatedText = '';
 var feedbackTimer = null;
 
-var PLATFORMS = {
-    qoder: {
-        name: 'Qoder',
-        ideName: 'Qoder',
-        configLocation: 'Qoder 设置 → MCP → 添加 MCP Server → 粘贴 JSON 配置',
-        buildServerEntry: function(url, token) {
-            return { url: url + '/mcp', headers: { Authorization: 'Bearer ' + token } };
-        },
-        rootKey: 'mcpServers'
-    },
-    trae: {
-        name: 'Trae（字节跳动）',
-        ideName: 'Trae IDE',
-        configLocation: '项目级：项目根目录 .trae/mcp.json\n全局级：通过 Trae IDE 设置 → MCP 管理界面添加',
-        buildConfig: function(key, url, token) {
-            return {
-                mcpServers: {}
-            };
-        },
-        buildServerEntry: function(url, token) {
-            return { url: url + '/mcp', headers: { Authorization: 'Bearer ' + token } };
-        },
-        rootKey: 'mcpServers'
-    },
-    cursor: {
-        name: 'Cursor',
-        ideName: 'Cursor',
-        configLocation: '项目级：项目根目录 .cursor/mcp.json',
-        buildServerEntry: function(url, token) {
-            return { type: 'http', url: url + '/mcp', headers: { Authorization: 'Bearer ' + token } };
-        },
-        rootKey: 'servers'
-    },
-    vscode: {
-        name: 'VS Code Copilot',
-        ideName: 'VS Code',
-        configLocation: '项目级：项目根目录 .vscode/mcp.json',
-        buildServerEntry: function(url, token) {
-            return { type: 'http', url: url + '/mcp', headers: { Authorization: 'Bearer ' + token } };
-        },
-        rootKey: 'servers'
-    },
-    claude: {
-        name: 'Claude Desktop',
-        ideName: 'Claude Desktop',
-        configLocation: 'macOS: ~/Library/Application Support/Claude/claude_desktop_config.json\nWindows: %APPDATA%\\Claude\\claude_desktop_config.json',
-        buildServerEntry: function(url, token) {
-            return { type: 'streamableHttp', url: url + '/mcp', headers: { Authorization: 'Bearer ' + token } };
-        },
-        rootKey: 'mcpServers'
-    },
-    windsurf: {
-        name: 'Windsurf (Codeium)',
-        ideName: 'Windsurf',
-        configLocation: '~/.codeium/windsurf/mcp_config.json',
-        buildServerEntry: function(url, token) {
-            return { serverUrl: url + '/mcp', headers: { Authorization: 'Bearer ' + token } };
-        },
-        rootKey: 'mcpServers'
-    },
-    cline: {
-        name: 'Cline',
-        ideName: 'VS Code (Cline extension)',
-        configLocation: 'VS Code 全局设置: cline_mcp_settings.json',
-        buildServerEntry: function(url, token) {
-            return { type: 'streamableHttp', url: url + '/mcp', headers: { Authorization: 'Bearer ' + token } };
-        },
-        rootKey: 'mcpServers'
-    },
-    kimi: {
-        name: 'Kimi Code（月之暗面）',
-        ideName: 'Kimi Code',
-        configLocation: '~/.kimi/mcp.json',
-        buildServerEntry: function(url, token) {
-            return { url: url + '/mcp', transport: 'http', headers: { Authorization: 'Bearer ' + token } };
-        },
-        rootKey: 'mcpServers'
-    }
-};
+// 由服务端公开目录提供配置元数据，不在页面维护第二份客户端名单。
+var PLATFORMS = Object.create(null);
 
 function renderPlatformCards() {
     var cards = document.getElementById('platform-cards');
-    var labels = [
-        ['trae', 'Trae', '字节跳动', 'T'],
-        ['cursor', 'Cursor', 'AI-First IDE', 'C'],
-        ['vscode', 'VS Code Copilot', 'GitHub Copilot', 'V'],
-        ['claude', 'Claude Desktop', 'Anthropic', 'C'],
-        ['windsurf', 'Windsurf', 'Codeium', 'W'],
-        ['cline', 'Cline', 'VS Code 插件', 'C'],
-        ['kimi', 'Kimi Code', '月之暗面', 'K'],
-        ['qoder', 'Qoder', '阿里巴巴', 'Q']
-    ];
+    cards.innerHTML = '';
+    var labels = Object.keys(PLATFORMS).map(function(id) {
+        var p = PLATFORMS[id];
+        return [id, p.displayName, p.vendor, p.icon];
+    });
+    document.getElementById('client-count').textContent = labels.length + ' CLIENTS';
     labels.forEach(function(item) {
         var button = document.createElement('button');
         button.type = 'button';
@@ -418,10 +421,19 @@ function fetchAccessInfo() {
         })
         .then(function(data) {
             if (!data.token || !data.baseUrl) { throw new Error('接入信息不完整'); }
+            if (!Array.isArray(data.clients) || !data.clients.length) {
+                throw new Error('客户端目录不可用，请确认服务端已更新');
+            }
+            PLATFORMS = Object.create(null);
+            data.clients.forEach(function(p) { PLATFORMS[p.id] = p; });
+            var selected = document.getElementById('platform');
+            if (!PLATFORMS[selected.value]) { selected.value = data.clients[0].id; }
             accessInfo = data;
+            renderPlatformCards();
             displayInfo();
             document.getElementById('loading').style.display = 'none';
             document.getElementById('content').style.display = 'block';
+            startOperationLog();
             generate();
         })
         .catch(function(err) {
@@ -438,13 +450,8 @@ function displayInfo() {
     document.getElementById('source-display').textContent = accessInfo.source;
 
     var badge = document.getElementById('access-badge');
-    if (accessInfo.accessLevel === 'system') {
-        badge.textContent = '系统级（读写）';
-        badge.className = 'badge badge-system';
-    } else {
-        badge.textContent = '用户级（只读）';
-        badge.className = 'badge badge-user';
-    }
+    badge.textContent = '已获取接入 Token（调用 login 后获得云端数据读写权限）';
+    badge.className = 'badge badge-user';
 
     // Show server IPs note if available
     if (accessInfo.serverIPs && accessInfo.serverIPs.length > 0) {
@@ -461,82 +468,480 @@ function displayInfo() {
     var tokenNote = document.getElementById('token-persist-note');
     if (tokenNote) {
         tokenNote.style.display = 'block';
-        if (accessInfo.accessLevel === 'system') {
-            tokenNote.textContent = '当前为本机访问，使用管理员 Token。管理员 Token 由 MCP_AUTH_TOKEN 环境变量提供，不受 IP 绑定影响。';
-        } else {
-            tokenNote.textContent = '当前 Token 已绑定你的访问 IP（' + (accessInfo.source || '') + '）。' +
-                '服务器重启后该 Token 仍可继续使用，无需重新获取。' +
-                '如果你的 IP 发生变化（如 DHCP 重新分配、更换网络），请重新打开本页面获取新 Token。' +
-                '请勿将 Token 发送给其他 IP 的同事，每个 IP 需独立打开本页面获取自己的 Token。';
-        }
+        tokenNote.textContent = '当前 Token 已绑定你的访问 IP（' + (accessInfo.source || '') + '）。' +
+            '服务器重启后该 Token 仍可继续使用，无需重新获取。' +
+            '如果你的 IP 发生变化（如 DHCP 重新分配、更换网络），请重新打开本页面获取新 Token。' +
+            '请勿将 Token 发送给其他 IP 的同事，每个 IP 需独立打开本页面获取自己的 Token。';
     }
+}
+
+var _oplogItems = [];
+var _oplogIds = {};
+var _oplogPending = [];
+var _oplogCursor = '';
+var _oplogPendingCursor = '';
+var _oplogTimer = null;
+var _oplogFilter = 'all';
+var _oplogSort = 'time';
+
+function startOperationLog() {
+    var card = document.getElementById('oplog-card');
+    if (card) { card.style.display = 'block'; }
+    _oplogItems = []; _oplogIds = {}; _oplogPending = [];
+    _oplogCursor = ''; _oplogPendingCursor = '';
+    bindOperationLogControls();
+    renderOperationLog();
+    refreshOperationLog(true);
+    if (_oplogTimer) { clearInterval(_oplogTimer); }
+    _oplogTimer = setInterval(function () { refreshOperationLog(false); }, 4000);
+}
+
+function bindOperationLogControls() {
+    var filters = document.getElementById('oplog-filters');
+    if (filters && !filters.dataset.bound) {
+        filters.dataset.bound = '1';
+        filters.addEventListener('click', function (e) {
+            var btn = e.target.closest('.oplog-chip');
+            if (!btn) { return; }
+            _oplogFilter = btn.getAttribute('data-f');
+            Array.prototype.forEach.call(filters.querySelectorAll('.oplog-chip'), function (c) {
+                c.classList.toggle('is-on', c === btn);
+            });
+            renderOperationLog();
+        });
+    }
+    var sortSel = document.getElementById('oplog-sort');
+    if (sortSel && !sortSel.dataset.bound) {
+        sortSel.dataset.bound = '1';
+        sortSel.addEventListener('change', function () { _oplogSort = sortSel.value; renderOperationLog(); });
+    }
+    var bub = document.getElementById('oplog-updates');
+    if (bub && !bub.dataset.bound) {
+        bub.dataset.bound = '1';
+        bub.addEventListener('click', function () { flushPending(true); });
+    }
+}
+
+function refreshOperationLog(force) {
+    if (!accessInfo || !accessInfo.token) { return; }
+    var url = '/api/logs?cursor=' + encodeURIComponent(_oplogCursor);
+    fetch(url, {
+        cache: 'no-store',
+        headers: { 'Authorization': 'Bearer ' + accessInfo.token },
+    })
+        .then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); })
+        .then(function (data) {
+            var logs = (data && Array.isArray(data.logs)) ? data.logs : [];
+            _oplogPendingCursor = (data && data.next_cursor) || _oplogCursor;
+            var fresh = logs.filter(function (x) { return x && x.entry_id && !_oplogIds[x.entry_id]; });
+            if (!fresh.length) { return; }
+            _oplogPending = _oplogPending.concat(fresh);
+            if (force || window.scrollY < 8) { flushPending(false); }
+            else { showUpdates(); }
+        })
+        .catch(function () { /* 静默失败，保留上次结果 */ });
+}
+
+function flushPending(scrollToTop) {
+    _oplogPending.forEach(function (item) {
+        if (item && item.entry_id && !_oplogIds[item.entry_id]) {
+            _oplogIds[item.entry_id] = true;
+            _oplogItems.push(item);
+        }
+    });
+    _oplogPending = [];
+    _oplogCursor = _oplogPendingCursor || _oplogCursor;
+    hideUpdates();
+    renderOperationLog();
+    if (scrollToTop) { window.scrollTo(0, 0); }
+}
+
+function showUpdates() {
+    var bub = document.getElementById('oplog-updates');
+    if (bub) { bub.style.display = 'block'; bub.textContent = '+ ' + _oplogPending.length + ' 条更新，点此查看'; }
+}
+
+function hideUpdates() {
+    var bub = document.getElementById('oplog-updates');
+    if (bub) { bub.style.display = 'none'; bub.textContent = ''; }
+}
+
+function renderOperationLog() {
+    var host = document.getElementById('oplog-list');
+    var kpi = document.getElementById('oplog-kpi');
+    if (!host) { return; }
+    var scroll = window.scrollY;
+    host.innerHTML = '';
+    if (kpi) { kpi.innerHTML = ''; }
+    if (!_oplogItems.length) {
+        var empty = document.createElement('div');
+        empty.className = 'oplog-empty';
+        empty.textContent = '本次会话暂无写操作记录。执行登录/建档/下发/召测后将在此分组列出。';
+        host.appendChild(empty);
+        return;
+    }
+    if (kpi) { kpi.appendChild(buildKpi(_oplogItems)); }
+    groupOperationLog(_oplogItems).forEach(function (g) { host.appendChild(buildGroup(g)); });
+    window.scrollTo(0, scroll);
+}
+
+function _oplogPretty(obj) {
+    if (obj === null || obj === undefined) { return ''; }
+    try {
+        return typeof obj === 'string' ? obj : JSON.stringify(obj, null, 2);
+    } catch (e) { return String(obj); }
+}
+
+function _firstVal() {
+    for (var i = 0; i < arguments.length; i++) {
+        var v = arguments[i];
+        if (v !== undefined && v !== null && v !== '') { return v; }
+    }
+    return '';
+}
+
+function _oplogRes(item) { return (item && item.result_summary) || {}; }
+function _oplogReq(item) { return _oplogRes(item).request_summary || {}; }
+function _oplogArgs(item) { return (item && item.args_summary) || {}; }
+
+function _oplogIdentity(item) {
+    var a = _oplogArgs(item), rs = _oplogReq(item), res = _oplogRes(item);
+    var road = _firstVal(a.road_no, a.roadNo, rs.roadNo, res.roadNo);
+    var device = _firstVal(a.device_id, a.deviceId, rs.deviceId, res.deviceId);
+    var node = _firstVal(a.node_key, rs.node_key, a.gateway_node_key, rs.gateway);
+    var itemId = _firstVal(rs.itemId, a.itemId, res.itemId);
+    var name = _firstVal(rs.deviceName, a.device_name, node, device);
+    var key = String(road || '') + ':' + String(_firstVal(device, node, item.entry_id));
+    return { road: road, device: device, node: node, itemId: itemId, name: name, key: key };
+}
+
+/* 客户端复判：优先用 transport_stage / rtnCode / monitor_valid，
+   与服务端 stage_state 不一致时标记冲突。 */
+function _oplogJudge(item) {
+    var res = _oplogRes(item);
+    var ts = res.transport_stage;
+    var rtn = res.rtnCode;
+    var valid = res.monitor_valid;
+    var sent = res.request_sent;
+    var serverStatus = String(item.status || '').toUpperCase();
+    var serverState = String(res.stage_state || item.code || '').toUpperCase();
+    var rtnNonZero = !(rtn === undefined || rtn === null || rtn === '' || String(rtn) === '0');
+    var status;
+    if (rtnNonZero) { status = 'fail'; }
+    else if (ts === 'ACCEPTED' || ts === 'HTTP_ERROR' || ts === 'TIMEOUT' || ts === 'NOT_CONFIGURED' || ts === 'OFFLINE_TIMEOUT') { status = 'fail'; }
+    else if (ts === 'COMPLETE') { status = (valid === false) ? 'warn' : 'ok'; }
+    else if (valid === true) { status = 'ok'; }
+    else if (valid === false) { status = 'warn'; }
+    else if (serverStatus === 'SUCCESS' || serverState === 'SUCCEEDED') { status = 'ok'; }
+    else if (serverStatus === 'ERROR' || serverState === 'FAILED' || serverState === 'BLOCKED') { status = 'fail'; }
+    else if (serverState === 'UNVERIFIED' || serverStatus === 'UNVERIFIED' || serverStatus === 'PARTIAL') { status = 'warn'; }
+    else if (sent) { status = 'pending'; }
+    else { status = 'unknown'; }
+    var glyphs = { ok: '\u2713', warn: '\u26a0', fail: '\u2717', pending: '\u25cc', unknown: '\u00b7' };
+    var conflict = (serverStatus === 'SUCCESS' || serverState === 'SUCCEEDED') && status !== 'ok';
+    return { status: status, glyph: glyphs[status], cls: 'g-' + status, conflict: conflict, server: serverStatus || serverState };
+}
+
+function _oplogGroupKey(item) {
+    var res = _oplogRes(item);
+    return String(item.tool || '') + '|' + String(res.report_id || item.trace_id || '');
+}
+
+function groupOperationLog(items) {
+    var map = {};
+    items.forEach(function (it) {
+        var k = _oplogGroupKey(it);
+        (map[k] = map[k] || []).push(it);
+    });
+    var groups = Object.keys(map).map(function (k) {
+        var list = map[k].slice().sort(function (a, b) {
+            return String(b.started_at).localeCompare(String(a.started_at));
+        });
+        return { key: k, tool: list[0].tool || '-', items: list, latest: list[0] };
+    });
+    groups.sort(function (a, b) {
+        return String(b.latest.started_at).localeCompare(String(a.latest.started_at));
+    });
+    return groups;
+}
+
+/* 按身份去重取最新一条的状态计数，attempts = 总条数 - 去重身份数。 */
+function _oplogStatusCounts(items) {
+    var latestByKey = {};
+    items.slice().sort(function (a, b) {
+        return String(a.started_at).localeCompare(String(b.started_at));
+    }).forEach(function (it) { latestByKey[_oplogIdentity(it).key] = _oplogJudge(it).status; });
+    var c = { ok: 0, warn: 0, fail: 0, pending: 0, unknown: 0 };
+    Object.keys(latestByKey).forEach(function (k) { c[latestByKey[k]] = (c[latestByKey[k]] || 0) + 1; });
+    var distinct = Object.keys(latestByKey).length;
+    return { counts: c, roads: distinct, attempts: Math.max(0, items.length - distinct) };
+}
+
+function buildKpi(items) {
+    var frag = document.createDocumentFragment();
+    var agg = _oplogStatusCounts(items);
+    function seg(cls, text) {
+        var s = document.createElement('span');
+        if (cls) { s.className = cls; }
+        s.textContent = text;
+        frag.appendChild(s);
+    }
+    seg('', agg.roads + ' 路操作' + (agg.attempts ? ('（含 ' + agg.attempts + ' 次重试）') : ''));
+    seg('k-ok', '\u2713 ' + agg.counts.ok);
+    seg('k-warn', '\u26a0 ' + agg.counts.warn);
+    seg('k-fail', '\u2717 ' + agg.counts.fail);
+    seg('k-pending', '\u25cc ' + agg.counts.pending);
+    var times = items.map(function (i) { return i.started_at; }).filter(Boolean).sort();
+    if (times.length) { seg('', '采样 ' + formatOplogTime(times[0]) + '–' + formatOplogTime(times[times.length - 1])); }
+    var ids = {};
+    var reports = {};
+    items.forEach(function (i) {
+        var id = _oplogIdentity(i).itemId; if (id) { ids[id] = 1; }
+        var r = _oplogRes(i).report_id; if (r) { reports[r] = 1; }
+    });
+    if (Object.keys(ids).length) { seg('', 'dataItem ' + Object.keys(ids).join('/')); }
+    var reportIds = Object.keys(reports);
+    if (reportIds.length) { seg('', '报告 ' + reportIds[0] + (reportIds.length > 1 ? (' 等 ' + reportIds.length + ' 份') : '')); }
+    return frag;
+}
+
+function _oplogPassFilter(item) {
+    if (_oplogFilter === 'all') { return true; }
+    var status = _oplogJudge(item).status;
+    if (_oplogFilter === 'nonok') { return status !== 'ok'; }
+    return status === _oplogFilter;
+}
+
+function _oplogSortRows(rows) {
+    var s = _oplogSort;
+    return rows.slice().sort(function (a, b) {
+        if (s === 'duration') { return (b.duration_ms || 0) - (a.duration_ms || 0); }
+        if (s === 'road') {
+            var na = parseInt(String(_oplogIdentity(a).road), 10);
+            var nb = parseInt(String(_oplogIdentity(b).road), 10);
+            if (!isNaN(na) && !isNaN(nb) && na !== nb) { return na - nb; }
+            return String(_oplogIdentity(a).road).localeCompare(String(_oplogIdentity(b).road));
+        }
+        return String(b.started_at).localeCompare(String(a.started_at));
+    });
+}
+
+function buildGroup(group) {
+    var det = document.createElement('details');
+    det.className = 'oplog-group';
+    var sum = document.createElement('summary');
+    var agg = _oplogStatusCounts(group.items);
+    var t = document.createElement('span');
+    t.className = 'oplog-gtool';
+    t.textContent = group.tool;
+    var c = document.createElement('span');
+    c.className = 'oplog-gcount';
+    c.textContent = agg.roads + ' 路 · \u2713' + agg.counts.ok + ' \u26a0' + agg.counts.warn
+        + ' \u2717' + agg.counts.fail + ' \u25cc' + agg.counts.pending
+        + (agg.attempts ? ('（重试 ' + agg.attempts + '）') : '');
+    sum.appendChild(t); sum.appendChild(c);
+    det.appendChild(sum);
+    // 逐身份按时间正序编 attempt
+    var seen = {};
+    group.items.slice().sort(function (a, b) {
+        return String(a.started_at).localeCompare(String(b.started_at));
+    }).forEach(function (it) {
+        var k = _oplogIdentity(it).key;
+        seen[k] = (seen[k] || 0) + 1;
+        it._attempt = seen[k];
+    });
+    var rows = _oplogSortRows(group.items.filter(_oplogPassFilter));
+    if (!rows.length) {
+        var em = document.createElement('div');
+        em.className = 'oplog-empty';
+        em.textContent = '（本组在当前筛选下无匹配项）';
+        det.appendChild(em);
+    }
+    rows.forEach(function (it) { det.appendChild(buildRow(it)); });
+    return det;
+}
+
+function buildRow(item) {
+    var j = _oplogJudge(item);
+    var idt = _oplogIdentity(item);
+    var wrap = document.createElement('details');
+    wrap.className = 'oplog-entry';
+    var head = document.createElement('summary');
+    head.className = 'oplog-row';
+    function cell(cls, text) {
+        var s = document.createElement('span');
+        if (cls) { s.className = cls; }
+        s.textContent = text;
+        return s;
+    }
+    head.appendChild(cell('oplog-glyph ' + j.cls, j.glyph));
+    head.appendChild(cell('oplog-road', idt.road ? ('分路' + String(idt.road).padStart(2, '0')) : '—'));
+    head.appendChild(cell('oplog-name', idt.name || item.tool || '-'));
+    var bits = [];
+    if (idt.device) { bits.push(idt.device); }
+    if (idt.itemId) { bits.push(idt.itemId); }
+    if (item._attempt && item._attempt > 1) { bits.push('attempt ' + item._attempt); }
+    if (bits.length) { head.appendChild(cell('oplog-tag', bits.join(' · '))); }
+    if (j.conflict) { head.appendChild(cell('oplog-flag', '\u2691 服务端标' + j.server + '/客户端判' + j.status)); }
+    var slow = (item.duration_ms || 0) > 5000 ? ' is-slow' : '';
+    head.appendChild(cell('oplog-dur' + slow, (item.duration_ms ? item.duration_ms + 'ms' : '—')));
+    wrap.appendChild(head);
+    wrap.appendChild(buildOplogEvidence(item, j, idt));
+    return wrap;
+}
+
+function buildOplogEvidence(item, j, idt) {
+    var res = _oplogRes(item);
+    var det = document.createElement('div');
+    det.className = 'oplog-detail';
+    var grid = document.createElement('div');
+    grid.className = 'oplog-grid';
+    function field(label, val) {
+        if (val === undefined || val === null || val === '') { return; }
+        var d = document.createElement('div');
+        var s = document.createElement('span');
+        s.textContent = label + ' ';
+        d.appendChild(s);
+        d.appendChild(document.createTextNode(String(val)));
+        grid.appendChild(d);
+    }
+    field('客户端判定', j.status + (j.conflict ? '（与服务端不一致）' : ''));
+    field('rtnCode', res.rtnCode);
+    field('transport_stage', res.transport_stage);
+    field('monitor_valid', res.monitor_valid);
+    field('request_sent', res.request_sent);
+    field('stage_state(服务端)', res.stage_state || item.code);
+    field('dataTime', res.data_time);
+    field('分路号', idt.road);
+    field('deviceId', idt.device);
+    field('node_key', idt.node);
+    field('itemId', idt.itemId);
+    field('report_id', res.report_id);
+    field('trace_id', item.trace_id);
+    field('entry_id', item.entry_id);
+    det.appendChild(grid);
+    // 请求报文：逐 dispatch 的实际 payload（已脱敏）+ path/状态/指纹
+    var ds = Array.isArray(res.dispatches) ? res.dispatches : [];
+    if (ds.length) {
+        var req = ds.map(function (d) {
+            return { path: d.path, state: d.state, payload: d.payload, payload_digest: d.payload_digest };
+        });
+        _appendOplogBlock(det, '请求报文 (dispatches)', req);
+    }
+    // 响应报文：后端 rtnData
+    if (res.data !== undefined && res.data !== null) {
+        _appendOplogBlock(det, '响应报文 (data)', res.data);
+    }
+    _appendOplogBlock(det, '入参 (args_summary)', item.args_summary);
+    _appendOplogBlock(det, '结果 / 错误详情 (result_summary)', item.result_summary);
+    return det;
+}
+
+function _appendOplogBlock(parent, label, data) {
+    var text = _oplogPretty(data);
+    if (!text) { return; }
+    var cap = document.createElement('div');
+    cap.className = 'oplog-sub';
+    cap.textContent = label;
+    parent.appendChild(cap);
+    var pre = document.createElement('pre');
+    pre.className = 'oplog-json';
+    pre.textContent = text;
+    parent.appendChild(pre);
+}
+
+function formatOplogTime(iso) {
+    if (!iso) { return ''; }
+    try {
+        var d = new Date(iso);
+        return d.toLocaleTimeString('zh-CN', { hour12: false });
+    } catch (e) { return ''; }
 }
 
 function generateText() {
     var p = PLATFORMS[document.getElementById('platform').value];
     var baseUrl = accessInfo.baseUrl;
     var token = accessInfo.token;
-    var serverKey = 'protocol-converter';
+    var serverKey = 'xl-protocol-agent';
     var encodedBaseUrl = encodeURIComponent(baseUrl);
 
     // Build config JSON
     var config = {};
     config[p.rootKey] = {};
-    config[p.rootKey][serverKey] = p.buildServerEntry(baseUrl, token);
+    var entry = Object.assign({}, p.transport);
+    entry[p.urlKey] = baseUrl + '/mcp';
+    entry.headers = { Authorization: 'Bearer ' + token };
+    config[p.rootKey][serverKey] = entry;
     var jsonConfig = JSON.stringify(config, null, 2);
 
     var lines = [
         '# 协议转换 MCP Server · ' + p.name + ' 接入',
         '',
-        '## MCP 配置',
+        '> 将本段文本整体交给 ' + p.ideName + ' 的 AI Agent，它会直接把 MCP 配置写入你本机的配置文件并验证，无需你手动到设置界面粘贴。',
+        '',
+        '## 1. 写入 MCP 配置（Agent 直接操作文件）',
+        '目标配置文件（' + p.configLevel + '）：' + p.configPath,
         '端点：' + baseUrl + '/mcp',
-        '配置文件位置：' + p.configLocation,
-        '也可在 ' + p.ideName + ' 中打开设置 → MCP → 添加 MCP Server → 粘贴下方 JSON 配置',
+        '',
+        '请 Agent 按以下规则把 ' + serverKey + ' 条目写入上述配置文件（rootKey 为 ' + p.rootKey + '）：',
+        '- 文件或父目录不存在：创建目录并写入下方合法 JSON。',
+        '- 文件已存在：先读取，仅新增或更新 ' + serverKey + ' 键，完整保留文件里其它 MCP server 条目，禁止整体覆盖。',
+        '- 幂等：相同端点与 Token 重复写入应得到一致结果，不产生重复条目。',
+        '- 损坏保护：若既有文件不是合法 JSON，先备份为 <文件>.bak.<时间戳> 再中止提示，不要覆盖损坏内容。',
+        '- 端点主机必须为 IPv4 或 localhost，不要写入 IPv6 地址。',
         '',
         '```json',
         jsonConfig,
         '```',
         '',
-        '认证已开启：配置中的 Authorization header 已内置 Token，可直接粘贴完成接入。',
-        '临时 Token 明文：' + token,
-        '权限说明：本机 IP（含 localhost 和网卡 IP）访问获得系统级权限（读写），其它来源获得用户级权限（只读）。',
-        'Token 按 IP 固定：非本机 Token 与你的访问 IP 绑定，服务器重启后仍可继续使用，无需重新获取。',
-        'IP 变化需重新获取：如果你的 IP 发生变化（DHCP、更换网络等），请重新打开接入页获取新 Token。',
-        '不要提交仓库、贴到群聊、写入日志或模型提示词模板。不要将 Token 发送给其他 IP 的同事，每个 IP 需独立打开接入页获取自己的 Token。',
+        '手动兜底：把上面 JSON 合并写入 ' + p.configPath + '，或在 ' + p.ideName + ' 的 MCP 设置界面粘贴该 JSON。',
         '',
-        '## Agent 资源包安装',
+        '## 2. 写入后验证',
+        'Agent 写入后调用 list_mcp_tools 验证 MCP 连接与鉴权；返回成功（含 auth 与 resource_package 信息）才算接入完成。',
+        '若验证失败：不要声称接入完成，改用上面的手动兜底写入 ' + p.configPath + ' 后重试。',
+        '',
+        '## 凭证与安全',
+        '认证已开启：配置中的 Authorization header 已内置 Token。',
+        '临时 Token 明文：' + token,
+        '权限说明：MCP 接入 Token 仅用于连接；调用 login(手机号, 验证码) 后获得读权限，写操作需超级账号。',
+        '只写入接入 Token：上面 JSON 里的 Token 是 MCP 接入 Token（连接用途）；不要把调用 login 得到的后端业务 Token 写入客户端 MCP 配置或用作 Authorization。',
+        'Token 敏感：不要提交仓库、贴到群聊、写入日志或模型提示词模板；不要将 Token 发送给其他 IP 的同事，每个 IP 需独立打开接入页获取自己的 Token。',
+        'Token 按 IP 固定：非本机 Token 与你的访问 IP 绑定，服务器重启后仍可继续使用；若 IP 发生变化（DHCP、更换网络等），请重新打开接入页获取新 Token。',
+        '',
+        '## 3. Agent 资源包安装',
         'Agent 资源包 ZIP（兼容原 Skills ZIP 端点）：' + baseUrl + '/api/docs/export-skills-package?baseUrl=' + encodedBaseUrl,
         'Agent 资源 Markdown 汇总：' + baseUrl + '/api/docs/export-skills?baseUrl=' + encodedBaseUrl,
         '',
         '安装步骤：',
-        '1. 下载 Agent 资源包并解压到 .trae/skills/ 目录，保持 pca、protocol-conversion、mqtt-conversion、http-conversion、modbus-conversion、test-validation、pack-distribution 等目录结构',
+        '1. 下载 Agent 资源包并解压到 ' + p.skillsDir + '/ 目录（' + p.name + ' 的 skills 目录），保持 xlpa、protocol-conversion、mqtt-conversion、http-conversion、modbus-conversion、test-validation、pack-distribution 等目录结构' + (p.skillsNote ? '；' + p.skillsNote : ''),
         '2. 保留 skills/package-manifest.json 和每个 Skill 目录下的 manifest.json',
         '3. 按 manifest 校验 required/requiredFiles 声明的必需文件；缺失必需文件时不得声称安装完成',
         '4. 保留每个 Skill 目录下的 agents/openai.yaml',
-        '5. 保留 pca/tools/mcp_client.py；当 IDE 原生 MCP 调用不可用时，Agent 可用它作为备用调用通道',
+        '5. 保留 xlpa/tools/mcp_client.py；当 IDE 原生 MCP 调用不可用时，Agent 可用它作为备用调用通道',
         '6. 备用客户端不会在安装后自动运行，仅在原生 MCP 调用失败时作为 fallback 使用',
-        '7. 不要把 pca 等目录名或展示名自动转换为首字母大写',
+        '7. 不要把 xlpa 等目录名或展示名自动转换为首字母大写',
         '',
-        '## 安装完成后：',
+        '## 4. 安装完成后：',
         '1. 校验 skills/package-manifest.json 以及每个 Skill 的 manifest.json 可解析',
-        '2. 保留每个 Skill 目录下的 agents/openai.yaml，尤其 pca/agents/openai.yaml 必须包含 interface.display_name: "pca"',
-        '3. 不要把 Skill 目录名或展示名自动转换为首字母大写，候选展示应保持 pca、protocol-conversion 等小写/kebab-case',
+        '2. 保留每个 Skill 目录下的 agents/openai.yaml，尤其 xlpa/agents/openai.yaml 必须包含 interface.display_name: "xlpa"',
+        '3. 不要把 Skill 目录名或展示名自动转换为首字母大写，候选展示应保持 xlpa、protocol-conversion 等小写/kebab-case',
         '4. 调用 list_mcp_tools 工具验证 MCP 连接、鉴权状态和 resource_package 信息',
         '5. 检查返回的 auth 字段：',
         '   - auth.token_valid: Token 是否有效',
-        '   - auth.access_level: "system"（本机 IP，读写）或 "user"（非本机 IP，只读）',
+        '   - auth.access_level: 固定为 "user"（MCP 接入一律用户级，写权限由 login 角色决定）',
+        '   - auth.cloud_write_source: 云端写权限来源说明（登录账号角色为超级账号）',
         '   - auth.source: 请求来源 IP',
         '6. 检查返回的 resource_package.validation.ok；若为 false，报告 missing 缺失项且不得声称安装完成',
-        '7. 校验 pca/tools/mcp_client.py 存在；原生 MCP 连接失败时可执行 python .trae/skills/pca/tools/mcp_client.py list_mcp_tools 作为备用验证',
-        '8. 读取已安装的 pca/SKILL.md 了解 /pca 操作入口',
-        '9. 用户输入 /pca + 任意需求即可操作协议转换平台（协议分析、配置生成、测试验证、打包分发等）',
+        '7. 校验 xlpa/tools/mcp_client.py 存在；原生 MCP 连接失败时可执行 python ' + p.skillsDir + '/xlpa/tools/mcp_client.py list_mcp_tools 作为备用验证',
+        '8. 读取已安装的 xlpa/SKILL.md 了解 /xlpa 操作入口',
+        '9. 用户输入 /xlpa + 任意需求即可操作协议转换平台（协议分析、配置生成、测试验证、打包分发等）',
         '10. 根据用户意图调用 MCP 工具完成操作',
         '',
         '## 安全要求',
         '1. 删除、停止、写入等高风险操作前必须向用户确认',
         '2. 未收到 MCP 工具返回结果前，不得声称操作已完成',
         '3. 安装 Token 是临时凭证，用完后可在系统设置中撤销',
-        '4. 非本机 IP 访问仅支持只读操作，写入操作需在服务器本地进行'
+        '4. 云端平台写入需登录角色为超级账号（通过 login 工具确定），与来源 IP 无关'
     ];
 
     return lines.join('\n');
@@ -630,8 +1035,7 @@ function download() {
 // Re-generate on platform change
 document.getElementById('platform').addEventListener('change', generate);
 
-// 初始化平台卡片，再获取接入信息。
-renderPlatformCards();
+// 获取同一份接入信息与客户端目录后再渲染，避免展示过期的配置。
 fetchAccessInfo();
 </script>
 

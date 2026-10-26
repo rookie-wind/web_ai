@@ -1,0 +1,3 @@
+interface:
+  display_name: "pack-distribution"
+  short_description: "协议转换包打包分发"

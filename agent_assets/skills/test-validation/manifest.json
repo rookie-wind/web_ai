@@ -1,0 +1,16 @@
+{
+  "name": "test-validation",
+  "version": "0.1.1",
+  "kind": "skill-assets",
+  "entry": "SKILL.md",
+  "required": [
+    "SKILL.md",
+    "agents/openai.yaml"
+  ],
+  "optional": [
+    "tools/",
+    "templates/",
+    "validators/",
+    "references/"
+  ]
+}

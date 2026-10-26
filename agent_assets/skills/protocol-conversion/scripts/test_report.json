@@ -1,0 +1,83 @@
+{
+  "testTime": "2026-08-20T00:00:00Z",
+  "total": 91,
+  "passed": 89,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 2,
+  "status": "PASSED",
+  "testClasses": {
+    "TestArrayForeach": {
+      "total": 5,
+      "passed": 5,
+      "skipped": 0,
+      "failed": 0
+    },
+    "TestEdgeCases": {
+      "total": 7,
+      "passed": 7,
+      "skipped": 0,
+      "failed": 0
+    },
+    "TestEngineDifferences": {
+      "total": 4,
+      "passed": 4,
+      "skipped": 0,
+      "failed": 0
+    },
+    "TestEnsurePath": {
+      "total": 5,
+      "passed": 5,
+      "skipped": 0,
+      "failed": 0
+    },
+    "TestGenerators": {
+      "total": 12,
+      "passed": 12,
+      "skipped": 0,
+      "failed": 0
+    },
+    "TestHTTPTransform": {
+      "total": 7,
+      "passed": 7,
+      "skipped": 0,
+      "failed": 0
+    },
+    "TestMQTTTransform": {
+      "total": 6,
+      "passed": 6,
+      "skipped": 0,
+      "failed": 0
+    },
+    "TestPathResolution": {
+      "total": 12,
+      "passed": 12,
+      "skipped": 0,
+      "failed": 0
+    },
+    "TestRealConfigs": {
+      "total": 2,
+      "passed": 0,
+      "skipped": 2,
+      "failed": 0
+    },
+    "TestTemplateSubstitute": {
+      "total": 5,
+      "passed": 5,
+      "skipped": 0,
+      "failed": 0
+    },
+    "TestTypeConversion": {
+      "total": 22,
+      "passed": 22,
+      "skipped": 0,
+      "failed": 0
+    },
+    "TestUnifiedCodeConsistency": {
+      "total": 4,
+      "passed": 4,
+      "skipped": 0,
+      "failed": 0
+    }
+  }
+}

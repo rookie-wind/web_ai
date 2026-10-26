@@ -1,0 +1,88 @@
+{
+  "base_url": "https://www.aimcover.com.cn/api/open-api/out",
+  "timeout": 30000,
+  "domain": "",
+  "token": {
+    "login_path": "/auth",
+    "login_method": "POST",
+    "content_type": "multipart/form-data",
+    "token_path": "data.token",
+    "token_header": "token",
+    "expires_in": 172800,
+    "login_params": [
+      { "target": "username", "source_type": "constant", "constant": "${USERNAME}", "type": "string" },
+      { "target": "password", "source_type": "constant", "constant": "${PASSWORD}", "type": "string" }
+    ]
+  },
+  "apis": [
+    {
+      "name": "get_customer_list",
+      "method": "GET",
+      "path": "/customer",
+      "content_type": "multipart/form-data",
+      "use_token": true,
+      "interval": 24,
+      "interval_type": "hour",
+      "interval_offset": 0,
+      "skip_on_interval": true,
+      "param_process": "",
+      "after_process": "",
+      "topic_pattern": "",
+      "next_api": "get_records",
+      "body_params": [
+        { "target": "pageNo", "source_type": "context", "source": "pageNo", "type": "int" },
+        { "target": "pageSize", "source_type": "context", "source": "pageSize", "type": "int" }
+      ],
+      "data_mappings": []
+    },
+    {
+      "name": "get_records",
+      "method": "GET",
+      "path": "/record",
+      "content_type": "multipart/form-data",
+      "use_token": true,
+      "interval": 1,
+      "interval_type": "hour",
+      "interval_offset": 0,
+      "skip_on_interval": true,
+      "param_process": "",
+      "after_process": "",
+      "topic_pattern": "",
+      "next_api": "",
+      "body_params": [
+        { "target": "startTime", "source_type": "context", "source": "startTime", "type": "string" },
+        { "target": "endTime", "source_type": "context", "source": "endTime", "type": "string" },
+        { "target": "meterCode", "source_type": "context", "source": "meterCode", "type": "string" }
+      ],
+      "data_mappings": [
+        { "target": "taskId", "source_type": "constant", "constant": 8220, "type": "int" },
+        { "target": "udSign", "source_type": "constant", "constant": 1, "type": "int" },
+        { "target": "cmdType", "source_type": "constant", "constant": 1, "type": "int" },
+        { "target": "priority", "source_type": "constant", "constant": 0, "type": "int" },
+        { "target": "commObj.commAddr", "source_type": "path", "source": "data.list[0].meterCode", "type": "string" },
+        { "target": "businessObjList[0].dataObj.timeType", "source_type": "constant", "constant": 4, "type": "int" },
+        {
+          "target": "businessObjList[0].dataObj.dataItemList[0].itemBody.@",
+          "source": "data.list[*]",
+          "source_type": "array_foreach",
+          "item_type": "object",
+          "sub_mappings": [
+            { "target": "roadNo", "source_type": "constant", "constant": 1, "type": "int" },
+            { "target": "dataTime", "source_type": "path", "source": "clientTime", "type": "string" },
+            {
+              "target": "item.@",
+              "source": ".",
+              "source_type": "array_foreach",
+              "item_type": "key_value",
+              "sub_mappings": [
+                { "target": "meterCode", "source_type": "path", "source": "meterCode", "type": "string" },
+                { "target": "currentValue", "source_type": "path", "source": "currentValue", "type": "string" },
+                { "target": "picUrl", "source_type": "path", "source": "picUrl", "preprocess": "url_to_base64", "type": "string" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

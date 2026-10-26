@@ -1,0 +1,19 @@
+{
+  "name": "modbus-conversion",
+  "version": "0.4.1",
+  "kind": "skill-assets",
+  "entry": "SKILL.md",
+  "protocolDirections": [
+    { "id": "modbus", "name": "MODBUS", "level": "top" }
+  ],
+  "required": [
+    "SKILL.md",
+    "agents/openai.yaml"
+  ],
+  "optional": [
+    "tools/",
+    "templates/",
+    "validators/",
+    "references/"
+  ]
+}

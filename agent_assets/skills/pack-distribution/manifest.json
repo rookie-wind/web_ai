@@ -1,0 +1,16 @@
+{
+  "name": "pack-distribution",
+  "version": "0.1.0",
+  "kind": "skill-assets",
+  "entry": "SKILL.md",
+  "required": [
+    "SKILL.md",
+    "agents/openai.yaml"
+  ],
+  "optional": [
+    "tools/",
+    "templates/",
+    "validators/",
+    "references/"
+  ]
+}

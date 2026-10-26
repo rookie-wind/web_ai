@@ -91,7 +91,7 @@ python mcp_server/server.py
 [INFO]   MCP Endpoint: http://0.0.0.0:8765/mcp
 [INFO]   Skills Download: http://0.0.0.0:8765/api/docs/export-skills-package
 [INFO]   Tools:         48 (read: 28, write: 18)
-[INFO]   Skills Dir:    E:\codeGIT\pca-mcp-server\.trae\skills
+[INFO]   Skills Dir:    E:\codeGIT\pca-mcp-server\agent_assets\skills
 INFO:     Uvicorn running on http://0.0.0.0:8765
 ```
 
@@ -125,8 +125,8 @@ curl -X POST http://localhost:8765/mcp ^
 
 - 服务器自动检测访问者 IP 并分配 Token（**无需手动输入**）
 - 服务器地址根据访问来源自动填充
-- 只需选择目标平台（Trae / Cursor / VS Code / Claude Desktop / Windsurf / Cline / Kimi Code）
-- 自动生成接入文本（含 MCP 配置 JSON + Skills 安装步骤 + 验证指令 + 安全要求）
+- 只需选择目标平台（Qoder / Trae / Cursor / VS Code / Claude Desktop / Windsurf / Cline / Kimi Code）
+- 自动生成**文本驱动**的接入说明（含目标客户端真实配置文件路径 + 由 Agent 直接写入/合并的幂等指令 + `list_mcp_tools` 验证 + 手动兜底 + Skills 安装步骤 + 安全要求）
 - 一键复制或下载 .md 文件
 
 ### 工作流程
@@ -134,12 +134,12 @@ curl -X POST http://localhost:8765/mcp ^
 ```
 管理员启动服务器 → 浏览器打开接入页面 → 服务器自动检测 IP + 分配 Token
 → 选择目标平台 → 复制接入文本 → 发送给其他用户
-→ 用户粘贴到 AI Agent → Agent 自动写入 mcp.json + 安装 Skills + 调用 list_mcp_tools 验证
+→ 用户粘贴到 AI Agent → Agent 直接把 xl-protocol-agent 写入本客户端真实配置文件（合并、幂等）+ 安装 Skills + 调用 list_mcp_tools 验证
 ```
 
 ### Skills 包自动打包
 
-服务器自动打包 `.trae/skills/` 目录，**无需手动压缩**：
+服务器自动打包 `agent_assets/skills/` 目录（与具体 IDE 无关的发布源），**无需手动压缩**：
 
 - ZIP 下载：`http://<服务器IP>:8765/api/docs/export-skills-package`
 - Markdown 摘要：`http://<服务器IP>:8765/api/docs/export-skills`
@@ -166,14 +166,27 @@ curl -X POST http://localhost:8765/mcp ^
 | `MCP_PORT` | `8765` | 监听端口 |
 | `MCP_AUTH_TOKEN` | (空) | 管理员 Bearer Token。空则自动生成。用于 localhost 系统级访问 |
 
-### MCP 客户端配置
+### MCP 客户端配置（服务端与工具解耦）
 
-项目 `.trae/mcp.json` 已就绪，无需修改：
+服务端不预设任何 AI 工具：接入时由**目标工具内的 Agent 依据接入文本，把 `xl-protocol-agent` 写入该工具自己读取的配置文件**（不存在则创建、存在则合并、幂等、损坏先备份，写完调用 `list_mcp_tools` 验证）。各客户端真实配置文件如下：
+
+| 平台 | 级别 | 配置文件 | 根键 |
+|------|------|----------|------|
+| Qoder | 用户级 | `~/.qoder/mcp.json` | `mcpServers` |
+| Trae | 项目级 | `.trae/mcp.json` | `mcpServers` |
+| Cursor | 项目级 | `.cursor/mcp.json` | `servers` |
+| VS Code Copilot | 项目级 | `.vscode/mcp.json` | `servers` |
+| Claude Desktop | 用户级 | `%APPDATA%\Claude\claude_desktop_config.json`（macOS 见接入页） | `mcpServers` |
+| Windsurf | 用户级 | `~/.codeium/windsurf/mcp_config.json` | `mcpServers` |
+| Cline | 用户级 | `cline_mcp_settings.json` | `mcpServers` |
+| Kimi Code | 用户级 | `~/.kimi/mcp.json` | `mcpServers` |
+
+本机 localhost 接入示例（Qoder / Trae 通用格式，无需 `type` 字段）：
 
 ```json
 {
   "mcpServers": {
-    "protocol-converter": {
+    "xl-protocol-agent": {
       "url": "http://localhost:8765/mcp",
       "headers": {
         "Authorization": "Bearer your_token_here"
@@ -183,7 +196,7 @@ curl -X POST http://localhost:8765/mcp ^
 }
 ```
 
-> 将 `your_token_here` 替换为 `MCP_AUTH_TOKEN` 环境变量设置的值。
+> 将 `your_token_here` 替换为 `MCP_AUTH_TOKEN` 环境变量设置的值。`install.bat` 不再默认写 `.trae/mcp.json`——仅在你选择"为 Trae 预写配置"时生成；其它工具一律走接入页由 Agent 自动注册。
 
 ## 文件结构
 
@@ -208,6 +221,6 @@ mcp_server/
 当前 48 个工具已覆盖规约管理后端 API 的全部原子操作（大类、设备类型、品牌、型号、规约、数据项、脚本、系数、感知、规约类型字典、功能项、文件上传等）。后续扩展方向：
 
 1. 原子标签查询入口已明确为 `get_function_type_list`（API-E10 `GetProtocoFunctionTypeList`），`get_data_item_list` 仅用于查询采集点位配置
-2. 持续完善 `/pca` 前置检查、能力矩阵、版本探测和 Agent 资源包更新流程
+2. 持续完善 `/xlpa` 前置检查、能力矩阵、版本探测和 Agent 资源包更新流程
 3. 持续完善 MODBUS 原子标签批量匹配、置信度、权限分支、续跑摘要和变更影响提示
 4. 按需新增 MQTT/HTTP 协议转换的专属工具和 Skill

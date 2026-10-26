@@ -1,0 +1,21 @@
+{
+  "name": "xlpa-device-archiving",
+  "version": "0.16.0",
+  "kind": "skill-assets",
+  "entry": "SKILL.md",
+  "protocolDirections": [
+    { "id": "device-archiving", "name": "建档", "level": "top" }
+  ],
+  "required": [
+    "SKILL.md",
+    "agents/openai.yaml",
+    "references/excel-template-schema.md",
+    "references/platform-dict-template-generation.md",
+    "references/gateway-button-endpoints.md",
+    "references/device-onboarding-playbook.md"
+  ],
+  "optional": [
+    "templates/",
+    "validators/"
+  ]
+}

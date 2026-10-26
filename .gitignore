@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+*.egg-info/
+build/
+dist/
+
+# 编辑器 / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# MCP Server 本地运行态敏感文件
+# Token Registry：按 IP 持久化 user Token，不得提交版本控制
+mcp_server/.token_registry.json
+mcp_server/.token_registry.json.tmp
+# Token Registry 迁移备份
+mcp_server/.token_registry.json.*.backup
+# 云端业务 Token 缓存：账号标识映射，不得提交版本控制或打包分发
+mcp_server/.business_token_cache.json
+mcp_server/.business_token_cache.json.tmp
+# showcase 平台统计缓存：实时查询失败时的降级数据源
+mcp_server/.showcase_cache.json
+mcp_server/.showcase_cache.json.tmp
+# 超级账号配置（含 systemAccount 凭据），不得提交版本控制
+mcp_server/permissions.json
+# 事件计数持久化
+mcp_server/.stats.json
+mcp_server/.stats.json.tmp
+# 服务端完整回归报告（只保存汇总，不进入用户资源包）
+mcp_server/.server_test_report.json
+mcp_server/.server_test_report.json.tmp
+
+# 自动建档服务私有状态目录（快照/空白模板/脱敏报告），只含非敏感内容
+# 但属运行态私有数据，不得提交版本控制或打包分发
+mcp_server/archive_templates/
+mcp_server/archive_reports/
+
+# 服务器操作日志（写操作留痕，项目内运行态数据），不得提交版本控制
+logs/
+
+# 临时打包产物
+*.zip.tmp
+
+# Office 临时锁文件
+~$*
+
+# 验证资产（开发过程产物，不进用户包）
+validation/
+
+# 项目整理辅助脚本与基线
+_build_action_list.py
+_run_action_list.py
+_run_action_main.py
+_inventory_baseline.json
+_inventory_baseline.txt

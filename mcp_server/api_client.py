@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import os
 from pathlib import Path
 from typing import Any
@@ -47,15 +48,35 @@ class ProtocolApiClient:
         """
         self.base_url = base_url
         self._client: httpx.AsyncClient | None = None
+        self._client_loop: asyncio.AbstractEventLoop | None = None
 
     async def _ensure_client(self) -> httpx.AsyncClient:
-        """获取或创建底层 httpx.AsyncClient。"""
-        if self._client is None or self._client.is_closed:
+        """获取或创建底层 httpx.AsyncClient。
+
+        检测当前事件循环是否与创建客户端时相同，
+        不同则关闭旧客户端并重建（避免 ``Event loop is closed``）。
+        """
+        current_loop = asyncio.get_running_loop()
+        need_recreate = (
+            self._client is None
+            or self._client.is_closed
+            or self._client_loop is not current_loop
+        )
+        if need_recreate:
+            # 关闭旧客户端（如果仍在有效事件循环中）
+            if (
+                self._client is not None
+                and not self._client.is_closed
+                and self._client_loop is not None
+                and not self._client_loop.is_closed()
+            ):
+                await self._client.aclose()
             self._client = httpx.AsyncClient(
                 base_url=self.base_url,
                 timeout=DEFAULT_TIMEOUT,
                 verify=True,
             )
+            self._client_loop = current_loop
         return self._client
 
     async def close(self) -> None:
@@ -562,6 +583,7 @@ class ProtocolApiClient:
             "/api/Protocol/GetSysBrandList",
             token,
             {
+                "name": nameCN,
                 "nameCN": nameCN,
                 "code": code,
                 "deviceTypeId": deviceTypeId,
