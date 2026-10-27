@@ -13,7 +13,7 @@ metadata:
   tags: [mqtt, conversion, config-gen]
   order: 1
   author: song
-  version: "2.1.0"
+  version: "2.2.0"
 ---
 
 # MQTT 协议转换配置生成
@@ -74,7 +74,8 @@ flowchart TD
 
 ### Step 0: 文档预处理（条件步骤）
 
-若源/目标协议格式以文档形式提供（PDF、DOCX 等），先转换为 Markdown 再分析：
+若源/目标协议格式以文档形式提供（PDF、DOCX 等），先转换为 Markdown 再分析
+（**转换结果与逐页抽取等中间文件一律写当前会话工作区，禁止写入技能目录**）：
 
 | 源格式            | 转换方式                                 |
 | -------------- | ------------------------------------ |

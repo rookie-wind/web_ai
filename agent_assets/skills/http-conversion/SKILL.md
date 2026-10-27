@@ -13,7 +13,7 @@ metadata:
   tags: [http, rest, conversion, config-gen]
   order: 2
   author: song
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # HTTP 协议转换配置生成
@@ -108,7 +108,8 @@ flowchart TD
 
 ### Step 0: 文档预处理（条件步骤）
 
-若源/目标协议文档为二进制格式（PDF/DOCX/DOC/RTF/ODT），先转换为 Markdown：
+若源/目标协议文档为二进制格式（PDF/DOCX/DOC/RTF/ODT），先转换为 Markdown
+（**转换结果与逐页抽取等中间文件一律写当前会话工作区，禁止写入技能目录**）：
 
 | 源格式                       | 转换方式                                 |
 | ------------------------- | ------------------------------------ |

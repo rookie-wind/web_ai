@@ -13,7 +13,7 @@ metadata:
   tags: [protocol, conversion, entry, router]
   order: 0
   author: song
-  version: "0.6.0"
+  version: "0.7.0"
 
 ---
 
@@ -239,19 +239,22 @@ MCP 端点：`http://localhost:8765/mcp`
    - **当前任务依赖新能力**（本地资源包缺少服务器 `capabilities` 中声明的特性，例如需要 `function_type_atomic_tag` 但本地 Skill 尚未支持）：提示版本兼容风险与可能缺失的能力，建议先更新资源包，并展示不更新继续执行的风险或受限范围
 5. 如果版本不一致或用户主动要求更新，展示更新计划：
    - 下载来源：MCP Server Agent 资源包 ZIP 端点（兼容原 Skills ZIP 端点）
-   - 更新范围：全部 `.trae/skills` 资源包管理目录，包含 `SKILL.md`、`agents/`、`tools/`、`templates/`、`validators/`、`references/` 和 manifest
-   - 备份路径：`.trae/skills_backup_{timestamp}/`
+   - 更新范围：当前客户端技能目录的全部内容包括 `SKILL.md`、`agents/`、`tools/`、
+     `templates/`、`validators/`、`references/` 和 manifest
+     （说明：本文中“客户端技能目录”指 Qoder 的 `.qoder/skills` 或 Trae 的 `.trae/skills`，
+     按当前客户端与实际存在的路径判定，不得硬编码单一目录）
+   - 备份路径：`<客户端技能目录>_backup_{timestamp}/`
    - 覆盖策略：全量覆盖，备份后解压替换
    - 校验策略：读取包级和 Skill 级 manifest，校验所有 `requiredFiles`/`required` 必需文件
    - 生效方式：更新后需重新加载 `/xlpa` 会话或重启客户端
 6. **用户确认更新时**：
-   1. 先备份当前 `.trae/skills` 目录为 `.trae/skills_backup_{timestamp}/`
+   1. 先备份当前客户端技能目录为 `<客户端技能目录>_backup_{timestamp}/`
    2. 下载远端 Agent 资源包 ZIP 并解压覆盖全部资源包内容
    3. 校验 `skills/package-manifest.json`、各 Skill `manifest.json`、关键 Skill 目录、`agents/openai.yaml` 和 `xlpa/tools/mcp_client.py` 存在
    4. 如果校验失败，报告缺失项和备份路径，不得声称更新完成
    5. 校验通过后，提示用户重新加载 `/xlpa` 会话或重启客户端以使用新版资源包
 7. **用户未确认更新时**：
-   - 不得覆盖、删除或移动本地 `.trae/skills` 内容
+   - 不得覆盖、删除或移动本地客户端技能目录内容
    - 继续执行当前已安装版本支持的流程
    - 提示可能存在版本差异风险
    - 不得把版本更新作为默认执行动作
@@ -286,7 +289,7 @@ MCP 端点：`http://localhost:8765/mcp`
 | 网关时钟 | 档案/参数回读成功后独立确认召测，不校时 |
 | 边缘下发 / 监测点召测 | 当前真实通信契约未核实，BLOCKED，不可绕过 |
 | 任务报告 | 按归属查询各阶段结果和未执行项，会话过期后仍可查有效报告 |
-| Agent 资源包更新 | 是否可下载并更新本地 `.trae/skills` |
+| Agent 资源包更新 | 是否可下载并更新本地客户端技能目录（`.qoder/skills` 或 `.trae/skills`） |
 
 按云端业务账号状态输出不同矩阵（MCP 接入 Token 一律 user 级，不再是写权限来源）：
 

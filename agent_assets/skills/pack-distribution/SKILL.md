@@ -11,7 +11,7 @@ metadata:
   tags: [pack, distribute, export]
   order: 5
   author: hub_port_test
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # 协议转换包打包分发
@@ -119,7 +119,7 @@ flowchart TD
 
 ```
 打包步骤:
-  1. 创建临时目录
+  1. 在当前会话工作区创建临时目录（禁止在技能目录内创建）
   2. 复制 config.json、mapping_report.md、test_report.json
   3. 复制 source_protocol_spec.json、target_protocol_spec.json
   4. 生成 manifest.json

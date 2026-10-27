@@ -13,7 +13,7 @@ metadata:
   tags: [mapping-core, shared, mqtt, http, unified]
   order: 1
   author: song
-  version: "1.3.0"
+  version: "1.4.0"
 ---
 
 # 共享协议映射核心
@@ -333,9 +333,12 @@ result = MapperCore.transform_http(source_json, http_config, ctx)
 运行测试：
 
 ```bash
-cd .trae/skills/protocol-conversion/scripts
+cd <当前客户端技能目录>/protocol-conversion/scripts
 python -m unittest test_protocol_converter -v
 ```
+
+> 技能目录按客户端而定：Qoder 为 `.qoder/skills`，Trae 为 `.trae/skills`。
+> 执行前先用实际存在的那个路径；不得将测试产物或 `__pycache__` 依赖当作技能目录输出位置。
 
 ## 14. 结构确认报告模板
 

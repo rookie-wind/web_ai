@@ -45,7 +45,8 @@
 | 事实 | 位置 | 对方案的意义 |
 |---|---|---|
 | `CompositeApp` 已有 **10 条非 MCP 端点**（3 个页面 + 7 个 API），含带 Bearer 鉴权的 XLSX 上传与模板下载 | `server.py:2690-2784` | Web 后端的鉴权与上传范式已存在，不必新造 |
-| 工具面 **71 个**（48 + 23），docstring 合计约 11.2k 字、参数 206 个 | `server.py` / `edge_tools.py` | 全量 schema 每轮约 1.5~2.5 万 token，必须按意图收敛子集（`@mcp.tool()` 字面出现 72 次，其中 1 次不在函数定义上） |
+| 工具面 **71 个**（48 + 23），docstring 合计约 11.2k 字、参数 206 个 | `server.py` / `edge_tools.py` | 全量 schema 实测 **35,022 字符**（约 1.6万~3.2万 token/轮），必须按意图收敛子集（`@mcp.tool()` 字面出现 72 次，其中 1 次不在函数定义上） |
+| `edge_sessions` 为纯内存存储（24h TTL，重启即清空），但模板快照按 `file_id` 落盘 30 天 | `edge_tools.py:181-192`、`snapshot_store.py:52` | "隔天续跑"仅在服务未重启时成立；重启后可凭 `file_id` 重建任务会话，不需用户重传表格 |
 | 写入类工具已有 `plan_id` + `confirm` 门禁 | `edge_tools.py:426` | 人在环不必依赖 CLI 权限回调；但"确认由谁声明"需要加固 |
 | 归属 = `SHA-256(接入 Token)`，被 6 处状态依赖 | `snapshot_store.py:104` | 凭据一旦可轮换/撤销，归属链即断——必须解耦 |
 | Token 以来源地址为主键，`is_valid` 沿 token→地址→记录→token 相等链校验 | `server.py:447,572-585` | 同一地址只能有一把有效凭据，多会话必须换主键 |
@@ -53,8 +54,8 @@
 | 计划结构已含 `plan_id / items / conflicts / warnings / preconditions / executable / has_conflict / counts / parameter_differences` | `models.py:365-385`、`edge_tools.py:1449-1470` | 确认卡片可直接渲染，**无需为 Web 新增字段** |
 | Skills 依赖本地文件与脚本执行（`protocol_converter.py`、pandoc、ZIP 打包）；共 **9 个 skill** | `agent_assets/skills/` | agent 需要工作区；这是"禁 Bash"的代价来源 |
 | 作业过程会往技能目录写中间产物：本地副本 `.qoder/skills/modbus-conversion/temp/` 存 113 个文件、11.0 MB | 目录实测（分发源无 temp/dist） | "共享只读母本"必须先治理，否则并发会话互相污染（见 D13） |
-| 仓库无可回滚基线：最后一次提交 2026-09-16，`edge_tools.py`、`session.py`、`token_manager.py`、`archiving/`、`tests/`、`agent_assets/` 均未跟踪 | `git log` / `git status` | 需求方不建 git 基线 → 改用改动前文件级快照作回滚点（见 D14） |
-| `.trae/skills/` 已不存在，但资源包内仍有 6 处指向它 | `agent_assets/skills/*/SKILL.md` | 母本投放与更新流程要按 `.qoder/skills/` 校准（影响 V2 与 Phase 3） |
+| 仓库曾无可回滚基线（上一次提交 2026-09-16，核心模块均未跟踪）；已建实施基线 `aeca78d` | `git log` / `git status` | 后续改动有 diff 基准与回滚目标（见 D14） |
+| `.trae/skills/` 已不存在，但资源包内仍有 6 处指向它（已校准为"当前客户端技能目录"） | `agent_assets/skills/*/SKILL.md` | 母本投放与更新流程要按 `.qoder/skills/` 校准（影响 V2 与 Phase 3） |
 | 部署为 Windows 单机、`uvicorn.run` 单进程、无容器 | `start.bat` / `server.py:3139` | 同机隔离只能靠逻辑手段，不能靠容器 |
 | IDE 自身以 `--print --input-format stream-json --output-format stream-json --system-prompt - --tools ""` 驱动 qodercli | `~/.qoder/logs/runs/*/manifest.json` | 被程序驱动是官方一等公民路径，非 hack |
 | 官方：纯 headless 下需确认动作**自动拒绝**；SDK(stdio) 下走 canUseTool 交宿主；Hook 决策优先级高于权限模式 | docs.qoder.com/zh/cli/permissions、run-in-scripts | 决定必须走 SDK，且门禁不可被模型绕过 |
@@ -254,8 +255,9 @@ qodercli 的持久会话目录只作为执行加速（省上下文重传、支�
 
 ### D12 工具面按意图收敛
 
-71 个工具全量挂载每轮约 1.5~2.5 万 token。后端按 `xlpa/SKILL.md` 的意图路由表推导会话所需子集，
-在会话启动参数中注入；具体分组与节省比例以实测校准（待验证）。
+71 个工具全量挂载实测为 35,022 字符（估算 1.6 万~3.2 万 token/轮）。后端按 `xlpa/SKILL.md` 的意图路由表推导会话所需子集，
+在会话启动参数中注入。实测：典型建档会话只挂 read+write 两组（18 个工具）共 11,753 字符，**约省 2/3**；
+工具名前缀正则只是粗分组，实现时按真实意图重划。
 
 ### D13 技能目录只读与作业产物落位（一期前置）
 
@@ -264,14 +266,24 @@ D8 中"读允许…资源包只读母本"这一投放方式，只在技能目录
 技能目录只读、文档转换与逐页抽取等中间产物强制落会话工作区、再加 Hook 拦写。未完成治理前不得开启
 多会话并发。备选（已否决）：每会话解一份独立副本 —— 磁盘与冷启动成本随并发线性增长且版本难保证一致。
 
-### D14 不做 git 基线，改用改动前的文件级快照
+已执行：制度性成因已堵住 —— `modbus-conversion/SKILL.md` 原先把 `temp/` 写进技能目录结构（这才是
+113 个残留文件的真正原因），现删除并约定中间产物禁入技能目录；mqtt/http 转 Markdown、
+pack-distribution 临时目录同步改；132 个残留文件已**隔离移动**到 `validation/quarantine/`（可回滚）；
+6 处失效目录引用已校准；资源包 0.23.0 → **0.24.0**。
+仍未完成：`output/`（最终产物）仍在技能目录内，涉及 12 处跨技能引用（modbus → cq-adapt 靠它交接），
+需单独一次带回归的变更；一个被 Word 占用的 Office 锁文件删除失败，需关闭 Word 后重试。
 
-需求方明确**不做 git 基线提交**（核心文件长期未跟踪，建基线会把大量无关改动一次性纳入版本控制）。
-而本变更含一次不可逆的运行态迁移（Registry v2→v3）并会修改多个核心文件，所以回滚点仍以等效但
-粒度更粗的方式建立：每项改动开始前，为待改模块与 `.token_registry.json` 生成带时间戳的文件级快照
-（沿用仓内 `_backup_registry` 与 `skills_backup_{timestamp}` 范式）。**快照未生成不得动手改代码。**
+### D14 实施基线已建立（回滚点）
 
-残余风险（已告知并接受）：没有 diff、无法证明改动边界、不能逐提交回滚，事故归因能力弱于 git 基线。
+已提交实施基线 `aeca78d`（266 个文件）：`mcp_server/` 源码与 `archiving/` 建档引擎与 `tests/`
+回归集、`agent_assets/` 资源包、`docs/`、`openspec/`（含本变更工件）与 `.gitignore`。该提交不含
+任何业务逻辑改动，仅作为后续改动的 diff 基准与回滚目标。
+
+本次排除：`.token_registry.json` 与 `proxy_config.json` 的改动、技能目录内 113 个作业残留
+（已从暂存区回退）、`.qoder`/`.trae` 本地副本、临时脚本与日志。提交仅存本地，**未推送**。
+
+遗留：`mcp_server/.env` 与 `mcp_server/.token_registry.json` 早在本次之前已被跟踪（历史内含凭据），
+`.gitignore` 对已跟踪文件无效；建议 `git rm --cached` 停止跟踪并评估轮换（已列为 tasks 0.1b，待批准）。
 
 ### D15 两份手机号名单不得混用
 
@@ -284,7 +296,7 @@ D8 中"读允许…资源包只读母本"这一投放方式，只在技能目录
 ## 7. 能力分期
 
 ```
-Phase -1 前置治理（不改业务代码） 改动前文件级快照 + 技能目录只读治理（D13/D14）
+Phase -1 前置治理（不改业务代码） 实施基线（已完成 aeca78d）+ 技能目录只读治理（D13/D14）
    |
 Phase 0  前置验证闸门（不改代码）  V1 V1b V3 V7 V9 V10 V4 V2
    |     V1 或 V3 失败 -> 回退路线，见第 9 节
@@ -317,22 +329,23 @@ Phase 4  打磨与运维                渲染分层、OCR 质量、限流配额
 
 | ID | 待验证 | 判据 | 失败后果 |
 |---|---|---|---|
-| V1 | SDK 能否连自家 `/mcp` | 工具真实返回且 MCP 侧鉴权与审计生效 | 整条运行时路线不成立，回退自建循环 |
-| V1b | 会话可恢复到什么粒度 | 销毁实例后恢复，上下文与产物是否齐 | 决定"空闲回收"能否做，影响并发成本模型 |
-| V3 | canUseTool/Hook 能否拿到含 `plan_id` 的完整 arguments | 原始载荷样本 | 第 5.2 节票据方案需换实现形态 |
-| V7 | Hook 能否回调后端 | 同机本地回环一次成功往返 | 验票通道需改为其他机制 |
-| V9 | 建档 `edge_sessions` 是否仅内存 | 重启后原 `task_id` 能否取到 | 影响"隔天续跑"的支持承诺 |
-| V10 | PAT/账号注入方式 | 凭据不进工作区、不出现在进程命令行 | 影响部署脚本与凭据管理方式 |
-| V4 | 全量 vs 子集 schema 的 token 成本 | 两组实测数字 | 分组策略需重定 |
-| V2 | `/xlpa` 在无头/SDK 会话中是否展开 | 一次真实路由到子技能成功 | 改用系统提示词注入，用户输入形态变化（不改架构） |
-| V8' | 本地 OCR 质量基线 | 三张样图 + 一份电子表格对照 | 一期只收文本与截图，照片推后 |
-| V11 | 所用账号为免费档位时，并发 > 1 与连续写入下的限流与额度表现 | 记录限流现象与可承受并发数 | 调低全局实例上限默认值 |
+| V1 | SDK 能否连自家 `/mcp` | ✅ **已验 PASS**：模型真实调起 `mcp__xlpa__list_mcp_tools`（total=71）；错凭据 401、无凭据 401 | 已排除；3 轮 9.8s 可作容量样本 |
+| V1b | 会话可恢复到什么粒度 | 待验：销毁实例后恢复，上下文与产物是否齐 | 决定"空闲回收"能否做，影响并发成本模型 |
+| V3 | Hook 能否拿到含参数的载荷 | ✅ **已验 PASS**：拿到 `tool_name` 与入参键 `pageIndex/pageSize/sysName/token`；`deny` 真的阻断执行（`Tool execution blocked`） | 已排除；写入工具上的 `plan_id`/`confirm` 可见性需在 8.1 再做一次确认 |
+| V7 | Hook 能否回调后端 | 优先级降低：实测 `hooks` 可传**进程内回调**，不必靠脚本回环 HTTP；但验票回后端仍需真实往返 | 验票通道形态待定 |
+| V9 | 建档 `edge_sessions` 是否仅内存 | ✅ **已验**：仅内存 + 24h TTL，重启即失效；`file_id` 快照 30 天可重建会话 | 已定结论：续跑承诺限定为"服务未重启" |
+| V10 | PAT/账号注入方式 | 部分已验：本地文件 → `QODER_PERSONAL_ACCESS_TOKEN` 可用；仍需验"不出现在子进程命令行" | 影响部署脚本与凭据管理方式 |
+| V4 | 全量 vs 子集 schema 体积 | ✅ **已验**：全量 35,022 字符；典型建档子集 11,753 字符（约省 2/3） | 已定：子集收敛列为必选 |
+| V2 | `/xlpa` 在无头/SDK 会话中是否展开 | 待验：一次真实路由到子技能成功 | 改用系统提示词注入，用户输入形态变化（不改架构） |
+| V8' | 本地 OCR 质量基线 | 待验：三张样图 + 一份电子表格对照 | 一期只收文本与截图，照片推后 |
+| V11 | 所用账号为免费档位时，并发 > 1 与连续写入下的限流与额度表现 | 待验：记录限流现象与可承受并发数 | 调低全局实例上限默认值 |
 
 **一期直接公网（不做内网过渡）带来的先决项**：必须确定对外形态与证书来源（域名或 IP:端口、
 证书由哪里签发、代理组件选型），且代理层需关闭 SSE 响应缓冲。该项未定不得开始部署配置（tasks 14.4 → 14.2）。
 
-**先决治理项（不是验证，是必须先做的动作）**：改动前文件级快照（D14）、技能目录只读与作业产物落位
-（D13）、资源包内 6 处已失效目录指向的校准。这三项已写入 tasks 第 0 组，必须排在验证与实现之前。
+**先决治理项（不是验证，是必须先做的动作）**：~~仓库基线~~已完成（`aeca78d`）；仍待做的为
+技能目录只读与作业产物落位（D13）、资源包内 6 处已失效目录指向的校准，以及待批准的
+`git rm --cached` 停止跟踪凭据文件（tasks 0.1b）。这些必须排在验证与实现之前。
 
 **回退路线**：若 V1 或 V3 不成立，则回到"后端自建工具循环 + 把 L3 完全改造为服务端工具 +
 直连可控模型端点"。此时 D2/D3/D4/D11（归属解耦、Registry v3、mint 端点、双写存储）仍成立，
@@ -365,7 +378,7 @@ D5 事件契约与 D9 产物交付也不受影响；需要重写的是运行时�
   - `design.md`（D1~D18 + 风险 + 迁移与回滚计划；已落定后端目录 `webchat/`、端口 8800、一期直接公网）
   - `specs/`：新增 `web-chat-session`、`agent-runtime-isolation`、`web-chat-artifact-delivery`；
     对 `mcp-token-management`、`client-session-permission` 出 delta
-  - `tasks.md`：16 组 67 项，第 0 组为前置治理与回滚点，第 1 组为前置验证闸门
+  - `tasks.md`：16 组 70 项（已完成 8 项：基线、V1、V3、V9/1.5、V4/1.7、0.2、0.3a、0.5）
 - 展示材料：`docs/presentation/web-chat-agent-runtime-slides.html`
 - 本方案文档：`docs/architecture/web-chat-agent-runtime-solution.md`
 

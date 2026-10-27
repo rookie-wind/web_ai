@@ -394,8 +394,8 @@ svg.arch text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;fill:var(--ink
   <h2>三期交付，每期都有能用的东西</h2>
   <div class="row">
     <div class="col crd acc"><h3><span class="tag ok">第 0 步</span>先清理，再验证</h3>
-      <p>先做两件不改业务代码的清理：<b>改动前文件级快照</b>（不建 git 基线，但必须有回滚点）与
-      <b>技能目录只读治理</b>（中间产物现写进技能目录，须改落会话工作区）；
+      <p>仓库基线已提交（<b>后续改动可 diff、可回滚</b>）；剩两件清理：<b>技能目录只读治理</b>
+      （中间产物现写进技能目录，须改落会话工作区）；
       再用 1~2 天确认：能否连上自家服务、中途能否请示、失败能否恢复。</p></div>
     <div class="col crd acc"><h3><span class="tag">第一期</span>能查、能取模板</h3>
       <p>登录准入 + 网页对话 + 实时过程展示；查询、字典、模板生成与下载全链路可用。
@@ -489,10 +489,11 @@ svg.arch text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;fill:var(--ink
       <p>技术确认 + 一期试用需要一台目标环境做一次真实建档，验收口径见第 8 页。</p></div>
   </div>
   <div style="margin-top:clamp(12px,2vh,22px)">
-    <span class="tag">已到位：准入手机号（2 个）· 智能体账号</span>
+    <span class="tag ok">已到位：实施基线 · 准入手机号（2 个）· 智能体账号</span>
     <span class="tag">已产出：完整方案文档</span>
-    <span class="tag">已产出：规格与任务清单（16 组 67 项）</span>
-    <span class="tag pt">先决：文件级快照 + 技能目录只读治理</span>
+    <span class="tag">已产出：规格与任务清单（16 组 70 项）</span>
+    <span class="tag ok">已做：中间产物落位治理（资源包 0.24.0）</span>
+    <span class="tag pt">待做：output/ 目录迁移（12 处跨技能引用）</span>
     <span class="tag ok">现有功能零改动 · 未动任何服务代码</span>
   </div>
   <div class="foot"><span>设备建档与协议智能体 · Web 化方案</span><span>11</span></div>

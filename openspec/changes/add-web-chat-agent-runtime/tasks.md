@@ -1,31 +1,67 @@
 ## 0. 前置治理与回滚点（先于实现）
 
-- [ ] 0.1 建立文件级回滚点（需求方不做 git 基线提交）：为本次要改的模块与 `.token_registry.json`
-      生成带时间戳的快照副本，验证快照可逐文件覆盖恢复（判据：任选一个文件从快照恢复后内容一致）
-- [ ] 0.2 清理技能目录内现有作业残留（本地副本 113 个文件、11.0 MB），验证分发源与安装副本
-      均无 temp/dist 目录（判据：目录扫描结果为空）
-- [ ] 0.3 在受影响 SKILL.md 中把中间产物路径改为会话工作区变量，验证跑完一次协议转换后
-      技能目录无新增文件（判据：执行前后目录清单比对一致）
-- [ ] 0.4 给技能目录（共享母本）加只读属性，验证目录内写入失败；后端就绪后由 Hook 拦写补全
-      二次防护（判据：一次构造性写入被目录权限拒绝）
-- [ ] 0.5 校准资源包中指向已不存在客户端目录的 6 处路径说明，验证资源包更新流程按当前实际
-      安装目录执行（判据：一次更新演练成功且无路径报错）
+- [x] 0.1 建立实施基线（已完成：提交 `aeca78d`，266 个文件，不含业务逻辑改动）：排除
+      `.token_registry.json` 与 `proxy_config.json` 的改动、技能目录 temp 残留、`.qoder`/`.trae`
+      本地副本与临时脚本（判据：`git show --name-only aeca78d` 不含凭据文件与 temp 目录）
+- [ ] 0.1b 待批准：对历史中已被跟踪的 `mcp_server/.env` 与 `mcp_server/.token_registry.json`
+      执行 `git rm --cached` 停止跟踪（保留本地文件），验证两者不再出现在 `git ls-files`
+      （判据：仍存在于磁盘但不再被跟踪；注：历史已有的凭据仍需单独评估轮换）
+- [x] 0.2 清理技能目录内的作业残留：已将 113 个文件（11.0 MB temp）+ 19 个文件（0.23 MB dist）
+      + 2 个空 output 目录**隔离移动**至 `validation/quarantine/20261027_105759/`（可回滚，
+      未硬删），验证清理后两棵技能树均无 temp/tmp/dist/output 残留（判据：目录扫描结果为空）
+- [x] 0.3a 把**中间产物**落位写入规范：已 modbus-conversion（删除目录树中的 `temp/` 并加禁止
+      写入技能目录的约束块）、mqtt-conversion / http-conversion（文档转 Markdown 输出位置）、
+      pack-distribution（“在当前会话工作区创建临时目录”）四处改写；
+      同步 minor bump 六个 manifest 与 SKILL frontmatter，资源包 0.23.0 → **0.24.0**
+      （判据：10 份 manifest JSON 均可解析且 SKILL 版本与 manifest 一致）
+- [ ] 0.3b **拆出的待做项**：`output/` 最终结果目录仍位于技能目录内，共 12 处跨技能引用
+      （modbus-conversion 5 处 + modbus-cq-adapt 7 处，含“从 modbus-conversion/output/ 读”与
+      示例中的硬编码文件名）。迁移它等于改变客户端的文件交接路径，必须单独一次带回归的变更
+      （跑一次真实转换 + 一次重庆适配）才能改，本轮故意未动
+- [ ] 0.4 只读加固拆为三项：0.4a 给 `agent_assets/skills/` 加只读——**本轮改期**，因为本变更
+      正在连续修改这些文件，加只读与自身工作冲突，改到 0.3b 完成后执行；
+      0.4b 给 `.qoder/skills/` 加只读——**已决定不做**（会立刻打断 IDE 侧现有作业）；
+      0.4c webchat 共享母本只读 + Hook 拦写——归入第 7 组（实测 `hooks` 可进程内传入，
+      配置无需落盘）（判据：0.4a 后一次构造性写入被拒；0.4c 随 7.3 验证）
+- [x] 0.5 校准资源包内 6 处指向已不存在客户端目录的路径说明：protocol-conversion:336 与
+      xlpa:242/243/248/254/289 已改为“当前客户端技能目录（`.qoder/skills` 或 `.trae/skills`）”
+      并在 xlpa 内加一次术语定义（判据：资源包内 grep `.trae/skills` 仅作为“也可能是”的举例存在）
+- [ ] 0.6 残留一项未完成：`agent_assets/skills/http-conversion/references/~$原子标签定义.docx`
+      （Office 锁文件）**删除失败**——文件被 Word 占用，且按规则不用 shell 强删。
+      请你关闭 Word 后删除（或授权我重试）；否则它会随资源包 ZIP 分发给客户端（判据：扫描结果为空）
 
 ## 1. 前置验证闸门（全部通过才进入实现）
 
-- [ ] 1.1 用 Qoder Agent SDK 起一次会话，配置外部 MCP 指向本机 `/mcp` 并携带 Bearer，验证能列出
-      工具并完成一次真实调用（判据：返回真实数据，且 MCP 侧操作日志/鉴权行为正常）→ 失败即停止本变更并回退路线
+- [x] 1.1 用 Qoder Agent SDK 起一次会话，配置外部 MCP 指向本机 `/mcp` 并携带 Bearer，验证能列出
+      工具并完成一次真实调用（判据：返回真实数据，且 MCP 侧鉴权行为正常）
+      —— 已验：`mcp__xlpa__list_mcp_tools` 真实返回 `total=71`、`version=0.33.0`；服务端侧
+      另证实错凭据 401 `Invalid token`、无凭据 401 `Bearer token required`；凭据需用本地 PAT
+      （`qodercli_auth()` 不共享 IDE 登录态）。证据：`validation/manual/v1v3/out/run.json`
 - [ ] 1.2 验证会话恢复能力：销毁实例后用恢复参数重建，检查上下文与工作区产物是否仍在，记录恢复到什么
       粒度（判据：产出"可恢复/部分恢复/不可恢复"结论并写进 design 的 D3 附注）
-- [ ] 1.3 触发一次需要确认的工具调用，记录 canUseTool 回调与 PreToolUse Hook 的载荷字段，验证能否拿到
-      工具名与完整 arguments（含 `plan_id`）（判据：有原始载荷样本存档，字段清单可核对）
+- [x] 1.3 触发一次需要确认的工具调用，记录 PreToolUse Hook 的载荷字段，验证能否拿到
+      工具名与完整 arguments（判据：有原始载荷样本存档，字段清单可核对）
+      —— 已验：hook 收到 `mcp__xlpa__get_classify_list` 与入参键 `pageIndex/pageSize/sysName/token`；
+      `permissionDecision=deny` 确实阻断执行（模型收到 `Tool execution blocked` 且未重试）。
+      因此 D7 的服务端票据方案前提成立，无需改走 MCP 侧验票（方向 B）。注意：本轮靶子故意
+      选只读工具以零副作用；写入工具上的 `plan_id`/`confirm` 参数可见性推定于同一机制，
+      实现时需再用真实建档计划做一次确认（归入 8.1）。证据：`out/hooks.jsonl`
 - [ ] 1.4 在 Hook 脚本内回调后端本地回环端点，验证可达且能返回 allow/deny（判据：一次真实拦截往返成功）
-- [ ] 1.5 核实 `edge_sessions` 是否仅内存：重启 MCP Server 后用原 `task_id` 调用，记录结果并据此确定
-      "隔天续跑"的支持范围（判据：结论写入 design D12 附注，且与 `client-session-permission` 不冲突）
+- [x] 1.5 核实 `edge_sessions` 是否仅内存：结论为**仅内存**
+      （`EdgeSessionStore.__init__` 为 `self._sessions: dict[str, EdgeSession]`，类注释明写
+      "内存会话存储…进程重启即清空"；`SESSION_TTL_SECONDS = 24 * 3600`，有 `purge_expired()`）。
+      因此"隔天续跑"只能限定为**同一服务进程存活期内**；重启后 `task_id` 失效，但快照
+      `file_id`（TTL 30 天）仍在，可用 `read_device_archive_template(file_id)` 重建会话而
+      **无需用户重传 Excel**。阶段报告由 `TaskReportStore` 落盘，不受影响。
+      （判据：结论已写入 design D3/D12 附注）
 - [ ] 1.6 核实 PAT/账号注入方式（环境变量、SDK 参数或配置文件），确认不落入会话工作区、不出现在子进程
       命令行中（判据：给出注入方式说明，并检查进程命令行不含凭据）
-- [ ] 1.7 实测 71 个工具全量 schema 的 token 成本与按意图分组后的成本，记录节省比例（判据：两组数字
-      进 design D15，作为分组配置的默认依据）
+- [x] 1.7 实测 71 个工具全量 schema 的体积与按能力分组后的体积
+      —— 已验：全量 **35,022 字符**（估算 1.6 万~3.2 万 token/轮）；platform_meta 43 个/16,457
+      （47%）、archive_write 7 个/6,248、archive_read 11 个/5,505、其他 9 个/6,464；
+      典型建档会话子集（read+write）= 11,753 字符，**约省 2/3**。
+      注：本轮分组用名前缀正则粗算，实现时要按真实意图重新划分。
+      （判据：两组数字已进 design D15；证据 `out/tool-schema-cost.json`）
 - [ ] 1.8 验证 `/xlpa` 斜杠命令在无头/SDK 会话中是否展开；若不生效改用系统提示词注入 SKILL.md 并记录
       用户输入形态变化（判据：一次真实路由到子技能的成功样例）
 - [ ] 1.9 实测所用智能体账号在并发 > 1 与连续写入下的限流与额度表现（账号为免费档位），
