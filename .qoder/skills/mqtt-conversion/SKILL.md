@@ -8,7 +8,7 @@ when_to_use: >
   用户提供了内部 MQTT 源协议文档和平台 MQTT 目标协议文档，需要生成 MQTT 协议转换配置时使用。
   用户需要将内部 MQTT 消息数据转换为平台要求的 MQTT 格式后上报时使用。
   用户描述了 MQTT broker、topic、publish/subscribe 等关键词时使用。
-compatibility: "依赖 mapper_core.c 引擎；protocol-converter MCP server"
+compatibility: "依赖 mapper_core.c 引擎；xl-protocol-agent MCP server"
 metadata:
   tags: [mqtt, conversion, config-gen]
   order: 1

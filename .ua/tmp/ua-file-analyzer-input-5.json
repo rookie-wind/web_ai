@@ -1,0 +1,42 @@
+{
+  "projectRoot": "e:/codeGIT/pca-mcp-server",
+  "batchFiles": [
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 65,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "_c_drive_cleanup.cmd",
+      "language": "batch",
+      "sizeLines": 87,
+      "fileCategory": "script"
+    },
+    {
+      "path": "_c_drive_cleanup.ps1",
+      "language": "powershell",
+      "sizeLines": 532,
+      "fileCategory": "script"
+    },
+    {
+      "path": "_verify_download_fix.ps1",
+      "language": "powershell",
+      "sizeLines": 98,
+      "fileCategory": "script"
+    },
+    {
+      "path": "pytest.ini",
+      "language": "config",
+      "sizeLines": 4,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {
+    "README.md": [],
+    "_c_drive_cleanup.cmd": [],
+    "_c_drive_cleanup.ps1": [],
+    "_verify_download_fix.ps1": [],
+    "pytest.ini": []
+  }
+}

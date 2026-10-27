@@ -1,0 +1,98 @@
+{
+  "projectRoot": "e:/codeGIT/pca-mcp-server",
+  "batchFiles": [
+    {
+      "path": "openspec/specs/agent-assets-package-management/spec.md",
+      "language": "markdown",
+      "sizeLines": 143,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "openspec/specs/client-session-permission/spec.md",
+      "language": "markdown",
+      "sizeLines": 84,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "openspec/specs/mcp-client-auto-registration/spec.md",
+      "language": "markdown",
+      "sizeLines": 75,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "openspec/specs/mcp-token-management/spec.md",
+      "language": "markdown",
+      "sizeLines": 120,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "openspec/specs/modbus-mcp-workflow/spec.md",
+      "language": "markdown",
+      "sizeLines": 420,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "openspec/specs/pca-entry-workflow/spec.md",
+      "language": "markdown",
+      "sizeLines": 171,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "openspec/specs/server-system-token/spec.md",
+      "language": "markdown",
+      "sizeLines": 67,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "openspec/specs/showcase-access-experience/spec.md",
+      "language": "markdown",
+      "sizeLines": 107,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "openspec/specs/showcase-stats-persistence/spec.md",
+      "language": "markdown",
+      "sizeLines": 78,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "openspec/specs/template-version-migration/spec.md",
+      "language": "markdown",
+      "sizeLines": 97,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "openspec/specs/write-operation-trace-log/spec.md",
+      "language": "markdown",
+      "sizeLines": 99,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "openspec/specs/xlpa-archive-template-delivery/spec.md",
+      "language": "markdown",
+      "sizeLines": 125,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "openspec/specs/xlpa-device-archiving-workflow/spec.md",
+      "language": "markdown",
+      "sizeLines": 519,
+      "fileCategory": "docs"
+    }
+  ],
+  "batchImportData": {
+    "openspec/specs/agent-assets-package-management/spec.md": [],
+    "openspec/specs/client-session-permission/spec.md": [],
+    "openspec/specs/mcp-client-auto-registration/spec.md": [],
+    "openspec/specs/mcp-token-management/spec.md": [],
+    "openspec/specs/modbus-mcp-workflow/spec.md": [],
+    "openspec/specs/pca-entry-workflow/spec.md": [],
+    "openspec/specs/server-system-token/spec.md": [],
+    "openspec/specs/showcase-access-experience/spec.md": [],
+    "openspec/specs/showcase-stats-persistence/spec.md": [],
+    "openspec/specs/template-version-migration/spec.md": [],
+    "openspec/specs/write-operation-trace-log/spec.md": [],
+    "openspec/specs/xlpa-archive-template-delivery/spec.md": [],
+    "openspec/specs/xlpa-device-archiving-workflow/spec.md": []
+  }
+}

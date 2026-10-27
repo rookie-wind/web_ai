@@ -1,0 +1,193 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 109,
+    "filesWithImports": 20,
+    "totalEdges": 53
+  },
+  "failures": [],
+  "importMap": {
+    "README.md": [],
+    "_c_drive_cleanup.cmd": [],
+    "_c_drive_cleanup.ps1": [],
+    "_verify_download_fix.ps1": [],
+    "agent_assets/skills/http-conversion/SKILL.md": [],
+    "agent_assets/skills/http-conversion/agents/openai.yaml": [],
+    "agent_assets/skills/http-conversion/manifest.json": [],
+    "agent_assets/skills/modbus-conversion/SKILL.md": [],
+    "agent_assets/skills/modbus-conversion/agents/openai.yaml": [],
+    "agent_assets/skills/modbus-conversion/manifest.json": [],
+    "agent_assets/skills/modbus-cq-adapt/SKILL.md": [],
+    "agent_assets/skills/modbus-cq-adapt/agents/openai.yaml": [],
+    "agent_assets/skills/modbus-cq-adapt/manifest.json": [],
+    "agent_assets/skills/mqtt-conversion/SKILL.md": [],
+    "agent_assets/skills/mqtt-conversion/agents/openai.yaml": [],
+    "agent_assets/skills/mqtt-conversion/manifest.json": [],
+    "agent_assets/skills/pack-distribution/SKILL.md": [],
+    "agent_assets/skills/pack-distribution/agents/openai.yaml": [],
+    "agent_assets/skills/pack-distribution/manifest.json": [],
+    "agent_assets/skills/package-manifest.json": [],
+    "agent_assets/skills/protocol-conversion/SKILL.md": [],
+    "agent_assets/skills/protocol-conversion/agents/openai.yaml": [],
+    "agent_assets/skills/protocol-conversion/manifest.json": [],
+    "agent_assets/skills/protocol-conversion/scripts/gen_test_report.py": [],
+    "agent_assets/skills/protocol-conversion/scripts/mapper_core.c": [],
+    "agent_assets/skills/protocol-conversion/scripts/mapper_core.h": [],
+    "agent_assets/skills/protocol-conversion/scripts/protocol_converter.py": [],
+    "agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py": [],
+    "agent_assets/skills/protocol-conversion/scripts/test_report.json": [],
+    "agent_assets/skills/test-validation/SKILL.md": [],
+    "agent_assets/skills/test-validation/agents/openai.yaml": [],
+    "agent_assets/skills/test-validation/manifest.json": [],
+    "agent_assets/skills/xlpa-device-archiving/SKILL.md": [],
+    "agent_assets/skills/xlpa-device-archiving/agents/openai.yaml": [],
+    "agent_assets/skills/xlpa-device-archiving/manifest.json": [],
+    "agent_assets/skills/xlpa/SKILL.md": [],
+    "agent_assets/skills/xlpa/agents/openai.yaml": [],
+    "agent_assets/skills/xlpa/manifest.json": [],
+    "agent_assets/skills/xlpa/tools/mcp_client.py": [],
+    "docs/architecture/project-structure.md": [],
+    "docs/deployment/mcp-server.md": [],
+    "docs/reference/edge-archive-fields.md": [],
+    "docs/reference/mcp-service-design.md": [],
+    "docs/reference/protocol-management-api.md": [],
+    "mcp_server/.env": [],
+    "mcp_server/.token_registry.json": [],
+    "mcp_server/README.md": [],
+    "mcp_server/api_client.py": [],
+    "mcp_server/archiving/__init__.py": [],
+    "mcp_server/archiving/compensation.py": [
+      "mcp_server/archiving/models.py"
+    ],
+    "mcp_server/archiving/converter.py": [],
+    "mcp_server/archiving/engine.py": [
+      "mcp_server/archiving/excel_reader.py",
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/profiles/registry.py"
+    ],
+    "mcp_server/archiving/excel_reader.py": [
+      "mcp_server/archiving/field_contract.py",
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/templates/generator.py"
+    ],
+    "mcp_server/archiving/field_contract.py": [
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/profiles/base.py"
+    ],
+    "mcp_server/archiving/log_sanitizer.py": [],
+    "mcp_server/archiving/models.py": [],
+    "mcp_server/archiving/ooxml_validator.py": [],
+    "mcp_server/archiving/profiles/__init__.py": [
+      "mcp_server/archiving/profiles/registry.py"
+    ],
+    "mcp_server/archiving/profiles/base.py": [],
+    "mcp_server/archiving/profiles/gateway_8163.py": [
+      "mcp_server/archiving/converter.py",
+      "mcp_server/archiving/profiles/base.py"
+    ],
+    "mcp_server/archiving/profiles/meter_lighting.py": [
+      "mcp_server/archiving/profiles/base.py",
+      "mcp_server/archiving/profiles/meter_xlba.py"
+    ],
+    "mcp_server/archiving/profiles/meter_pdb.py": [
+      "mcp_server/archiving/profiles/base.py",
+      "mcp_server/archiving/profiles/meter_xlba.py"
+    ],
+    "mcp_server/archiving/profiles/meter_xlba.py": [
+      "mcp_server/archiving/converter.py",
+      "mcp_server/archiving/profiles/base.py"
+    ],
+    "mcp_server/archiving/profiles/registry.py": [
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/profiles/base.py",
+      "mcp_server/archiving/profiles/gateway_8163.py",
+      "mcp_server/archiving/profiles/meter_lighting.py",
+      "mcp_server/archiving/profiles/meter_pdb.py",
+      "mcp_server/archiving/profiles/meter_xlba.py"
+    ],
+    "mcp_server/archiving/reference_config.py": [
+      "mcp_server/api_client.py",
+      "mcp_server/archiving/models.py"
+    ],
+    "mcp_server/archiving/reference_dict.py": [],
+    "mcp_server/archiving/reference_provider.py": [
+      "mcp_server/archiving/reference_config.py",
+      "mcp_server/edge_client.py",
+      "mcp_server/permissions.py"
+    ],
+    "mcp_server/archiving/snapshot_store.py": [
+      "mcp_server/archiving/models.py"
+    ],
+    "mcp_server/archiving/stage_orchestrator.py": [],
+    "mcp_server/archiving/task_report_store.py": [
+      "mcp_server/archiving/log_sanitizer.py"
+    ],
+    "mcp_server/archiving/template_migrator.py": [
+      "mcp_server/archiving/templates/generator.py"
+    ],
+    "mcp_server/archiving/templates/__init__.py": [
+      "mcp_server/archiving/templates/generator.py"
+    ],
+    "mcp_server/archiving/templates/generator.py": [
+      "mcp_server/archiving/field_contract.py"
+    ],
+    "mcp_server/archiving/templates/stage_zero_generate.py": [],
+    "mcp_server/archiving/time_validator.py": [],
+    "mcp_server/cleanup.py": [],
+    "mcp_server/edge_client.py": [
+      "mcp_server/edge_proxy_config.py"
+    ],
+    "mcp_server/edge_proxy_config.py": [],
+    "mcp_server/edge_tools.py": [
+      "mcp_server/archiving/compensation.py",
+      "mcp_server/archiving/converter.py",
+      "mcp_server/archiving/engine.py",
+      "mcp_server/archiving/excel_reader.py",
+      "mcp_server/archiving/log_sanitizer.py",
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/profiles/base.py",
+      "mcp_server/archiving/profiles/registry.py",
+      "mcp_server/archiving/snapshot_store.py",
+      "mcp_server/archiving/stage_orchestrator.py",
+      "mcp_server/archiving/task_report_store.py",
+      "mcp_server/archiving/template_migrator.py",
+      "mcp_server/archiving/templates/generator.py",
+      "mcp_server/edge_client.py",
+      "mcp_server/operation_log_store.py",
+      "mcp_server/session.py"
+    ],
+    "mcp_server/install.bat": [],
+    "mcp_server/mcp_client.py": [],
+    "mcp_server/operation_log_store.py": [
+      "mcp_server/archiving/log_sanitizer.py",
+      "mcp_server/archiving/snapshot_store.py"
+    ],
+    "mcp_server/permissions.py": [],
+    "mcp_server/permissions.template.json": [],
+    "mcp_server/proxy_config.json": [],
+    "mcp_server/requirements.txt": [],
+    "mcp_server/server.py": [],
+    "mcp_server/session.py": [],
+    "mcp_server/start.bat": [],
+    "mcp_server/static/access.html": [],
+    "mcp_server/static/showcase.html": [],
+    "mcp_server/token_manager.py": [],
+    "mcp_server/version.json": [],
+    "openspec/config.yaml": [],
+    "openspec/specs/.gitkeep": [],
+    "openspec/specs/agent-assets-package-management/spec.md": [],
+    "openspec/specs/client-session-permission/spec.md": [],
+    "openspec/specs/mcp-client-auto-registration/spec.md": [],
+    "openspec/specs/mcp-token-management/spec.md": [],
+    "openspec/specs/modbus-mcp-workflow/spec.md": [],
+    "openspec/specs/pca-entry-workflow/spec.md": [],
+    "openspec/specs/server-system-token/spec.md": [],
+    "openspec/specs/showcase-access-experience/spec.md": [],
+    "openspec/specs/showcase-stats-persistence/spec.md": [],
+    "openspec/specs/template-version-migration/spec.md": [],
+    "openspec/specs/write-operation-trace-log/spec.md": [],
+    "openspec/specs/xlpa-archive-template-delivery/spec.md": [],
+    "openspec/specs/xlpa-device-archiving-workflow/spec.md": [],
+    "pytest.ini": []
+  }
+}

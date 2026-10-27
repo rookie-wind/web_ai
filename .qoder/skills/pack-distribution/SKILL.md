@@ -6,7 +6,7 @@ description: >
 when_to_use: >
   测试通过后，需要打包分发转换配置时使用。
   用户要求导出、安装、分发转换包时使用。
-compatibility: "Requires protocol-converter MCP server (待开发)"
+compatibility: "Requires xl-protocol-agent MCP server (待开发)"
 metadata:
   tags: [pack, distribute, export]
   order: 5

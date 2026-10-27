@@ -1,0 +1,1452 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 3
+    }
+  },
+  "results": [
+    {
+      "path": "docs/reference/edge-archive-fields.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 905,
+      "nonEmptyLines": 692,
+      "sections": [
+        {
+          "heading": "边缘建档字段与操作流程参考",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "一、API 验证版操作流程（原 `设备建档操作流程.md`）",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "设备建档操作流程（API 验证版）",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "0. 登录与鉴权",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "步骤",
+          "level": 3,
+          "line": 23
+        },
+        {
+          "heading": "加密细节",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "1. 新建挂载点（父节点设备）",
+          "level": 2,
+          "line": 57
+        },
+        {
+          "heading": "接口",
+          "level": 3,
+          "line": 61
+        },
+        {
+          "heading": "注意",
+          "level": 3,
+          "line": 72
+        },
+        {
+          "heading": "2. 新建设备",
+          "level": 2,
+          "line": 80
+        },
+        {
+          "heading": "接口",
+          "level": 3,
+          "line": 82
+        },
+        {
+          "heading": "设备类型参考",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "3. 挂载设备到父节点",
+          "level": 2,
+          "line": 105
+        },
+        {
+          "heading": "接口",
+          "level": 3,
+          "line": 107
+        },
+        {
+          "heading": "注意",
+          "level": 3,
+          "line": 118
+        },
+        {
+          "heading": "4. 填写基本档案",
+          "level": 2,
+          "line": 125
+        },
+        {
+          "heading": "接口",
+          "level": 3,
+          "line": 129
+        },
+        {
+          "heading": "字段映射",
+          "level": 3,
+          "line": 147
+        },
+        {
+          "heading": "基本档案\"数据类型\"选项（taskIds，14项）",
+          "level": 3,
+          "line": 162
+        },
+        {
+          "heading": "5. 填写设备拓展信息",
+          "level": 2,
+          "line": 178
+        },
+        {
+          "heading": "接口",
+          "level": 3,
+          "line": 180
+        },
+        {
+          "heading": "字段映射（propertyCode 已经 getDeviceList 闭环验证）",
+          "level": 3,
+          "line": 198
+        },
+        {
+          "heading": "设备拓展信息\"数据类型\"选项（extInfos.dataType，2项）",
+          "level": 3,
+          "line": 210
+        },
+        {
+          "heading": "注意",
+          "level": 3,
+          "line": 219
+        },
+        {
+          "heading": "6. 填写参数设置 - 抄表参数",
+          "level": 2,
+          "line": 226
+        },
+        {
+          "heading": "接口",
+          "level": 3,
+          "line": 228
+        },
+        {
+          "heading": "deviceAddress 12位拼接规则",
+          "level": 3,
+          "line": 253
+        },
+        {
+          "heading": "唯一性约束",
+          "level": 3,
+          "line": 264
+        },
+        {
+          "heading": "抄表参数下拉选项（UI 实测，与页面一致）",
+          "level": 3,
+          "line": 269
+        },
+        {
+          "heading": "modbus skill 自动获取的字段（仅 6 个）",
+          "level": 3,
+          "line": 277
+        },
+        {
+          "heading": "7. 填写参数设置 - 基本参数",
+          "level": 2,
+          "line": 295
+        },
+        {
+          "heading": "接口",
+          "level": 3,
+          "line": 297
+        },
+        {
+          "heading": "lineType 值对照",
+          "level": 3,
+          "line": 313
+        },
+        {
+          "heading": "注意",
+          "level": 3,
+          "line": 322
+        },
+        {
+          "heading": "8. MODBUS数据透传（运维操作，非建档步骤）",
+          "level": 2,
+          "line": 329
+        },
+        {
+          "heading": "性质说明",
+          "level": 3,
+          "line": 331
+        },
+        {
+          "heading": "字段列表（运行时使用）",
+          "level": 3,
+          "line": 340
+        },
+        {
+          "heading": "对 Skill 的影响",
+          "level": 3,
+          "line": 353
+        },
+        {
+          "heading": "9. 查询设备",
+          "level": 2,
+          "line": 361
+        },
+        {
+          "heading": "9.1 获取设备树",
+          "level": 3,
+          "line": 363
+        },
+        {
+          "heading": "9.2 获取设备详情",
+          "level": 3,
+          "line": 378
+        },
+        {
+          "heading": "9.3 获取子设备列表",
+          "level": 3,
+          "line": 386
+        },
+        {
+          "heading": "9.4 获取字典选项",
+          "level": 3,
+          "line": 394
+        },
+        {
+          "heading": "9.5 获取设备类型列表",
+          "level": 3,
+          "line": 402
+        },
+        {
+          "heading": "10. 修改设备",
+          "level": 2,
+          "line": 412
+        },
+        {
+          "heading": "部分更新特性",
+          "level": 3,
+          "line": 424
+        },
+        {
+          "heading": "11. 删除设备",
+          "level": 2,
+          "line": 432
+        },
+        {
+          "heading": "注意",
+          "level": 3,
+          "line": 440
+        },
+        {
+          "heading": "12. Skill 一键建档编排流程",
+          "level": 2,
+          "line": 447
+        },
+        {
+          "heading": "关键转换规则",
+          "level": 3,
+          "line": 481
+        },
+        {
+          "heading": "附录: 接口汇总",
+          "level": 2,
+          "line": 493
+        },
+        {
+          "heading": "附录: 已知问题与关键发现",
+          "level": 2,
+          "line": 510
+        },
+        {
+          "heading": "附录: Excel 模板结构（v4）",
+          "level": 2,
+          "line": 527
+        },
+        {
+          "heading": "二、后端直连版操作流程（原 `档案管理操作流程.md`）",
+          "level": 2,
+          "line": 547
+        },
+        {
+          "heading": "智慧能源单元 — 档案管理操作流程(后端直连)",
+          "level": 1,
+          "line": 549
+        },
+        {
+          "heading": "1. 登录与鉴权(所有操作的前置步骤)",
+          "level": 2,
+          "line": 557
+        },
+        {
+          "heading": "1.1 获取 RSA 公钥",
+          "level": 3,
+          "line": 559
+        },
+        {
+          "heading": "1.2 登录",
+          "level": 3,
+          "line": 568
+        },
+        {
+          "heading": "1.3 请求签名头(之后每个请求必带 5 个头)",
+          "level": 3,
+          "line": 585
+        },
+        {
+          "heading": "1.4 统一响应结构",
+          "level": 3,
+          "line": 595
+        },
+        {
+          "heading": "2. 新增设备",
+          "level": 2,
+          "line": 607
+        },
+        {
+          "heading": "3. 修改设备",
+          "level": 2,
+          "line": 633
+        },
+        {
+          "heading": "3.1 参数设置页的保存逻辑(UI 行为,与直连的差异)",
+          "level": 3,
+          "line": 653
+        },
+        {
+          "heading": "3.2 \"modbus地址是空的\"排查结论(实测)",
+          "level": 3,
+          "line": 661
+        },
+        {
+          "heading": "4. 挂载 / 更换上级设备",
+          "level": 2,
+          "line": 670
+        },
+        {
+          "heading": "5. 删除设备",
+          "level": 2,
+          "line": 682
+        },
+        {
+          "heading": "6. 查询接口",
+          "level": 2,
+          "line": 693
+        },
+        {
+          "heading": "7. Python 调用骨架(已验证可运行)",
+          "level": 2,
+          "line": 714
+        },
+        {
+          "heading": "8. 实测坑位汇总",
+          "level": 2,
+          "line": 810
+        },
+        {
+          "heading": "9. 多监测点类型与通信 IP/端口（v15 建档契约，10.0.17.23 实测）",
+          "level": 2,
+          "line": 826
+        },
+        {
+          "heading": "9.1 监测点类型（XLBA / 照明 / 配电房，每类一张独立 sheet）",
+          "level": 3,
+          "line": 831
+        },
+        {
+          "heading": "9.2 authParam 多态与端口驱动组装",
+          "level": 3,
+          "line": 854
+        },
+        {
+          "heading": "9.3 dsTypeId 派生分支",
+          "level": 3,
+          "line": 891
+        },
+        {
+          "heading": "9.4 契约证据状态",
+          "level": 3,
+          "line": 899
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 74
+      }
+    },
+    {
+      "path": "docs/reference/mcp-service-design.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1253,
+      "nonEmptyLines": 949,
+      "sections": [
+        {
+          "heading": "规约管理 MCP 服务化 + Vue 接入配置页面 Spec",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "一、项目背景",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "1.1 现状",
+          "level": 3,
+          "line": 10
+        },
+        {
+          "heading": "1.2 目标",
+          "level": 3,
+          "line": 22
+        },
+        {
+          "heading": "二、需求一：MCP Server 改造",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "2.1 关键决策",
+          "level": 3,
+          "line": 32
+        },
+        {
+          "heading": "2.2 架构设计",
+          "level": 3,
+          "line": 44
+        },
+        {
+          "heading": "目录结构",
+          "level": 4,
+          "line": 46
+        },
+        {
+          "heading": "数据流",
+          "level": 4,
+          "line": 56
+        },
+        {
+          "heading": "后端 API 信息",
+          "level": 4,
+          "line": 68
+        },
+        {
+          "heading": "2.3 api_client.py 设计",
+          "level": 3,
+          "line": 79
+        },
+        {
+          "heading": "类结构",
+          "level": 4,
+          "line": 81
+        },
+        {
+          "heading": "错误处理策略",
+          "level": 4,
+          "line": 123
+        },
+        {
+          "heading": "2.4 MCP 工具完整清单（39 个）",
+          "level": 3,
+          "line": 132
+        },
+        {
+          "heading": "探测 + 登录（2 个）",
+          "level": 4,
+          "line": 134
+        },
+        {
+          "heading": "大类管理（4 个）",
+          "level": 4,
+          "line": 141
+        },
+        {
+          "heading": "设备类型管理（4 个）",
+          "level": 4,
+          "line": 150
+        },
+        {
+          "heading": "品牌管理（4 个）",
+          "level": 4,
+          "line": 159
+        },
+        {
+          "heading": "型号管理（4 个）",
+          "level": 4,
+          "line": 168
+        },
+        {
+          "heading": "规约信息管理（5 个）",
+          "level": 4,
+          "line": 177
+        },
+        {
+          "heading": "数据项管理（4 个）",
+          "level": 4,
+          "line": 187
+        },
+        {
+          "heading": "脚本管理（4 个）",
+          "level": 4,
+          "line": 196
+        },
+        {
+          "heading": "系数管理（4 个）",
+          "level": 4,
+          "line": 205
+        },
+        {
+          "heading": "感知管理（4 个）",
+          "level": 4,
+          "line": 214
+        },
+        {
+          "heading": "规约类型/字典（3 个）",
+          "level": 4,
+          "line": 223
+        },
+        {
+          "heading": "功能项管理（3 个）",
+          "level": 4,
+          "line": 231
+        },
+        {
+          "heading": "导出 + 文件删除（3 个）",
+          "level": 4,
+          "line": 239
+        },
+        {
+          "heading": "2.5 server.py 变更清单",
+          "level": 3,
+          "line": 247
+        },
+        {
+          "heading": "删除",
+          "level": 4,
+          "line": 249
+        },
+        {
+          "heading": "新增",
+          "level": 4,
+          "line": 256
+        },
+        {
+          "heading": "保留不变",
+          "level": 4,
+          "line": 277
+        },
+        {
+          "heading": "2.6 依赖变更",
+          "level": 3,
+          "line": 287
+        },
+        {
+          "heading": "2.7 典型调用流程（Skill 视角）",
+          "level": 3,
+          "line": 295
+        },
+        {
+          "heading": "三、API 接口规格汇总",
+          "level": 2,
+          "line": 323
+        },
+        {
+          "heading": "3.1 通用约定",
+          "level": 3,
+          "line": 327
+        },
+        {
+          "heading": "3.2 页面-API 映射矩阵",
+          "level": 3,
+          "line": 337
+        },
+        {
+          "heading": "3.3 接口详细规格",
+          "level": 3,
+          "line": 349
+        },
+        {
+          "heading": "A. 大类管理接口",
+          "level": 4,
+          "line": 351
+        },
+        {
+          "heading": "A1: GetSysClassifyList — 查询大类列表",
+          "level": 5,
+          "line": 353
+        },
+        {
+          "heading": "A2: AddSysClassify — 新增大类",
+          "level": 5,
+          "line": 375
+        },
+        {
+          "heading": "A3: DelSysClassify — 删除大类",
+          "level": 5,
+          "line": 389
+        },
+        {
+          "heading": "A4: UpdateSysClassify — 更新大类",
+          "level": 5,
+          "line": 403
+        },
+        {
+          "heading": "B. 设备类型管理接口",
+          "level": 4,
+          "line": 417
+        },
+        {
+          "heading": "B1: GetProtocolDeviceTypeList — 查询设备类型列表",
+          "level": 5,
+          "line": 419
+        },
+        {
+          "heading": "B2: AddProtocolDeviceType — 新增设备类型",
+          "level": 5,
+          "line": 446
+        },
+        {
+          "heading": "B3: DelProtocolDeviceType — 删除设备类型",
+          "level": 5,
+          "line": 461
+        },
+        {
+          "heading": "B4: UpdateProtocolDeviceType — 更新设备类型",
+          "level": 5,
+          "line": 474
+        },
+        {
+          "heading": "C. 品牌管理接口",
+          "level": 4,
+          "line": 490
+        },
+        {
+          "heading": "C1: GetSysBrandList — 查询品牌列表",
+          "level": 5,
+          "line": 492
+        },
+        {
+          "heading": "C2: AddSysBrand — 新增品牌",
+          "level": 5,
+          "line": 520
+        },
+        {
+          "heading": "C3: DelSysBrand — 删除品牌",
+          "level": 5,
+          "line": 536
+        },
+        {
+          "heading": "C4: UpdateSysBrand — 更新品牌",
+          "level": 5,
+          "line": 551
+        },
+        {
+          "heading": "D. 型号管理接口",
+          "level": 4,
+          "line": 568
+        },
+        {
+          "heading": "D1: GetProtocolModelList — 查询型号列表",
+          "level": 5,
+          "line": 570
+        },
+        {
+          "heading": "D2: AddProtocolModel — 新增型号",
+          "level": 5,
+          "line": 595
+        },
+        {
+          "heading": "D3: DelProtocolModel — 删除型号",
+          "level": 5,
+          "line": 609
+        },
+        {
+          "heading": "D4: UpdateProtocolModel — 更新型号",
+          "level": 5,
+          "line": 622
+        },
+        {
+          "heading": "D5: ExportModelData — 导出型号统计数据",
+          "level": 5,
+          "line": 637
+        },
+        {
+          "heading": "E. 规约信息接口",
+          "level": 4,
+          "line": 647
+        },
+        {
+          "heading": "E1: GetProtocolInfos — 查询规约列表",
+          "level": 5,
+          "line": 649
+        },
+        {
+          "heading": "E2: AddProtocolInfo — 新增规约",
+          "level": 5,
+          "line": 687
+        },
+        {
+          "heading": "E3: DelProtocolInfo — 删除规约",
+          "level": 5,
+          "line": 706
+        },
+        {
+          "heading": "E4: UpdateProtocol — 更新规约",
+          "level": 5,
+          "line": 720
+        },
+        {
+          "heading": "E5: DeleteProtocolFile — 删除规约文档文件",
+          "level": 5,
+          "line": 740
+        },
+        {
+          "heading": "E6: GetProtocolDataItemList — 查询协议数据项列表",
+          "level": 5,
+          "line": 753
+        },
+        {
+          "heading": "E7: GetDataScriptList — 查询脚本列表",
+          "level": 5,
+          "line": 769
+        },
+        {
+          "heading": "E8: ExportData — 导出协议数据项",
+          "level": 5,
+          "line": 783
+        },
+        {
+          "heading": "E9: GetDataItemCoeffList — 查询数据项系数列表",
+          "level": 5,
+          "line": 797
+        },
+        {
+          "heading": "E10: GetProtocoFunctionTypeList — 查询功能项列表",
+          "level": 5,
+          "line": 811
+        },
+        {
+          "heading": "F. 规约类型接口（通用字典）",
+          "level": 4,
+          "line": 847
+        },
+        {
+          "heading": "F1: GetDictionaryListPage — 查询字典项分页列表",
+          "level": 5,
+          "line": 849
+        },
+        {
+          "heading": "F2: SaveDictionary — 保存字典项（新增/编辑共用）",
+          "level": 5,
+          "line": 874
+        },
+        {
+          "heading": "F3: DeleteDictionary — 删除字典项",
+          "level": 5,
+          "line": 890
+        },
+        {
+          "heading": "G. 功能项管理接口",
+          "level": 4,
+          "line": 903
+        },
+        {
+          "heading": "G1: SaveFunctionItem — 保存功能项（新增/编辑共用）",
+          "level": 5,
+          "line": 905
+        },
+        {
+          "heading": "G2: DelFunctionItem — 删除功能项",
+          "level": 5,
+          "line": 929
+        },
+        {
+          "heading": "H. 文件上传接口",
+          "level": 4,
+          "line": 942
+        },
+        {
+          "heading": "H1: UploadProtocolFile — 上传规约文档",
+          "level": 5,
+          "line": 944
+        },
+        {
+          "heading": "I. 数据项 CRUD 接口",
+          "level": 4,
+          "line": 969
+        },
+        {
+          "heading": "I1-I4: 数据项增删改查",
+          "level": 5,
+          "line": 971
+        },
+        {
+          "heading": "J. 脚本生成接口",
+          "level": 4,
+          "line": 979
+        },
+        {
+          "heading": "J1: GenDataScript — 生成脚本",
+          "level": 5,
+          "line": 981
+        },
+        {
+          "heading": "J2: GetJsonDetail — 获取脚本 JSON 内容",
+          "level": 5,
+          "line": 988
+        },
+        {
+          "heading": "J3: DelDataScript — 删除脚本",
+          "level": 5,
+          "line": 995
+        },
+        {
+          "heading": "K. 系数/感知 CRUD 接口",
+          "level": 4,
+          "line": 1002
+        },
+        {
+          "heading": "K1: 系数（Coeff）",
+          "level": 5,
+          "line": 1004
+        },
+        {
+          "heading": "K2: 感知（Sense）",
+          "level": 5,
+          "line": 1013
+        },
+        {
+          "heading": "3.4 四级分类级联关系",
+          "level": 3,
+          "line": 1022
+        },
+        {
+          "heading": "四、需求二：Vue 前端 MCP 接入配置页面",
+          "level": 2,
+          "line": 1050
+        },
+        {
+          "heading": "4.1 目标",
+          "level": 3,
+          "line": 1052
+        },
+        {
+          "heading": "4.2 页面位置",
+          "level": 3,
+          "line": 1056
+        },
+        {
+          "heading": "4.3 权限控制",
+          "level": 3,
+          "line": 1075
+        },
+        {
+          "heading": "4.4 页面设计",
+          "level": 3,
+          "line": 1082
+        },
+        {
+          "heading": "4.4.1 整体风格",
+          "level": 4,
+          "line": 1084
+        },
+        {
+          "heading": "4.4.2 主题系统（深色 / 浅色）",
+          "level": 4,
+          "line": 1092
+        },
+        {
+          "heading": "4.4.3 视觉特效清单",
+          "level": 4,
+          "line": 1106
+        },
+        {
+          "heading": "4.4.4 无障碍（a11y）",
+          "level": 4,
+          "line": 1121
+        },
+        {
+          "heading": "4.4.5 响应式布局",
+          "level": 4,
+          "line": 1131
+        },
+        {
+          "heading": "4.4.6 页面结构与功能",
+          "level": 4,
+          "line": 1141
+        },
+        {
+          "heading": "4.4.7 各平台配置生成规则",
+          "level": 4,
+          "line": 1182
+        },
+        {
+          "heading": "4.5 Vue 迁移注意事项",
+          "level": 3,
+          "line": 1194
+        },
+        {
+          "heading": "4.6 后端接口（后续实现）",
+          "level": 3,
+          "line": 1206
+        },
+        {
+          "heading": "4.7 文件清单",
+          "level": 3,
+          "line": 1215
+        },
+        {
+          "heading": "五、实施顺序",
+          "level": 2,
+          "line": 1225
+        },
+        {
+          "heading": "六、附录",
+          "level": 2,
+          "line": 1237
+        },
+        {
+          "heading": "6.1 规约管理现有子页面清单",
+          "level": 3,
+          "line": 1239
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 106
+      }
+    },
+    {
+      "path": "docs/reference/protocol-management-api.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1147,
+      "nonEmptyLines": 872,
+      "sections": [
+        {
+          "heading": "规约管理 — 基础数据模块 Spec",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "一、模块概述",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "二、页面业务逻辑详解",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "2.1 classificationManage.vue — 大类管理",
+          "level": 3,
+          "line": 21
+        },
+        {
+          "heading": "页面功能",
+          "level": 4,
+          "line": 25
+        },
+        {
+          "heading": "业务逻辑",
+          "level": 4,
+          "line": 28
+        },
+        {
+          "heading": "数据模型",
+          "level": 4,
+          "line": 35
+        },
+        {
+          "heading": "权限码",
+          "level": 4,
+          "line": 42
+        },
+        {
+          "heading": "2.2 devicetypeManage.vue — 设备类型管理",
+          "level": 3,
+          "line": 52
+        },
+        {
+          "heading": "页面功能",
+          "level": 4,
+          "line": 56
+        },
+        {
+          "heading": "业务逻辑",
+          "level": 4,
+          "line": 59
+        },
+        {
+          "heading": "数据模型",
+          "level": 4,
+          "line": 70
+        },
+        {
+          "heading": "特殊校验",
+          "level": 4,
+          "line": 80
+        },
+        {
+          "heading": "2.3 brandManage.vue — 品牌管理",
+          "level": 3,
+          "line": 85
+        },
+        {
+          "heading": "页面功能",
+          "level": 4,
+          "line": 89
+        },
+        {
+          "heading": "业务逻辑",
+          "level": 4,
+          "line": 92
+        },
+        {
+          "heading": "数据模型",
+          "level": 4,
+          "line": 103
+        },
+        {
+          "heading": "特殊校验",
+          "level": 4,
+          "line": 114
+        },
+        {
+          "heading": "2.4 protocolModelManage.vue — 型号管理",
+          "level": 3,
+          "line": 119
+        },
+        {
+          "heading": "页面功能",
+          "level": 4,
+          "line": 123
+        },
+        {
+          "heading": "业务逻辑",
+          "level": 4,
+          "line": 126
+        },
+        {
+          "heading": "数据模型",
+          "level": 4,
+          "line": 137
+        },
+        {
+          "heading": "导出逻辑",
+          "level": 4,
+          "line": 146
+        },
+        {
+          "heading": "2.5 modbusProtocolList.vue — 规约信息（核心页面）",
+          "level": 3,
+          "line": 159
+        },
+        {
+          "heading": "页面功能",
+          "level": 4,
+          "line": 163
+        },
+        {
+          "heading": "业务逻辑",
+          "level": 4,
+          "line": 166
+        },
+        {
+          "heading": "1) 页面初始化",
+          "level": 5,
+          "line": 168
+        },
+        {
+          "heading": "2) 四级级联联动",
+          "level": 5,
+          "line": 178
+        },
+        {
+          "heading": "3) 查询",
+          "level": 5,
+          "line": 183
+        },
+        {
+          "heading": "4) 新增/编辑弹窗",
+          "level": 5,
+          "line": 186
+        },
+        {
+          "heading": "5) 数据项配置（核心复杂功能）",
+          "level": 5,
+          "line": 191
+        },
+        {
+          "heading": "6) 脚本生成",
+          "level": 5,
+          "line": 199
+        },
+        {
+          "heading": "7) 感知结构生成",
+          "level": 5,
+          "line": 207
+        },
+        {
+          "heading": "8) 导出",
+          "level": 5,
+          "line": 212
+        },
+        {
+          "heading": "9) 删除",
+          "level": 5,
+          "line": 215
+        },
+        {
+          "heading": "数据模型",
+          "level": 4,
+          "line": 218
+        },
+        {
+          "heading": "2.6 protocolType.vue — 规约类型",
+          "level": 3,
+          "line": 238
+        },
+        {
+          "heading": "页面功能",
+          "level": 4,
+          "line": 242
+        },
+        {
+          "heading": "业务逻辑",
+          "level": 4,
+          "line": 245
+        },
+        {
+          "heading": "数据模型",
+          "level": 4,
+          "line": 252
+        },
+        {
+          "heading": "特殊说明",
+          "level": 4,
+          "line": 262
+        },
+        {
+          "heading": "2.7 functionType.vue — 功能项管理",
+          "level": 3,
+          "line": 268
+        },
+        {
+          "heading": "页面功能",
+          "level": 4,
+          "line": 272
+        },
+        {
+          "heading": "业务逻辑",
+          "level": 4,
+          "line": 275
+        },
+        {
+          "heading": "数据模型",
+          "level": 4,
+          "line": 282
+        },
+        {
+          "heading": "三、API 接口汇总",
+          "level": 2,
+          "line": 304
+        },
+        {
+          "heading": "3.1 接口总览",
+          "level": 3,
+          "line": 306
+        },
+        {
+          "heading": "3.2 页面-API 映射矩阵",
+          "level": 3,
+          "line": 315
+        },
+        {
+          "heading": "3.3 接口详细规格",
+          "level": 3,
+          "line": 329
+        },
+        {
+          "heading": "A. 大类管理接口",
+          "level": 4,
+          "line": 340
+        },
+        {
+          "heading": "API-A1: GetClassificationList — 查询大类列表",
+          "level": 5,
+          "line": 342
+        },
+        {
+          "heading": "API-A2: AddSysClassify — 新增大类",
+          "level": 5,
+          "line": 366
+        },
+        {
+          "heading": "API-A3: DelSysClassify — 删除大类",
+          "level": 5,
+          "line": 384
+        },
+        {
+          "heading": "API-A4: UpdateSysClassify — 更新大类",
+          "level": 5,
+          "line": 402
+        },
+        {
+          "heading": "B. 设备类型管理接口",
+          "level": 4,
+          "line": 420
+        },
+        {
+          "heading": "API-B1: GetProtocolDeviceTypeList — 查询设备类型列表",
+          "level": 5,
+          "line": 422
+        },
+        {
+          "heading": "API-B2: AddProtocolDeviceType — 新增设备类型",
+          "level": 5,
+          "line": 451
+        },
+        {
+          "heading": "API-B3: DelProtocolDeviceType — 删除设备类型",
+          "level": 5,
+          "line": 470
+        },
+        {
+          "heading": "API-B4: UpdateProtocolDeviceType — 更新设备类型",
+          "level": 5,
+          "line": 487
+        },
+        {
+          "heading": "C. 品牌管理接口",
+          "level": 4,
+          "line": 507
+        },
+        {
+          "heading": "API-C1: GetProtocolBrandList — 查询品牌列表",
+          "level": 5,
+          "line": 509
+        },
+        {
+          "heading": "API-C2: AddSysBrand — 新增品牌",
+          "level": 5,
+          "line": 539
+        },
+        {
+          "heading": "API-C3: DelSysBrand — 删除品牌",
+          "level": 5,
+          "line": 559
+        },
+        {
+          "heading": "API-C4: UpdateSysBrand — 更新品牌",
+          "level": 5,
+          "line": 578
+        },
+        {
+          "heading": "D. 型号管理接口",
+          "level": 4,
+          "line": 599
+        },
+        {
+          "heading": "API-D1: GetProtocolModelList — 查询型号列表",
+          "level": 5,
+          "line": 601
+        },
+        {
+          "heading": "API-D2: AddProtocolMode — 新增型号",
+          "level": 5,
+          "line": 628
+        },
+        {
+          "heading": "API-D3: DelProtocolMode — 删除型号",
+          "level": 5,
+          "line": 646
+        },
+        {
+          "heading": "API-D4: UpdateProtocolMode — 更新型号",
+          "level": 5,
+          "line": 663
+        },
+        {
+          "heading": "API-D5: ExportModelData — 导出型号统计数据",
+          "level": 5,
+          "line": 682
+        },
+        {
+          "heading": "E. 规约信息接口",
+          "level": 4,
+          "line": 696
+        },
+        {
+          "heading": "API-E1: GetProtocolInfos — 查询规约列表",
+          "level": 5,
+          "line": 698
+        },
+        {
+          "heading": "API-E2: AddProtocolInfo — 新增规约",
+          "level": 5,
+          "line": 738
+        },
+        {
+          "heading": "API-E3: DelProtocolInfo — 删除规约",
+          "level": 5,
+          "line": 761
+        },
+        {
+          "heading": "API-E4: UpdateProtocol — 更新规约",
+          "level": 5,
+          "line": 779
+        },
+        {
+          "heading": "API-E5: DeleteProtocolFile — 删除规约文档文件",
+          "level": 5,
+          "line": 803
+        },
+        {
+          "heading": "API-E6: GetProtocolDataItemList — 查询协议数据项列表",
+          "level": 5,
+          "line": 820
+        },
+        {
+          "heading": "API-E7: GetDataScriptList — 查询脚本列表",
+          "level": 5,
+          "line": 840
+        },
+        {
+          "heading": "API-E8: ExportData — 导出协议数据项",
+          "level": 5,
+          "line": 858
+        },
+        {
+          "heading": "API-E9: GetDataItemCoeffList — 查询数据项系数列表",
+          "level": 5,
+          "line": 876
+        },
+        {
+          "heading": "API-E10: GetProtocoFunctionTypeList — 查询功能项列表",
+          "level": 5,
+          "line": 894
+        },
+        {
+          "heading": "F. 规约类型接口（通用字典）",
+          "level": 4,
+          "line": 932
+        },
+        {
+          "heading": "API-F1: GetExceptionTypeListPage — 查询字典项分页列表",
+          "level": 5,
+          "line": 934
+        },
+        {
+          "heading": "API-F2: SaveExceptionType — 保存字典项（新增/编辑共用）",
+          "level": 5,
+          "line": 961
+        },
+        {
+          "heading": "API-F3: DeleteExceptionType — 删除字典项",
+          "level": 5,
+          "line": 981
+        },
+        {
+          "heading": "G. 功能项管理接口",
+          "level": 4,
+          "line": 998
+        },
+        {
+          "heading": "API-G1: SaveFunctionItem — 保存功能项（新增/编辑共用）",
+          "level": 5,
+          "line": 1000
+        },
+        {
+          "heading": "API-G2: DelFunctionItem — 删除功能项",
+          "level": 5,
+          "line": 1028
+        },
+        {
+          "heading": "四、级联数据流",
+          "level": 2,
+          "line": 1045
+        },
+        {
+          "heading": "4.1 四级分类级联关系",
+          "level": 3,
+          "line": 1047
+        },
+        {
+          "heading": "4.2 级联清空规则",
+          "level": 3,
+          "line": 1081
+        },
+        {
+          "heading": "五、文件上传接口",
+          "level": 2,
+          "line": 1093
+        },
+        {
+          "heading": "六、通用约定",
+          "level": 2,
+          "line": 1121
+        },
+        {
+          "heading": "6.1 统一响应结构",
+          "level": 3,
+          "line": 1123
+        },
+        {
+          "heading": "6.2 权限控制",
+          "level": 3,
+          "line": 1135
+        },
+        {
+          "heading": "6.3 分页约定",
+          "level": 3,
+          "line": 1139
+        },
+        {
+          "heading": "6.4 组件引用",
+          "level": 3,
+          "line": 1145
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 97
+      }
+    }
+  ]
+}

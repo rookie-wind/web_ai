@@ -1,0 +1,30 @@
+﻿=== C: drive overview ===
+Used: 222.04 GB / Free: 1.48 GB / Total: 223.52 GB
+
+=== Top-level folder sizes (GB) ===
+
+Path                                    GB
+----                                    --
+C:\Users                            131.09
+C:\Program Files (x86)                31.9
+C:\Windows                           21.75
+C:\Program Files                     17.11
+C:\ProgramData                        5.43
+C:\$Recycle.Bin                          3
+C:\Program Files (x86)\Common Files   0.77
+C:\temp                               0.01
+C:\PerfLogs                              0
+C:\Recovery                              0
+C:\System Volume Information             0
+
+
+
+=== Large files directly under C:\ (>100MB) ===
+
+Name           GB
+----           --
+swapfile.sys 0.25
+
+
+
+=== User profile top folders ===

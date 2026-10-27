@@ -166,7 +166,7 @@ modbus-cq-adapt/
 | Skill                 | 关系                                                   |
 | --------------------- | ---------------------------------------------------- |
 | `modbus-conversion`   | 前置：modbus-conversion 生成标准脚本 → modbus-cq-adapt 适配重庆格式 |
-| `pca`                 | 入口：pca 路由到 modbus-cq-adapt                           |
+| `xlpa`                 | 入口：xlpa 路由到 modbus-cq-adapt                           |
 | `protocol-conversion` | 无依赖关系                                                |
 | `test-validation`     | 无依赖关系（重庆适配不改变配置语义，无需重新测试）                            |
 
@@ -175,9 +175,9 @@ modbus-cq-adapt/
 ### 用例 1：用户明确提到重庆
 
 ```
-用户：/pca 帮我把这个 Modbus 脚本转成重庆格式，文件在 modbus-conversion/output/美的_水冷机组_20260827100000.json
+用户：/xlpa 帮我把这个 Modbus 脚本转成重庆格式，文件在 modbus-conversion/output/美的_水冷机组_20260827100000.json
 
-→ pca 识别"重庆"关键词 → 路由到 modbus-cq-adapt
+→ xlpa 识别"重庆"关键词 → 路由到 modbus-cq-adapt
 → Step 1: 读取并验证 JSON ✅
 → Step 2: modelNum → prtlcode
 → Step 3: 展示 diff → 用户确认
@@ -187,9 +187,9 @@ modbus-cq-adapt/
 ### 用例 2：用户未提到重庆但提供了标准格式
 
 ```
-用户：/pca 帮我处理这个 JSON 文件
+用户：/xlpa 帮我处理这个 JSON 文件
 
-→ pca 路由到 modbus-cq-adapt（检测到标准 Modbus 格式）
+→ xlpa 路由到 modbus-cq-adapt（检测到标准 Modbus 格式）
 → AI 询问：检测到标准 Modbus 脚本，是否需要转换为重庆格式？
 → 用户：是
 → 正常执行 Step 1-4

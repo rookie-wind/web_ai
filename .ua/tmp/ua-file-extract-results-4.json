@@ -1,0 +1,2166 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 6,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 6,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "mcp_server/api_client.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1323,
+      "nonEmptyLines": 1119,
+      "classes": [
+        {
+          "name": "ProtocolApiClient",
+          "startLine": 35,
+          "endLine": 1323,
+          "methods": [
+            "__init__",
+            "_ensure_client",
+            "close",
+            "_success",
+            "_error",
+            "_request",
+            "_request_json_file",
+            "_request_blob",
+            "login",
+            "get_classify_list",
+            "add_classify",
+            "update_classify",
+            "del_classify",
+            "get_device_type_list",
+            "add_device_type",
+            "update_device_type",
+            "del_device_type",
+            "get_brand_list",
+            "add_brand",
+            "update_brand",
+            "del_brand",
+            "get_model_list",
+            "add_model",
+            "update_model",
+            "del_model",
+            "export_model_data",
+            "get_protocol_info_list",
+            "add_protocol_info",
+            "update_protocol",
+            "del_protocol_info",
+            "del_protocol_file",
+            "get_data_item_list",
+            "add_data_item",
+            "update_data_item",
+            "del_data_item",
+            "get_script_list",
+            "get_json_detail",
+            "export_data",
+            "get_coeff_list",
+            "add_coeff",
+            "update_coeff",
+            "del_coeff",
+            "get_sense_list",
+            "add_sense",
+            "update_sense",
+            "del_sense",
+            "get_protocol_type_list",
+            "save_protocol_type",
+            "del_protocol_type",
+            "get_function_type_list",
+            "save_function_item",
+            "del_function_item",
+            "upload_protocol_file",
+            "gen_script"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProtocolApiClient",
+          "line": 35,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_ensure_client",
+          "callee": "asyncio.get_running_loop",
+          "lineNumber": 59
+        },
+        {
+          "caller": "_ensure_client",
+          "callee": "self._client_loop.is_closed",
+          "lineNumber": 71
+        },
+        {
+          "caller": "_ensure_client",
+          "callee": "self._client.aclose",
+          "lineNumber": 73
+        },
+        {
+          "caller": "_ensure_client",
+          "callee": "httpx.AsyncClient",
+          "lineNumber": 74
+        },
+        {
+          "caller": "close",
+          "callee": "self._client.aclose",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 145
+        },
+        {
+          "caller": "_request",
+          "callee": "self._ensure_client",
+          "lineNumber": 155
+        },
+        {
+          "caller": "_request",
+          "callee": "client.post",
+          "lineNumber": 157
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 161
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 164
+        },
+        {
+          "caller": "_request",
+          "callee": "resp.json",
+          "lineNumber": 171
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 173
+        },
+        {
+          "caller": "_request",
+          "callee": "body.get",
+          "lineNumber": 179
+        },
+        {
+          "caller": "_request",
+          "callee": "body.get",
+          "lineNumber": 180
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 183
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 185
+        },
+        {
+          "caller": "_request",
+          "callee": "body.get",
+          "lineNumber": 191
+        },
+        {
+          "caller": "_request",
+          "callee": "isinstance",
+          "lineNumber": 193
+        },
+        {
+          "caller": "_request",
+          "callee": "payload.get",
+          "lineNumber": 193
+        },
+        {
+          "caller": "_request",
+          "callee": "self._success",
+          "lineNumber": 194
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 217
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._ensure_client",
+          "lineNumber": 222
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "dict",
+          "lineNumber": 224
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "client.post",
+          "lineNumber": 226
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 232
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 234
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 237
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "resp.json",
+          "lineNumber": 244
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 246
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "body.get",
+          "lineNumber": 252
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "body.get",
+          "lineNumber": 253
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 256
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 258
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._success",
+          "lineNumber": 264
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "body.get",
+          "lineNumber": 264
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._error",
+          "lineNumber": 278
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._ensure_client",
+          "lineNumber": 288
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "client.post",
+          "lineNumber": 290
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._error",
+          "lineNumber": 292
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._error",
+          "lineNumber": 294
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._error",
+          "lineNumber": 297
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "resp.headers.get",
+          "lineNumber": 303
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "content_type.lower",
+          "lineNumber": 304
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "resp.json",
+          "lineNumber": 307
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "body.get",
+          "lineNumber": 310
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._error",
+          "lineNumber": 312
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._error",
+          "lineNumber": 314
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "body.get",
+          "lineNumber": 316
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "base64.b64encode(resp.content).decode",
+          "lineNumber": 322
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "base64.b64encode",
+          "lineNumber": 322
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._success",
+          "lineNumber": 323
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "len",
+          "lineNumber": 327
+        },
+        {
+          "caller": "login",
+          "callee": "self._ensure_client",
+          "lineNumber": 344
+        },
+        {
+          "caller": "login",
+          "callee": "client.post",
+          "lineNumber": 346
+        },
+        {
+          "caller": "login",
+          "callee": "self._error",
+          "lineNumber": 352
+        },
+        {
+          "caller": "login",
+          "callee": "self._error",
+          "lineNumber": 354
+        },
+        {
+          "caller": "login",
+          "callee": "self._error",
+          "lineNumber": 357
+        },
+        {
+          "caller": "login",
+          "callee": "resp.json",
+          "lineNumber": 364
+        },
+        {
+          "caller": "login",
+          "callee": "self._error",
+          "lineNumber": 366
+        },
+        {
+          "caller": "login",
+          "callee": "body.get",
+          "lineNumber": 372
+        },
+        {
+          "caller": "login",
+          "callee": "self._error",
+          "lineNumber": 374
+        },
+        {
+          "caller": "login",
+          "callee": "body.get",
+          "lineNumber": 376
+        },
+        {
+          "caller": "login",
+          "callee": "self._success",
+          "lineNumber": 380
+        },
+        {
+          "caller": "login",
+          "callee": "body.get",
+          "lineNumber": 380
+        },
+        {
+          "caller": "get_classify_list",
+          "callee": "self._request",
+          "lineNumber": 398
+        },
+        {
+          "caller": "add_classify",
+          "callee": "self._request",
+          "lineNumber": 414
+        },
+        {
+          "caller": "update_classify",
+          "callee": "self._request",
+          "lineNumber": 431
+        },
+        {
+          "caller": "del_classify",
+          "callee": "self._request",
+          "lineNumber": 448
+        },
+        {
+          "caller": "get_device_type_list",
+          "callee": "self._request",
+          "lineNumber": 479
+        },
+        {
+          "caller": "add_device_type",
+          "callee": "self._request",
+          "lineNumber": 505
+        },
+        {
+          "caller": "update_device_type",
+          "callee": "self._request",
+          "lineNumber": 530
+        },
+        {
+          "caller": "del_device_type",
+          "callee": "self._request",
+          "lineNumber": 551
+        },
+        {
+          "caller": "get_brand_list",
+          "callee": "self._request",
+          "lineNumber": 582
+        },
+        {
+          "caller": "add_brand",
+          "callee": "self._request",
+          "lineNumber": 610
+        },
+        {
+          "caller": "update_brand",
+          "callee": "self._request",
+          "lineNumber": 637
+        },
+        {
+          "caller": "del_brand",
+          "callee": "self._request",
+          "lineNumber": 661
+        },
+        {
+          "caller": "get_model_list",
+          "callee": "self._request",
+          "lineNumber": 689
+        },
+        {
+          "caller": "add_model",
+          "callee": "self._request",
+          "lineNumber": 711
+        },
+        {
+          "caller": "update_model",
+          "callee": "self._request",
+          "lineNumber": 729
+        },
+        {
+          "caller": "del_model",
+          "callee": "self._request",
+          "lineNumber": 745
+        },
+        {
+          "caller": "export_model_data",
+          "callee": "self._request_blob",
+          "lineNumber": 760
+        },
+        {
+          "caller": "get_protocol_info_list",
+          "callee": "self._request",
+          "lineNumber": 813
+        },
+        {
+          "caller": "add_protocol_info",
+          "callee": "self._request",
+          "lineNumber": 851
+        },
+        {
+          "caller": "update_protocol",
+          "callee": "self._request",
+          "lineNumber": 892
+        },
+        {
+          "caller": "del_protocol_info",
+          "callee": "self._request",
+          "lineNumber": 905
+        },
+        {
+          "caller": "del_protocol_file",
+          "callee": "self._request",
+          "lineNumber": 921
+        },
+        {
+          "caller": "get_data_item_list",
+          "callee": "self._request",
+          "lineNumber": 942
+        },
+        {
+          "caller": "add_data_item",
+          "callee": "self._request",
+          "lineNumber": 963
+        },
+        {
+          "caller": "update_data_item",
+          "callee": "self._request",
+          "lineNumber": 979
+        },
+        {
+          "caller": "del_data_item",
+          "callee": "self._request",
+          "lineNumber": 995
+        },
+        {
+          "caller": "get_script_list",
+          "callee": "self._request",
+          "lineNumber": 1012
+        },
+        {
+          "caller": "get_json_detail",
+          "callee": "self._request",
+          "lineNumber": 1028
+        },
+        {
+          "caller": "export_data",
+          "callee": "self._request_blob",
+          "lineNumber": 1040
+        },
+        {
+          "caller": "get_coeff_list",
+          "callee": "self._request",
+          "lineNumber": 1057
+        },
+        {
+          "caller": "add_coeff",
+          "callee": "self._request",
+          "lineNumber": 1073
+        },
+        {
+          "caller": "update_coeff",
+          "callee": "self._request",
+          "lineNumber": 1085
+        },
+        {
+          "caller": "del_coeff",
+          "callee": "self._request",
+          "lineNumber": 1097
+        },
+        {
+          "caller": "get_sense_list",
+          "callee": "self._request",
+          "lineNumber": 1109
+        },
+        {
+          "caller": "add_sense",
+          "callee": "self._request",
+          "lineNumber": 1121
+        },
+        {
+          "caller": "update_sense",
+          "callee": "self._request",
+          "lineNumber": 1133
+        },
+        {
+          "caller": "del_sense",
+          "callee": "self._request",
+          "lineNumber": 1145
+        },
+        {
+          "caller": "get_protocol_type_list",
+          "callee": "self._request",
+          "lineNumber": 1171
+        },
+        {
+          "caller": "save_protocol_type",
+          "callee": "self._request",
+          "lineNumber": 1199
+        },
+        {
+          "caller": "del_protocol_type",
+          "callee": "self._request",
+          "lineNumber": 1220
+        },
+        {
+          "caller": "get_function_type_list",
+          "callee": "self._request",
+          "lineNumber": 1249
+        },
+        {
+          "caller": "save_function_item",
+          "callee": "self._request",
+          "lineNumber": 1270
+        },
+        {
+          "caller": "del_function_item",
+          "callee": "self._request",
+          "lineNumber": 1282
+        },
+        {
+          "caller": "upload_protocol_file",
+          "callee": "self._request_json_file",
+          "lineNumber": 1303
+        },
+        {
+          "caller": "gen_script",
+          "callee": "self._request",
+          "lineNumber": 1323
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/archiving/reference_config.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 121,
+      "nonEmptyLines": 96,
+      "functions": [
+        {
+          "name": "load_reference_config",
+          "startLine": 99,
+          "endLine": 121,
+          "params": [
+            "env"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ReferenceConfigError",
+          "startLine": 27,
+          "endLine": 28,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "ReferenceConfig",
+          "startLine": 32,
+          "endLine": 96,
+          "methods": [
+            "edge_ready",
+            "cloud_ready",
+            "require_edge",
+            "require_cloud",
+            "redacted"
+          ],
+          "properties": [
+            "reference_edge_url",
+            "reference_edge_login_name",
+            "reference_edge_password",
+            "cloud_base_url"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ReferenceConfigError",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "ReferenceConfig",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "load_reference_config",
+          "line": 99,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "edge_ready",
+          "callee": "bool",
+          "lineNumber": 49
+        },
+        {
+          "caller": "cloud_ready",
+          "callee": "bool",
+          "lineNumber": 57
+        },
+        {
+          "caller": "require_edge",
+          "callee": "self.edge_ready",
+          "lineNumber": 65
+        },
+        {
+          "caller": "require_edge",
+          "callee": "ReferenceConfigError",
+          "lineNumber": 66
+        },
+        {
+          "caller": "require_cloud",
+          "callee": "self.cloud_ready",
+          "lineNumber": 78
+        },
+        {
+          "caller": "require_cloud",
+          "callee": "ReferenceConfigError",
+          "lineNumber": 79
+        },
+        {
+          "caller": "load_reference_config",
+          "callee": "str(src.get(\"PCA_API_BASE_URL\", \"\") or \"\").strip",
+          "lineNumber": 109
+        },
+        {
+          "caller": "load_reference_config",
+          "callee": "str",
+          "lineNumber": 109
+        },
+        {
+          "caller": "load_reference_config",
+          "callee": "src.get",
+          "lineNumber": 109
+        },
+        {
+          "caller": "load_reference_config",
+          "callee": "ReferenceConfig",
+          "lineNumber": 110
+        },
+        {
+          "caller": "load_reference_config",
+          "callee": "str(\r\n            src.get(\"XLPA_REFERENCE_EDGE_URL\", \"\") or \"\"\r\n        ).strip",
+          "lineNumber": 111
+        },
+        {
+          "caller": "load_reference_config",
+          "callee": "str",
+          "lineNumber": 111
+        },
+        {
+          "caller": "load_reference_config",
+          "callee": "src.get",
+          "lineNumber": 112
+        },
+        {
+          "caller": "load_reference_config",
+          "callee": "str(\r\n            src.get(\"XLPA_REFERENCE_EDGE_LOGIN_NAME\", \"\") or \"\"\r\n        ).strip",
+          "lineNumber": 114
+        },
+        {
+          "caller": "load_reference_config",
+          "callee": "str",
+          "lineNumber": 114
+        },
+        {
+          "caller": "load_reference_config",
+          "callee": "src.get",
+          "lineNumber": 115
+        },
+        {
+          "caller": "load_reference_config",
+          "callee": "str",
+          "lineNumber": 117
+        },
+        {
+          "caller": "load_reference_config",
+          "callee": "src.get",
+          "lineNumber": 118
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "mcp_server/archiving/reference_provider.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 272,
+      "nonEmptyLines": 222,
+      "classes": [
+        {
+          "name": "ReferenceAuthError",
+          "startLine": 47,
+          "endLine": 48,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "ReferenceDictError",
+          "startLine": 51,
+          "endLine": 62,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ReferenceDictProvider",
+          "startLine": 65,
+          "endLine": 272,
+          "methods": [
+            "__init__",
+            "api_client",
+            "cloud_call",
+            "fetch_user_big_no",
+            "fetch_brands",
+            "fetch_models",
+            "open_edge",
+            "edge_call",
+            "fetch_device_types",
+            "fetch_comm_modes",
+            "close",
+            "__enter__",
+            "__exit__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ReferenceAuthError",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "ReferenceDictError",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "ReferenceDictProvider",
+          "line": 65,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 61
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 61
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "self._config.require_cloud",
+          "lineNumber": 128
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "self._get_system_token",
+          "lineNumber": 129
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "ReferenceAuthError",
+          "lineNumber": 131
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "api_method",
+          "lineNumber": 134
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "is_auth_expired",
+          "lineNumber": 135
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "self._refresh_system_token",
+          "lineNumber": 136
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "ReferenceAuthError",
+          "lineNumber": 138
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "self._get_system_token",
+          "lineNumber": 141
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "ReferenceAuthError",
+          "lineNumber": 143
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "api_method",
+          "lineNumber": 146
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "is_auth_expired",
+          "lineNumber": 147
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "ReferenceAuthError",
+          "lineNumber": 148
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "isinstance",
+          "lineNumber": 151
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "result.get",
+          "lineNumber": 151
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "ReferenceDictError",
+          "lineNumber": 152
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "str",
+          "lineNumber": 153
+        },
+        {
+          "caller": "cloud_call",
+          "callee": "result.get",
+          "lineNumber": 153
+        },
+        {
+          "caller": "fetch_user_big_no",
+          "callee": "self.cloud_call",
+          "lineNumber": 163
+        },
+        {
+          "caller": "fetch_brands",
+          "callee": "self.cloud_call",
+          "lineNumber": 171
+        },
+        {
+          "caller": "fetch_models",
+          "callee": "self.cloud_call",
+          "lineNumber": 179
+        },
+        {
+          "caller": "open_edge",
+          "callee": "self._config.require_edge",
+          "lineNumber": 195
+        },
+        {
+          "caller": "open_edge",
+          "callee": "self._edge_factory",
+          "lineNumber": 197
+        },
+        {
+          "caller": "open_edge",
+          "callee": "client.login",
+          "lineNumber": 203
+        },
+        {
+          "caller": "open_edge",
+          "callee": "client.close",
+          "lineNumber": 207
+        },
+        {
+          "caller": "edge_call",
+          "callee": "self.open_edge",
+          "lineNumber": 227
+        },
+        {
+          "caller": "edge_call",
+          "callee": "client.call",
+          "lineNumber": 229
+        },
+        {
+          "caller": "edge_call",
+          "callee": "ReferenceDictError",
+          "lineNumber": 231
+        },
+        {
+          "caller": "edge_call",
+          "callee": "str",
+          "lineNumber": 232
+        },
+        {
+          "caller": "edge_call",
+          "callee": "result.get",
+          "lineNumber": 234
+        },
+        {
+          "caller": "edge_call",
+          "callee": "ReferenceDictError",
+          "lineNumber": 235
+        },
+        {
+          "caller": "edge_call",
+          "callee": "result.get",
+          "lineNumber": 236
+        },
+        {
+          "caller": "fetch_device_types",
+          "callee": "self.edge_call",
+          "lineNumber": 247
+        },
+        {
+          "caller": "fetch_comm_modes",
+          "callee": "self.edge_call",
+          "lineNumber": 255
+        },
+        {
+          "caller": "close",
+          "callee": "self._edge.close",
+          "lineNumber": 263
+        },
+        {
+          "caller": "__exit__",
+          "callee": "self.close",
+          "lineNumber": 272
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "mcp_server/edge_client.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 582,
+      "nonEmptyLines": 504,
+      "functions": [
+        {
+          "name": "rsa_encrypt",
+          "startLine": 116,
+          "endLine": 135,
+          "params": [
+            "public_key_pem",
+            "plain"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "EdgeLinkState",
+          "startLine": 62,
+          "endLine": 67,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "EdgeStageState",
+          "startLine": 70,
+          "endLine": 85,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "EdgeApiError",
+          "startLine": 88,
+          "endLine": 113,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "EdgeDeviceClient",
+          "startLine": 138,
+          "endLine": 582,
+          "methods": [
+            "__init__",
+            "get_rsa_key",
+            "login",
+            "_request_url",
+            "_proxy_headers",
+            "_sign_headers",
+            "_post_raw",
+            "call",
+            "_post_signed",
+            "_normalize",
+            "_unwrap",
+            "call_link",
+            "close",
+            "__enter__",
+            "__exit__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EdgeLinkState",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "EdgeStageState",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "EdgeApiError",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "rsa_encrypt",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "EdgeDeviceClient",
+          "line": 138,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 109
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 109
+        },
+        {
+          "caller": "rsa_encrypt",
+          "callee": "serialization.load_pem_public_key",
+          "lineNumber": 132
+        },
+        {
+          "caller": "rsa_encrypt",
+          "callee": "public_key_pem.encode",
+          "lineNumber": 132
+        },
+        {
+          "caller": "rsa_encrypt",
+          "callee": "base64.b64encode(\r\n        key.encrypt(plain.encode(), padding.PKCS1v15())\r\n    ).decode",
+          "lineNumber": 133
+        },
+        {
+          "caller": "rsa_encrypt",
+          "callee": "base64.b64encode",
+          "lineNumber": 133
+        },
+        {
+          "caller": "rsa_encrypt",
+          "callee": "key.encrypt",
+          "lineNumber": 134
+        },
+        {
+          "caller": "rsa_encrypt",
+          "callee": "plain.encode",
+          "lineNumber": 134
+        },
+        {
+          "caller": "rsa_encrypt",
+          "callee": "padding.PKCS1v15",
+          "lineNumber": 134
+        },
+        {
+          "caller": "__init__",
+          "callee": "base_url.rstrip",
+          "lineNumber": 181
+        },
+        {
+          "caller": "__init__",
+          "callee": "float",
+          "lineNumber": 185
+        },
+        {
+          "caller": "__init__",
+          "callee": "float",
+          "lineNumber": 188
+        },
+        {
+          "caller": "__init__",
+          "callee": "httpx.Client",
+          "lineNumber": 190
+        },
+        {
+          "caller": "__init__",
+          "callee": "proxy_api_url.rstrip",
+          "lineNumber": 198
+        },
+        {
+          "caller": "get_rsa_key",
+          "callee": "self._post_raw",
+          "lineNumber": 222
+        },
+        {
+          "caller": "get_rsa_key",
+          "callee": "self._unwrap",
+          "lineNumber": 228
+        },
+        {
+          "caller": "login",
+          "callee": "self.get_rsa_key",
+          "lineNumber": 240
+        },
+        {
+          "caller": "login",
+          "callee": "secrets.token_hex",
+          "lineNumber": 244
+        },
+        {
+          "caller": "login",
+          "callee": "rsa_encrypt",
+          "lineNumber": 246
+        },
+        {
+          "caller": "login",
+          "callee": "rsa_encrypt",
+          "lineNumber": 247
+        },
+        {
+          "caller": "login",
+          "callee": "rsa_encrypt",
+          "lineNumber": 249
+        },
+        {
+          "caller": "login",
+          "callee": "self._post_raw",
+          "lineNumber": 251
+        },
+        {
+          "caller": "login",
+          "callee": "self._unwrap",
+          "lineNumber": 256
+        },
+        {
+          "caller": "login",
+          "callee": "str",
+          "lineNumber": 257
+        },
+        {
+          "caller": "login",
+          "callee": "data.get",
+          "lineNumber": 257
+        },
+        {
+          "caller": "login",
+          "callee": "str",
+          "lineNumber": 258
+        },
+        {
+          "caller": "login",
+          "callee": "(data.get(\"sysUser\") or {}).get",
+          "lineNumber": 258
+        },
+        {
+          "caller": "login",
+          "callee": "data.get",
+          "lineNumber": 258
+        },
+        {
+          "caller": "login",
+          "callee": "EdgeApiError",
+          "lineNumber": 260
+        },
+        {
+          "caller": "_proxy_headers",
+          "callee": "getattr",
+          "lineNumber": 290
+        },
+        {
+          "caller": "_sign_headers",
+          "callee": "int",
+          "lineNumber": 306
+        },
+        {
+          "caller": "_sign_headers",
+          "callee": "time.time",
+          "lineNumber": 306
+        },
+        {
+          "caller": "_sign_headers",
+          "callee": "hashlib.md5(\r\n            f\"{self.token}{self.login_str}{ts}\".encode()\r\n        ).hexdigest",
+          "lineNumber": 307
+        },
+        {
+          "caller": "_sign_headers",
+          "callee": "hashlib.md5",
+          "lineNumber": 307
+        },
+        {
+          "caller": "_sign_headers",
+          "callee": "f\"{self.token}{self.login_str}{ts}\".encode",
+          "lineNumber": 308
+        },
+        {
+          "caller": "_sign_headers",
+          "callee": "str",
+          "lineNumber": 314
+        },
+        {
+          "caller": "_sign_headers",
+          "callee": "headers.update",
+          "lineNumber": 317
+        },
+        {
+          "caller": "_sign_headers",
+          "callee": "self._proxy_headers",
+          "lineNumber": 317
+        },
+        {
+          "caller": "_post_raw",
+          "callee": "self._proxy_headers",
+          "lineNumber": 343
+        },
+        {
+          "caller": "_post_raw",
+          "callee": "headers.update",
+          "lineNumber": 345
+        },
+        {
+          "caller": "_post_raw",
+          "callee": "self._client.post",
+          "lineNumber": 347
+        },
+        {
+          "caller": "_post_raw",
+          "callee": "self._request_url",
+          "lineNumber": 348
+        },
+        {
+          "caller": "_post_raw",
+          "callee": "EdgeApiError",
+          "lineNumber": 354
+        },
+        {
+          "caller": "_post_raw",
+          "callee": "str",
+          "lineNumber": 354
+        },
+        {
+          "caller": "_post_raw",
+          "callee": "EdgeApiError",
+          "lineNumber": 356
+        },
+        {
+          "caller": "_post_raw",
+          "callee": "str",
+          "lineNumber": 356
+        },
+        {
+          "caller": "_post_raw",
+          "callee": "resp.json",
+          "lineNumber": 358
+        },
+        {
+          "caller": "_post_raw",
+          "callee": "EdgeApiError",
+          "lineNumber": 360
+        },
+        {
+          "caller": "call",
+          "callee": "EdgeApiError",
+          "lineNumber": 382
+        },
+        {
+          "caller": "call",
+          "callee": "float",
+          "lineNumber": 383
+        },
+        {
+          "caller": "call",
+          "callee": "self._post_signed",
+          "lineNumber": 385
+        },
+        {
+          "caller": "call",
+          "callee": "str",
+          "lineNumber": 390
+        },
+        {
+          "caller": "call",
+          "callee": "str",
+          "lineNumber": 392
+        },
+        {
+          "caller": "call",
+          "callee": "str",
+          "lineNumber": 397
+        },
+        {
+          "caller": "call",
+          "callee": "self._normalize",
+          "lineNumber": 401
+        },
+        {
+          "caller": "_post_signed",
+          "callee": "self._client.post",
+          "lineNumber": 422
+        },
+        {
+          "caller": "_post_signed",
+          "callee": "self._request_url",
+          "lineNumber": 423
+        },
+        {
+          "caller": "_post_signed",
+          "callee": "self._sign_headers",
+          "lineNumber": 426
+        },
+        {
+          "caller": "_post_signed",
+          "callee": "EdgeApiError",
+          "lineNumber": 429
+        },
+        {
+          "caller": "_post_signed",
+          "callee": "str",
+          "lineNumber": 430
+        },
+        {
+          "caller": "_post_signed",
+          "callee": "EdgeApiError",
+          "lineNumber": 433
+        },
+        {
+          "caller": "_post_signed",
+          "callee": "str",
+          "lineNumber": 434
+        },
+        {
+          "caller": "_post_signed",
+          "callee": "EdgeApiError",
+          "lineNumber": 438
+        },
+        {
+          "caller": "_post_signed",
+          "callee": "resp.json",
+          "lineNumber": 444
+        },
+        {
+          "caller": "_post_signed",
+          "callee": "EdgeApiError",
+          "lineNumber": 446
+        },
+        {
+          "caller": "_normalize",
+          "callee": "isinstance",
+          "lineNumber": 463
+        },
+        {
+          "caller": "_normalize",
+          "callee": "resp.get",
+          "lineNumber": 469
+        },
+        {
+          "caller": "_normalize",
+          "callee": "resp.get",
+          "lineNumber": 470
+        },
+        {
+          "caller": "_normalize",
+          "callee": "any",
+          "lineNumber": 474
+        },
+        {
+          "caller": "_normalize",
+          "callee": "resp.get",
+          "lineNumber": 482
+        },
+        {
+          "caller": "_unwrap",
+          "callee": "isinstance",
+          "lineNumber": 501
+        },
+        {
+          "caller": "_unwrap",
+          "callee": "EdgeApiError",
+          "lineNumber": 502
+        },
+        {
+          "caller": "_unwrap",
+          "callee": "resp.get",
+          "lineNumber": 503
+        },
+        {
+          "caller": "_unwrap",
+          "callee": "EdgeApiError",
+          "lineNumber": 505
+        },
+        {
+          "caller": "_unwrap",
+          "callee": "resp.get",
+          "lineNumber": 506
+        },
+        {
+          "caller": "_unwrap",
+          "callee": "str",
+          "lineNumber": 508
+        },
+        {
+          "caller": "_unwrap",
+          "callee": "resp.get",
+          "lineNumber": 508
+        },
+        {
+          "caller": "_unwrap",
+          "callee": "resp.get",
+          "lineNumber": 511
+        },
+        {
+          "caller": "_unwrap",
+          "callee": "isinstance",
+          "lineNumber": 512
+        },
+        {
+          "caller": "_unwrap",
+          "callee": "EdgeApiError",
+          "lineNumber": 513
+        },
+        {
+          "caller": "call_link",
+          "callee": "float",
+          "lineNumber": 537
+        },
+        {
+          "caller": "call_link",
+          "callee": "time.time",
+          "lineNumber": 538
+        },
+        {
+          "caller": "call_link",
+          "callee": "self._post_signed",
+          "lineNumber": 540
+        },
+        {
+          "caller": "call_link",
+          "callee": "round",
+          "lineNumber": 542
+        },
+        {
+          "caller": "call_link",
+          "callee": "time.time",
+          "lineNumber": 542
+        },
+        {
+          "caller": "call_link",
+          "callee": "str",
+          "lineNumber": 543
+        },
+        {
+          "caller": "call_link",
+          "callee": "str",
+          "lineNumber": 545
+        },
+        {
+          "caller": "call_link",
+          "callee": "round",
+          "lineNumber": 556
+        },
+        {
+          "caller": "call_link",
+          "callee": "time.time",
+          "lineNumber": 556
+        },
+        {
+          "caller": "call_link",
+          "callee": "self._normalize",
+          "lineNumber": 557
+        },
+        {
+          "caller": "call_link",
+          "callee": "str",
+          "lineNumber": 558
+        },
+        {
+          "caller": "call_link",
+          "callee": "normalized.get",
+          "lineNumber": 558
+        },
+        {
+          "caller": "call_link",
+          "callee": "any",
+          "lineNumber": 561
+        },
+        {
+          "caller": "call_link",
+          "callee": "any",
+          "lineNumber": 563
+        },
+        {
+          "caller": "call_link",
+          "callee": "normalized.update",
+          "lineNumber": 568
+        },
+        {
+          "caller": "close",
+          "callee": "self._client.close",
+          "lineNumber": 574
+        },
+        {
+          "caller": "__exit__",
+          "callee": "self.close",
+          "lineNumber": 582
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 5,
+        "functionCount": 1,
+        "classCount": 4
+      }
+    },
+    {
+      "path": "mcp_server/edge_proxy_config.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 35,
+      "functions": [
+        {
+          "name": "_load_from_file",
+          "startLine": 26,
+          "endLine": 35,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "portal_proxy_api_url",
+          "startLine": 38,
+          "endLine": 47,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_load_from_file",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "portal_proxy_api_url",
+          "line": 38,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_load_from_file",
+          "callee": "json.loads",
+          "lineNumber": 29
+        },
+        {
+          "caller": "_load_from_file",
+          "callee": "path.read_text",
+          "lineNumber": 29
+        },
+        {
+          "caller": "_load_from_file",
+          "callee": "isinstance",
+          "lineNumber": 32
+        },
+        {
+          "caller": "_load_from_file",
+          "callee": "str(data.get(\"proxy_api_url\") or \"\").strip",
+          "lineNumber": 34
+        },
+        {
+          "caller": "_load_from_file",
+          "callee": "str",
+          "lineNumber": 34
+        },
+        {
+          "caller": "_load_from_file",
+          "callee": "data.get",
+          "lineNumber": 34
+        },
+        {
+          "caller": "portal_proxy_api_url",
+          "callee": "Path",
+          "lineNumber": 43
+        },
+        {
+          "caller": "portal_proxy_api_url",
+          "callee": "os.getenv",
+          "lineNumber": 43
+        },
+        {
+          "caller": "portal_proxy_api_url",
+          "callee": "_load_from_file",
+          "lineNumber": 44
+        },
+        {
+          "caller": "portal_proxy_api_url",
+          "callee": "os.getenv(_LEGACY_ENV, \"\").strip",
+          "lineNumber": 47
+        },
+        {
+          "caller": "portal_proxy_api_url",
+          "callee": "os.getenv",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "mcp_server/permissions.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 271,
+      "nonEmptyLines": 223,
+      "functions": [
+        {
+          "name": "_dig",
+          "startLine": 36,
+          "endLine": 58,
+          "params": [
+            "data",
+            "keys"
+          ]
+        },
+        {
+          "name": "extract_account_identity",
+          "startLine": 61,
+          "endLine": 77,
+          "params": [
+            "login_data"
+          ]
+        },
+        {
+          "name": "is_auth_expired",
+          "startLine": 80,
+          "endLine": 96,
+          "params": [
+            "result"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "SuperAccountConfig",
+          "startLine": 99,
+          "endLine": 158,
+          "methods": [
+            "__init__",
+            "load",
+            "is_super"
+          ],
+          "properties": []
+        },
+        {
+          "name": "BusinessTokenCache",
+          "startLine": 161,
+          "endLine": 271,
+          "methods": [
+            "__init__",
+            "_load",
+            "_save",
+            "save",
+            "get_account",
+            "invalidate",
+            "most_recent_token"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_dig",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "extract_account_identity",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "is_auth_expired",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "SuperAccountConfig",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "BusinessTokenCache",
+          "line": 161,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_dig",
+          "callee": "isinstance",
+          "lineNumber": 46
+        },
+        {
+          "caller": "_dig",
+          "callee": "str",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_dig",
+          "callee": "data.get",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_dig",
+          "callee": "isinstance",
+          "lineNumber": 54
+        },
+        {
+          "caller": "_dig",
+          "callee": "_dig",
+          "lineNumber": 55
+        },
+        {
+          "caller": "extract_account_identity",
+          "callee": "_dig",
+          "lineNumber": 74
+        },
+        {
+          "caller": "extract_account_identity",
+          "callee": "_dig",
+          "lineNumber": 75
+        },
+        {
+          "caller": "extract_account_identity",
+          "callee": "_dig",
+          "lineNumber": 76
+        },
+        {
+          "caller": "is_auth_expired",
+          "callee": "isinstance",
+          "lineNumber": 89
+        },
+        {
+          "caller": "is_auth_expired",
+          "callee": "result.get",
+          "lineNumber": 89
+        },
+        {
+          "caller": "is_auth_expired",
+          "callee": "result.get",
+          "lineNumber": 91
+        },
+        {
+          "caller": "is_auth_expired",
+          "callee": "result.get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "is_auth_expired",
+          "callee": "isinstance",
+          "lineNumber": 94
+        },
+        {
+          "caller": "is_auth_expired",
+          "callee": "raw.get",
+          "lineNumber": 94
+        },
+        {
+          "caller": "__init__",
+          "callee": "Path",
+          "lineNumber": 120
+        },
+        {
+          "caller": "__init__",
+          "callee": "set",
+          "lineNumber": 121
+        },
+        {
+          "caller": "__init__",
+          "callee": "set",
+          "lineNumber": 122
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.load",
+          "lineNumber": 123
+        },
+        {
+          "caller": "load",
+          "callee": "set",
+          "lineNumber": 127
+        },
+        {
+          "caller": "load",
+          "callee": "set",
+          "lineNumber": 128
+        },
+        {
+          "caller": "load",
+          "callee": "self.path.exists",
+          "lineNumber": 129
+        },
+        {
+          "caller": "load",
+          "callee": "json.loads",
+          "lineNumber": 132
+        },
+        {
+          "caller": "load",
+          "callee": "self.path.read_text",
+          "lineNumber": 132
+        },
+        {
+          "caller": "load",
+          "callee": "data.get",
+          "lineNumber": 135
+        },
+        {
+          "caller": "load",
+          "callee": "isinstance",
+          "lineNumber": 135
+        },
+        {
+          "caller": "load",
+          "callee": "isinstance",
+          "lineNumber": 136
+        },
+        {
+          "caller": "load",
+          "callee": "str",
+          "lineNumber": 138
+        },
+        {
+          "caller": "load",
+          "callee": "accounts.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "load",
+          "callee": "str",
+          "lineNumber": 138
+        },
+        {
+          "caller": "load",
+          "callee": "str",
+          "lineNumber": 139
+        },
+        {
+          "caller": "load",
+          "callee": "accounts.get",
+          "lineNumber": 139
+        },
+        {
+          "caller": "load",
+          "callee": "str",
+          "lineNumber": 139
+        },
+        {
+          "caller": "is_super",
+          "callee": "account.get",
+          "lineNumber": 152
+        },
+        {
+          "caller": "is_super",
+          "callee": "account.get",
+          "lineNumber": 153
+        },
+        {
+          "caller": "is_super",
+          "callee": "str",
+          "lineNumber": 154
+        },
+        {
+          "caller": "is_super",
+          "callee": "str",
+          "lineNumber": 156
+        },
+        {
+          "caller": "__init__",
+          "callee": "Path",
+          "lineNumber": 175
+        },
+        {
+          "caller": "__init__",
+          "callee": "self._load",
+          "lineNumber": 178
+        },
+        {
+          "caller": "_load",
+          "callee": "self.path.exists",
+          "lineNumber": 182
+        },
+        {
+          "caller": "_load",
+          "callee": "json.loads",
+          "lineNumber": 186
+        },
+        {
+          "caller": "_load",
+          "callee": "self.path.read_text",
+          "lineNumber": 186
+        },
+        {
+          "caller": "_load",
+          "callee": "data.get",
+          "lineNumber": 187
+        },
+        {
+          "caller": "_load",
+          "callee": "entries.items",
+          "lineNumber": 189
+        },
+        {
+          "caller": "_load",
+          "callee": "isinstance",
+          "lineNumber": 189
+        },
+        {
+          "caller": "_save",
+          "callee": "self.path.with_suffix",
+          "lineNumber": 198
+        },
+        {
+          "caller": "_save",
+          "callee": "tmp.write_text",
+          "lineNumber": 199
+        },
+        {
+          "caller": "_save",
+          "callee": "json.dumps",
+          "lineNumber": 200
+        },
+        {
+          "caller": "_save",
+          "callee": "os.replace",
+          "lineNumber": 202
+        },
+        {
+          "caller": "save",
+          "callee": "int",
+          "lineNumber": 215
+        },
+        {
+          "caller": "save",
+          "callee": "time.time",
+          "lineNumber": 215
+        },
+        {
+          "caller": "save",
+          "callee": "self._entries.get",
+          "lineNumber": 216
+        },
+        {
+          "caller": "save",
+          "callee": "account.get",
+          "lineNumber": 218
+        },
+        {
+          "caller": "save",
+          "callee": "account.get",
+          "lineNumber": 219
+        },
+        {
+          "caller": "save",
+          "callee": "existing.get",
+          "lineNumber": 220
+        },
+        {
+          "caller": "save",
+          "callee": "self._save",
+          "lineNumber": 223
+        },
+        {
+          "caller": "get_account",
+          "callee": "self._entries.get",
+          "lineNumber": 234
+        },
+        {
+          "caller": "get_account",
+          "callee": "int",
+          "lineNumber": 237
+        },
+        {
+          "caller": "get_account",
+          "callee": "time.time",
+          "lineNumber": 237
+        },
+        {
+          "caller": "get_account",
+          "callee": "self._save",
+          "lineNumber": 238
+        },
+        {
+          "caller": "invalidate",
+          "callee": "self._save",
+          "lineNumber": 252
+        },
+        {
+          "caller": "most_recent_token",
+          "callee": "max",
+          "lineNumber": 267
+        },
+        {
+          "caller": "most_recent_token",
+          "callee": "self._entries.items",
+          "lineNumber": 268
+        },
+        {
+          "caller": "most_recent_token",
+          "callee": "kv[1].get",
+          "lineNumber": 269
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 3,
+        "classCount": 2
+      }
+    }
+  ]
+}

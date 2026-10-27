@@ -1,0 +1,971 @@
+{
+  "nodes": [
+    {
+      "id": "file:mcp_server/archiving/log_sanitizer.py",
+      "type": "file",
+      "name": "log_sanitizer.py",
+      "filePath": "mcp_server/archiving/log_sanitizer.py",
+      "summary": "对日志与报告输出做敏感信息脱敏，覆盖 Bearer Token、密码类键值、票据查询参数、Authorization 头部与原始请求体。",
+      "tags": [
+        "security",
+        "sanitization",
+        "logging",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/archiving/snapshot_store.py",
+      "type": "file",
+      "name": "snapshot_store.py",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "summary": "非敏感模板快照的服务端私有存储与权威核对，管住归属、有效期与内容摘要，并附带 owner 隔离的分块上传会话管理。",
+      "tags": [
+        "persistence",
+        "snapshot",
+        "security",
+        "validation"
+      ],
+      "complexity": "complex",
+      "languageNotes": "所有写入均为临时文件 + os.replace 原子落盘；归属身份由已验证 MCP Token 的不可逆摘要派生，不使用 IP 或用户传入字段。"
+    },
+    {
+      "id": "file:mcp_server/archiving/stage_orchestrator.py",
+      "type": "file",
+      "name": "stage_orchestrator.py",
+      "filePath": "mcp_server/archiving/stage_orchestrator.py",
+      "summary": "按建档→参数保存→网关时钟→批量下发→召测的依赖顺序编排并汇总阶段状态，前置阶段未成功则阻止后续执行。",
+      "tags": [
+        "orchestration",
+        "state-machine",
+        "validation"
+      ],
+      "complexity": "complex",
+      "languageNotes": "单独诊断模式不计入全链路汇总，也不补做未授权的前序写入。"
+    },
+    {
+      "id": "file:mcp_server/archiving/task_report_store.py",
+      "type": "file",
+      "name": "task_report_store.py",
+      "filePath": "mcp_server/archiving/task_report_store.py",
+      "summary": "将脱敏计划、动作意图与结果、补偿清单和阶段状态持久化到私有报告目录，支持进程中断后查询与任务过期后由所属身份回看。",
+      "tags": [
+        "persistence",
+        "reporting",
+        "security",
+        "audit"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/archiving/log_sanitizer.py:redact_value",
+      "type": "function",
+      "name": "redact_value",
+      "lineRange": [
+        41,
+        52
+      ],
+      "summary": "把敏感值统一替换为星号占位。",
+      "tags": [
+        "security",
+        "sanitization",
+        "utility"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/log_sanitizer.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/log_sanitizer.py:sanitize_headers",
+      "type": "function",
+      "name": "sanitize_headers",
+      "lineRange": [
+        55,
+        70
+      ],
+      "summary": "返回脱敏后的请求头新字典，不修改原对象。",
+      "tags": [
+        "security",
+        "sanitization",
+        "http"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/log_sanitizer.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/log_sanitizer.py:sanitize_log_message",
+      "type": "function",
+      "name": "sanitize_log_message",
+      "lineRange": [
+        73,
+        93
+      ],
+      "summary": "对日志消息中的 Bearer Token、JSON 敏感键值与查询串敏感参数统一脱敏。",
+      "tags": [
+        "security",
+        "sanitization",
+        "logging"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/log_sanitizer.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/log_sanitizer.py:sanitize_report",
+      "type": "function",
+      "name": "sanitize_report",
+      "lineRange": [
+        96,
+        120
+      ],
+      "summary": "递归脱敏报告字段，并剔除混入响应文本中的本任务凭据。",
+      "tags": [
+        "security",
+        "sanitization",
+        "recursion"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/log_sanitizer.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/snapshot_store.py:_default_base_dir",
+      "type": "function",
+      "name": "_default_base_dir",
+      "lineRange": [
+        65,
+        74
+      ],
+      "summary": "返回可被环境变量覆盖的私有状态目录路径，不自动创建目录。",
+      "tags": [
+        "configuration",
+        "filesystem",
+        "utility"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/snapshot_store.py:_now",
+      "type": "function",
+      "name": "_now",
+      "lineRange": [
+        77,
+        79
+      ],
+      "summary": "返回当前 UTC 感知时间，供测试注入替换。",
+      "tags": [
+        "time",
+        "utility",
+        "testability"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/snapshot_store.py:compute_content_digest",
+      "type": "function",
+      "name": "compute_content_digest",
+      "lineRange": [
+        82,
+        101
+      ],
+      "summary": "以键排序、紧凑分隔且保留非 ASCII 的规范化 JSON 计算字典内容的 SHA-256 摘要，使同一逻辑内容不受插入顺序影响。",
+      "tags": [
+        "hashing",
+        "canonicalization",
+        "validation"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/snapshot_store.py:derive_owner_id",
+      "type": "function",
+      "name": "derive_owner_id",
+      "lineRange": [
+        104,
+        117
+      ],
+      "summary": "由已验证 MCP Token 派生不可逆的归属身份摘要，不存储也不返回原始 Token。",
+      "tags": [
+        "security",
+        "hashing",
+        "identity"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "class",
+      "name": "SnapshotError",
+      "lineRange": [
+        120,
+        121
+      ],
+      "summary": "快照存储的基类异常。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "type-definition"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotNotFoundError",
+      "type": "class",
+      "name": "SnapshotNotFoundError",
+      "lineRange": [
+        124,
+        125
+      ],
+      "summary": "快照不存在或元数据损坏时抛出的异常。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "snapshot"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotOwnerMismatchError",
+      "type": "class",
+      "name": "SnapshotOwnerMismatchError",
+      "lineRange": [
+        128,
+        129
+      ],
+      "summary": "请求身份与快照归属不一致时拒绝跨身份访问的异常。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "security"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotExpiredError",
+      "type": "class",
+      "name": "SnapshotExpiredError",
+      "lineRange": [
+        132,
+        133
+      ],
+      "summary": "快照已过期、须重新获取模板时抛出的异常。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "ttl"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotTamperError",
+      "type": "class",
+      "name": "SnapshotTamperError",
+      "lineRange": [
+        136,
+        137
+      ],
+      "summary": "工作簿呈现的规范化内容与权威快照不一致时的篡改拒绝异常。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "integrity"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError",
+      "type": "class",
+      "name": "ChunkedUploadError",
+      "lineRange": [
+        140,
+        141
+      ],
+      "summary": "分块上传相关异常的基类。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "upload"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:UploadIncompleteError",
+      "type": "class",
+      "name": "UploadIncompleteError",
+      "lineRange": [
+        144,
+        145
+      ],
+      "summary": "分块不完整或会话不存在时抛出的上传异常。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "upload"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:UploadLimitError",
+      "type": "class",
+      "name": "UploadLimitError",
+      "lineRange": [
+        148,
+        149
+      ],
+      "summary": "分片数量或总字节超过上限时抛出的上传异常。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "limits"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:UploadExpiredError",
+      "type": "class",
+      "name": "UploadExpiredError",
+      "lineRange": [
+        152,
+        153
+      ],
+      "summary": "分块上传会话已过期、需重新开始时的上传异常。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "ttl"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotRecord",
+      "type": "class",
+      "name": "SnapshotRecord",
+      "lineRange": [
+        157,
+        228
+      ],
+      "summary": "服务端权威快照记录，携带归属、有效期、模板字节摘要与内嵌模板快照。",
+      "tags": [
+        "data-model",
+        "snapshot",
+        "serialization"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotStore",
+      "type": "class",
+      "name": "SnapshotStore",
+      "lineRange": [
+        231,
+        718
+      ],
+      "summary": "快照与空白模板的私有存储，负责保存、按归属加载、过期与身份校验、内容篡改核对以及 owner 隔离的分块上传会话生命周期。",
+      "tags": [
+        "persistence",
+        "snapshot",
+        "security",
+        "upload"
+      ],
+      "complexity": "complex",
+      "filePath": "mcp_server/archiving/snapshot_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/stage_orchestrator.py:StageState",
+      "type": "class",
+      "name": "StageState",
+      "lineRange": [
+        27,
+        34
+      ],
+      "summary": "阶段状态枚举：未执行、被阻止、成功、失败、结果未验证。",
+      "tags": [
+        "type-definition",
+        "enum",
+        "state-machine"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/stage_orchestrator.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/stage_orchestrator.py:StageRecord",
+      "type": "class",
+      "name": "StageRecord",
+      "lineRange": [
+        37,
+        79
+      ],
+      "summary": "单个阶段的执行记录，含状态、原因、详情与关联网关。",
+      "tags": [
+        "data-model",
+        "state-machine",
+        "serialization"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/stage_orchestrator.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/stage_orchestrator.py:StageOrchestrator",
+      "type": "class",
+      "name": "StageOrchestrator",
+      "lineRange": [
+        92,
+        252
+      ],
+      "summary": "阶段依赖编排器，记录阶段结果、校验前置是否成功并生成全链路汇总。",
+      "tags": [
+        "orchestration",
+        "state-machine",
+        "validation"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/stage_orchestrator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/task_report_store.py:_now",
+      "type": "function",
+      "name": "_now",
+      "lineRange": [
+        30,
+        32
+      ],
+      "summary": "返回当前 UTC 时间，供测试注入替换。",
+      "tags": [
+        "time",
+        "utility",
+        "testability"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/task_report_store.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/task_report_store.py:_default_base_dir",
+      "type": "function",
+      "name": "_default_base_dir",
+      "lineRange": [
+        35,
+        40
+      ],
+      "summary": "返回默认的任务报告目录路径。",
+      "tags": [
+        "configuration",
+        "filesystem",
+        "utility"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/task_report_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/task_report_store.py:TaskReportError",
+      "type": "class",
+      "name": "TaskReportError",
+      "lineRange": [
+        43,
+        44
+      ],
+      "summary": "任务报告存储相关异常的基类。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "type-definition"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/task_report_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/task_report_store.py:TaskReport",
+      "type": "class",
+      "name": "TaskReport",
+      "lineRange": [
+        48,
+        91
+      ],
+      "summary": "任务报告数据模型，承载脱敏计划摘要、动作结果、补偿清单与逐设备阶段状态。",
+      "tags": [
+        "data-model",
+        "reporting",
+        "serialization"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/task_report_store.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/task_report_store.py:TaskReportStore",
+      "type": "class",
+      "name": "TaskReportStore",
+      "lineRange": [
+        94,
+        267
+      ],
+      "summary": "任务报告的私有存储，按归属与任务 ID 保存、加载并列举报告，写入采用原子落盘。",
+      "tags": [
+        "persistence",
+        "reporting",
+        "audit"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/task_report_store.py"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:mcp_server/archiving/log_sanitizer.py",
+      "target": "function:mcp_server/archiving/log_sanitizer.py:redact_value",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/log_sanitizer.py",
+      "target": "function:mcp_server/archiving/log_sanitizer.py:redact_value",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/log_sanitizer.py",
+      "target": "function:mcp_server/archiving/log_sanitizer.py:sanitize_headers",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/log_sanitizer.py",
+      "target": "function:mcp_server/archiving/log_sanitizer.py:sanitize_headers",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/log_sanitizer.py",
+      "target": "function:mcp_server/archiving/log_sanitizer.py:sanitize_log_message",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/log_sanitizer.py",
+      "target": "function:mcp_server/archiving/log_sanitizer.py:sanitize_log_message",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/log_sanitizer.py",
+      "target": "function:mcp_server/archiving/log_sanitizer.py:sanitize_report",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/log_sanitizer.py",
+      "target": "function:mcp_server/archiving/log_sanitizer.py:sanitize_report",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "function:mcp_server/archiving/snapshot_store.py:_default_base_dir",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "function:mcp_server/archiving/snapshot_store.py:_default_base_dir",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "function:mcp_server/archiving/snapshot_store.py:_now",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "function:mcp_server/archiving/snapshot_store.py:_now",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "function:mcp_server/archiving/snapshot_store.py:compute_content_digest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "function:mcp_server/archiving/snapshot_store.py:compute_content_digest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "function:mcp_server/archiving/snapshot_store.py:derive_owner_id",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "function:mcp_server/archiving/snapshot_store.py:derive_owner_id",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotNotFoundError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotNotFoundError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotOwnerMismatchError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotOwnerMismatchError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotExpiredError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotExpiredError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotTamperError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotTamperError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:UploadIncompleteError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:UploadIncompleteError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:UploadLimitError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:UploadLimitError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:UploadExpiredError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:UploadExpiredError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotStore",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/stage_orchestrator.py",
+      "target": "class:mcp_server/archiving/stage_orchestrator.py:StageState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/stage_orchestrator.py",
+      "target": "class:mcp_server/archiving/stage_orchestrator.py:StageState",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/stage_orchestrator.py",
+      "target": "class:mcp_server/archiving/stage_orchestrator.py:StageRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/stage_orchestrator.py",
+      "target": "class:mcp_server/archiving/stage_orchestrator.py:StageRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/stage_orchestrator.py",
+      "target": "class:mcp_server/archiving/stage_orchestrator.py:StageOrchestrator",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/stage_orchestrator.py",
+      "target": "class:mcp_server/archiving/stage_orchestrator.py:StageOrchestrator",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "function:mcp_server/archiving/task_report_store.py:_now",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "function:mcp_server/archiving/task_report_store.py:_now",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "function:mcp_server/archiving/task_report_store.py:_default_base_dir",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "function:mcp_server/archiving/task_report_store.py:_default_base_dir",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "class:mcp_server/archiving/task_report_store.py:TaskReportError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "class:mcp_server/archiving/task_report_store.py:TaskReportError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "class:mcp_server/archiving/task_report_store.py:TaskReport",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "class:mcp_server/archiving/task_report_store.py:TaskReport",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "class:mcp_server/archiving/task_report_store.py:TaskReportStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "class:mcp_server/archiving/task_report_store.py:TaskReportStore",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "file:mcp_server/archiving/log_sanitizer.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:SnapshotNotFoundError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:SnapshotOwnerMismatchError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:SnapshotExpiredError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:SnapshotTamperError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:UploadIncompleteError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:UploadLimitError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:UploadExpiredError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    }
+  ]
+}

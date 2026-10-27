@@ -1,0 +1,1217 @@
+{
+  "nodes": [
+    {
+      "id": "file:mcp_server/archiving/compensation.py",
+      "type": "file",
+      "name": "compensation.py",
+      "filePath": "mcp_server/archiving/compensation.py",
+      "summary": "记录本次新建设备形成补偿清单，并在用户明确确认后按叶子到父节点顺序调用 deleteDevice 回滚，绝不触碰清单外的既有设备。",
+      "tags": [
+        "compensation",
+        "rollback",
+        "safety",
+        "service"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/archiving/engine.py",
+      "type": "file",
+      "name": "engine.py",
+      "filePath": "mcp_server/archiving/engine.py",
+      "summary": "自动建档引擎的纯逻辑核心：拓扑排序、以设备名称为键的幂等匹配与 dry-run 计划生成，自身不做任何 I/O。",
+      "tags": [
+        "core-engine",
+        "planning",
+        "idempotency",
+        "topological-sort"
+      ],
+      "complexity": "complex",
+      "languageNotes": "引擎与 I/O 彻底解耦，写入与联通交由 Skill 编排原子工具执行，本模块只回答「计划什么、为什么」。"
+    },
+    {
+      "id": "file:mcp_server/archiving/excel_reader.py",
+      "type": "file",
+      "name": "excel_reader.py",
+      "filePath": "mcp_server/archiving/excel_reader.py",
+      "summary": "把面向工程人员的 v15-engineer 工作簿解析为 ArchiveTemplate，只做提取与结构性校验，字段级业务校验交由 profile 与引擎。",
+      "tags": [
+        "parser",
+        "excel",
+        "validation",
+        "serialization"
+      ],
+      "complexity": "complex",
+      "languageNotes": "类型保真语义：整数不转浮点、0/False 不误判为空、文本条码保留前导零、密码原文保留但序列化时脱敏。"
+    },
+    {
+      "id": "file:mcp_server/archiving/field_contract.py",
+      "type": "file",
+      "name": "field_contract.py",
+      "filePath": "mcp_server/archiving/field_contract.py",
+      "summary": "版本化字段契约的单一事实源，以 TypeSheetSpec 声明各设备类型的表结构、工程列、派生字段与接口能力，并按证据状态对码值出处分级。",
+      "tags": [
+        "contract",
+        "single-source-of-truth",
+        "data-model",
+        "validation"
+      ],
+      "complexity": "complex",
+      "languageNotes": "未证实的落点一律标 UNVERIFIED 并禁止进入可执行模板与下发，构成 G1 现场核验门槛。"
+    },
+    {
+      "id": "function:mcp_server/archiving/compensation.py:_flatten_tree",
+      "type": "function",
+      "name": "_flatten_tree",
+      "lineRange": [
+        71,
+        84
+      ],
+      "summary": "递归把设备树展平为 deviceId 到节点的字典映射。",
+      "tags": [
+        "utility",
+        "recursion",
+        "tree-traversal"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/compensation.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/compensation.py:apply_compensation",
+      "type": "function",
+      "name": "apply_compensation",
+      "lineRange": [
+        87,
+        165
+      ],
+      "summary": "在用户确认前提下按补偿清单删除本次新建设备，并回读设备树验证残留与越界保护项。",
+      "tags": [
+        "compensation",
+        "rollback",
+        "safety",
+        "validation"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/compensation.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/compensation.py:CompensationRecorder",
+      "type": "class",
+      "name": "CompensationRecorder",
+      "lineRange": [
+        26,
+        68
+      ],
+      "summary": "执行期补偿清单记录器，仅登记本次新建的设备并输出叶子优先的删除顺序。",
+      "tags": [
+        "compensation",
+        "registry",
+        "safety"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/compensation.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/engine.py:_norm_road_no",
+      "type": "function",
+      "name": "_norm_road_no",
+      "lineRange": [
+        57,
+        72
+      ],
+      "summary": "把分路号归一化为整数字符串，非数字值返回去空白原值。",
+      "tags": [
+        "utility",
+        "normalization",
+        "parsing"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/engine.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/engine.py:build_existing_index",
+      "type": "function",
+      "name": "build_existing_index",
+      "lineRange": [
+        75,
+        102
+      ],
+      "summary": "将展平后的后端设备列表构建为 deviceId 到 ExistingDevice 的索引。",
+      "tags": [
+        "indexing",
+        "factory",
+        "data-model"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/engine.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/engine.py:topological_order",
+      "type": "function",
+      "name": "topological_order",
+      "lineRange": [
+        105,
+        141
+      ],
+      "summary": "按父节点键对拓扑节点排序保证父先于子，并记录成环或父节点缺失的错误。",
+      "tags": [
+        "topological-sort",
+        "validation",
+        "tree-traversal"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/engine.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/engine.py:_collect_subtree_meters",
+      "type": "function",
+      "name": "_collect_subtree_meters",
+      "lineRange": [
+        144,
+        176
+      ],
+      "summary": "多级递归收集某网关整棵子树下可下发的电表键，网关节点仅作中间跳板不入结果。",
+      "tags": [
+        "recursion",
+        "tree-traversal",
+        "planning"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/engine.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/engine.py:_build_name_indexes",
+      "type": "function",
+      "name": "_build_name_indexes",
+      "lineRange": [
+        179,
+        216
+      ],
+      "summary": "从 deviceId 索引派生名称回查与网关内编号二级索引，以候选集合模式承载冲突判定。",
+      "tags": [
+        "indexing",
+        "conflict-detection",
+        "planning"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/engine.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/engine.py:build_plan",
+      "type": "function",
+      "name": "build_plan",
+      "lineRange": [
+        219,
+        643
+      ],
+      "summary": "引擎主入口：结合模板与现有设备索引逐项判定 CREATE/UPDATE/SKIP，产出含冲突、批次与前置条件的完整 dry-run 计划。",
+      "tags": [
+        "core-engine",
+        "planning",
+        "entry-point",
+        "idempotency"
+      ],
+      "complexity": "complex",
+      "filePath": "mcp_server/archiving/engine.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/engine.py:revalidate_plan",
+      "type": "function",
+      "name": "revalidate_plan",
+      "lineRange": [
+        740,
+        822
+      ],
+      "summary": "执行前重新读取后端身份与编号占用，判定既有计划是否仍然有效并给出失效原因列表。",
+      "tags": [
+        "validation",
+        "planning",
+        "safety",
+        "idempotency"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/engine.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/engine.py:ExistingDevice",
+      "type": "class",
+      "name": "ExistingDevice",
+      "lineRange": [
+        43,
+        54
+      ],
+      "summary": "边缘后端现有设备档案的摘要结构，供幂等匹配回查使用。",
+      "tags": [
+        "data-model",
+        "type-definition",
+        "indexing"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/engine.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/engine.py:ExecutionLockManager",
+      "type": "class",
+      "name": "ExecutionLockManager",
+      "lineRange": [
+        646,
+        737
+      ],
+      "summary": "任务级与网关级执行锁管理器，用带 TTL 的进程内锁减少并发竞争。",
+      "tags": [
+        "concurrency",
+        "locking",
+        "singleton"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/engine.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_cell_str",
+      "type": "function",
+      "name": "_cell_str",
+      "lineRange": [
+        111,
+        134
+      ],
+      "summary": "把单元格值类型保真地转为字符串，整数不转浮点且保留前导零与内部空格。",
+      "tags": [
+        "utility",
+        "normalization",
+        "type-fidelity"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_col_letter",
+      "type": "function",
+      "name": "_col_letter",
+      "lineRange": [
+        137,
+        150
+      ],
+      "summary": "将 1-based 列索引转换为 Excel 列字母表示。",
+      "tags": [
+        "utility",
+        "excel",
+        "formatting"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_header_index",
+      "type": "function",
+      "name": "_header_index",
+      "lineRange": [
+        153,
+        161
+      ],
+      "summary": "读取首行表头，返回列名到 0-based 列索引的映射。",
+      "tags": [
+        "utility",
+        "excel",
+        "indexing"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_rows_as_dicts",
+      "type": "function",
+      "name": "_rows_as_dicts",
+      "lineRange": [
+        164,
+        173
+      ],
+      "summary": "按表头把数据行映射为字典列表并跳过全空行。",
+      "tags": [
+        "utility",
+        "excel",
+        "serialization"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_parse_bool",
+      "type": "function",
+      "name": "_parse_bool",
+      "lineRange": [
+        176,
+        178
+      ],
+      "summary": "将字符串解析为布尔值。",
+      "tags": [
+        "utility",
+        "parsing",
+        "type-fidelity"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_check_version_and_metadata",
+      "type": "function",
+      "name": "_check_version_and_metadata",
+      "lineRange": [
+        181,
+        214
+      ],
+      "summary": "校验系统连接表中的模板版本、契约版本与快照 ID 元数据。",
+      "tags": [
+        "validation",
+        "versioning",
+        "metadata"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_validate_sheet_headers",
+      "type": "function",
+      "name": "_validate_sheet_headers",
+      "lineRange": [
+        217,
+        266
+      ],
+      "summary": "校验表头的重复、缺失与未知列，返回列名到索引的映射，失败时返回空值。",
+      "tags": [
+        "validation",
+        "excel",
+        "contract"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_validate_no_formulas_in_data",
+      "type": "function",
+      "name": "_validate_no_formulas_in_data",
+      "lineRange": [
+        269,
+        313
+      ],
+      "summary": "校验数据区域不含工程公式，避免 data_only 读取导致值被误判。",
+      "tags": [
+        "validation",
+        "excel",
+        "safety"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_validate_beyond_declared_range",
+      "type": "function",
+      "name": "_validate_beyond_declared_range",
+      "lineRange": [
+        316,
+        351
+      ],
+      "summary": "校验声明数据范围之外没有粘贴残留的非空行。",
+      "tags": [
+        "validation",
+        "excel",
+        "safety"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_parse_task_config",
+      "type": "function",
+      "name": "_parse_task_config",
+      "lineRange": [
+        354,
+        419
+      ],
+      "summary": "把系统连接表的配置项/值行解析为 TaskConfig，并按目标 IP 段自动判定直连或门户代理模式。",
+      "tags": [
+        "parsing",
+        "configuration",
+        "excel"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_parse_topology",
+      "type": "function",
+      "name": "_parse_topology",
+      "lineRange": [
+        422,
+        502
+      ],
+      "summary": "把挂载关系行解析为以名称为主键的拓扑节点列表，对合并单元格续行向前填充归属。",
+      "tags": [
+        "parsing",
+        "topology",
+        "excel"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_parse_detail",
+      "type": "function",
+      "name": "_parse_detail",
+      "lineRange": [
+        505,
+        540
+      ],
+      "summary": "把类型明细表解析为主键到 propertyCode 字段字典的映射。",
+      "tags": [
+        "parsing",
+        "excel",
+        "mapping"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:_parse_brand_model_mapping",
+      "type": "function",
+      "name": "_parse_brand_model_mapping",
+      "lineRange": [
+        543,
+        589
+      ],
+      "summary": "解析映射表中的品牌与型号码值写入任务配置，解析失败不回退也不阻断建档。",
+      "tags": [
+        "parsing",
+        "mapping",
+        "error-handling"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/excel_reader.py:read_archive_template",
+      "type": "function",
+      "name": "read_archive_template",
+      "lineRange": [
+        592,
+        750
+      ],
+      "summary": "读取并解析 v15-engineer 自动建档工作簿的对外入口，产出含错误与提示的 ArchiveTemplate。",
+      "tags": [
+        "entry-point",
+        "parser",
+        "excel",
+        "api"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/excel_reader.py:TemplateReadError",
+      "type": "class",
+      "name": "TemplateReadError",
+      "lineRange": [
+        62,
+        63
+      ],
+      "summary": "模板文件缺失、损坏或格式非法时抛出的读取异常。",
+      "tags": [
+        "error-handling",
+        "type-definition",
+        "exception"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/excel_reader.py:ArchiveTemplate",
+      "type": "class",
+      "name": "ArchiveTemplate",
+      "lineRange": [
+        67,
+        108
+      ],
+      "summary": "解析后的自动建档任务模板聚合根，携带任务配置、拓扑节点、明细、元数据与错误提示。",
+      "tags": [
+        "data-model",
+        "aggregate",
+        "serialization"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/excel_reader.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/field_contract.py:_gateway_fields",
+      "type": "function",
+      "name": "_gateway_fields",
+      "lineRange": [
+        164,
+        204
+      ],
+      "summary": "构建 8163 网关 A–C 三列的工程列契约。",
+      "tags": [
+        "contract",
+        "factory",
+        "gateway"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/field_contract.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/field_contract.py:_gateway_derived",
+      "type": "function",
+      "name": "_gateway_derived",
+      "lineRange": [
+        207,
+        224
+      ],
+      "summary": "构建 8163 网关的派生字段契约。",
+      "tags": [
+        "contract",
+        "factory",
+        "gateway"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/field_contract.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/field_contract.py:_meter_fields",
+      "type": "function",
+      "name": "_meter_fields",
+      "lineRange": [
+        241,
+        450
+      ],
+      "summary": "构建 XLBA 监测点 A–T 二十列的工程列契约，逐列声明落点、码值映射与证据状态。",
+      "tags": [
+        "contract",
+        "factory",
+        "validation"
+      ],
+      "complexity": "complex",
+      "filePath": "mcp_server/archiving/field_contract.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/field_contract.py:_meter_derived",
+      "type": "function",
+      "name": "_meter_derived",
+      "lineRange": [
+        453,
+        498
+      ],
+      "summary": "构建 XLBA 监测点的派生字段契约。",
+      "tags": [
+        "contract",
+        "factory",
+        "monitor-point"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/field_contract.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/field_contract.py:get_sheet_spec",
+      "type": "function",
+      "name": "get_sheet_spec",
+      "lineRange": [
+        551,
+        569
+      ],
+      "summary": "按中文设备类型名或后端 deviceTypeId 查询 sheet 契约，名称优先于 ID。",
+      "tags": [
+        "lookup",
+        "contract",
+        "routing"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/field_contract.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/field_contract.py:get_sheet_spec_by_name",
+      "type": "function",
+      "name": "get_sheet_spec_by_name",
+      "lineRange": [
+        572,
+        584
+      ],
+      "summary": "按工作表名查询 sheet 契约，供 reader 由所在表判定设备类型。",
+      "tags": [
+        "lookup",
+        "contract",
+        "excel"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/field_contract.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/field_contract.py:monitor_sheet_specs",
+      "type": "function",
+      "name": "monitor_sheet_specs",
+      "lineRange": [
+        587,
+        593
+      ],
+      "summary": "返回全部非网关监测点类型的 sheet 契约，顺序即模板建表顺序。",
+      "tags": [
+        "lookup",
+        "contract",
+        "monitor-point"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/field_contract.py"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:mcp_server/archiving/compensation.py",
+      "target": "function:mcp_server/archiving/compensation.py:_flatten_tree",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/compensation.py",
+      "target": "function:mcp_server/archiving/compensation.py:_flatten_tree",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/compensation.py",
+      "target": "function:mcp_server/archiving/compensation.py:apply_compensation",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/compensation.py",
+      "target": "function:mcp_server/archiving/compensation.py:apply_compensation",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/compensation.py",
+      "target": "class:mcp_server/archiving/compensation.py:CompensationRecorder",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/compensation.py",
+      "target": "class:mcp_server/archiving/compensation.py:CompensationRecorder",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:_norm_road_no",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:_norm_road_no",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:build_existing_index",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:build_existing_index",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:topological_order",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:topological_order",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:_collect_subtree_meters",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:_collect_subtree_meters",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:_build_name_indexes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:_build_name_indexes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:build_plan",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:build_plan",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:revalidate_plan",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "function:mcp_server/archiving/engine.py:revalidate_plan",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "class:mcp_server/archiving/engine.py:ExistingDevice",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "class:mcp_server/archiving/engine.py:ExistingDevice",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "class:mcp_server/archiving/engine.py:ExecutionLockManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "class:mcp_server/archiving/engine.py:ExecutionLockManager",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_cell_str",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_cell_str",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_col_letter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_col_letter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_header_index",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_header_index",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_rows_as_dicts",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_rows_as_dicts",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_parse_bool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_parse_bool",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_check_version_and_metadata",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_check_version_and_metadata",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_validate_sheet_headers",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_validate_sheet_headers",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_validate_no_formulas_in_data",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_validate_no_formulas_in_data",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_validate_beyond_declared_range",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_validate_beyond_declared_range",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_parse_task_config",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_parse_task_config",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_parse_topology",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_parse_topology",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_parse_detail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_parse_detail",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_parse_brand_model_mapping",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:_parse_brand_model_mapping",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:read_archive_template",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "function:mcp_server/archiving/excel_reader.py:read_archive_template",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "class:mcp_server/archiving/excel_reader.py:TemplateReadError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "class:mcp_server/archiving/excel_reader.py:TemplateReadError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "class:mcp_server/archiving/excel_reader.py:ArchiveTemplate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "class:mcp_server/archiving/excel_reader.py:ArchiveTemplate",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:_gateway_fields",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:_gateway_fields",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:_gateway_derived",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:_gateway_derived",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:_meter_fields",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:_meter_fields",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:_meter_derived",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:_meter_derived",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:get_sheet_spec",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:get_sheet_spec",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:get_sheet_spec_by_name",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:get_sheet_spec_by_name",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:monitor_sheet_specs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "function:mcp_server/archiving/field_contract.py:monitor_sheet_specs",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/compensation.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "file:mcp_server/archiving/excel_reader.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/engine.py",
+      "target": "file:mcp_server/archiving/profiles/registry.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "file:mcp_server/archiving/field_contract.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/excel_reader.py",
+      "target": "file:mcp_server/archiving/templates/generator.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/field_contract.py",
+      "target": "file:mcp_server/archiving/profiles/base.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

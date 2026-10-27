@@ -8,7 +8,7 @@ when_to_use: >
   用户提供了第三方 Modbus 协议文档和内部类型定义文档，需要生成 Modbus 转换配置时使用。
   用户需要从 Modbus 寄存器读取数据并转换为内部统一格式时使用。
   用户描述了 Modbus、寄存器、register、功能码、RTU/TCP 等关键词时使用。
-compatibility: "Requires protocol-converter MCP server"
+compatibility: "Requires xl-protocol-agent MCP server"
 metadata:
   tags: [modbus, conversion, config-gen, industrial]
   order: 3

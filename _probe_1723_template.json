@@ -1,0 +1,147 @@
+{
+  "tree_hits": [
+    {
+      "depth": 0,
+      "name": "G30_224357002616",
+      "deviceId": "6000000418639255",
+      "deviceTypeId": "100009",
+      "pid": "-1"
+    },
+    {
+      "depth": 1,
+      "name": "照明测试",
+      "deviceId": "6000000507267096",
+      "deviceTypeId": "100023",
+      "pid": "6000000418639255"
+    }
+  ],
+  "light_full": [
+    {
+      "affiliateDeviceSn": "",
+      "affiliateUnitCode": "",
+      "agentNum": "223",
+      "baudRate": "",
+      "billingMethod": "",
+      "checkDigit": "",
+      "chipA": "0",
+      "collectorAddress": "",
+      "commAddrAlgorithm": "0",
+      "commAddrRepetition": "2",
+      "createTime": "2026-10-16 14:28:34",
+      "dataDigit": "",
+      "deviceAddress": "011111011011",
+      "deviceClassify": "2",
+      "deviceId": "6000000507267096",
+      "deviceModel": "",
+      "deviceName": "照明测试",
+      "deviceSort": "",
+      "deviceTypeId": "100023",
+      "deviceTypeName": "照明",
+      "eigenValue": "3",
+      "ethernetIp": "",
+      "ethernetPort": "",
+      "extInfos": [
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "aCommAddr",
+          "propertyValue": ""
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "authParam",
+          "propertyValue": "192,168,1,1,21883"
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "brand",
+          "propertyValue": ""
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "brandName",
+          "propertyValue": ""
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "cT",
+          "propertyValue": ""
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "decimalNum",
+          "propertyValue": ""
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "decimalNumName",
+          "propertyValue": ""
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "dsTypeId",
+          "propertyValue": "100023"
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "feeNum",
+          "propertyValue": "195"
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "integerNum",
+          "propertyValue": ""
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "lineType",
+          "propertyValue": ""
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "pT",
+          "propertyValue": ""
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "ratedCurrent",
+          "propertyValue": ""
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "ratedVoltage",
+          "propertyValue": ""
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "userBigNo",
+          "propertyValue": ""
+        },
+        {
+          "deviceId": "6000000507267096",
+          "propertyCode": "userSmallNo",
+          "propertyValue": ""
+        }
+      ],
+      "factory": "",
+      "identifier": "201001001011",
+      "instDate": "",
+      "instLocation": "",
+      "isReverseData": "",
+      "lastUpdateTime": "2026-10-16 14:31:59",
+      "latitude": "",
+      "longitude": "",
+      "mainDeviceId": "",
+      "measuredPointNum": "223",
+      "parentId": "6000000418639255",
+      "protocolNumber": "",
+      "proxyCommPort": "40",
+      "proxyCommType": "",
+      "rootDeviceId": "6000000418639255",
+      "statusOption": "0",
+      "stopDigit": "",
+      "taskIds": [],
+      "upCommType": "",
+      "virDevice": "0"
+    }
+  ]
+}

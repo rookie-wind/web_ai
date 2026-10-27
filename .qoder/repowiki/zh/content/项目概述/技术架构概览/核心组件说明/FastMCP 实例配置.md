@@ -113,7 +113,7 @@ Uvicorn-->>Client : "返回响应"
 ## 详细组件分析
 
 ### FastMCP 实例初始化参数
-- name（协议转换器标识）：在客户端配置中体现为 mcpServers 下的键名，例如 “protocol-converter”，用于标识该 MCP 服务。
+- name（协议转换器标识）：在客户端配置中体现为 mcpServers 下的键名，例如 “xl-protocol-agent”，用于标识该 MCP 服务。
 - host（监听地址）：Uvicorn 绑定的 IP，通常为 0.0.0.0，表示对外暴露所有网卡。
 - port（端口号）：Uvicorn 监听的端口，默认 8765。
 

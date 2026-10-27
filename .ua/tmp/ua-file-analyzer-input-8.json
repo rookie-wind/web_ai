@@ -1,0 +1,182 @@
+{
+  "projectRoot": "e:/codeGIT/pca-mcp-server",
+  "batchFiles": [
+    {
+      "path": "agent_assets/skills/http-conversion/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 585,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "sizeLines": 3,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/manifest.json",
+      "language": "json",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 1010,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "sizeLines": 3,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/manifest.json",
+      "language": "json",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 196,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/agents/openai.yaml",
+      "language": "yaml",
+      "sizeLines": 11,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/manifest.json",
+      "language": "json",
+      "sizeLines": 15,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 460,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "sizeLines": 3,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/manifest.json",
+      "language": "json",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 161,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/agents/openai.yaml",
+      "language": "yaml",
+      "sizeLines": 3,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/manifest.json",
+      "language": "json",
+      "sizeLines": 15,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/package-manifest.json",
+      "language": "json",
+      "sizeLines": 65,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 457,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "sizeLines": 13,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/manifest.json",
+      "language": "json",
+      "sizeLines": 15,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/gen_test_report.py",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.c",
+      "language": "c",
+      "sizeLines": 107,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.h",
+      "language": "c",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/protocol_converter.py",
+      "language": "python",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py",
+      "language": "python",
+      "sizeLines": 150,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/test_report.json",
+      "language": "json",
+      "sizeLines": 82,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {
+    "agent_assets/skills/http-conversion/SKILL.md": [],
+    "agent_assets/skills/http-conversion/agents/openai.yaml": [],
+    "agent_assets/skills/http-conversion/manifest.json": [],
+    "agent_assets/skills/modbus-conversion/SKILL.md": [],
+    "agent_assets/skills/modbus-conversion/agents/openai.yaml": [],
+    "agent_assets/skills/modbus-conversion/manifest.json": [],
+    "agent_assets/skills/modbus-cq-adapt/SKILL.md": [],
+    "agent_assets/skills/modbus-cq-adapt/agents/openai.yaml": [],
+    "agent_assets/skills/modbus-cq-adapt/manifest.json": [],
+    "agent_assets/skills/mqtt-conversion/SKILL.md": [],
+    "agent_assets/skills/mqtt-conversion/agents/openai.yaml": [],
+    "agent_assets/skills/mqtt-conversion/manifest.json": [],
+    "agent_assets/skills/pack-distribution/SKILL.md": [],
+    "agent_assets/skills/pack-distribution/agents/openai.yaml": [],
+    "agent_assets/skills/pack-distribution/manifest.json": [],
+    "agent_assets/skills/package-manifest.json": [],
+    "agent_assets/skills/protocol-conversion/SKILL.md": [],
+    "agent_assets/skills/protocol-conversion/agents/openai.yaml": [],
+    "agent_assets/skills/protocol-conversion/manifest.json": [],
+    "agent_assets/skills/protocol-conversion/scripts/gen_test_report.py": [],
+    "agent_assets/skills/protocol-conversion/scripts/mapper_core.c": [],
+    "agent_assets/skills/protocol-conversion/scripts/mapper_core.h": [],
+    "agent_assets/skills/protocol-conversion/scripts/protocol_converter.py": [],
+    "agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py": [],
+    "agent_assets/skills/protocol-conversion/scripts/test_report.json": []
+  }
+}

@@ -8,7 +8,7 @@ when_to_use: >
   用户提供了第三方 HTTP/REST 源协议文档和内部 MQTT 目标协议文档，需要生成 HTTP 协议转换配置时使用。
   用户需要采集第三方 HTTP 接口数据并转换为内部 JSON 格式后通过 MQTT 上报时使用。
   用户描述了 REST API、POST/GET、Webhook、接口对接、Token 认证等关键词时使用。
-compatibility: "依赖 mapper_core.c 引擎；protocol-converter MCP server"
+compatibility: "依赖 mapper_core.c 引擎；xl-protocol-agent MCP server"
 metadata:
   tags: [http, rest, conversion, config-gen]
   order: 2

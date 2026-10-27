@@ -1,0 +1,1166 @@
+{
+  "nodes": [
+    {
+      "id": "file:mcp_server/archiving/models.py",
+      "type": "file",
+      "name": "models.py",
+      "filePath": "mcp_server/archiving/models.py",
+      "summary": "定义一次边缘建档任务的全部结构化对象（任务配置、拓扑节点、dry-run 计划、执行结果、补偿清单），统一提供 to_dict/from_dict 保证序列化稳定。",
+      "tags": [
+        "data-model",
+        "serialization",
+        "type-definition",
+        "aggregate"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:mcp_server/archiving/template_migrator.py",
+      "type": "file",
+      "name": "template_migrator.py",
+      "filePath": "mcp_server/archiving/template_migrator.py",
+      "summary": "建档模板的确定性版本迁移器，仅处理纯新增 sheet 场景：保留用户已填数据行、以当前骨架补入新表、更新版本标签。",
+      "tags": [
+        "migration",
+        "versioning",
+        "excel"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/archiving/templates/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "mcp_server/archiving/templates/__init__.py",
+      "summary": "自动建档 Excel 模板生成子包的包入口，重导出 generator 能力。",
+      "tags": [
+        "entry-point",
+        "barrel",
+        "package-init"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mcp_server/archiving/templates/generator.py",
+      "type": "file",
+      "name": "generator.py",
+      "filePath": "mcp_server/archiving/templates/generator.py",
+      "summary": "按 design §5 与 field_contract 生成面向工程人员的自包含工作簿：系统连接、字典、挂载关系、网关·8163、三类监测点明细与映射共六表加元数据。",
+      "tags": [
+        "template-generation",
+        "excel",
+        "factory",
+        "single-source-of-truth"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:FieldTarget",
+      "type": "class",
+      "name": "FieldTarget",
+      "lineRange": [
+        44,
+        50
+      ],
+      "summary": "profile 字段在建档 payload 中落点位置的枚举分类。",
+      "tags": [
+        "type-definition",
+        "enum",
+        "payload"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:PlanAction",
+      "type": "class",
+      "name": "PlanAction",
+      "lineRange": [
+        53,
+        59
+      ],
+      "summary": "dry-run 计划中单个节点动作类型的枚举。",
+      "tags": [
+        "type-definition",
+        "enum",
+        "planning"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:TaskConfig",
+      "type": "class",
+      "name": "TaskConfig",
+      "lineRange": [
+        63,
+        145
+      ],
+      "summary": "来自 Excel 任务配置表的建档任务配置模型，序列化时默认对密码脱敏。",
+      "tags": [
+        "data-model",
+        "configuration",
+        "security"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:TopologyNode",
+      "type": "class",
+      "name": "TopologyNode",
+      "lineRange": [
+        149,
+        206
+      ],
+      "summary": "拓扑总览中的单个设备节点模型，提供名称驱动的幂等匹配键。",
+      "tags": [
+        "data-model",
+        "topology",
+        "idempotency"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:ProfileField",
+      "type": "class",
+      "name": "ProfileField",
+      "lineRange": [
+        210,
+        249
+      ],
+      "summary": "声明一个 Excel/档案字段落到建档 payload 的位置与来源。",
+      "tags": [
+        "data-model",
+        "mapping",
+        "payload"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:DryRunItem",
+      "type": "class",
+      "name": "DryRunItem",
+      "lineRange": [
+        253,
+        303
+      ],
+      "summary": "dry-run 计划中单个节点的计划项。",
+      "tags": [
+        "data-model",
+        "planning",
+        "type-definition"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:DryRunPlan",
+      "type": "class",
+      "name": "DryRunPlan",
+      "lineRange": [
+        307,
+        421
+      ],
+      "summary": "完整 dry-run 计划聚合，承载逐项动作、冲突、下发与召测标志、批次清单、前置条件及可执行判定。",
+      "tags": [
+        "data-model",
+        "aggregate",
+        "planning"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:ExecutionItem",
+      "type": "class",
+      "name": "ExecutionItem",
+      "lineRange": [
+        425,
+        464
+      ],
+      "summary": "单个执行动作的结果项。",
+      "tags": [
+        "data-model",
+        "execution",
+        "type-definition"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:ExecutionResult",
+      "type": "class",
+      "name": "ExecutionResult",
+      "lineRange": [
+        468,
+        501
+      ],
+      "summary": "一次建档执行的整体结果汇总。",
+      "tags": [
+        "data-model",
+        "aggregate",
+        "execution"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:CompensationEntry",
+      "type": "class",
+      "name": "CompensationEntry",
+      "lineRange": [
+        505,
+        541
+      ],
+      "summary": "补偿清单条目，记录本次新建的可回滚设备。",
+      "tags": [
+        "data-model",
+        "compensation",
+        "type-definition"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:CompensationPlan",
+      "type": "class",
+      "name": "CompensationPlan",
+      "lineRange": [
+        545,
+        595
+      ],
+      "summary": "补偿清单集合，按叶子到父节点顺序给出删除次序。",
+      "tags": [
+        "data-model",
+        "compensation",
+        "ordering"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:FieldSource",
+      "type": "class",
+      "name": "FieldSource",
+      "lineRange": [
+        598,
+        603
+      ],
+      "summary": "字段取值来源分类的枚举。",
+      "tags": [
+        "type-definition",
+        "enum",
+        "contract"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:EvidenceStatus",
+      "type": "class",
+      "name": "EvidenceStatus",
+      "lineRange": [
+        606,
+        616
+      ],
+      "summary": "字段码值与落点的证据状态枚举，对应 G1 准入门槛（VERIFIED/PROTOCOL/UNVERIFIED）。",
+      "tags": [
+        "type-definition",
+        "enum",
+        "validation"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:InputType",
+      "type": "class",
+      "name": "InputType",
+      "lineRange": [
+        619,
+        626
+      ],
+      "summary": "工程输入单元格的值类型枚举，供 reader 保真解析。",
+      "tags": [
+        "type-definition",
+        "enum",
+        "type-fidelity"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:FieldSpec",
+      "type": "class",
+      "name": "FieldSpec",
+      "lineRange": [
+        630,
+        725
+      ],
+      "summary": "版本化字段契约的单列声明，被 generator、reader、profile、payload 构造器与回读比较器共享以消除映射漂移。",
+      "tags": [
+        "data-model",
+        "contract",
+        "single-source-of-truth"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:CellInput",
+      "type": "class",
+      "name": "CellInput",
+      "lineRange": [
+        729,
+        785
+      ],
+      "summary": "reader 从单元格解析出的保真输入，保留原始类型与是否填写的判定。",
+      "tags": [
+        "data-model",
+        "parsing",
+        "type-fidelity"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:ResolvedField",
+      "type": "class",
+      "name": "ResolvedField",
+      "lineRange": [
+        789,
+        851
+      ],
+      "summary": "依契约由 CellInput 解析出的、按档案/扩展/下发/回读落点分列的字段结果。",
+      "tags": [
+        "data-model",
+        "mapping",
+        "payload"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:TemplateSnapshot",
+      "type": "class",
+      "name": "TemplateSnapshot",
+      "lineRange": [
+        855,
+        909
+      ],
+      "summary": "服务端权威的模板快照，含结构版本、字典池、映射与规范化内容摘要。",
+      "tags": [
+        "data-model",
+        "snapshot",
+        "versioning"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/models.py:TypeSheetSpec",
+      "type": "class",
+      "name": "TypeSheetSpec",
+      "lineRange": [
+        913,
+        1002
+      ],
+      "summary": "每设备类型的表结构与接口能力声明，并提供未核实字段查询以支撑 G1 门槛。",
+      "tags": [
+        "data-model",
+        "contract",
+        "validation"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/models.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/template_migrator.py:_read_version",
+      "type": "function",
+      "name": "_read_version",
+      "lineRange": [
+        68,
+        77
+      ],
+      "summary": "从工作簿系统连接表读取 __template_version 版本标签值。",
+      "tags": [
+        "migration",
+        "versioning",
+        "parsing"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/template_migrator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/template_migrator.py:_classify",
+      "type": "function",
+      "name": "_classify",
+      "lineRange": [
+        80,
+        89
+      ],
+      "summary": "依据文件版本标签判定迁移状态。",
+      "tags": [
+        "migration",
+        "versioning",
+        "routing"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/template_migrator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/template_migrator.py:_copy_sheet_data",
+      "type": "function",
+      "name": "_copy_sheet_data",
+      "lineRange": [
+        92,
+        136
+      ],
+      "summary": "按表头名匹配列位置，把旧表数据行拷贝到新骨架表并可跳过元数据行。",
+      "tags": [
+        "migration",
+        "excel",
+        "utility"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/template_migrator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/template_migrator.py:migrate_template",
+      "type": "function",
+      "name": "migrate_template",
+      "lineRange": [
+        139,
+        207
+      ],
+      "summary": "迁移入口：以当前版骨架补入新增 sheet 并保留用户已填数据，产出 MigrateResult。",
+      "tags": [
+        "entry-point",
+        "migration",
+        "factory"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/template_migrator.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/template_migrator.py:MigrateStatus",
+      "type": "class",
+      "name": "MigrateStatus",
+      "lineRange": [
+        39,
+        44
+      ],
+      "summary": "模板迁移结果状态枚举。",
+      "tags": [
+        "type-definition",
+        "enum",
+        "migration"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/template_migrator.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/template_migrator.py:MigrateResult",
+      "type": "class",
+      "name": "MigrateResult",
+      "lineRange": [
+        48,
+        65
+      ],
+      "summary": "迁移操作返回值，携带前后版本、迁移产物字节、新增表名与拒绝原因。",
+      "tags": [
+        "data-model",
+        "migration",
+        "type-definition"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/template_migrator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_header",
+      "type": "function",
+      "name": "_write_header",
+      "lineRange": [
+        105,
+        115
+      ],
+      "summary": "写入加粗表头行并设置列宽。",
+      "tags": [
+        "excel",
+        "utility",
+        "formatting"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/templates/generator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_rows",
+      "type": "function",
+      "name": "_write_rows",
+      "lineRange": [
+        118,
+        126
+      ],
+      "summary": "向工作表写入数据行。",
+      "tags": [
+        "excel",
+        "utility",
+        "serialization"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/templates/generator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_system_connection",
+      "type": "function",
+      "name": "_write_system_connection",
+      "lineRange": [
+        129,
+        167
+      ],
+      "summary": "写入系统连接表的目标连接配置与版本化元数据，不预置现场地址。",
+      "tags": [
+        "excel",
+        "template-generation",
+        "configuration"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/templates/generator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_dict_sheet",
+      "type": "function",
+      "name": "_write_dict_sheet",
+      "lineRange": [
+        170,
+        248
+      ],
+      "summary": "写入字典表的一列一池结构，含四串口项命名区域与品牌型号级联列。",
+      "tags": [
+        "excel",
+        "template-generation",
+        "dictionary"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/templates/generator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_model_ranges",
+      "type": "function",
+      "name": "_write_model_ranges",
+      "lineRange": [
+        251,
+        292
+      ],
+      "summary": "为型号下拉建立有界命名区域与隐藏的品牌到区域名映射，内部名仅含 ASCII 以避免引用歧义。",
+      "tags": [
+        "excel",
+        "template-generation",
+        "utility"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/templates/generator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_topo",
+      "type": "function",
+      "name": "_write_topo",
+      "lineRange": [
+        295,
+        318
+      ],
+      "summary": "写入挂载关系表的名称驱动三列拓扑，同挂载点相邻行合并居中，监测点类型交由明细表决定。",
+      "tags": [
+        "excel",
+        "template-generation",
+        "topology"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/templates/generator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_gateway_8163",
+      "type": "function",
+      "name": "_write_gateway_8163",
+      "lineRange": [
+        321,
+        328
+      ],
+      "summary": "写入网关·8163 表的三列结构，代理通信方式为自由填写无下拉。",
+      "tags": [
+        "excel",
+        "template-generation",
+        "gateway"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/templates/generator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_meter_sheet",
+      "type": "function",
+      "name": "_write_meter_sheet",
+      "lineRange": [
+        331,
+        447
+      ],
+      "summary": "写入一张 20 列监测点明细表并挂上下拉，照明与配电房因列集与 XLBA 一致而共用本写入器。",
+      "tags": [
+        "excel",
+        "template-generation",
+        "monitor-point"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/templates/generator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_mapping_sheet",
+      "type": "function",
+      "name": "_write_mapping_sheet",
+      "lineRange": [
+        450,
+        527
+      ],
+      "summary": "写入映射表的字段、下拉选项、后端字段、实际写入值与出处。",
+      "tags": [
+        "excel",
+        "template-generation",
+        "mapping"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/templates/generator.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:generate_template",
+      "type": "function",
+      "name": "generate_template",
+      "lineRange": [
+        530,
+        635
+      ],
+      "summary": "模板生成的对外入口，按字段契约装配六表工作簿并写入指定路径。",
+      "tags": [
+        "entry-point",
+        "factory",
+        "template-generation"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/templates/generator.py"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:FieldTarget",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:FieldTarget",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:PlanAction",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:PlanAction",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:TaskConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:TaskConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:TopologyNode",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:TopologyNode",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:ProfileField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:ProfileField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:DryRunItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:DryRunItem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:DryRunPlan",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:DryRunPlan",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:ExecutionItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:ExecutionItem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:ExecutionResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:ExecutionResult",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:CompensationEntry",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:CompensationEntry",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:CompensationPlan",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:CompensationPlan",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:FieldSource",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:FieldSource",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:EvidenceStatus",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:EvidenceStatus",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:InputType",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:InputType",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:FieldSpec",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:FieldSpec",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:CellInput",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:CellInput",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:ResolvedField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:ResolvedField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:TemplateSnapshot",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:TemplateSnapshot",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:TypeSheetSpec",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "class:mcp_server/archiving/models.py:TypeSheetSpec",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "function:mcp_server/archiving/template_migrator.py:_read_version",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "function:mcp_server/archiving/template_migrator.py:_read_version",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "function:mcp_server/archiving/template_migrator.py:_classify",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "function:mcp_server/archiving/template_migrator.py:_classify",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "function:mcp_server/archiving/template_migrator.py:_copy_sheet_data",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "function:mcp_server/archiving/template_migrator.py:_copy_sheet_data",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "function:mcp_server/archiving/template_migrator.py:migrate_template",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "function:mcp_server/archiving/template_migrator.py:migrate_template",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "class:mcp_server/archiving/template_migrator.py:MigrateStatus",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "class:mcp_server/archiving/template_migrator.py:MigrateStatus",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "class:mcp_server/archiving/template_migrator.py:MigrateResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "class:mcp_server/archiving/template_migrator.py:MigrateResult",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_header",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_header",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_rows",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_rows",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_system_connection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_system_connection",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_dict_sheet",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_dict_sheet",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_model_ranges",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_model_ranges",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_topo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_topo",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_gateway_8163",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_gateway_8163",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_meter_sheet",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_meter_sheet",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_mapping_sheet",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_mapping_sheet",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:generate_template",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:generate_template",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/template_migrator.py",
+      "target": "file:mcp_server/archiving/templates/generator.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/__init__.py",
+      "target": "file:mcp_server/archiving/templates/generator.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "file:mcp_server/archiving/field_contract.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

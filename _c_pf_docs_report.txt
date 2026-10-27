@@ -1,0 +1,109 @@
+﻿=== Program Files top-level ===
+Microsoft Visual Studio                                  7.70 GB
+Android                                                  2.42 GB
+dotnet                                                   1.70 GB
+OpenSSL-Win64                                            0.74 GB
+Git                                                      0.40 GB
+ynote-desktop                                            0.40 GB
+Tencent                                                  0.39 GB
+Oray                                                     0.37 GB
+OPC Expert                                               0.28 GB
+Microsoft SQL Server                                     0.25 GB
+Windows Defender Advanced Threat Protection              0.23 GB
+Wireshark                                                0.23 GB
+Pandoc                                                   0.22 GB
+Vector AUTOSAR Preprocessor                              0.22 GB
+mqttfx                                                   0.21 GB
+Matrikon                                                 0.20 GB
+Common Files                                             0.20 GB
+ProsysOPC                                                0.17 GB
+Microsoft OfficePLUS                                     0.13 GB
+VanDyke Software                                         0.11 GB
+
+=== Program Files (x86) top-level ===
+Microsoft SDKs                                           5.87 GB
+Windows Kits                                             4.24 GB
+Microsoft                                                3.94 GB
+IAR Systems                                              3.73 GB
+Microsoft Office                                         2.92 GB
+Microsoft Visual Studio 14.0                             2.23 GB
+Microsoft Visual Studio                                  2.05 GB
+SogouInput                                               1.21 GB
+Tencent                                                  1.03 GB
+VMware                                                   1.02 GB
+Common Files                                             0.77 GB
+Thunder Network                                          0.75 GB
+OpenSSL-Win32                                            0.53 GB
+dotnet                                                   0.39 GB
+Reference Assemblies                                     0.38 GB
+InstallShield Installation Information                   0.22 GB
+MSBuild                                                  0.20 GB
+hide.me VPN                                              0.09 GB
+MSECache                                                 0.08 GB
+Integration Objects                                      0.06 GB
+
+=== Documents subfolders ===
+Virtual Machines                                        38.70 GB
+WeChat Files                                             8.78 GB
+WXWork                                                   2.76 GB
+Source Insight 4.0                                       0.10 GB
+Kingsoft                                                 0.02 GB
+Downloaded Installations                                 0.01 GB
+KingsoftData                                             0.00 GB
+WindowsPowerShell                                        0.00 GB
+My Music                                                 0.00 GB
+Visual Studio 2022                                       0.00 GB
+我的形状                                                     0.00 GB
+我的数据源                                                    0.00 GB
+WPSDrive                                                 0.00 GB
+IISExpress                                               0.00 GB
+QQPCMgr                                                  0.00 GB
+QtDesignStudio                                           0.00 GB
+My Videos                                                0.00 GB
+My Web Sites                                             0.00 GB
+Tencent Files                                            0.00 GB
+Trae-CN                                                  0.00 GB
+My Pictures                                              0.00 GB
+Sunlogin Files                                           0.00 GB
+
+=== AppData\Local\Programs (installed apps) ===
+Ollama                                                   3.03 GB
+Microsoft VS Code                                        1.11 GB
+MQTTX                                                    0.23 GB
+Xmind                                                    0.00 GB
+Common                                                   0.00 GB
+
+=== Android subfolders (L\Android 12 GB) ===
+Sdk\emulator                                                                 0.09 GB
+Sdk\build-tools\33.0.1                                                       0.06 GB
+Sdk\build-tools\30.0.3                                                       0.06 GB
+Sdk\tools\lib                                                                0.05 GB
+Sdk\emulator\lib64                                                           0.03 GB
+Sdk\platforms\android-33                                                     0.03 GB
+Sdk\platforms\android-30                                                     0.02 GB
+Sdk\emulator\resources                                                       0.01 GB
+Sdk\emulator\bin64                                                           0.01 GB
+Sdk\platform-tools                                                           0.01 GB
+Sdk\emulator\lib                                                             0.01 GB
+Sdk\fonts\com.google.android.gms.fonts                                       0.00 GB
+Sdk\ndk-bundle\meta                                                          0.00 GB
+Sdk\ndk-bundle\prebuilt                                                      0.00 GB
+Sdk\ndk\25.1.8937393                                                         0.00 GB
+
+=== Documents\WeChat Files / Tencent (chat media) ===
+C:\Users\song\Documents\WeChat Files                                         8.78 GB
+C:\Users\song\Documents\Tencent Files                                        0.00 GB
+C:\Users\song\AppData\Roaming\Tencent                                        5.22 GB
+
+=== .lldb (LLDB debug cache) top ===
+C:\Users\song\.lldb\module_cache                                             4.00 GB
+
+=== Downloads top items (>100MB) ===
+CppOPCDemo                                                                   0.16 GB
+models                                                                       1.58 GB
+OmniRoute.3.8.48.exe                                                         0.30 GB
+QoderIDESetup-x64.exe                                                        0.19 GB
+QoderIDEUserSetup-x64.exe                                                    0.19 GB
+
+=== WinSxS (component store, only shows sum if accessible) ===
+WinSxS: 9.78 GB (only reference; use Dism /StartComponentCleanup to reclaim)

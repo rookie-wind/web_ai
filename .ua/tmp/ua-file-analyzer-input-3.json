@@ -1,0 +1,80 @@
+{
+  "projectRoot": "e:/codeGIT/pca-mcp-server",
+  "batchFiles": [
+    {
+      "path": "mcp_server/archiving/log_sanitizer.py",
+      "language": "python",
+      "sizeLines": 120,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/snapshot_store.py",
+      "language": "python",
+      "sizeLines": 718,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/stage_orchestrator.py",
+      "language": "python",
+      "sizeLines": 252,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/task_report_store.py",
+      "language": "python",
+      "sizeLines": 267,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/edge_tools.py",
+      "language": "python",
+      "sizeLines": 4753,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/operation_log_store.py",
+      "language": "python",
+      "sizeLines": 345,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/session.py",
+      "language": "python",
+      "sizeLines": 105,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "mcp_server/archiving/log_sanitizer.py": [],
+    "mcp_server/archiving/snapshot_store.py": [
+      "mcp_server/archiving/models.py"
+    ],
+    "mcp_server/archiving/stage_orchestrator.py": [],
+    "mcp_server/archiving/task_report_store.py": [
+      "mcp_server/archiving/log_sanitizer.py"
+    ],
+    "mcp_server/edge_tools.py": [
+      "mcp_server/archiving/compensation.py",
+      "mcp_server/archiving/converter.py",
+      "mcp_server/archiving/engine.py",
+      "mcp_server/archiving/excel_reader.py",
+      "mcp_server/archiving/log_sanitizer.py",
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/profiles/base.py",
+      "mcp_server/archiving/profiles/registry.py",
+      "mcp_server/archiving/snapshot_store.py",
+      "mcp_server/archiving/stage_orchestrator.py",
+      "mcp_server/archiving/task_report_store.py",
+      "mcp_server/archiving/template_migrator.py",
+      "mcp_server/archiving/templates/generator.py",
+      "mcp_server/edge_client.py",
+      "mcp_server/operation_log_store.py",
+      "mcp_server/session.py"
+    ],
+    "mcp_server/operation_log_store.py": [
+      "mcp_server/archiving/log_sanitizer.py",
+      "mcp_server/archiving/snapshot_store.py"
+    ],
+    "mcp_server/session.py": []
+  }
+}

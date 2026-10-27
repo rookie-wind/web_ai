@@ -1,0 +1,725 @@
+{
+  "nodes": [
+    {
+      "id": "file:mcp_server/api_client.py",
+      "type": "file",
+      "name": "api_client.py",
+      "filePath": "mcp_server/api_client.py",
+      "summary": "封装规约管理后端的 HTTP 调用，用自定义 Token 请求头鉴权并把网络、HTTP、业务与认证异常统一归一化为带 error/code/message 的返回结构。",
+      "tags": [
+        "api-client",
+        "http",
+        "error-handling",
+        "normalization"
+      ],
+      "complexity": "complex",
+      "languageNotes": "成功判据为 code === 20000，40100 表示登录失效，40000 为业务异常；成功时还用 empty 标志区分“查询为空”与“查询失败”。"
+    },
+    {
+      "id": "file:mcp_server/archiving/reference_config.py",
+      "type": "file",
+      "name": "reference_config.py",
+      "filePath": "mcp_server/archiving/reference_config.py",
+      "summary": "阶段一模板生成所用的固定参考环境配置读取器，只消费管理员显式提供的来源，不预置任何地址账号也不从上传工作簿推导。",
+      "tags": [
+        "configuration",
+        "security",
+        "reference-environment"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/archiving/reference_provider.py",
+      "type": "file",
+      "name": "reference_provider.py",
+      "filePath": "mcp_server/archiving/reference_provider.py",
+      "summary": "参考环境字典读取提供者，用互相隔离的云端系统 Token 专用链与独立边缘签名链取字典，认证失败绝不回退用户会话。",
+      "tags": [
+        "reference-environment",
+        "authentication",
+        "data-provider",
+        "isolation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:mcp_server/edge_client.py",
+      "type": "file",
+      "name": "edge_client.py",
+      "filePath": "mcp_server/edge_client.py",
+      "summary": "边缘建档后端客户端，实现 RSA 登录、五头签名与 rtnCode 归一化，并把联通类接口结果归为三态，与云端客户端完全独立。",
+      "tags": [
+        "api-client",
+        "authentication",
+        "signature",
+        "normalization"
+      ],
+      "complexity": "complex",
+      "languageNotes": "每次业务调用携带 appCode/token/tokenEncrypt/dateTime/userId 五个签名头，其中 tokenEncrypt = md5(token + loginStr + dateTime)。"
+    },
+    {
+      "id": "file:mcp_server/edge_proxy_config.py",
+      "type": "file",
+      "name": "edge_proxy_config.py",
+      "filePath": "mcp_server/edge_proxy_config.py",
+      "summary": "门户代理配置加载器，由服务端直接读取 proxy_config.json 使任意启动方式生效，配置文件优先于环境变量回退。",
+      "tags": [
+        "configuration",
+        "proxy",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mcp_server/permissions.py",
+      "type": "file",
+      "name": "permissions.py",
+      "filePath": "mcp_server/permissions.py",
+      "summary": "云端平台写权限判定模块，用本地超级账号配置确认写权限并缓存业务 Token 到账号标识的映射，与 MCP 接入 Token 完全解耦。",
+      "tags": [
+        "authorization",
+        "security",
+        "caching",
+        "persistence"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:mcp_server/api_client.py:ProtocolApiClient",
+      "type": "class",
+      "name": "ProtocolApiClient",
+      "lineRange": [
+        35,
+        1323
+      ],
+      "summary": "规约管理后端全部 API 方法的承载类，统一注入 Token 与 Content-Type、统一处理各类异常并输出一致返回结构。",
+      "tags": [
+        "api-client",
+        "http",
+        "facade",
+        "service"
+      ],
+      "complexity": "complex",
+      "filePath": "mcp_server/api_client.py"
+    },
+    {
+      "id": "function:mcp_server/archiving/reference_config.py:load_reference_config",
+      "type": "function",
+      "name": "load_reference_config",
+      "lineRange": [
+        99,
+        121
+      ],
+      "summary": "从环境变量加载参考环境配置，密码保留原文而其余字段去空白。",
+      "tags": [
+        "configuration",
+        "factory",
+        "parsing"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/reference_config.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/reference_config.py:ReferenceConfigError",
+      "type": "class",
+      "name": "ReferenceConfigError",
+      "lineRange": [
+        27,
+        28
+      ],
+      "summary": "参考环境配置缺失或不完整时抛出的异常。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "configuration"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/reference_config.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/reference_config.py:ReferenceConfig",
+      "type": "class",
+      "name": "ReferenceConfig",
+      "lineRange": [
+        32,
+        96
+      ],
+      "summary": "固定参考环境来源配置模型，提供就绪判断、缺失即报错的校验与脱敏输出。",
+      "tags": [
+        "configuration",
+        "data-model",
+        "security"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/archiving/reference_config.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/reference_provider.py:ReferenceAuthError",
+      "type": "class",
+      "name": "ReferenceAuthError",
+      "lineRange": [
+        47,
+        48
+      ],
+      "summary": "参考云端认证不可用时抛出的异常，明确不回退用户会话 Token。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "authentication"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/reference_provider.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/reference_provider.py:ReferenceDictError",
+      "type": "class",
+      "name": "ReferenceDictError",
+      "lineRange": [
+        51,
+        62
+      ],
+      "summary": "参考字典读取的非认证类业务失败异常，携带后端原始返回供脱敏后排障。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "data-provider"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/archiving/reference_provider.py"
+    },
+    {
+      "id": "class:mcp_server/archiving/reference_provider.py:ReferenceDictProvider",
+      "type": "class",
+      "name": "ReferenceDictProvider",
+      "lineRange": [
+        65,
+        272
+      ],
+      "summary": "以依赖注入方式组合云端系统 Token 链与参考边缘签名链，读取品牌、型号、设备类型与通信方式等模板生成所需字典。",
+      "tags": [
+        "data-provider",
+        "dependency-injection",
+        "authentication",
+        "reference-environment"
+      ],
+      "complexity": "complex",
+      "filePath": "mcp_server/archiving/reference_provider.py"
+    },
+    {
+      "id": "function:mcp_server/edge_client.py:rsa_encrypt",
+      "type": "function",
+      "name": "rsa_encrypt",
+      "lineRange": [
+        116,
+        135
+      ],
+      "summary": "用 RSA PKCS1v15 公钥加密明文并返回 Base64 文本。",
+      "tags": [
+        "encryption",
+        "security",
+        "utility"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/edge_client.py"
+    },
+    {
+      "id": "class:mcp_server/edge_client.py:EdgeLinkState",
+      "type": "class",
+      "name": "EdgeLinkState",
+      "lineRange": [
+        62,
+        67
+      ],
+      "summary": "联通类操作结果的三态归一化枚举。",
+      "tags": [
+        "type-definition",
+        "enum",
+        "normalization"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/edge_client.py"
+    },
+    {
+      "id": "class:mcp_server/edge_client.py:EdgeStageState",
+      "type": "class",
+      "name": "EdgeStageState",
+      "lineRange": [
+        70,
+        85
+      ],
+      "summary": "覆盖成功、受理、HTTP 错误、超时与未配置五类阶段状态的枚举，用于所有业务调用的结果分类。",
+      "tags": [
+        "type-definition",
+        "enum",
+        "state-machine"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/edge_client.py"
+    },
+    {
+      "id": "class:mcp_server/edge_client.py:EdgeApiError",
+      "type": "class",
+      "name": "EdgeApiError",
+      "lineRange": [
+        88,
+        113
+      ],
+      "summary": "边缘后端调用异常，携带返回码、返回消息、HTTP 状态与原始上下文。",
+      "tags": [
+        "error-handling",
+        "exception",
+        "type-definition"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/edge_client.py"
+    },
+    {
+      "id": "class:mcp_server/edge_client.py:EdgeDeviceClient",
+      "type": "class",
+      "name": "EdgeDeviceClient",
+      "lineRange": [
+        138,
+        582
+      ],
+      "summary": "边缘建档后端最小签名客户端，负责 RSA 登录、五头签名调用、响应归一化以及联通类接口的短超时三态调用。",
+      "tags": [
+        "api-client",
+        "authentication",
+        "signature",
+        "service"
+      ],
+      "complexity": "complex",
+      "filePath": "mcp_server/edge_client.py"
+    },
+    {
+      "id": "function:mcp_server/edge_proxy_config.py:_load_from_file",
+      "type": "function",
+      "name": "_load_from_file",
+      "lineRange": [
+        26,
+        35
+      ],
+      "summary": "从配置文件读取代理地址，缺失、损坏或为空时返回空串。",
+      "tags": [
+        "configuration",
+        "filesystem",
+        "error-handling"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/edge_proxy_config.py"
+    },
+    {
+      "id": "function:mcp_server/edge_proxy_config.py:portal_proxy_api_url",
+      "type": "function",
+      "name": "portal_proxy_api_url",
+      "lineRange": [
+        38,
+        47
+      ],
+      "summary": "按配置文件优先、环境变量兼容回退的顺序返回门户代理地址。",
+      "tags": [
+        "configuration",
+        "proxy",
+        "accessor"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/edge_proxy_config.py"
+    },
+    {
+      "id": "function:mcp_server/permissions.py:_dig",
+      "type": "function",
+      "name": "_dig",
+      "lineRange": [
+        36,
+        58
+      ],
+      "summary": "在嵌套字典中按候选键优先级深度查找第一个非空字符串值。",
+      "tags": [
+        "utility",
+        "lookup",
+        "recursion"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/permissions.py"
+    },
+    {
+      "id": "function:mcp_server/permissions.py:extract_account_identity",
+      "type": "function",
+      "name": "extract_account_identity",
+      "lineRange": [
+        61,
+        77
+      ],
+      "summary": "从登录返回数据中提取稳定的 userId（缺失时退回 phone）与业务 Token，供超级账号匹配与缓存使用。",
+      "tags": [
+        "identity",
+        "parsing",
+        "authorization"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/permissions.py"
+    },
+    {
+      "id": "function:mcp_server/permissions.py:is_auth_expired",
+      "type": "function",
+      "name": "is_auth_expired",
+      "lineRange": [
+        80,
+        96
+      ],
+      "summary": "判断统一返回结构是否表示认证失效。",
+      "tags": [
+        "validation",
+        "authentication",
+        "utility"
+      ],
+      "complexity": "simple",
+      "filePath": "mcp_server/permissions.py"
+    },
+    {
+      "id": "class:mcp_server/permissions.py:SuperAccountConfig",
+      "type": "class",
+      "name": "SuperAccountConfig",
+      "lineRange": [
+        99,
+        158
+      ],
+      "summary": "本地超级账号配置，userId 或 phone 任一命中即视为具备云端写权限，配置缺失时视为无超级账号。",
+      "tags": [
+        "authorization",
+        "configuration",
+        "security"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/permissions.py"
+    },
+    {
+      "id": "class:mcp_server/permissions.py:BusinessTokenCache",
+      "type": "class",
+      "name": "BusinessTokenCache",
+      "lineRange": [
+        161,
+        271
+      ],
+      "summary": "云端业务 Token 到账号标识的本地缓存，支持写入、查询刷新、失效清理与最近使用查询，属不得分发的敏感运行态文件。",
+      "tags": [
+        "caching",
+        "persistence",
+        "security",
+        "session"
+      ],
+      "complexity": "moderate",
+      "filePath": "mcp_server/permissions.py"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:mcp_server/api_client.py",
+      "target": "class:mcp_server/api_client.py:ProtocolApiClient",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/api_client.py",
+      "target": "class:mcp_server/api_client.py:ProtocolApiClient",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_config.py",
+      "target": "function:mcp_server/archiving/reference_config.py:load_reference_config",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_config.py",
+      "target": "function:mcp_server/archiving/reference_config.py:load_reference_config",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_config.py",
+      "target": "class:mcp_server/archiving/reference_config.py:ReferenceConfigError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_config.py",
+      "target": "class:mcp_server/archiving/reference_config.py:ReferenceConfigError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_config.py",
+      "target": "class:mcp_server/archiving/reference_config.py:ReferenceConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_config.py",
+      "target": "class:mcp_server/archiving/reference_config.py:ReferenceConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_provider.py",
+      "target": "class:mcp_server/archiving/reference_provider.py:ReferenceAuthError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_provider.py",
+      "target": "class:mcp_server/archiving/reference_provider.py:ReferenceAuthError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_provider.py",
+      "target": "class:mcp_server/archiving/reference_provider.py:ReferenceDictError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_provider.py",
+      "target": "class:mcp_server/archiving/reference_provider.py:ReferenceDictError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_provider.py",
+      "target": "class:mcp_server/archiving/reference_provider.py:ReferenceDictProvider",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_provider.py",
+      "target": "class:mcp_server/archiving/reference_provider.py:ReferenceDictProvider",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/edge_client.py",
+      "target": "function:mcp_server/edge_client.py:rsa_encrypt",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_client.py",
+      "target": "function:mcp_server/edge_client.py:rsa_encrypt",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/edge_client.py",
+      "target": "class:mcp_server/edge_client.py:EdgeLinkState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_client.py",
+      "target": "class:mcp_server/edge_client.py:EdgeLinkState",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/edge_client.py",
+      "target": "class:mcp_server/edge_client.py:EdgeStageState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_client.py",
+      "target": "class:mcp_server/edge_client.py:EdgeStageState",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/edge_client.py",
+      "target": "class:mcp_server/edge_client.py:EdgeApiError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_client.py",
+      "target": "class:mcp_server/edge_client.py:EdgeApiError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/edge_client.py",
+      "target": "class:mcp_server/edge_client.py:EdgeDeviceClient",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_client.py",
+      "target": "class:mcp_server/edge_client.py:EdgeDeviceClient",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/edge_proxy_config.py",
+      "target": "function:mcp_server/edge_proxy_config.py:_load_from_file",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_proxy_config.py",
+      "target": "function:mcp_server/edge_proxy_config.py:_load_from_file",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/edge_proxy_config.py",
+      "target": "function:mcp_server/edge_proxy_config.py:portal_proxy_api_url",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_proxy_config.py",
+      "target": "function:mcp_server/edge_proxy_config.py:portal_proxy_api_url",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/permissions.py",
+      "target": "function:mcp_server/permissions.py:_dig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/permissions.py",
+      "target": "function:mcp_server/permissions.py:_dig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/permissions.py",
+      "target": "function:mcp_server/permissions.py:extract_account_identity",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/permissions.py",
+      "target": "function:mcp_server/permissions.py:extract_account_identity",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/permissions.py",
+      "target": "function:mcp_server/permissions.py:is_auth_expired",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/permissions.py",
+      "target": "function:mcp_server/permissions.py:is_auth_expired",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/permissions.py",
+      "target": "class:mcp_server/permissions.py:SuperAccountConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/permissions.py",
+      "target": "class:mcp_server/permissions.py:SuperAccountConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/permissions.py",
+      "target": "class:mcp_server/permissions.py:BusinessTokenCache",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/permissions.py",
+      "target": "class:mcp_server/permissions.py:BusinessTokenCache",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_config.py",
+      "target": "file:mcp_server/api_client.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_config.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_provider.py",
+      "target": "file:mcp_server/archiving/reference_config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_provider.py",
+      "target": "file:mcp_server/edge_client.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/reference_provider.py",
+      "target": "file:mcp_server/permissions.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_client.py",
+      "target": "file:mcp_server/edge_proxy_config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

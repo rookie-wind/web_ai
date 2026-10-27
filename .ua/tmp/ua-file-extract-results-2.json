@@ -1,0 +1,1981 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 8,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 8,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 8,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "mcp_server/archiving/converter.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 96,
+      "nonEmptyLines": 79,
+      "functions": [
+        {
+          "name": "convert_comm_address",
+          "startLine": 35,
+          "endLine": 72,
+          "params": [
+            "identifier"
+          ]
+        },
+        {
+          "name": "validate_device_address",
+          "startLine": 75,
+          "endLine": 96,
+          "params": [
+            "device_address"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AddressConversionError",
+          "startLine": 31,
+          "endLine": 32,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AddressConversionError",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "convert_comm_address",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "validate_device_address",
+          "line": 75,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "convert_comm_address",
+          "callee": "AddressConversionError",
+          "lineNumber": 52
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "str(identifier).strip",
+          "lineNumber": 53
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "str",
+          "lineNumber": 53
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "barcode.isdigit",
+          "lineNumber": 54
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "AddressConversionError",
+          "lineNumber": 55
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "len",
+          "lineNumber": 56
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "AddressConversionError",
+          "lineNumber": 57
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "len",
+          "lineNumber": 58
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "\"\".join",
+          "lineNumber": 61
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "enumerate",
+          "lineNumber": 62
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "len",
+          "lineNumber": 64
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "len",
+          "lineNumber": 64
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "AddressConversionError",
+          "lineNumber": 65
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "len",
+          "lineNumber": 68
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "AddressConversionError",
+          "lineNumber": 69
+        },
+        {
+          "caller": "convert_comm_address",
+          "callee": "len",
+          "lineNumber": 70
+        },
+        {
+          "caller": "validate_device_address",
+          "callee": "AddressConversionError",
+          "lineNumber": 88
+        },
+        {
+          "caller": "validate_device_address",
+          "callee": "str(device_address).strip",
+          "lineNumber": 89
+        },
+        {
+          "caller": "validate_device_address",
+          "callee": "str",
+          "lineNumber": 89
+        },
+        {
+          "caller": "validate_device_address",
+          "callee": "addr.isdigit",
+          "lineNumber": 90
+        },
+        {
+          "caller": "validate_device_address",
+          "callee": "AddressConversionError",
+          "lineNumber": 91
+        },
+        {
+          "caller": "validate_device_address",
+          "callee": "len",
+          "lineNumber": 92
+        },
+        {
+          "caller": "validate_device_address",
+          "callee": "AddressConversionError",
+          "lineNumber": 93
+        },
+        {
+          "caller": "validate_device_address",
+          "callee": "len",
+          "lineNumber": 94
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 21,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/base.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 242,
+      "nonEmptyLines": 202,
+      "functions": [
+        {
+          "name": "assemble_auth_param",
+          "startLine": 72,
+          "endLine": 128,
+          "params": [
+            "ip",
+            "port",
+            "comm_port",
+            "ip_ports",
+            "password"
+          ]
+        },
+        {
+          "name": "encode_auth_param_hex",
+          "startLine": 131,
+          "endLine": 160,
+          "params": [
+            "ip",
+            "port"
+          ]
+        },
+        {
+          "name": "normalize_auth_param_for_deploy",
+          "startLine": 163,
+          "endLine": 191,
+          "params": [
+            "value"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileResult",
+          "startLine": 45,
+          "endLine": 69,
+          "methods": [
+            "ok"
+          ],
+          "properties": [
+            "errors",
+            "warnings",
+            "base_payload",
+            "ext_infos",
+            "deploy_item_body",
+            "proxy_comm_type",
+            "link_blocked"
+          ]
+        },
+        {
+          "name": "DeviceProfile",
+          "startLine": 194,
+          "endLine": 242,
+          "methods": [
+            "resolve",
+            "_undeclared_columns"
+          ],
+          "properties": [
+            "device_type",
+            "device_type_id",
+            "profile_name",
+            "is_gateway",
+            "supported",
+            "online_check_method"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileResult",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "assemble_auth_param",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "encode_auth_param_hex",
+          "line": 131,
+          "isDefault": false
+        },
+        {
+          "name": "normalize_auth_param_for_deploy",
+          "line": 163,
+          "isDefault": false
+        },
+        {
+          "name": "DeviceProfile",
+          "line": 194,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "assemble_auth_param",
+          "callee": "(ip or \"\").strip",
+          "lineNumber": 103
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "(port or \"\").strip",
+          "lineNumber": 104
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "str",
+          "lineNumber": 105
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "password.strip",
+          "lineNumber": 106
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "ValueError",
+          "lineNumber": 107
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "ValueError",
+          "lineNumber": 114
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "ip.split",
+          "lineNumber": 117
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "len",
+          "lineNumber": 118
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "all",
+          "lineNumber": 118
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "p.isdigit",
+          "lineNumber": 118
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "int",
+          "lineNumber": 118
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "ValueError",
+          "lineNumber": 119
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "port.isdigit",
+          "lineNumber": 120
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "ValueError",
+          "lineNumber": 121
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "\",\".join",
+          "lineNumber": 122
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "ValueError",
+          "lineNumber": 124
+        },
+        {
+          "caller": "assemble_auth_param",
+          "callee": "password.strip",
+          "lineNumber": 128
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "(ip or \"\").strip().split",
+          "lineNumber": 149
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "(ip or \"\").strip",
+          "lineNumber": 149
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "len",
+          "lineNumber": 150
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "all",
+          "lineNumber": 150
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "p.isdigit",
+          "lineNumber": 151
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "int",
+          "lineNumber": 151
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "ValueError",
+          "lineNumber": 153
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "(port or \"\").strip",
+          "lineNumber": 154
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "port_text.isdigit",
+          "lineNumber": 155
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "ValueError",
+          "lineNumber": 156
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "int",
+          "lineNumber": 157
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "ValueError",
+          "lineNumber": 159
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "\"\".join",
+          "lineNumber": 160
+        },
+        {
+          "caller": "encode_auth_param_hex",
+          "callee": "int",
+          "lineNumber": 160
+        },
+        {
+          "caller": "normalize_auth_param_for_deploy",
+          "callee": "(value or \"\").strip",
+          "lineNumber": 178
+        },
+        {
+          "caller": "normalize_auth_param_for_deploy",
+          "callee": "text.split",
+          "lineNumber": 182
+        },
+        {
+          "caller": "normalize_auth_param_for_deploy",
+          "callee": "len",
+          "lineNumber": 183
+        },
+        {
+          "caller": "normalize_auth_param_for_deploy",
+          "callee": "encode_auth_param_hex",
+          "lineNumber": 185
+        },
+        {
+          "caller": "normalize_auth_param_for_deploy",
+          "callee": "\".\".join",
+          "lineNumber": 185
+        },
+        {
+          "caller": "normalize_auth_param_for_deploy",
+          "callee": "len",
+          "lineNumber": 189
+        },
+        {
+          "caller": "normalize_auth_param_for_deploy",
+          "callee": "all",
+          "lineNumber": 189
+        },
+        {
+          "caller": "normalize_auth_param_for_deploy",
+          "callee": "text.lower",
+          "lineNumber": 190
+        },
+        {
+          "caller": "_undeclared_columns",
+          "callee": "sorted",
+          "lineNumber": 240
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 3,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/gateway_8163.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 112,
+      "nonEmptyLines": 97,
+      "classes": [
+        {
+          "name": "Gateway8163Profile",
+          "startLine": 25,
+          "endLine": 112,
+          "methods": [
+            "resolve"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Gateway8163Profile",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "resolve",
+          "callee": "ProfileResult",
+          "lineNumber": 44
+        },
+        {
+          "caller": "resolve",
+          "callee": "self._undeclared_columns",
+          "lineNumber": 48
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail[col]).strip",
+          "lineNumber": 49
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 49
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 50
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(node.comm_address or \"\").strip",
+          "lineNumber": 53
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 53
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(node.identifier or \"\").strip",
+          "lineNumber": 54
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 54
+        },
+        {
+          "caller": "resolve",
+          "callee": "validate_device_address",
+          "lineNumber": 57
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 59
+        },
+        {
+          "caller": "resolve",
+          "callee": "convert_comm_address",
+          "lineNumber": 63
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 65
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 67
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"proxyCommType\", \"\") or \"\").strip",
+          "lineNumber": 74
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 74
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 74
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.warnings.append",
+          "lineNumber": 76
+        },
+        {
+          "caller": "resolve",
+          "callee": "_COMM_MODE_CODE_MAP.get",
+          "lineNumber": 83
+        },
+        {
+          "caller": "resolve",
+          "callee": "_COMM_MODE_CODE_MAP.values",
+          "lineNumber": 84
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 87
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 94
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(node.identifier).strip",
+          "lineNumber": 104
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 104
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.warnings.append",
+          "lineNumber": 109
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/meter_lighting.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 21,
+      "classes": [
+        {
+          "name": "MeterLightingProfile",
+          "startLine": 19,
+          "endLine": 30,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "MeterLightingProfile",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/meter_pdb.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 21,
+      "classes": [
+        {
+          "name": "MeterPdbProfile",
+          "startLine": 19,
+          "endLine": 30,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "MeterPdbProfile",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/meter_xlba.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 503,
+      "nonEmptyLines": 464,
+      "functions": [
+        {
+          "name": "_text",
+          "startLine": 59,
+          "endLine": 61,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "_map_code",
+          "startLine": 64,
+          "endLine": 85,
+          "params": [
+            "raw",
+            "mapping",
+            "default"
+          ]
+        },
+        {
+          "name": "_to_int",
+          "startLine": 88,
+          "endLine": 103,
+          "params": [
+            "value",
+            "default"
+          ]
+        },
+        {
+          "name": "_compute_fee_num",
+          "startLine": 106,
+          "endLine": 128,
+          "params": [
+            "baud_code",
+            "stop_code",
+            "check_code",
+            "data_code"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "MeterXlbaProfile",
+          "startLine": 131,
+          "endLine": 503,
+          "methods": [
+            "resolve"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_text",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "_map_code",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "_to_int",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "_compute_fee_num",
+          "line": 106,
+          "isDefault": false
+        },
+        {
+          "name": "MeterXlbaProfile",
+          "line": 131,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_text",
+          "callee": "str(value).strip",
+          "lineNumber": 61
+        },
+        {
+          "caller": "_text",
+          "callee": "str",
+          "lineNumber": 61
+        },
+        {
+          "caller": "_map_code",
+          "callee": "_text",
+          "lineNumber": 77
+        },
+        {
+          "caller": "_map_code",
+          "callee": "str",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_map_code",
+          "callee": "_text",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_map_code",
+          "callee": "mapping.items",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_map_code",
+          "callee": "normalized.values",
+          "lineNumber": 83
+        },
+        {
+          "caller": "_map_code",
+          "callee": "ValueError",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_to_int",
+          "callee": "int",
+          "lineNumber": 101
+        },
+        {
+          "caller": "_to_int",
+          "callee": "str(value).strip",
+          "lineNumber": 101
+        },
+        {
+          "caller": "_to_int",
+          "callee": "str",
+          "lineNumber": 101
+        },
+        {
+          "caller": "_compute_fee_num",
+          "callee": "int",
+          "lineNumber": 122
+        },
+        {
+          "caller": "_compute_fee_num",
+          "callee": "int",
+          "lineNumber": 123
+        },
+        {
+          "caller": "_compute_fee_num",
+          "callee": "int",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_compute_fee_num",
+          "callee": "int",
+          "lineNumber": 125
+        },
+        {
+          "caller": "resolve",
+          "callee": "ProfileResult",
+          "lineNumber": 164
+        },
+        {
+          "caller": "resolve",
+          "callee": "dict",
+          "lineNumber": 165
+        },
+        {
+          "caller": "resolve",
+          "callee": "self._undeclared_columns",
+          "lineNumber": 166
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 167
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 168
+        },
+        {
+          "caller": "resolve",
+          "callee": "getattr",
+          "lineNumber": 181
+        },
+        {
+          "caller": "resolve",
+          "callee": "set",
+          "lineNumber": 191
+        },
+        {
+          "caller": "resolve",
+          "callee": "set",
+          "lineNumber": 191
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 192
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 192
+        },
+        {
+          "caller": "resolve",
+          "callee": "aliases.get",
+          "lineNumber": 192
+        },
+        {
+          "caller": "resolve",
+          "callee": "COMM_PORT_CODE_MAP.get",
+          "lineNumber": 197
+        },
+        {
+          "caller": "resolve",
+          "callee": "_map_code",
+          "lineNumber": 199
+        },
+        {
+          "caller": "resolve",
+          "callee": "len",
+          "lineNumber": 200
+        },
+        {
+          "caller": "resolve",
+          "callee": "set",
+          "lineNumber": 200
+        },
+        {
+          "caller": "resolve",
+          "callee": "ValueError",
+          "lineNumber": 201
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 204
+        },
+        {
+          "caller": "resolve",
+          "callee": "aliases.values",
+          "lineNumber": 206
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.pop",
+          "lineNumber": 208
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 210
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 210
+        },
+        {
+          "caller": "resolve",
+          "callee": "isinstance",
+          "lineNumber": 213
+        },
+        {
+          "caller": "resolve",
+          "callee": "int",
+          "lineNumber": 213
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 215
+        },
+        {
+          "caller": "resolve",
+          "callee": "int",
+          "lineNumber": 215
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 217
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 218
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 218
+        },
+        {
+          "caller": "resolve",
+          "callee": "fee_num.isdecimal",
+          "lineNumber": 219
+        },
+        {
+          "caller": "resolve",
+          "callee": "int",
+          "lineNumber": 219
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 220
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 225
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 225
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 226
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 226
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 227
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 227
+        },
+        {
+          "caller": "resolve",
+          "callee": "assemble_auth_param",
+          "lineNumber": 229
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 231
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 231
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 235
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.warnings.append",
+          "lineNumber": 243
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 253
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 253
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 253
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.warnings.append",
+          "lineNumber": 256
+        },
+        {
+          "caller": "resolve",
+          "callee": "int",
+          "lineNumber": 262
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 266
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(node.comm_address or \"\").strip",
+          "lineNumber": 273
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 273
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"commAddr\", \"\") or \"\").strip",
+          "lineNumber": 275
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 275
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 275
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(node.identifier or \"\").strip",
+          "lineNumber": 277
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 277
+        },
+        {
+          "caller": "resolve",
+          "callee": "validate_device_address",
+          "lineNumber": 280
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 282
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 285
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 290
+        },
+        {
+          "caller": "resolve",
+          "callee": "_map_code",
+          "lineNumber": 294
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 295
+        },
+        {
+          "caller": "resolve",
+          "callee": "getattr",
+          "lineNumber": 296
+        },
+        {
+          "caller": "resolve",
+          "callee": "_map_code",
+          "lineNumber": 300
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 301
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"baudRate\", \"\") or \"\").strip",
+          "lineNumber": 308
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 308
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 308
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"stopDigit\", \"\") or \"\").strip",
+          "lineNumber": 309
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 309
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 309
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"checkDigit\", \"\") or \"\").strip",
+          "lineNumber": 310
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 310
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 310
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"dataDigit\", \"\") or \"\").strip",
+          "lineNumber": 311
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 311
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 311
+        },
+        {
+          "caller": "resolve",
+          "callee": "sum",
+          "lineNumber": 314
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.warnings.append",
+          "lineNumber": 316
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 320
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 321
+        },
+        {
+          "caller": "resolve",
+          "callee": "_map_code",
+          "lineNumber": 331
+        },
+        {
+          "caller": "resolve",
+          "callee": "_map_code",
+          "lineNumber": 332
+        },
+        {
+          "caller": "resolve",
+          "callee": "_map_code",
+          "lineNumber": 333
+        },
+        {
+          "caller": "resolve",
+          "callee": "_map_code",
+          "lineNumber": 335
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"protocolNumber\", \"\") or \"\").strip",
+          "lineNumber": 336
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 336
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 336
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"protocolNumber\", \"\") or \"\").strip",
+          "lineNumber": 338
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 338
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 338
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(\r\n                detail.get(\"proxyCommPort\", \"\") or detail.get(\"comPort\", \"\")\r\n                or \"\"\r\n            ).strip",
+          "lineNumber": 339
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 339
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 340
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 340
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 348
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 348
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 351
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(node.identifier).strip",
+          "lineNumber": 353
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 353
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"collectorAddress\", \"\") or \"\").strip",
+          "lineNumber": 356
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 356
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 356
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 365
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 365
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 366
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 366
+        },
+        {
+          "caller": "resolve",
+          "callee": "getattr",
+          "lineNumber": 369
+        },
+        {
+          "caller": "resolve",
+          "callee": "getattr",
+          "lineNumber": 370
+        },
+        {
+          "caller": "resolve",
+          "callee": "_map_code",
+          "lineNumber": 373
+        },
+        {
+          "caller": "resolve",
+          "callee": "ValueError",
+          "lineNumber": 376
+        },
+        {
+          "caller": "resolve",
+          "callee": "brand_map.items",
+          "lineNumber": 378
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 378
+        },
+        {
+          "caller": "resolve",
+          "callee": "len",
+          "lineNumber": 382
+        },
+        {
+          "caller": "resolve",
+          "callee": "ValueError",
+          "lineNumber": 383
+        },
+        {
+          "caller": "resolve",
+          "callee": "_map_code",
+          "lineNumber": 384
+        },
+        {
+          "caller": "resolve",
+          "callee": "model_map.get",
+          "lineNumber": 384
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 385
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 385
+        },
+        {
+          "caller": "resolve",
+          "callee": "ValueError",
+          "lineNumber": 387
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 389
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 393
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 393
+        },
+        {
+          "caller": "resolve",
+          "callee": "model_map.get",
+          "lineNumber": 403
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"userBigNo\", \"\") or \"\").strip",
+          "lineNumber": 415
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 415
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 415
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(user_big_no).zfill",
+          "lineNumber": 417
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 417
+        },
+        {
+          "caller": "resolve",
+          "callee": "base_payload.get",
+          "lineNumber": 431
+        },
+        {
+          "caller": "resolve",
+          "callee": "base_payload.get",
+          "lineNumber": 432
+        },
+        {
+          "caller": "resolve",
+          "callee": "base_payload.get",
+          "lineNumber": 433
+        },
+        {
+          "caller": "resolve",
+          "callee": "ext_infos.get",
+          "lineNumber": 434
+        },
+        {
+          "caller": "resolve",
+          "callee": "ext_infos.get",
+          "lineNumber": 435
+        },
+        {
+          "caller": "resolve",
+          "callee": "ext_infos.get",
+          "lineNumber": 436
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 439
+        },
+        {
+          "caller": "resolve",
+          "callee": "sources.items",
+          "lineNumber": 440
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 441
+        },
+        {
+          "caller": "resolve",
+          "callee": "int",
+          "lineNumber": 445
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 447
+        },
+        {
+          "caller": "resolve",
+          "callee": "encode_auth_param_hex",
+          "lineNumber": 460
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 464
+        },
+        {
+          "caller": "resolve",
+          "callee": "normalize_auth_param_for_deploy",
+          "lineNumber": 467
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 468
+        },
+        {
+          "caller": "resolve",
+          "callee": "item_body.get",
+          "lineNumber": 468
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 471
+        },
+        {
+          "caller": "resolve",
+          "callee": "base_payload.get",
+          "lineNumber": 471
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"baudRate\", \"\") or \"\").strip",
+          "lineNumber": 478
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 478
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 478
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"stopDigit\", \"\") or \"\").strip",
+          "lineNumber": 479
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 479
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 479
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"checkDigit\", \"\") or \"\").strip",
+          "lineNumber": 480
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 480
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 480
+        },
+        {
+          "caller": "resolve",
+          "callee": "str(detail.get(\"dataDigit\", \"\") or \"\").strip",
+          "lineNumber": 481
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 481
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 481
+        },
+        {
+          "caller": "resolve",
+          "callee": "_text",
+          "lineNumber": 482
+        },
+        {
+          "caller": "resolve",
+          "callee": "detail.get",
+          "lineNumber": 482
+        },
+        {
+          "caller": "resolve",
+          "callee": "_map_code",
+          "lineNumber": 485
+        },
+        {
+          "caller": "resolve",
+          "callee": "base_payload.get",
+          "lineNumber": 486
+        },
+        {
+          "caller": "resolve",
+          "callee": "base_payload.get",
+          "lineNumber": 487
+        },
+        {
+          "caller": "resolve",
+          "callee": "base_payload.get",
+          "lineNumber": 488
+        },
+        {
+          "caller": "resolve",
+          "callee": "_compute_fee_num",
+          "lineNumber": 490
+        },
+        {
+          "caller": "resolve",
+          "callee": "_to_int",
+          "lineNumber": 495
+        },
+        {
+          "caller": "resolve",
+          "callee": "int",
+          "lineNumber": 499
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 500
+        },
+        {
+          "caller": "resolve",
+          "callee": "str",
+          "lineNumber": 501
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 5,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/registry.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 209,
+      "nonEmptyLines": 171,
+      "functions": [
+        {
+          "name": "_build_default_registry",
+          "startLine": 192,
+          "endLine": 205,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileLookupError",
+          "startLine": 29,
+          "endLine": 30,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "VirtualGatewayPlaceholderProfile",
+          "startLine": 33,
+          "endLine": 65,
+          "methods": [
+            "resolve"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ProfileRegistry",
+          "startLine": 68,
+          "endLine": 189,
+          "methods": [
+            "__init__",
+            "register",
+            "get",
+            "resolve",
+            "sheet_spec",
+            "supported_types"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileLookupError",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "VirtualGatewayPlaceholderProfile",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "ProfileRegistry",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "_build_default_registry",
+          "line": 192,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "resolve",
+          "callee": "ProfileResult",
+          "lineNumber": 58
+        },
+        {
+          "caller": "resolve",
+          "callee": "result.errors.append",
+          "lineNumber": 59
+        },
+        {
+          "caller": "resolve",
+          "callee": "getattr",
+          "lineNumber": 61
+        },
+        {
+          "caller": "register",
+          "callee": "str",
+          "lineNumber": 89
+        },
+        {
+          "caller": "get",
+          "callee": "str",
+          "lineNumber": 105
+        },
+        {
+          "caller": "get",
+          "callee": "str",
+          "lineNumber": 106
+        },
+        {
+          "caller": "resolve",
+          "callee": "self.get",
+          "lineNumber": 122
+        },
+        {
+          "caller": "resolve",
+          "callee": "getattr",
+          "lineNumber": 129
+        },
+        {
+          "caller": "sheet_spec",
+          "callee": "get_sheet_spec",
+          "lineNumber": 155
+        },
+        {
+          "caller": "supported_types",
+          "callee": "set",
+          "lineNumber": 164
+        },
+        {
+          "caller": "supported_types",
+          "callee": "list",
+          "lineNumber": 169
+        },
+        {
+          "caller": "supported_types",
+          "callee": "self._by_name.values",
+          "lineNumber": 169
+        },
+        {
+          "caller": "supported_types",
+          "callee": "list",
+          "lineNumber": 169
+        },
+        {
+          "caller": "supported_types",
+          "callee": "self._by_id.values",
+          "lineNumber": 169
+        },
+        {
+          "caller": "supported_types",
+          "callee": "seen.add",
+          "lineNumber": 172
+        },
+        {
+          "caller": "supported_types",
+          "callee": "get_sheet_spec",
+          "lineNumber": 173
+        },
+        {
+          "caller": "supported_types",
+          "callee": "out.append",
+          "lineNumber": 174
+        },
+        {
+          "caller": "supported_types",
+          "callee": "getattr",
+          "lineNumber": 179
+        },
+        {
+          "caller": "supported_types",
+          "callee": "dict",
+          "lineNumber": 182
+        },
+        {
+          "caller": "supported_types",
+          "callee": "spec.unverified_fields",
+          "lineNumber": 185
+        },
+        {
+          "caller": "_build_default_registry",
+          "callee": "ProfileRegistry",
+          "lineNumber": 199
+        },
+        {
+          "caller": "_build_default_registry",
+          "callee": "registry.register",
+          "lineNumber": 200
+        },
+        {
+          "caller": "_build_default_registry",
+          "callee": "Gateway8163Profile",
+          "lineNumber": 200
+        },
+        {
+          "caller": "_build_default_registry",
+          "callee": "registry.register",
+          "lineNumber": 201
+        },
+        {
+          "caller": "_build_default_registry",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 201
+        },
+        {
+          "caller": "_build_default_registry",
+          "callee": "registry.register",
+          "lineNumber": 202
+        },
+        {
+          "caller": "_build_default_registry",
+          "callee": "MeterLightingProfile",
+          "lineNumber": 202
+        },
+        {
+          "caller": "_build_default_registry",
+          "callee": "registry.register",
+          "lineNumber": 203
+        },
+        {
+          "caller": "_build_default_registry",
+          "callee": "MeterPdbProfile",
+          "lineNumber": 203
+        },
+        {
+          "caller": "_build_default_registry",
+          "callee": "registry.register",
+          "lineNumber": 204
+        },
+        {
+          "caller": "_build_default_registry",
+          "callee": "VirtualGatewayPlaceholderProfile",
+          "lineNumber": 204
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 4,
+        "functionCount": 1,
+        "classCount": 3
+      }
+    }
+  ]
+}

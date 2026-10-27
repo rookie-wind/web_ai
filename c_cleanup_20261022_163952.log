@@ -1,0 +1,25 @@
+﻿[16:39:52] WARN   Not elevated. Tier D items that need admin will be skipped or partially fail.
+[16:39:53] INFO   Skip A1 Recycle Bin: nothing to clean
+[16:39:53] INFO   Skip A2 LLDB module cache: nothing to clean
+[16:39:53] WARN   Emptied 0 GB : User TEMP  (skipped 32 locked files)
+[16:39:53] INFO   Skip A4 Gradle caches (deps + build): nothing to clean
+[16:39:53] INFO   Skip A10 Gradle wrapper distributions: nothing to clean
+[16:39:53] INFO   Skip A5 Gradle daemon logs: nothing to clean
+[16:39:53] INFO   Skip A6 NuGet global packages: nothing to clean
+[16:39:53] INFO   Skip A7 npm cache: nothing to clean
+[16:39:56] INFO   Skip A8 pip wheel cache: nothing to clean
+[16:39:56] INFO   Skip A9 Windows Error Reporting queue: nothing to clean
+[16:39:56] INFO   Cache redirection target: E:\dev-cache
+[16:39:56] WARN   Target drive E: has only 0 GB free. Consider a different location.
+[16:39:56] INFO   Skip redirect Gradle: source missing (C:\Users\song\.gradle)
+[16:40:23] OK     User env GRADLE_USER_HOME = E:\dev-cache\gradle
+[16:40:23] INFO   Skip redirect NuGet: source missing (C:\Users\song\.nuget)
+[16:40:51] OK     User env NUGET_PACKAGES = E:\dev-cache\nuget
+[16:40:51] INFO   Moving pip cache: C:\Users\song\AppData\Local\pip\Cache -> E:\dev-cache\pip-cache
+[16:41:07] OK     Moved pip cache (robocopy exit=0)
+[16:41:35] OK     User env PIP_CACHE_DIR = E:\dev-cache\pip-cache
+[16:41:35] INFO   Moving npm cache: C:\Users\song\AppData\Local\npm-cache -> E:\dev-cache\npm-cache
+[16:41:35] OK     Moved npm cache (robocopy exit=0)
+[16:41:40] OK     npm config set cache = E:\dev-cache\npm-cache
+[16:41:40] INFO   Moving uv cache: C:\Users\song\AppData\Local\uv -> E:\dev-cache\uv
+[16:42:46] OK     Moved uv cache (robocopy exit=-1073741510)

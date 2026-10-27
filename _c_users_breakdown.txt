@@ -1,0 +1,167 @@
+﻿=== User profile subfolder sizes ===
+AppData                                       61.64 GB
+Documents                                     50.34 GB
+.lldb                                          4.00 GB
+.gradle                                        3.73 GB
+Downloads                                      2.79 GB
+.nuget                                         2.10 GB
+.vscode                                        1.51 GB
+.trae-cn                                       0.79 GB
+.understand-anything                           0.54 GB
+.understand-anything-plugin                    0.48 GB
+.lingma                                        0.22 GB
+Desktop                                        0.19 GB
+.marscode                                      0.18 GB
+.qoder                                         0.16 GB
+.qodersec                                      0.16 GB
+pipx                                           0.15 GB
+WPS Cloud Files                                0.09 GB
+.EasyOCR                                       0.08 GB
+.local                                         0.07 GB
+.openjfx                                       0.07 GB
+.comate-engine                                 0.07 GB
+.agent-reach-venv                              0.06 GB
+source                                         0.05 GB
+AndroidStudioProjects                          0.05 GB
+.javacpp                                       0.03 GB
+.cache                                         0.02 GB
+.pca                                           0.02 GB
+.claude                                        0.01 GB
+mcp-pandoc                                     0.00 GB
+Links                                          0.00 GB
+SendTo                                         0.00 GB
+Local Settings                                 0.00 GB
+downloadtemp                                   0.00 GB
+「开始」菜单                                         0.00 GB
+Favorites                                      0.00 GB
+WindowsPcManager                               0.00 GB
+IntelGraphicsProfiles                          0.00 GB
+temp                                           0.00 GB
+Templates                                      0.00 GB
+Postman                                        0.00 GB
+PrintHood                                      0.00 GB
+Searches                                       0.00 GB
+Saved Games                                    0.00 GB
+Recent                                         0.00 GB
+My Documents                                   0.00 GB
+Music                                          0.00 GB
+Muse Hub                                       0.00 GB
+NetHood                                        0.00 GB
+Pictures                                       0.00 GB
+Videos                                         0.00 GB
+OneDrive                                       0.00 GB
+.icube-remote-ssh                              0.00 GB
+.dotnet                                        0.00 GB
+.designer                                      0.00 GB
+.ipython                                       0.00 GB
+.matplotlib                                    0.00 GB
+.m2                                            0.00 GB
+.librarymanager                                0.00 GB
+.chocolatey                                    0.00 GB
+.android                                       0.00 GB
+.ai_completion                                 0.00 GB
+.comate                                        0.00 GB
+.copilot                                       0.00 GB
+.continue                                      0.00 GB
+.config                                        0.00 GB
+.mem0                                          0.00 GB
+3D Objects                                     0.00 GB
+.vscode-shared                                 0.00 GB
+.agent-reach                                   0.00 GB
+Application Data                               0.00 GB
+copytranslator                                 0.00 GB
+Cookies                                        0.00 GB
+Contacts                                       0.00 GB
+.redhat                                        0.00 GB
+.prosysopc                                     0.00 GB
+.ollama                                        0.00 GB
+.ssh                                           0.00 GB
+.trae                                          0.00 GB
+.templateengine                                0.00 GB
+.streamlit                                     0.00 GB
+
+=== AppData\Local top subfolders ===
+Android                                       12.03 GB
+Microsoft                                      7.62 GB
+Programs                                       4.36 GB
+Kingsoft                                       2.69 GB
+ms-playwright                                  1.66 GB
+sogoupdf                                       1.02 GB
+Postman                                        0.88 GB
+Packages                                       0.83 GB
+Google                                         0.57 GB
+GitHubDesktop                                  0.53 GB
+NuGet                                          0.47 GB
+ima.copilot                                    0.47 GB
+pnpm                                           0.45 GB
+uv                                             0.39 GB
+omniroute-desktop-updater                      0.30 GB
+javasharedresources                            0.29 GB
+markany-updater                                0.24 GB
+npm-cache                                      0.16 GB
+authorwrite-updater                            0.12 GB
+Everything                                     0.10 GB
+flutter_webview_windows                        0.10 GB
+BypassRuntm                                    0.10 GB
+WinSparkle                                     0.09 GB
+wonderpen-updater                              0.09 GB
+Temp                                           0.08 GB
+Thunder Network                                0.08 GB
+HHD Software                                   0.07 GB
+kfastpic_sogou                                 0.03 GB
+cache                                          0.03 GB
+Tencent                                        0.02 GB
+
+=== AppData\Roaming top subfolders ===
+Tencent                                        5.22 GB
+TRAE SOLO CN                                   4.69 GB
+Python                                         3.38 GB
+kingsoft                                       3.23 GB
+Qoder                                          2.75 GB
+npm                                            2.54 GB
+Code                                           1.05 GB
+feiq                                           0.64 GB
+com.wonderidea.motion                          0.51 GB
+Trae CN                                        0.28 GB
+comate                                         0.16 GB
+ynote-desktop                                  0.11 GB
+ollama app.exe                                 0.10 GB
+RWKV-Runner_windows_x64.exe                    0.08 GB
+Postman                                        0.07 GB
+MQTTX                                          0.07 GB
+uv                                             0.06 GB
+baidunetdisk                                   0.05 GB
+LdRedirect                                     0.04 GB
+daily-stock-analysis-desktop                   0.03 GB
+
+=== AppData\LocalLow top subfolders ===
+SogouPY                                        0.28 GB
+Intel                                          0.02 GB
+Temp                                           0.00 GB
+Thunder Network                                0.00 GB
+Vector                                         0.00 GB
+MSLiveStickerWhiteList                         0.00 GB
+Microsoft                                      0.00 GB
+SogouPY.users                                  0.00 GB
+
+=== ProgramData top subfolders ===
+Microsoft                                      2.28 GB
+Package Cache                                  1.56 GB
+Tencent                                        0.54 GB
+{A5ABB6D9-DA0A-45CD-8996-DD787D7D5EFB}         0.40 GB
+SogouInput                                     0.13 GB
+SGAIAssistant                                  0.11 GB
+chocolatey                                     0.08 GB
+Oray                                           0.07 GB
+Vector                                         0.06 GB
+ProtocolAgent                                  0.06 GB
+{272DBCCE-4A66-4F0E-AE03-A0CD43A62627}         0.03 GB
+CodeMeter                                      0.02 GB
+USOShared                                      0.02 GB
+{F963A506-FD23-4AE1-95FB-B134E8E6541B}         0.02 GB
+boost_interprocess                             0.02 GB
+Windows Master Store                           0.01 GB
+USOPrivate                                     0.01 GB
+桌面                                             0.00 GB
+Templates                                      0.00 GB
+SQLite Expert                                  0.00 GB

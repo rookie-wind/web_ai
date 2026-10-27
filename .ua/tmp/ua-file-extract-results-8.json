@@ -1,0 +1,1978 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 25,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 5,
+      "failed": 0,
+      "skipped": 20
+    }
+  },
+  "results": [
+    {
+      "path": "agent_assets/skills/http-conversion/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 585,
+      "nonEmptyLines": 453,
+      "sections": [
+        {
+          "heading": "HTTP 协议转换配置生成",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "引擎架构",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "配置文件格式（vpp_http_config.load.c 读取）",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "根对象",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "Token 配置",
+          "level": 3,
+          "line": 45
+        },
+        {
+          "heading": "API 配置",
+          "level": 3,
+          "line": 57
+        },
+        {
+          "heading": "body_params / data_mappings 规则字段",
+          "level": 3,
+          "line": 77
+        },
+        {
+          "heading": "工作流程（11 步，必须按序执行）",
+          "level": 2,
+          "line": 89
+        },
+        {
+          "heading": "Step 0: 文档预处理（条件步骤）",
+          "level": 3,
+          "line": 109
+        },
+        {
+          "heading": "Step 1: 分析源协议（第三方 HTTP/REST）",
+          "level": 3,
+          "line": 119
+        },
+        {
+          "heading": "Step 2: 分析目标协议（内部 MQTT）",
+          "level": 3,
+          "line": 136
+        },
+        {
+          "heading": "Step 2.5: 确定需要上报的数据项",
+          "level": 3,
+          "line": 147
+        },
+        {
+          "heading": "2.5.1 列出目标数据项",
+          "level": 4,
+          "line": 151
+        },
+        {
+          "heading": "2.5.2 查询源原子标签",
+          "level": 4,
+          "line": 168
+        },
+        {
+          "heading": "Step 3: 提取映射信息",
+          "level": 3,
+          "line": 222
+        },
+        {
+          "heading": "Step 4: 加载 protocol-conversion 获取映射规则",
+          "level": 3,
+          "line": 248
+        },
+        {
+          "heading": "Step 5: 输出结构确认报告",
+          "level": 3,
+          "line": 261
+        },
+        {
+          "heading": "Step 6: 等待用户确认",
+          "level": 3,
+          "line": 315
+        },
+        {
+          "heading": "Step 7: 生成 JSON 配置",
+          "level": 3,
+          "line": 319
+        },
+        {
+          "heading": "Step 8: 校验配置",
+          "level": 3,
+          "line": 331
+        },
+        {
+          "heading": "Step 9: 解释脚本",
+          "level": 3,
+          "line": 347
+        },
+        {
+          "heading": "Step10：验证脚本",
+          "level": 3,
+          "line": 361
+        },
+        {
+          "heading": "构造测试数据",
+          "level": 3,
+          "line": 363
+        },
+        {
+          "heading": "选择执行引擎",
+          "level": 3,
+          "line": 371
+        },
+        {
+          "heading": "执行转换",
+          "level": 3,
+          "line": 375
+        },
+        {
+          "heading": "比对结果表",
+          "level": 4,
+          "line": 379
+        },
+        {
+          "heading": "转化结论",
+          "level": 4,
+          "line": 390
+        },
+        {
+          "heading": "HTTP 核心规则",
+          "level": 2,
+          "line": 396
+        },
+        {
+          "heading": "链式调用规则",
+          "level": 3,
+          "line": 413
+        },
+        {
+          "heading": "MCP 工具调用",
+          "level": 2,
+          "line": 422
+        },
+        {
+          "heading": "真实协议示例",
+          "level": 2,
+          "line": 432
+        },
+        {
+          "heading": "源协议：抄表终端平台接口说明 v1.5.2（HTTP REST）",
+          "level": 3,
+          "line": 434
+        },
+        {
+          "heading": "目标协议：内部 MQTT 上报格式（businessObjList 结构）",
+          "level": 3,
+          "line": 445
+        },
+        {
+          "heading": "生成的 JSON 配置",
+          "level": 3,
+          "line": 466
+        },
+        {
+          "heading": "链式调用示例（两个 API 依次执行）",
+          "level": 3,
+          "line": 524
+        },
+        {
+          "heading": "约束规则",
+          "level": 2,
+          "line": 554
+        },
+        {
+          "heading": "部署说明",
+          "level": 2,
+          "line": 575
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 37
+      }
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 19,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "protocolDirections",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1010,
+      "nonEmptyLines": 809,
+      "sections": [
+        {
+          "heading": "Modbus 协议转换配置生成",
+          "level": 1,
+          "line": 20
+        },
+        {
+          "heading": "适用场景",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "目录结构",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "C 引擎实际读取的配置格式",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "根对象字段",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "taskList 结构",
+          "level": 3,
+          "line": 59
+        },
+        {
+          "heading": "labelList 结构",
+          "level": 3,
+          "line": 73
+        },
+        {
+          "heading": "处理流程",
+          "level": 2,
+          "line": 120
+        },
+        {
+          "heading": "步骤 1：协议文档分析",
+          "level": 3,
+          "line": 140
+        },
+        {
+          "heading": "步骤 2：查找 modelNum",
+          "level": 3,
+          "line": 163
+        },
+        {
+          "heading": "步骤 3：查找 classNum",
+          "level": 3,
+          "line": 183
+        },
+        {
+          "heading": "步骤 4：确定采集数据项",
+          "level": 3,
+          "line": 211
+        },
+        {
+          "heading": "4.1 数据项歧义确认（前置必做）",
+          "level": 4,
+          "line": 213
+        },
+        {
+          "heading": "4.2 用户选择采集数据项",
+          "level": 4,
+          "line": 237
+        },
+        {
+          "heading": "4.3 查询原子标签（平台功能项候选）",
+          "level": 4,
+          "line": 241
+        },
+        {
+          "heading": "4.4 汇总展示",
+          "level": 4,
+          "line": 285
+        },
+        {
+          "heading": "步骤 5：填充 read/write/convert 配置",
+          "level": 3,
+          "line": 302
+        },
+        {
+          "heading": "步骤 6：生成输出文件（二阶段同步）",
+          "level": 3,
+          "line": 317
+        },
+        {
+          "heading": "核心规则",
+          "level": 2,
+          "line": 325
+        },
+        {
+          "heading": "1. data_type 数据类型语法",
+          "level": 3,
+          "line": 327
+        },
+        {
+          "heading": "2. data_order 字节序",
+          "level": 3,
+          "line": 371
+        },
+        {
+          "heading": "3. data_exprs 表达式引擎",
+          "level": 3,
+          "line": 386
+        },
+        {
+          "heading": "3.1 单位转换（每点必核对）",
+          "level": 4,
+          "line": 405
+        },
+        {
+          "heading": "4. addr_exprs 地址表达式（多路设备）",
+          "level": 3,
+          "line": 438
+        },
+        {
+          "heading": "5. convert 枚举映射",
+          "level": 3,
+          "line": 448
+        },
+        {
+          "heading": "6. 符号位处理",
+          "level": 3,
+          "line": 464
+        },
+        {
+          "heading": "7. 位提取与按位运算互斥",
+          "level": 3,
+          "line": 484
+        },
+        {
+          "heading": "8. 一次值/二次值",
+          "level": 3,
+          "line": 490
+        },
+        {
+          "heading": "9. func_code 功能码",
+          "level": 3,
+          "line": 499
+        },
+        {
+          "heading": "10. 转换公式查找顺序",
+          "level": 3,
+          "line": 520
+        },
+        {
+          "heading": "11. 原子标签匹配规则",
+          "level": 3,
+          "line": 530
+        },
+        {
+          "heading": "MCP 工具编排",
+          "level": 2,
+          "line": 541
+        },
+        {
+          "heading": "步骤 0：登录与 Token（必做前置）",
+          "level": 3,
+          "line": 545
+        },
+        {
+          "heading": "原子工具映射表",
+          "level": 3,
+          "line": 562
+        },
+        {
+          "heading": "查询通用规则（品牌/型号/原子标签）",
+          "level": 3,
+          "line": 581
+        },
+        {
+          "heading": "写入保护与返回值展示",
+          "level": 3,
+          "line": 588
+        },
+        {
+          "heading": "平台同步（二阶段流程，默认不执行）",
+          "level": 3,
+          "line": 596
+        },
+        {
+          "heading": "可选衔接 XLPA 自动建档（MODBUS 转换完成后）",
+          "level": 3,
+          "line": 604
+        },
+        {
+          "heading": "首期禁用的工具",
+          "level": 3,
+          "line": 615
+        },
+        {
+          "heading": "参数来源标记与最终确认表",
+          "level": 3,
+          "line": 619
+        },
+        {
+          "heading": "字段语义拆分规则",
+          "level": 3,
+          "line": 633
+        },
+        {
+          "heading": "平台暂无数据项处理规则",
+          "level": 3,
+          "line": 650
+        },
+        {
+          "heading": "参考文档使用说明",
+          "level": 2,
+          "line": 669
+        },
+        {
+          "heading": "空调协议统计汇总.xlsx",
+          "level": 3,
+          "line": 671
+        },
+        {
+          "heading": "多类型设备集成系统大类号说明.docx",
+          "level": 3,
+          "line": 677
+        },
+        {
+          "heading": "原子标签定义.docx",
+          "level": 3,
+          "line": 682
+        },
+        {
+          "heading": "地址公式说明.png",
+          "level": 3,
+          "line": 688
+        },
+        {
+          "heading": "实际 JSON 配置样例（安科瑞 AMC 电表）",
+          "level": 2,
+          "line": 694
+        },
+        {
+          "heading": "多路设备配置样例（多联机空调，含 write/convert）",
+          "level": 2,
+          "line": 770
+        },
+        {
+          "heading": "简单设备配置样例（环境传感器，无辅助参数）",
+          "level": 2,
+          "line": 834
+        },
+        {
+          "heading": "交互记录输出规范",
+          "level": 2,
+          "line": 874
+        },
+        {
+          "heading": "输出结构",
+          "level": 3,
+          "line": 878
+        },
+        {
+          "heading": "增强点表格式",
+          "level": 3,
+          "line": 898
+        },
+        {
+          "heading": "歧义项确认表",
+          "level": 3,
+          "line": 923
+        },
+        {
+          "heading": "最小冒烟测试清单",
+          "level": 3,
+          "line": 940
+        },
+        {
+          "heading": "未验证项清单",
+          "level": 3,
+          "line": 958
+        },
+        {
+          "heading": "注意事项",
+          "level": 2,
+          "line": 975
+        },
+        {
+          "heading": "约束规则",
+          "level": 2,
+          "line": 989
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 58
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 19,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "protocolDirections",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 196,
+      "nonEmptyLines": 148,
+      "sections": [
+        {
+          "heading": "重庆地区 Modbus 脚本适配",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "适用场景",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "目录结构",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "输入与输出",
+          "level": 2,
+          "line": 39
+        },
+        {
+          "heading": "输入",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "输出",
+          "level": 3,
+          "line": 61
+        },
+        {
+          "heading": "执行流程",
+          "level": 2,
+          "line": 79
+        },
+        {
+          "heading": "Step 1：读取并验证输入 JSON",
+          "level": 3,
+          "line": 81
+        },
+        {
+          "heading": "Step 2：字段替换",
+          "level": 3,
+          "line": 96
+        },
+        {
+          "heading": "Step 3：展示 diff 并确认",
+          "level": 3,
+          "line": 110
+        },
+        {
+          "heading": "Step 4：保存输出",
+          "level": 3,
+          "line": 127
+        },
+        {
+          "heading": "智能识别规则",
+          "level": 2,
+          "line": 135
+        },
+        {
+          "heading": "约束规则",
+          "level": 2,
+          "line": 152
+        },
+        {
+          "heading": "与其他 Skill 的关系",
+          "level": 2,
+          "line": 164
+        },
+        {
+          "heading": "典型用例",
+          "level": 2,
+          "line": 173
+        },
+        {
+          "heading": "用例 1：用户明确提到重庆",
+          "level": 3,
+          "line": 175
+        },
+        {
+          "heading": "用例 2：用户未提到重庆但提供了标准格式",
+          "level": 3,
+          "line": 187
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 17
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 11,
+      "nonEmptyLines": 11,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 460,
+      "nonEmptyLines": 346,
+      "sections": [
+        {
+          "heading": "MQTT 协议转换配置生成",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "引擎架构",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "配置文件格式（config_loader.c 读取）",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "根对象字段",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "mappings 规则字段",
+          "level": 3,
+          "line": 44
+        },
+        {
+          "heading": "工作流程（10 步，必须按序执行）",
+          "level": 2,
+          "line": 56
+        },
+        {
+          "heading": "Step 0: 文档预处理（条件步骤）",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "Step 1: 分析源协议（内部 MQTT）",
+          "level": 3,
+          "line": 85
+        },
+        {
+          "heading": "Step 2: 分析目标协议（平台 MQTT）",
+          "level": 3,
+          "line": 103
+        },
+        {
+          "heading": "Step 2.5: 确定需要上报的数据项",
+          "level": 3,
+          "line": 114
+        },
+        {
+          "heading": "2.5.1 列出目标数据项",
+          "level": 4,
+          "line": 118
+        },
+        {
+          "heading": "2.5.2 查询源原子标签",
+          "level": 4,
+          "line": 139
+        },
+        {
+          "heading": "Step 3: 提取映射信息",
+          "level": 3,
+          "line": 191
+        },
+        {
+          "heading": "Step 4: 加载 protocol-conversion 获取映射规则",
+          "level": 3,
+          "line": 212
+        },
+        {
+          "heading": "Step 5: 输出结构确认报告",
+          "level": 3,
+          "line": 223
+        },
+        {
+          "heading": "Step 6: 等待用户确认",
+          "level": 3,
+          "line": 291
+        },
+        {
+          "heading": "Step 7: 生成 JSON 配置",
+          "level": 3,
+          "line": 301
+        },
+        {
+          "heading": "Step 8: 解释脚本",
+          "level": 3,
+          "line": 311
+        },
+        {
+          "heading": "MCP 工具调用（下列的工具目前只是展示，暂不使用）",
+          "level": 2,
+          "line": 321
+        },
+        {
+          "heading": "Step9：验证脚本",
+          "level": 3,
+          "line": 330
+        },
+        {
+          "heading": "构造测试数据",
+          "level": 3,
+          "line": 332
+        },
+        {
+          "heading": "选择执行引擎",
+          "level": 3,
+          "line": 340
+        },
+        {
+          "heading": "执行转换",
+          "level": 3,
+          "line": 344
+        },
+        {
+          "heading": "比对结果表",
+          "level": 4,
+          "line": 348
+        },
+        {
+          "heading": "转化结论",
+          "level": 4,
+          "line": 359
+        },
+        {
+          "heading": "真实协议示例",
+          "level": 2,
+          "line": 365
+        },
+        {
+          "heading": "源协议：iot_agent 电气量采集数据",
+          "level": 3,
+          "line": 367
+        },
+        {
+          "heading": "目标协议：云南配电房协议（ywnyems）",
+          "level": 3,
+          "line": 391
+        },
+        {
+          "heading": "生成的 JSON 配置",
+          "level": 3,
+          "line": 409
+        },
+        {
+          "heading": "约束规则",
+          "level": 2,
+          "line": 442
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 30
+      }
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 19,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "protocolDirections",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 161,
+      "nonEmptyLines": 130,
+      "sections": [
+        {
+          "heading": "协议转换包打包分发",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "适用场景",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "打包内容",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "ZIP 包目录结构",
+          "level": 3,
+          "line": 29
+        },
+        {
+          "heading": "manifest.json 格式",
+          "level": 3,
+          "line": 42
+        },
+        {
+          "heading": "README.md 模板",
+          "level": 3,
+          "line": 67
+        },
+        {
+          "heading": "操作流程",
+          "level": 2,
+          "line": 93
+        },
+        {
+          "heading": "Phase 1 — 打包前检查",
+          "level": 3,
+          "line": 95
+        },
+        {
+          "heading": "Phase 2 — 生成清单和文档",
+          "level": 3,
+          "line": 111
+        },
+        {
+          "heading": "Phase 3 — 打包为 ZIP",
+          "level": 3,
+          "line": 118
+        },
+        {
+          "heading": "Phase 4 — 安装到目标环境",
+          "level": 3,
+          "line": 131
+        },
+        {
+          "heading": "调用的 MCP 工具（MCP 就绪后）",
+          "level": 2,
+          "line": 142
+        },
+        {
+          "heading": "约束规则",
+          "level": 2,
+          "line": 152
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "agent_assets/skills/package-manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 66,
+      "nonEmptyLines": 66,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "packageRoot",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "updateMode",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "skills",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "requiredFiles",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "optionalDirectories",
+          "level": 1,
+          "line": 55
+        },
+        {
+          "heading": "validation",
+          "level": 1,
+          "line": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 457,
+      "nonEmptyLines": 345,
+      "sections": [
+        {
+          "heading": "共享协议映射核心",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "1. 引擎归属",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "2. 映射规则字段",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "3. 路径语法",
+          "level": 2,
+          "line": 58
+        },
+        {
+          "heading": "$item 省略写法",
+          "level": 3,
+          "line": 70
+        },
+        {
+          "heading": "4. 类型系统",
+          "level": 2,
+          "line": 81
+        },
+        {
+          "heading": "object + sub_mappings 递归构建",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "5. source_type 分类",
+          "level": 2,
+          "line": 112
+        },
+        {
+          "heading": "6. 数组遍历准则",
+          "level": 2,
+          "line": 126
+        },
+        {
+          "heading": "ensure_path 自动建路径",
+          "level": 3,
+          "line": 137
+        },
+        {
+          "heading": "边界场景：源无数组但目标要求数组",
+          "level": 3,
+          "line": 144
+        },
+        {
+          "heading": "item_type 模式",
+          "level": 3,
+          "line": 157
+        },
+        {
+          "heading": "多层嵌套 @ 锚点",
+          "level": 3,
+          "line": 166
+        },
+        {
+          "heading": "7. 模板变量替换（substitute）",
+          "level": 2,
+          "line": 170
+        },
+        {
+          "heading": "template_vars.def 已注册变量",
+          "level": 3,
+          "line": 185
+        },
+        {
+          "heading": "8. 生成器清单",
+          "level": 2,
+          "line": 196
+        },
+        {
+          "heading": "9. scale 缩放",
+          "level": 2,
+          "line": 214
+        },
+        {
+          "heading": "10. post_process 后处理",
+          "level": 2,
+          "line": 226
+        },
+        {
+          "heading": "字段级后处理",
+          "level": 3,
+          "line": 230
+        },
+        {
+          "heading": "全局后处理",
+          "level": 3,
+          "line": 236
+        },
+        {
+          "heading": "11. preprocess 预处理",
+          "level": 2,
+          "line": 250
+        },
+        {
+          "heading": "12. mapper_core.c 核心函数",
+          "level": 2,
+          "line": 266
+        },
+        {
+          "heading": "数据结构 (mapper_core.h)",
+          "level": 3,
+          "line": 280
+        },
+        {
+          "heading": "13. Python 测试镜像",
+          "level": 2,
+          "line": 301
+        },
+        {
+          "heading": "测试套件",
+          "level": 3,
+          "line": 315
+        },
+        {
+          "heading": "14. 结构确认报告模板",
+          "level": 2,
+          "line": 340
+        },
+        {
+          "heading": "确认清单（8 项）",
+          "level": 3,
+          "line": 344
+        },
+        {
+          "heading": "15. 参考文件机制",
+          "level": 2,
+          "line": 359
+        },
+        {
+          "heading": "默认内部协议",
+          "level": 3,
+          "line": 376
+        },
+        {
+          "heading": "16. 常见映射错误",
+          "level": 2,
+          "line": 408
+        },
+        {
+          "heading": "错误 1：引擎引用错误",
+          "level": 3,
+          "line": 410
+        },
+        {
+          "heading": "错误 2：看到数组就遍历，忽略目标类型",
+          "level": 3,
+          "line": 418
+        },
+        {
+          "heading": "错误 3：常量字段使用错误键名",
+          "level": 3,
+          "line": 427
+        },
+        {
+          "heading": "错误 4：substitute 配置错误",
+          "level": 3,
+          "line": 436
+        },
+        {
+          "heading": "错误 5：过度依赖 post_process",
+          "level": 3,
+          "line": 445
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 35
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 13,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "capabilities",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "author",
+          "level": 1,
+          "line": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/gen_test_report.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 88,
+      "nonEmptyLines": 80,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      },
+      "functions": [],
+      "classes": [],
+      "exports": [],
+      "structureSource": "cpython-ast-fallback"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.c",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 739,
+      "nonEmptyLines": 651,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      },
+      "structureSource": "no-parser-for-c"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 166,
+      "nonEmptyLines": 141,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      },
+      "structureSource": "no-parser-for-c"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/protocol_converter.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 601,
+      "nonEmptyLines": 497,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "MapperCore",
+          "startLine": 32,
+          "endLine": 601,
+          "methods": [
+            "get_value_by_path",
+            "get_string_by_path",
+            "ensure_path",
+            "get_flat_array_from_path",
+            "generate_value",
+            "template_substitute",
+            "add_value_to_parent",
+            "process_rule",
+            "process_array_foreach",
+            "process_normal_field",
+            "transform_mqtt",
+            "transform_http"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "MapperCore",
+          "line": 32,
+          "isDefault": false
+        }
+      ],
+      "structureSource": "cpython-ast-fallback"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1051,
+      "nonEmptyLines": 903,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 12,
+        "functionCount": 0,
+        "classCount": 12
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "TestPathResolution",
+          "startLine": 27,
+          "endLine": 117,
+          "methods": [
+            "setUp",
+            "test_basic_path",
+            "test_nested_path",
+            "test_array_index",
+            "test_array_index_second",
+            "test_array_wildcard",
+            "test_dot_path",
+            "test_missing_path",
+            "test_out_of_range_index",
+            "test_get_string_by_path",
+            "test_flat_array_from_path_single",
+            "test_flat_array_from_path_nested",
+            "test_flat_array_no_foreach"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestEnsurePath",
+          "startLine": 120,
+          "endLine": 158,
+          "methods": [
+            "test_simple_path",
+            "test_nested_path",
+            "test_array_path",
+            "test_array_path_fill",
+            "test_empty_path"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestTypeConversion",
+          "startLine": 161,
+          "endLine": 285,
+          "methods": [
+            "test_string_from_string",
+            "test_string_from_number",
+            "test_string_from_bool",
+            "test_string_empty_skipped",
+            "test_int_from_number",
+            "test_int_with_scale",
+            "test_int_from_string",
+            "test_int_constant",
+            "test_double_from_number",
+            "test_double_with_scale",
+            "test_double_from_string",
+            "test_long_from_number",
+            "test_bool_from_bool",
+            "test_bool_from_number",
+            "test_bool_from_string_true",
+            "test_bool_from_string_false",
+            "test_bool_constant",
+            "test_object_from_dict",
+            "test_object_from_constant_json",
+            "test_object_empty",
+            "test_substitute",
+            "test_substitute_nested"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestGenerators",
+          "startLine": 288,
+          "endLine": 351,
+          "methods": [
+            "test_uuid",
+            "test_current_timestamp",
+            "test_current_timestamp_ms",
+            "test_timestamp_sec",
+            "test_timestamp_ms",
+            "test_datetime_compact",
+            "test_datetime_str",
+            "test_sequence_with_idx",
+            "test_sequence_with_ctx",
+            "test_md5_sign",
+            "test_batch_id",
+            "test_random_string"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestTemplateSubstitute",
+          "startLine": 354,
+          "endLine": 381,
+          "methods": [
+            "test_simple_substitute",
+            "test_nested_substitute",
+            "test_multiple_substitute",
+            "test_no_match",
+            "test_no_var"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestArrayForeach",
+          "startLine": 384,
+          "endLine": 498,
+          "methods": [
+            "setUp",
+            "test_simple_object_foreach",
+            "test_key_value_foreach",
+            "test_nested_foreach",
+            "test_dot_source_path",
+            "test_flat_array_nested_foreach"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestMQTTTransform",
+          "startLine": 501,
+          "endLine": 618,
+          "methods": [
+            "setUp",
+            "test_mqtt_transform_basic_fields",
+            "test_mqtt_transform_array_foreach",
+            "test_mqtt_substitute",
+            "test_mqtt_constant_int",
+            "test_mqtt_generated_uuid",
+            "test_mqtt_generated_timestamp"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestHTTPTransform",
+          "startLine": 621,
+          "endLine": 764,
+          "methods": [
+            "setUp",
+            "test_http_transform_constant_fields",
+            "test_http_transform_path_field",
+            "test_http_transform_nested_constant",
+            "test_http_transform_array_foreach_object",
+            "test_http_transform_array_foreach_key_value",
+            "test_http_context_source_type",
+            "test_http_dot_source_in_array_foreach"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestEngineDifferences",
+          "startLine": 767,
+          "endLine": 819,
+          "methods": [
+            "test_mqtt_does_not_support_context",
+            "test_http_does_not_support_substitute",
+            "test_http_supports_string_to_number",
+            "test_mqtt_supports_flat_array"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestEdgeCases",
+          "startLine": 822,
+          "endLine": 887,
+          "methods": [
+            "test_empty_source_array",
+            "test_missing_source_array",
+            "test_missing_source_field",
+            "test_missing_source_field_int",
+            "test_scale_factor",
+            "test_deeply_nested_target",
+            "test_array_target_with_index"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestRealConfigs",
+          "startLine": 890,
+          "endLine": 972,
+          "methods": [
+            "test_mqtt_real_config",
+            "test_http_real_config"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestUnifiedCodeConsistency",
+          "startLine": 975,
+          "endLine": 1047,
+          "methods": [
+            "test_mqtt_and_http_share_same_process_rule",
+            "test_mqtt_and_http_share_same_path_resolution",
+            "test_mqtt_and_http_share_same_type_conversion",
+            "test_all_source_types_in_unified_engine"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TestPathResolution",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "TestEnsurePath",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "TestTypeConversion",
+          "line": 161,
+          "isDefault": false
+        },
+        {
+          "name": "TestGenerators",
+          "line": 288,
+          "isDefault": false
+        },
+        {
+          "name": "TestTemplateSubstitute",
+          "line": 354,
+          "isDefault": false
+        },
+        {
+          "name": "TestArrayForeach",
+          "line": 384,
+          "isDefault": false
+        },
+        {
+          "name": "TestMQTTTransform",
+          "line": 501,
+          "isDefault": false
+        },
+        {
+          "name": "TestHTTPTransform",
+          "line": 621,
+          "isDefault": false
+        },
+        {
+          "name": "TestEngineDifferences",
+          "line": 767,
+          "isDefault": false
+        },
+        {
+          "name": "TestEdgeCases",
+          "line": 822,
+          "isDefault": false
+        },
+        {
+          "name": "TestRealConfigs",
+          "line": 890,
+          "isDefault": false
+        },
+        {
+          "name": "TestUnifiedCodeConsistency",
+          "line": 975,
+          "isDefault": false
+        }
+      ],
+      "structureSource": "cpython-ast-fallback"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/test_report.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 83,
+      "nonEmptyLines": 83,
+      "sections": [
+        {
+          "heading": "testTime",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "total",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "passed",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "failed",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "errors",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "skipped",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "status",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "testClasses",
+          "level": 1,
+          "line": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    }
+  ]
+}

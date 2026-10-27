@@ -1,0 +1,70 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 1,
+  "filesSkipped": [
+    "_c_drive_cleanup.cmd",
+    "_c_drive_cleanup.ps1",
+    "_verify_download_fix.ps1",
+    "pytest.ini"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 1,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 1
+    }
+  },
+  "results": [
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 65,
+      "nonEmptyLines": 49,
+      "sections": [
+        {
+          "heading": "PCA MCP Server",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "目录结构",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "快速启动",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "测试",
+          "level": 2,
+          "line": 42
+        },
+        {
+          "heading": "用户资源包",
+          "level": 2,
+          "line": 52
+        },
+        {
+          "heading": "关键文件",
+          "level": 2,
+          "line": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    }
+  ]
+}

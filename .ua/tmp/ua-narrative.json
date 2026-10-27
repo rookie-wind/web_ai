@@ -1,0 +1,6 @@
+{
+  "name": "pca-mcp-server",
+  "description": "协议转换平台 MCP Server，提供设备建档、协议转换、品牌型号管理等工具，通过 FastMCP ASGI 网关对外暴露。注：本项目源文件超过 100 个，如需更快的分析可将范围收敛到单个子目录。",
+  "languages": ["batch", "c", "config", "html", "json", "markdown", "powershell", "python", "txt", "unknown", "yaml"],
+  "frameworks": ["FastMCP", "Uvicorn", "httpx", "Pytest"]
+}

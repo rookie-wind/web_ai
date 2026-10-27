@@ -194,8 +194,8 @@ Server-->>User : 服务启动并监听端口
   - 自动生成：install.bat 会写入默认 URL 与 Token
   - 手动修改：编辑 .trae/mcp.json，保持 JSON 结构正确，确保 URL 与 Token 与实际一致
 - 示例结构
-  - mcpServers.protocol-converter.url：服务端 MCP 端点
-  - mcpServers.protocol-converter.headers.Authorization：Bearer Token
+  - mcpServers.xl-protocol-agent.url：服务端 MCP 端点
+  - mcpServers.xl-protocol-agent.headers.Authorization：Bearer Token
 
 章节来源
 - [mcp_server/install.bat:69-72](file://mcp_server/install.bat#L69-L72)

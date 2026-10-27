@@ -1,1 +1,10 @@
-{"mcpServers":{"protocol-converter":{"url":"http://localhost:8765/mcp","headers":{"Authorization":"Bearer metam_pat_cc1e1a15b22cdcae8387d42dac194a70"}}}}
+{
+  "mcpServers": {
+    "xl-protocol-agent": {
+      "url": "http://localhost:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer metam_pat_c1204a410bd14a85235883455414f7d1"
+      }
+    }
+  }
+}

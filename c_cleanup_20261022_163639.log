@@ -1,0 +1,18 @@
+﻿[16:36:40] WARN   Not elevated. Tier D items that need admin will be skipped or partially fail.
+[16:36:47] OK     Emptied Recycle Bin: 0 GB
+[16:37:00] OK     Emptied 0 GB : LLDB module cache
+[16:37:00] WARN   Emptied 0 GB : User TEMP  (skipped 32 locked files)
+[16:37:38] OK     Emptied 0 GB : Gradle caches (deps + build)
+[16:37:38] INFO   Skip A10 Gradle wrapper distributions: nothing to clean
+[16:37:38] OK     Emptied 0.59 GB : Gradle daemon logs
+[16:38:06] OK     Emptied 0 GB : NuGet global packages
+[16:38:22] OK     Emptied 0.16 GB : npm cache
+[16:38:26] INFO   Skip A8 pip wheel cache: nothing to clean
+[16:38:26] INFO   Skip A9 Windows Error Reporting queue: nothing to clean
+[16:38:26] INFO   Cache redirection target: E:\dev-cache
+[16:38:26] WARN   Target drive E: has only 0 GB free. Consider a different location.
+[16:38:26] INFO   Moving Gradle cache: C:\Users\song\.gradle -> E:\dev-cache\gradle
+[16:38:52] OK     Moved Gradle cache (robocopy exit=1)
+[16:39:20] OK     User env GRADLE_USER_HOME = E:\dev-cache\gradle
+[16:39:20] INFO   Moving NuGet cache: C:\Users\song\.nuget -> E:\dev-cache\nuget
+[16:39:20] OK     Moved NuGet cache (robocopy exit=0)

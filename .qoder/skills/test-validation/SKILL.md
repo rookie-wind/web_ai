@@ -8,7 +8,7 @@ when_to_use: >
   转换配置生成完成后，需要验证配置正确性时使用。
   用户要求测试转换结果、检查映射是否正确时使用。
   打包发布前的质量门控验证。
-compatibility: "Requires protocol-converter MCP server (待开发)"
+compatibility: "Requires xl-protocol-agent MCP server (待开发)"
 metadata:
   tags: [test, validation, smoke-test]
   order: 4

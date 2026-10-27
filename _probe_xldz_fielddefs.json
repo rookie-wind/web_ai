@@ -1,0 +1,147 @@
+{
+  "type_select": {
+    "rtnCode": 0,
+    "rtnMsg": "",
+    "data_preview": "[{'code': '100001', 'name': '1376.1采集终端'}, {'code': '100002', 'name': '645电能表07版'}, {'code': '100003', 'name': '系统采集信道'}, {'code': '100004', 'name': '1376.1终端脉冲'}, {'code': '100005', 'name': '1376.1终端总加组'}, {'code': '100006', 'name': '645-2013版电表'}, {'code': '100007', 'name': '空调面板'}, {'code': '100008', 'name': '空调主机'}, {'code': '100009', 'name': '8163网关'}, {'code': '100010', 'name': '698终端脉冲'}, {'code': '100011', 'name': '698采集终端'}, {'code': '100012', 'name': '698电能表'}, {'code': '100013', 'name': '698终端总加组'}, {'code': '100014', 'name': '新联ME型号'}, {'code': '100015', 'name': '虚拟网关'}, {'code': '100016', 'name': '公共设施'}, {'code': '100017', 'name': '综合能源表'}, {'code': '100019', 'name': 'XLBA'}, {'code': '100020', 'name': '光伏'}, {'code': '100021', 'name': '充电桩'}, {'code': '100022', 'name': '储能'}, {'code': '100023', 'name': '照明'}, {'code': '100024', 'name': '配电房'}, {'code': '100025', 'name': '综合能源BA表'}, {'code': '100026', 'name': 'HRF中继器'}, {'code': '100027', 'name': '风电'}, {'code': '100028', 'name': '电梯'}, {'code': '100029', 'name': '通信单元'}]"
+  },
+  "type_100019": {
+    "extInfo_deviceTypeId": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    },
+    "extInfo_id": {
+      "rtnCode": 200,
+      "rtnMsg": "设备类型标识不能为空",
+      "data_preview": "None"
+    },
+    "staticProp_deviceTypeId": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    }
+  },
+  "type_100023": {
+    "extInfo_deviceTypeId": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    },
+    "extInfo_id": {
+      "rtnCode": 200,
+      "rtnMsg": "设备类型标识不能为空",
+      "data_preview": "None"
+    },
+    "staticProp_deviceTypeId": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    }
+  },
+  "type_100024": {
+    "extInfo_deviceTypeId": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    },
+    "extInfo_id": {
+      "rtnCode": 200,
+      "rtnMsg": "设备类型标识不能为空",
+      "data_preview": "None"
+    },
+    "staticProp_deviceTypeId": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    }
+  },
+  "device_照明_北楼3层照明H1-S1": {
+    "param_empty": {
+      "rtnCode": 200,
+      "rtnMsg": "数据项编码不能为空",
+      "data_preview": "None"
+    },
+    "param_20200002": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    },
+    "param_20100039": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    },
+    "param_43000002": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    },
+    "staticFormData": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "{}"
+    },
+    "extPropSelect": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[{'code': 'commAddr', 'name': '设备通讯地址'}, {'code': 'areaCode', 'name': '行政区划码'}, {'code': 'devTime', 'name': '设备时钟'}, {'code': 'mainIp', 'name': '主站地址'}, {'code': 'mainPort', 'name': '主站端口'}, {'code': 'standbyIp', 'name': '备用主站地址'}, {'code': 'standbyPort', 'name': '备用主站端口'}, {'code': 'apn', 'name': 'APN'}, {'code': 'delayTime', 'name': '设备数传延时'}, {'code': 'sendTranDelay', 'name': '设备发送延时'}, {'code': 'waitTimeout', 'name': '设备等待响应超时时间'}, {'code': 'repeatNum', 'name': '重发次数'}, {'code': 'beatPeriod', 'name': '心跳周期'}, {'code': 'oneCon', 'name': '一类数据确认标志'}, {'code': 'twoCon', 'name': '二类数据确认标志'}, {'code': 'threeCon', 'name': '三类数据确认标志'}, {'code': 'arithID', 'name': '消息认证方案号'}, {'code': 'arithParam', 'name': '消息认证方案参数'}, {'code': 'rtuIp', 'name': '终端IP地址'}, {'code': 'rtuLisPort', 'name': '终端侦听端口'}, {'code': 'subMask', 'name': '子网掩码'}, {'code': 'gateway', 'name': '网关IP'}, {'code': 'proxyType', 'name': '代理类型'}, {'code': 'proxyAddress', 'name': '代理服务IP'}, {'code': 'proxyPort', 'name': '代理服务端口'}, {'code': 'proxyConMode', 'name': '代理服务连接方式'}, {'code': 'userName', 'name': '用户名'}, {'code': 'password', 'name': '密码'}, {'code': 'conType', 'name': '连接类型'}, {'code': 'workMode', 'name': '工作模式'}, {'code': 'workType', 'name': '在线模式'}, {'code': 'reDialInterval', 'name': '重拨间隔'}, {'code': 'reDialTimes', 'name': '重拨次数'}, {'code': 'autoDisconnTime', 'name': '无通信自动断连时间'}, {'code': 'onLineTimeFrame', 'name': '在线时段'}, {'code': 'vpnUser', 'name': 'VPN用户名'}, {'code': 'vpnPwd', 'name': 'VPN密码'}, {'code': 'mFactoryId', 'name': '厂商代号'}, {'code': 'mType', 'name': '模块型号'}, {'code': 'mSoftVer', 'name': '软件版本号'}, {'code': 'mSoftDate', 'name': '软件发布日期'}, {'code': 'mHWver', 'name': '硬件版本号'}, {'code': 'mHWDate', 'name': '硬件发布日期'}, {'code': 'ICCID', 'name': 'SIM卡ICCID'}, {'code': 'ratedVoltage', 'name': '额定电压'}, {'code': 'ratedPower', 'name': '额定功率'}, {'code': 'ratedCurrent', 'name': '额定电流'}, {'code': 'maxCurrent', 'name': '最大电流'}, {'code': 'pulseCateg', 'name': '脉冲类别'}, {'code': 'papPulseConstant', 'name': '正向有功脉冲常数'}, {'code': 'prpPulseConstant', 'name': '正向无功脉冲常数'}, {'code': 'rapPulseConstant', 'name': '反向有功脉冲常数'}, {'code': 'rrpPulseConstant', 'name': '反向无功脉冲常数'}, {'code': 'cT', 'name': '电流互感器变比'}, {'code': 'pT', 'name': '电压互感器变比'}, {'code': 'baudRate', 'name': '波特率'}, {'code': 'iCCID', 'name': 'SIM卡串号'}, {'code': 'iMEI', 'name': 'IMEI卡号'}, {'code': 'verSoft', 'name': '软件版本号'}, {'code': 'softDate', 'name': '软件版本时间'}, {'code': 'verHard', 'name': '硬件版本号'}, {'code': 'hardDate', 'name': '硬件版本时间'}, {'code': 'areaTime', 'name': '时间段'}, {'code': 'infoCode', 'name': '容量信息'}, {'code': 'protoVer', 'name': '协议版本'}, {'code': 'tVSpecification', 'name': '电压互感器规格'}, {'code': 'tASpecification', 'name': '电流互感器规格'}, {'code': 'isOnline', 'name': '是否在线'}, {'code': 'roadNo', 'name': '配置序号/抄表序号'}, {'code': 'protocolCode', 'name': '协议代号'}, {'code': 'measurNo', 'name': '测量点/总加组号'}, {'code': 'comPort', 'name': '通信端口号/信道号'}, {'code': 'feeNum', 'name': '费率个数'}, {'code': 'integerNum', 'name': '整数位数'}, {'code': 'decimalNum', 'name': '小数位数'}, {'code': 'authParam', 'name': '通信密码（电表）'}, {'code': 'pwdLevel', 'name': '通信密码等级'}, {'code': 'collCommAddr', 'name': '采集器地址'}, {'code': 'userBigNo', 'name': '用户大分类号'}, {'code': 'userSmallNo', 'name': '用户小分类号'}, {'code': 'cmdType', 'name': '操作指令类型'}, {'code': 'logicAddr', 'name': '逻辑地址'}, {'code': 'userType', 'name': '用户类型'}, {'code': 'lineType', 'name': '接线方式'}, {'code': 'isRead', 'name': '投抄标志'}, {'code': 'assetNumber', 'name': '资产号'}, {'code': 'totMark', 'name': '总加标志'}, {'code': 'operatorFlag', 'name': '运算符标志'}, {'code': 'pulsePort', 'name': '脉冲输入端口'}, {'code': 'pulseConstant', 'name': '脉冲常数'}, {'code': 'pulseAttr', 'name': '脉冲属性'}, {'code': 'pulseSerial', 'name': '脉冲编号'}, {'code': 'triggerID', 'name': '辅助节点序号'}, {'code': 'type', 'name': '辅助节点类型'}, {'code': 'alarm', 'name': '告警类型'}, {'code': 'safeValue', 'name': '保安定值'}, {'code': 'conRatio', 'name': '定值浮动系数'}, {'code': 'ratingP', 'name': '额定负荷'}, {'code': 'vup', 'name': '电压合格上限'}, {'code': 'vlow', 'name': '电压合格下限'}, {'code': 'vlimit', 'name': '电压断相门限'}, {'code': 'voverUpVal', 'name': '电压上上限'}, {'code': 'voverUpTm', 'name': '电压越上限持续时间'}, {'code': 'voverUpCon', 'name': '电压越上限恢复系数'}, {'code': 'voweLowVal', 'name': '电压下下限'}, {'code': 'voweLowTm', 'name': '电压越下限持续时间'}, {'code': 'voweLowCon', 'name': '电压越下限恢复系数'}, {'code': 'ioverUpVal', 'name': '电流上上限'}, {'code': 'ioverUpTm', 'name': '电流越上限持续时间'}, {'code': 'ioverUpCon', 'name': '电流越上限恢复系数'}, {'code': 'ratingIVal', 'name': '相电流上限'}, {'code': 'ratingITm', 'name': '超额定电流持续时间'}, {'code': 'ratingICon', 'name': '超额定电流恢复系数'}, {'code': 'zeroIUpVal', 'name': '零序电流上限'}, {'code': 'zeroIUpTm', 'name': '零序电流越上限持续时间'}, {'code': 'zeroIUpCon', 'name': '零序电流越上限恢复系数'}, {'code': 'pOverUpVal', 'name': '视在功率上上限'}, {'code': 'pOverUpTm', 'name': '视在功率越上上限持续时间'}, {'code': 'pOverUpCon', 'name': '视在功率越上上限恢复系数'}, {'code': 'pOweLowVal', 'name': '视在功率上限'}, {'code': 'pOweLowTm', 'name': '视在功率越上限持续时间'}, {'code': 'pOweLowCon', 'name': '视在功率越上限恢复系数'}, {'code': 'vunbalanceVal', 'name': '三相电压不平衡限值'}, {'code': 'vunbalanceTm', 'name': '三相电压不平衡持续时间'}, {'code': 'vunbalanceCon', 'name': '三相电压不平衡越限恢复系数'}, {'code': 'iunbalanceVal', 'name': '三相电流不平衡限值'}, {'code': 'iunbalanceTm', 'name': '三相电流不平衡持续时间'}, {'code': 'iunbalanceCon', 'name': '三相电流不平衡越限恢复系数'}, {'code': 'loseVoltageTm', 'name': '连续失压事件限值'}, {'code': 'segID', 'name': '时段序号'}, {'code': 'powerSetVal', 'name': '功率定值'}, {'code': 'schemeId', 'name': '定值方案号'}, {'code': 'limitFlow', 'name': '功率定值浮动系数'}, {'code': 'restLimitVal', 'name': '厂休控定值'}, {'code': 'reststartTime', 'name': '厂休控开始时间'}, {'code': 'keepTime', 'name': '厂休控持续时间'}, {'code': 'restDayMask', 'name': '厂休日掩码'}, {'code': 'stopStartTime', 'name': '报停控开始时间'}, {'code': 'stopEndTime', 'name': '报停控结束时间'}, {'code': 'stopLimitVal', 'name': '报停控功率限值'}, {'code': 'elect', 'name': '月电量定值'}, {'code': 'ratio', 'name': '报警门限系数'}, {'code': 'buyNo', 'name': '购电单号'}, {'code': 'isFresh', 'name': '追加/刷新标志'}, {'code': 'buyEleType', 'name': '购电类型'}, {'code': 'buyEleVal', "
+    },
+    "authParam_byPCode": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    },
+    "ip_byPCode": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    }
+  },
+  "device_配电房_北楼3层传感器E10": {
+    "param_empty": {
+      "rtnCode": 200,
+      "rtnMsg": "数据项编码不能为空",
+      "data_preview": "None"
+    },
+    "param_20200002": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    },
+    "param_20100039": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    },
+    "param_43000002": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    },
+    "staticFormData": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "{}"
+    },
+    "extPropSelect": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[{'code': 'commAddr', 'name': '设备通讯地址'}, {'code': 'areaCode', 'name': '行政区划码'}, {'code': 'devTime', 'name': '设备时钟'}, {'code': 'mainIp', 'name': '主站地址'}, {'code': 'mainPort', 'name': '主站端口'}, {'code': 'standbyIp', 'name': '备用主站地址'}, {'code': 'standbyPort', 'name': '备用主站端口'}, {'code': 'apn', 'name': 'APN'}, {'code': 'delayTime', 'name': '设备数传延时'}, {'code': 'sendTranDelay', 'name': '设备发送延时'}, {'code': 'waitTimeout', 'name': '设备等待响应超时时间'}, {'code': 'repeatNum', 'name': '重发次数'}, {'code': 'beatPeriod', 'name': '心跳周期'}, {'code': 'oneCon', 'name': '一类数据确认标志'}, {'code': 'twoCon', 'name': '二类数据确认标志'}, {'code': 'threeCon', 'name': '三类数据确认标志'}, {'code': 'arithID', 'name': '消息认证方案号'}, {'code': 'arithParam', 'name': '消息认证方案参数'}, {'code': 'rtuIp', 'name': '终端IP地址'}, {'code': 'rtuLisPort', 'name': '终端侦听端口'}, {'code': 'subMask', 'name': '子网掩码'}, {'code': 'gateway', 'name': '网关IP'}, {'code': 'proxyType', 'name': '代理类型'}, {'code': 'proxyAddress', 'name': '代理服务IP'}, {'code': 'proxyPort', 'name': '代理服务端口'}, {'code': 'proxyConMode', 'name': '代理服务连接方式'}, {'code': 'userName', 'name': '用户名'}, {'code': 'password', 'name': '密码'}, {'code': 'conType', 'name': '连接类型'}, {'code': 'workMode', 'name': '工作模式'}, {'code': 'workType', 'name': '在线模式'}, {'code': 'reDialInterval', 'name': '重拨间隔'}, {'code': 'reDialTimes', 'name': '重拨次数'}, {'code': 'autoDisconnTime', 'name': '无通信自动断连时间'}, {'code': 'onLineTimeFrame', 'name': '在线时段'}, {'code': 'vpnUser', 'name': 'VPN用户名'}, {'code': 'vpnPwd', 'name': 'VPN密码'}, {'code': 'mFactoryId', 'name': '厂商代号'}, {'code': 'mType', 'name': '模块型号'}, {'code': 'mSoftVer', 'name': '软件版本号'}, {'code': 'mSoftDate', 'name': '软件发布日期'}, {'code': 'mHWver', 'name': '硬件版本号'}, {'code': 'mHWDate', 'name': '硬件发布日期'}, {'code': 'ICCID', 'name': 'SIM卡ICCID'}, {'code': 'ratedVoltage', 'name': '额定电压'}, {'code': 'ratedPower', 'name': '额定功率'}, {'code': 'ratedCurrent', 'name': '额定电流'}, {'code': 'maxCurrent', 'name': '最大电流'}, {'code': 'pulseCateg', 'name': '脉冲类别'}, {'code': 'papPulseConstant', 'name': '正向有功脉冲常数'}, {'code': 'prpPulseConstant', 'name': '正向无功脉冲常数'}, {'code': 'rapPulseConstant', 'name': '反向有功脉冲常数'}, {'code': 'rrpPulseConstant', 'name': '反向无功脉冲常数'}, {'code': 'cT', 'name': '电流互感器变比'}, {'code': 'pT', 'name': '电压互感器变比'}, {'code': 'baudRate', 'name': '波特率'}, {'code': 'iCCID', 'name': 'SIM卡串号'}, {'code': 'iMEI', 'name': 'IMEI卡号'}, {'code': 'verSoft', 'name': '软件版本号'}, {'code': 'softDate', 'name': '软件版本时间'}, {'code': 'verHard', 'name': '硬件版本号'}, {'code': 'hardDate', 'name': '硬件版本时间'}, {'code': 'areaTime', 'name': '时间段'}, {'code': 'infoCode', 'name': '容量信息'}, {'code': 'protoVer', 'name': '协议版本'}, {'code': 'tVSpecification', 'name': '电压互感器规格'}, {'code': 'tASpecification', 'name': '电流互感器规格'}, {'code': 'isOnline', 'name': '是否在线'}, {'code': 'roadNo', 'name': '配置序号/抄表序号'}, {'code': 'protocolCode', 'name': '协议代号'}, {'code': 'measurNo', 'name': '测量点/总加组号'}, {'code': 'comPort', 'name': '通信端口号/信道号'}, {'code': 'feeNum', 'name': '费率个数'}, {'code': 'integerNum', 'name': '整数位数'}, {'code': 'decimalNum', 'name': '小数位数'}, {'code': 'authParam', 'name': '通信密码（电表）'}, {'code': 'pwdLevel', 'name': '通信密码等级'}, {'code': 'collCommAddr', 'name': '采集器地址'}, {'code': 'userBigNo', 'name': '用户大分类号'}, {'code': 'userSmallNo', 'name': '用户小分类号'}, {'code': 'cmdType', 'name': '操作指令类型'}, {'code': 'logicAddr', 'name': '逻辑地址'}, {'code': 'userType', 'name': '用户类型'}, {'code': 'lineType', 'name': '接线方式'}, {'code': 'isRead', 'name': '投抄标志'}, {'code': 'assetNumber', 'name': '资产号'}, {'code': 'totMark', 'name': '总加标志'}, {'code': 'operatorFlag', 'name': '运算符标志'}, {'code': 'pulsePort', 'name': '脉冲输入端口'}, {'code': 'pulseConstant', 'name': '脉冲常数'}, {'code': 'pulseAttr', 'name': '脉冲属性'}, {'code': 'pulseSerial', 'name': '脉冲编号'}, {'code': 'triggerID', 'name': '辅助节点序号'}, {'code': 'type', 'name': '辅助节点类型'}, {'code': 'alarm', 'name': '告警类型'}, {'code': 'safeValue', 'name': '保安定值'}, {'code': 'conRatio', 'name': '定值浮动系数'}, {'code': 'ratingP', 'name': '额定负荷'}, {'code': 'vup', 'name': '电压合格上限'}, {'code': 'vlow', 'name': '电压合格下限'}, {'code': 'vlimit', 'name': '电压断相门限'}, {'code': 'voverUpVal', 'name': '电压上上限'}, {'code': 'voverUpTm', 'name': '电压越上限持续时间'}, {'code': 'voverUpCon', 'name': '电压越上限恢复系数'}, {'code': 'voweLowVal', 'name': '电压下下限'}, {'code': 'voweLowTm', 'name': '电压越下限持续时间'}, {'code': 'voweLowCon', 'name': '电压越下限恢复系数'}, {'code': 'ioverUpVal', 'name': '电流上上限'}, {'code': 'ioverUpTm', 'name': '电流越上限持续时间'}, {'code': 'ioverUpCon', 'name': '电流越上限恢复系数'}, {'code': 'ratingIVal', 'name': '相电流上限'}, {'code': 'ratingITm', 'name': '超额定电流持续时间'}, {'code': 'ratingICon', 'name': '超额定电流恢复系数'}, {'code': 'zeroIUpVal', 'name': '零序电流上限'}, {'code': 'zeroIUpTm', 'name': '零序电流越上限持续时间'}, {'code': 'zeroIUpCon', 'name': '零序电流越上限恢复系数'}, {'code': 'pOverUpVal', 'name': '视在功率上上限'}, {'code': 'pOverUpTm', 'name': '视在功率越上上限持续时间'}, {'code': 'pOverUpCon', 'name': '视在功率越上上限恢复系数'}, {'code': 'pOweLowVal', 'name': '视在功率上限'}, {'code': 'pOweLowTm', 'name': '视在功率越上限持续时间'}, {'code': 'pOweLowCon', 'name': '视在功率越上限恢复系数'}, {'code': 'vunbalanceVal', 'name': '三相电压不平衡限值'}, {'code': 'vunbalanceTm', 'name': '三相电压不平衡持续时间'}, {'code': 'vunbalanceCon', 'name': '三相电压不平衡越限恢复系数'}, {'code': 'iunbalanceVal', 'name': '三相电流不平衡限值'}, {'code': 'iunbalanceTm', 'name': '三相电流不平衡持续时间'}, {'code': 'iunbalanceCon', 'name': '三相电流不平衡越限恢复系数'}, {'code': 'loseVoltageTm', 'name': '连续失压事件限值'}, {'code': 'segID', 'name': '时段序号'}, {'code': 'powerSetVal', 'name': '功率定值'}, {'code': 'schemeId', 'name': '定值方案号'}, {'code': 'limitFlow', 'name': '功率定值浮动系数'}, {'code': 'restLimitVal', 'name': '厂休控定值'}, {'code': 'reststartTime', 'name': '厂休控开始时间'}, {'code': 'keepTime', 'name': '厂休控持续时间'}, {'code': 'restDayMask', 'name': '厂休日掩码'}, {'code': 'stopStartTime', 'name': '报停控开始时间'}, {'code': 'stopEndTime', 'name': '报停控结束时间'}, {'code': 'stopLimitVal', 'name': '报停控功率限值'}, {'code': 'elect', 'name': '月电量定值'}, {'code': 'ratio', 'name': '报警门限系数'}, {'code': 'buyNo', 'name': '购电单号'}, {'code': 'isFresh', 'name': '追加/刷新标志'}, {'code': 'buyEleType', 'name': '购电类型'}, {'code': 'buyEleVal', "
+    },
+    "authParam_byPCode": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    },
+    "ip_byPCode": {
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "data_preview": "[]"
+    }
+  },
+  "allPropertySelect": {
+    "rtnCode": 200,
+    "rtnMsg": "Attempt to invoke interface method 'void java.util.List.forEach(java.util.function.Consumer)' on a null object reference",
+    "data_preview": "None"
+  }
+}

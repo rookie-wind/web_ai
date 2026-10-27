@@ -1,0 +1,212 @@
+{
+  "created": [
+    {
+      "name": "照明测试监测点",
+      "payload": {
+        "deviceName": "照明测试监测点",
+        "deviceTypeId": "100023",
+        "parentId": "6000000418639255",
+        "deviceAddress": "011111010241",
+        "identifier": "201001000241",
+        "commAddrRepetition": "2",
+        "proxyCommPort": "40",
+        "baudRate": "",
+        "stopDigit": "",
+        "checkDigit": "",
+        "dataDigit": "",
+        "protocolNumber": "",
+        "agentNum": "241",
+        "measuredPointNum": "241",
+        "collectorAddress": "",
+        "extInfos": [
+          {
+            "propertyCode": "authParam",
+            "propertyValue": "192,168,1,11,21883"
+          },
+          {
+            "propertyCode": "dsTypeId",
+            "propertyValue": "100023"
+          },
+          {
+            "propertyCode": "feeNum",
+            "propertyValue": "195"
+          },
+          {
+            "propertyCode": "aCommAddr",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "brand",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "brandName",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "cT",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "decimalNum",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "decimalNumName",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "integerNum",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "lineType",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "pT",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "ratedCurrent",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "ratedVoltage",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "userBigNo",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "userSmallNo",
+            "propertyValue": ""
+          }
+        ]
+      },
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "new_id": "6000000824966227",
+      "readback": {
+        "deviceId": "6000000824966227",
+        "deviceTypeId": "100023",
+        "deviceTypeName": "照明",
+        "parentId": "6000000418639255",
+        "proxyCommPort": "40",
+        "baudRate": "",
+        "deviceAddress": "011111010241",
+        "authParam": "192,168,1,11,21883",
+        "dsTypeId": "100023",
+        "feeNum": "195"
+      }
+    },
+    {
+      "name": "配电房测试监测点",
+      "payload": {
+        "deviceName": "配电房测试监测点",
+        "deviceTypeId": "100024",
+        "parentId": "6000000418639255",
+        "deviceAddress": "011111010242",
+        "identifier": "201001000242",
+        "commAddrRepetition": "2",
+        "proxyCommPort": "40",
+        "baudRate": "",
+        "stopDigit": "",
+        "checkDigit": "",
+        "dataDigit": "",
+        "protocolNumber": "",
+        "agentNum": "242",
+        "measuredPointNum": "242",
+        "collectorAddress": "",
+        "extInfos": [
+          {
+            "propertyCode": "authParam",
+            "propertyValue": "192,168,1,12,21883"
+          },
+          {
+            "propertyCode": "dsTypeId",
+            "propertyValue": "100024"
+          },
+          {
+            "propertyCode": "feeNum",
+            "propertyValue": "195"
+          },
+          {
+            "propertyCode": "aCommAddr",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "brand",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "brandName",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "cT",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "decimalNum",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "decimalNumName",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "integerNum",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "lineType",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "pT",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "ratedCurrent",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "ratedVoltage",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "userBigNo",
+            "propertyValue": ""
+          },
+          {
+            "propertyCode": "userSmallNo",
+            "propertyValue": ""
+          }
+        ]
+      },
+      "rtnCode": 0,
+      "rtnMsg": "",
+      "new_id": "6000000298434388",
+      "readback": {
+        "deviceId": "6000000298434388",
+        "deviceTypeId": "100024",
+        "deviceTypeName": "配电房",
+        "parentId": "6000000418639255",
+        "proxyCommPort": "40",
+        "baudRate": "",
+        "deviceAddress": "011111010242",
+        "authParam": "192,168,1,12,21883",
+        "dsTypeId": "100024",
+        "feeNum": "195"
+      }
+    }
+  ],
+  "existing_names": [
+    "1#温湿度",
+    "2#温湿度",
+    "222_MODBUS电表",
+    "照明测试"
+  ]
+}

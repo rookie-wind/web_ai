@@ -1,0 +1,153 @@
+{
+  "files": {
+    "mcp_server/archiving/converter.py": {
+      "summary": "实现 175 参数组件的通讯地址转换规则（去条码第 1、2、7 位中间补三个 0 得 12 位地址）并提供地址格式校验，供基本档案与网关参数项 20100024 共用。",
+      "tags": ["conversion", "validation", "utility"],
+      "languageNotes": "是否套用转换由设备 profile 决定，本模块不强制；XLBA 电表叶子的 identifier 通常直接等于 deviceAddress。"
+    },
+    "mcp_server/archiving/profiles/__init__.py": {
+      "summary": "设备类型 profile 插件包的入口，说明基类、注册表与各 deviceTypeId profile 的职责划分及新增类型的扩展方式。",
+      "tags": ["entry-point", "barrel", "package-init"]
+    },
+    "mcp_server/archiving/profiles/base.py": {
+      "summary": "定义 profile 基类、ProfileResult 与 deviceTypeId/itemId 常量，并承载端口驱动的多态 authParam 组装与下发侧归一逻辑，引擎只依赖本基类接口。",
+      "tags": ["core-engine", "abstraction", "data-model", "protocol-encoding"],
+      "languageNotes": "authParam 是多态落点：IP 型端口承载五段逗号串，RS485 串口端口承载电表密码；下发侧另有 12 位十六进制形态，两者分属不同落点。"
+    },
+    "mcp_server/archiving/profiles/gateway_8163.py": {
+      "summary": "8163 网关（deviceTypeId=100009）建档 profile，要求 deviceAddress 与 proxyCommType 齐备，缺失或未知时报错而非预置默认。",
+      "tags": ["profile", "gateway", "validation"]
+    },
+    "mcp_server/archiving/profiles/meter_lighting.py": {
+      "summary": "照明监测点（deviceTypeId=100023）profile，完全复用 XLBA 的建档结构与 20 列契约，仅类型标识不同并占用独立明细表。",
+      "tags": ["profile", "monitor-point", "inheritance"]
+    },
+    "mcp_server/archiving/profiles/meter_pdb.py": {
+      "summary": "配电房监测点（deviceTypeId=100024）profile，与照明同构：复用 XLBA 建档结构，差异仅在类型标识与独立明细表。",
+      "tags": ["profile", "monitor-point", "inheritance"]
+    },
+    "mcp_server/archiving/profiles/meter_xlba.py": {
+      "summary": "XLBA 电表（deviceTypeId=100019）的建档与下发 profile，仅编码用户填写或可追溯派生的字段，码值映射统一取自 field_contract。",
+      "tags": ["profile", "monitor-point", "payload", "single-source-of-truth"],
+      "languageNotes": "feeNum 为串口位域组合：(baud << 5) | (stop << 4) | (check << 2) | data。"
+    },
+    "mcp_server/archiving/profiles/registry.py": {
+      "summary": "以中文设备类型名与 deviceTypeId 双通道注册并查询 profile，未支持类型返回可读错误，虚拟网关登记为二期占位绝不回退到其它类型。",
+      "tags": ["registry", "routing", "factory", "error-handling"]
+    }
+  },
+  "symbols": {
+    "mcp_server/archiving/converter.py::AddressConversionError": {
+      "summary": "通讯地址转换或校验失败时抛出的值错误。",
+      "tags": ["error-handling", "exception", "type-definition"]
+    },
+    "mcp_server/archiving/converter.py::convert_comm_address": {
+      "summary": "从 12 位纯数字条码生成 12 位通讯地址，长度或字符不合法时抛出转换错误。",
+      "tags": ["conversion", "validation", "utility"]
+    },
+    "mcp_server/archiving/converter.py::validate_device_address": {
+      "summary": "校验通讯地址为 12 位纯数字并返回规范化结果。",
+      "tags": ["validation", "normalization", "utility"]
+    },
+    "mcp_server/archiving/profiles/base.py::ProfileResult": {
+      "summary": "profile 解析与校验的结果对象，携带致命错误、告警、建档基础 payload、extInfos、下发 itemBody 与联通阻止标志。",
+      "tags": ["data-model", "validation", "payload"]
+    },
+    "mcp_server/archiving/profiles/base.py::assemble_auth_param": {
+      "summary": "按端口码值判定承载内容并组装多态 authParam：IP 型端口产出五段逗号串，串口端口透传电表密码且禁止填写 IP/端口。",
+      "tags": ["protocol-encoding", "validation", "polymorphism"]
+    },
+    "mcp_server/archiving/profiles/base.py::encode_auth_param_hex": {
+      "summary": "把通信 IP 与端口编码为下发侧 12 位十六进制串，即 IP 四段各一字节加端口 16 位大端共六字节小写 hex。",
+      "tags": ["protocol-encoding", "serialization", "conversion"]
+    },
+    "mcp_server/archiving/profiles/base.py::normalize_auth_param_for_deploy": {
+      "summary": "将任意来源的 authParam 归一为下发侧 12 位十六进制形态，空值或其他形态退回占位默认值。",
+      "tags": ["normalization", "protocol-encoding", "utility"]
+    },
+    "mcp_server/archiving/profiles/base.py::DeviceProfile": {
+      "summary": "设备类型 profile 基类，子类声明类型标识并覆写 resolve 生成建档/下发结构，基类提供未声明列探测等通用能力。",
+      "tags": ["abstraction", "template-method", "data-model"]
+    },
+    "mcp_server/archiving/profiles/gateway_8163.py::Gateway8163Profile": {
+      "summary": "解析网关节点生成建档 payload 与 proxyCommType 校验结果，缺失或未知值以错误形式阻断建档。",
+      "tags": ["profile", "gateway", "validation"]
+    },
+    "mcp_server/archiving/profiles/meter_lighting.py::MeterLightingProfile": {
+      "summary": "照明监测点 profile，建档与校验逻辑完全继承 XLBA，无类型级下发能力开关。",
+      "tags": ["profile", "monitor-point", "inheritance"]
+    },
+    "mcp_server/archiving/profiles/meter_pdb.py::MeterPdbProfile": {
+      "summary": "配电房监测点 profile，建档与校验逻辑完全继承 XLBA，下发/召测走与其它类型相同的实时读参数路径。",
+      "tags": ["profile", "monitor-point", "inheritance"]
+    },
+    "mcp_server/archiving/profiles/meter_xlba.py::_text": {
+      "summary": "保留零值并把工程输入规范化为文本。",
+      "tags": ["utility", "normalization", "type-fidelity"]
+    },
+    "mcp_server/archiving/profiles/meter_xlba.py::_map_code": {
+      "summary": "把下拉友好名翻译为后端码值，空值取显式默认且只接受映射内的名称或码值。",
+      "tags": ["mapping", "conversion", "validation"]
+    },
+    "mcp_server/archiving/profiles/meter_xlba.py::_to_int": {
+      "summary": "把值安全转换为整数，失败时返回给定默认值。",
+      "tags": ["utility", "conversion", "error-handling"]
+    },
+    "mcp_server/archiving/profiles/meter_xlba.py::_compute_fee_num": {
+      "summary": "按设计 §6 计算串口位域 feeNum，任一参数无效时返回 0。",
+      "tags": ["protocol-encoding", "bit-manipulation", "calculation"]
+    },
+    "mcp_server/archiving/profiles/meter_xlba.py::MeterXlbaProfile": {
+      "summary": "解析 XLBA 电表节点，产出建档 base_payload 与下发数据项 20200002 的 itemBody，并汇总校验错误与提示。",
+      "tags": ["profile", "monitor-point", "payload", "validation"]
+    },
+    "mcp_server/archiving/profiles/registry.py::ProfileLookupError": {
+      "summary": "设备类型无法解析为可用 profile 时抛出的异常。",
+      "tags": ["error-handling", "exception", "type-definition"]
+    },
+    "mcp_server/archiving/profiles/registry.py::VirtualGatewayPlaceholderProfile": {
+      "summary": "虚拟网关（deviceTypeId=100015）的二期占位 profile，只给出明确的未实现提示，不生成任何建档或下发结构。",
+      "tags": ["profile", "stub", "placeholder"]
+    },
+    "mcp_server/archiving/profiles/registry.py::ProfileRegistry": {
+      "summary": "按名称或 deviceTypeId 注册与查询 profile，并代理查询 sheet 契约与支持状态，查询失败返回可读错误绝不猜测字段结构。",
+      "tags": ["registry", "lookup", "routing", "error-handling"]
+    },
+    "mcp_server/archiving/profiles/registry.py::_build_default_registry": {
+      "summary": "构建默认注册表，注册 8163 网关、XLBA 电表、照明与配电房监测点及虚拟网关占位。",
+      "tags": ["factory", "registry", "initialization"]
+    }
+  },
+  "edges": [
+    {
+      "source": "class:mcp_server/archiving/profiles/gateway_8163.py:Gateway8163Profile",
+      "target": "class:mcp_server/archiving/profiles/base.py:DeviceProfile",
+      "type": "inherits",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/profiles/meter_xlba.py:MeterXlbaProfile",
+      "target": "class:mcp_server/archiving/profiles/base.py:DeviceProfile",
+      "type": "inherits",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/profiles/registry.py:VirtualGatewayPlaceholderProfile",
+      "target": "class:mcp_server/archiving/profiles/base.py:DeviceProfile",
+      "type": "inherits",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/profiles/meter_lighting.py:MeterLightingProfile",
+      "target": "class:mcp_server/archiving/profiles/meter_xlba.py:MeterXlbaProfile",
+      "type": "inherits",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/profiles/meter_pdb.py:MeterPdbProfile",
+      "target": "class:mcp_server/archiving/profiles/meter_xlba.py:MeterXlbaProfile",
+      "type": "inherits",
+      "weight": 0.9
+    }
+  ]
+}

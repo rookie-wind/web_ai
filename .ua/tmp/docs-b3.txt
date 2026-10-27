@@ -1,0 +1,368 @@
+﻿FILE mcp_server/archiving/log_sanitizer.py
+  MODULE-DOC: 日志脱敏工具。 对日志输出中的敏感信息进行脱敏处理，防止密码、Token、票据等泄露。 脱敏范围： - Bearer Token（``Bearer xxx`` → ``Bearer ***``） - 密码字段（``password``、``code`` 等键的值） - 票据查询串中的 ``owner=`` 参数 - Authorization 头部值 - 原始请求体（仅记录大小，不记录内容）
+  TOP-ASSIGN __all__ [15]
+  TOP-ASSIGN _SENSITIVE_KEYS [20]
+  TOP-ASSIGN _BEARER_RE [26]
+  TOP-ASSIGN _KEY_VALUE_RE [29]
+  TOP-ASSIGN _QUERY_SENSITIVE_RE [35]
+  FUNC redact_value(value) [41-52] 12L deco=(-)
+    DOC: 将敏感值脱敏为 ``***``。 Args: value: 原始值。 Returns: 脱敏后的字符串。
+  FUNC sanitize_headers(headers) [55-70] 16L deco=(-)
+    DOC: 对请求头中的敏感字段脱敏。 Args: headers: 请求头字典。 Returns: 脱敏后的请求头字典（新对象，不修改原字典）。
+  FUNC sanitize_log_message(message) [73-93] 21L deco=(-)
+    DOC: 对日志消息中的敏感信息脱敏。 处理：Bearer Token、JSON 敏感键值、查询串敏感参数。 Args: message: 原始日志消息。 Returns: 脱敏后的消息。
+  FUNC sanitize_report(value, secrets) [96-120] 25L deco=(-)
+    DOC: 递归脱敏报告字段与混入响应文本的本任务凭据。
+
+FILE mcp_server/archiving/snapshot_store.py
+  MODULE-DOC: 非敏感模板快照的服务端私有存储与权威核对（design §2 / §4）。 一次生成任务产出「服务端权威快照记录」：随机快照 ID、所属接入身份摘要、 生成文件摘要、字段契约版本及规范化字典内容，默认保留 30 天。快照与空白模板 只含非敏感内容，存放在服务私有状态目录 ``archive_templates/``，不进入 git 或 Skills 包，也**绝不**写入现场凭据、原始 Excel 或登录响应。 权威核对语义： - 解析已填写工作簿时以**原快照**为准，字典后续变化不影响按原快照解析。 - 工作簿可查看字典／映射，但服务端核对其规范化内容与权威快照；篡改拒绝。 - 过期、跨身份、缺失一律拒绝；不对整个已填文件做原模板字节相等检查。 归属身份由已验证 MCP Token 的不可逆摘要派生（:func:`derive_owner_id`）， 不使用 IP、云端角色或用户传入字段；本模块只接收派生后的 ``owner …
+  TOP-ASSIGN __all__ [19]
+  TOP-ASSIGN DEFAULT_TTL_DAYS [52]
+  TOP-ASSIGN _STATE_DIR_ENV [54]
+  TOP-ASSIGN _SNAPSHOT_ID_BYTES [56]
+  TOP-ASSIGN DEFAULT_UPLOAD_TTL_MINUTES [58]
+  TOP-ASSIGN DEFAULT_UPLOAD_MAX_BYTES [60]
+  TOP-ASSIGN DEFAULT_UPLOAD_MAX_CHUNKS [62]
+  FUNC _default_base_dir() [65-74] 10L deco=(-)
+    DOC: 返回默认私有状态目录（可被环境变量覆盖）。 Returns: ``archive_templates`` 目录路径（不自动创建）。
+  FUNC _now() [77-79] 3L deco=(-)
+    DOC: 返回当前 UTC 感知时间。
+  FUNC compute_content_digest(dictionaries, mappings) [82-101] 20L deco=(-)
+    DOC: 计算规范化字典内容的 SHA-256 摘要。 以键排序、紧凑分隔、保留非 ASCII 的规范化 JSON 为输入，保证同一逻辑 内容在不同插入顺序下得到相同摘要。 Args: dictionaries: 作用域到字典记录的映射。 mappings: field_key 到 ``{友好名: 码值}`` 的映射。 Returns: 十六进制 SHA-256 摘要字符串。
+  FUNC derive_owner_id(mcp_token) [104-117] 14L deco=(-)
+    DOC: 由已验证 MCP Token 派生不可逆的归属身份摘要。 仅用于绑定文件与任务归属；不存储、不返回原始 Token。 Args: mcp_token: 已验证的 MCP 接入 Token。 Returns: SHA-256 十六进制摘要；Token 为空时返回空串。
+  CLASS SnapshotError [120-121] bases=(Exception) methods=[]
+    DOC: 快照存储基类异常。
+  CLASS SnapshotNotFoundError [124-125] bases=(SnapshotError) methods=[]
+    DOC: 快照不存在。
+  CLASS SnapshotOwnerMismatchError [128-129] bases=(SnapshotError) methods=[]
+    DOC: 请求身份与快照归属不一致（跨身份拒绝）。
+  CLASS SnapshotExpiredError [132-133] bases=(SnapshotError) methods=[]
+    DOC: 快照已过期，须重新获取模板。
+  CLASS SnapshotTamperError [136-137] bases=(SnapshotError) methods=[]
+    DOC: 工作簿呈现的规范化内容与权威快照不一致（篡改拒绝）。
+  CLASS ChunkedUploadError [140-141] bases=(SnapshotError) methods=[]
+    DOC: 分块上传基类异常。
+  CLASS UploadIncompleteError [144-145] bases=(ChunkedUploadError) methods=[]
+    DOC: 分块不完整或会话不存在（缺片或未收任何片）。
+  CLASS UploadLimitError [148-149] bases=(ChunkedUploadError) methods=[]
+    DOC: 分片数量或总字节超过上限。
+  CLASS UploadExpiredError [152-153] bases=(ChunkedUploadError) methods=[]
+    DOC: 分块上传会话已过期，需重新开始。
+  CLASS SnapshotRecord [157-228] bases=(-) methods=[version, field_contract_version, content_digest, to_meta_dict, from_meta_dict]
+    DOC: 服务端权威快照记录（含归属、有效期与文件摘要）。 Attributes: snapshot_id: 随机快照 ID。 owner_id: 归属身份摘要。 created_at: 创建时间（ISO 字符串）。 expires_at: 到期时间（ISO 字符串）。 template_sha256: 空白模板文件 SHA-256。 template_name: 下载展示文件名。 snapshot: 内嵌的 :class:`TemplateSnapshot`（字典／映射／契约版本）。
+      METHOD version(self) [179-181] 3L
+        DOC: 模板结构版本。
+      METHOD field_contract_version(self) [184-186] 3L
+        DOC: 字段契约版本。
+      METHOD content_digest(self) [189-191] 3L
+        DOC: 规范化字典内容摘要。
+      METHOD to_meta_dict(self) [193-207] 15L
+        DOC: 序列化为落盘元数据字典（不含模板字节）。 Returns: 含归属、有效期、文件摘要与内嵌快照的字典。
+      METHOD from_meta_dict(cls, data) [210-228] 19L
+        DOC: 从落盘元数据反序列化。 Args: data: 元数据字典。 Returns: SnapshotRecord 实例。
+  CLASS SnapshotStore [231-718] bases=(-) methods=[__init__, _meta_path, _template_path, _atomic_write_bytes, save, _allocate_id, load, _is_expired, read_template_bytes, verify_content, _upload_root, _upload_meta_path, _upload_part_path, _read_upload_meta, _write_upload_meta, _upload_expired, append_chunk, read_merged_upload, discard_upload, purge_expired_uploads, purge_old_for_owner, purge_expired]
+    DOC: 快照与空白模板的私有存储，负责归属、有效期与内容核对。 目录布局（``base_dir`` 下）： - ``<snapshot_id>.json``：权威元数据记录。 - ``<snapshot_id>.xlsx``：空白模板字节（下载用）。 所有写入均为临时文件 + ``os.replace`` 原子落盘；随机快照 ID 保证同秒 多次生成互不覆盖。
+      METHOD __init__(self, base_dir) [242-267] 26L
+        DOC: 初始化存储。 Args: base_dir: 私有状态目录；None 时用默认（可被环境变量覆盖）。 ttl_days: 快照有效期天数。 now_fn: 当前时间回调（测试注入用），默认 UTC 现在。 upload_ttl_minutes: 分块上传会话有效期分钟数。 upload_max_bytes: 单次分块上传总字节上限。 upload_max_chunks: 单次分块上传最大分片数。
+      METHOD _meta_path(self, snapshot_id) [271-273] 3L
+        DOC: 返回快照元数据文件路径。
+      METHOD _template_path(self, snapshot_id) [275-277] 3L
+        DOC: 返回空白模板文件路径。
+      METHOD _atomic_write_bytes(self, path, payload) [279-284] 6L
+        DOC: 原子写字节：先写临时文件再 ``os.replace``。
+      METHOD save(self, snapshot) [288-341] 54L
+        DOC: 保存权威快照记录与空白模板字节。 若快照未带 ``snapshot_id`` 或 ``content_digest`` 则在此生成；随机 ID 保证同秒生成不覆盖既有文件。 Args: snapshot: 模板快照（字典／映射／契约版本）。 owner_id: 归属身份摘要（由 :func:`derive_owner_id` 派生）。 template_bytes: 空白模板文件字节。 template_name: 下载展示文件名，默认 ``<snapshot_id>.xlsx``。 Returns: 已落盘的 :class:`SnapshotRecord`。 Raises: SnapshotError: 归属为空或无法分配唯一快照 ID。
+      METHOD _allocate_id(self, requested) [343-361] 19L
+        DOC: 分配唯一快照 ID，避免同秒或重复 ID 覆盖既有文件。 Args: requested: 调用方期望的 ID（可空）；仅在其未占用时采用。 Returns: 未被占用的快照 ID。 Raises: SnapshotError: 连续多次随机仍碰撞（极不可能）。
+      METHOD load(self, snapshot_id) [365-398] 34L
+        DOC: 按快照 ID 与归属加载记录，强制过期与身份校验。 Args: snapshot_id: 快照 ID。 owner_id: 请求方归属摘要。 Returns: 校验通过的 :class:`SnapshotRecord`。 Raises: SnapshotNotFoundError: 快照不存在或元数据损坏。 SnapshotOwnerMismatchError: 归属不一致。 SnapshotExpiredError: 已过期。
+      METHOD _is_expired(self, record) [400-408] 9L
+        DOC: 判断记录是否已过期（无法解析到期时间视为过期）。
+      METHOD read_template_bytes(self, snapshot_id) [410-431] 22L
+        DOC: 读取空白模板字节（先经归属与有效期校验）。 Args: snapshot_id: 快照 ID。 owner_id: 请求方归属摘要。 Returns: 模板文件字节。 Raises: SnapshotNotFoundError: 快照或模板文件缺失。
+      METHOD verify_content(self, snapshot_id) [433-471] 39L
+        DOC: 核对工作簿呈现的规范化内容与权威快照是否一致。 归属与有效期先经 :meth:`load` 校验。呈现内容可用摘要或原始 字典／映射给出；不一致即判篡改。 Args: snapshot_id: 快照 ID。 owner_id: 请求方归属摘要。 presented_digest: 工作簿呈现内容的规范化摘要（优先）。 presented_dictionaries: 呈现的字典（无摘要时用于计算）。 presented_mappings: 呈现的映射（无摘要时用于计算）。 Returns: 校验通过的权威 :class:`SnapshotRecord`。 Raises: SnapshotTamperError: 呈现内容与权威摘要不一致。
+      METHOD _upload_root(self, owner_id) [475-477] 3L
+        DOC: 返回某归属下的分块上传根目录（owner 隔离）。
+      METHOD _upload_meta_path(self, owner_id, upload_id) [479-481] 3L
+        DOC: 返回分块上传会话元数据路径。
+      METHOD _upload_part_path(self, owner_id, upload_id, seq) [483-487] 5L
+        DOC: 返回单个分块的落盘路径。
+      METHOD _read_upload_meta(self, meta_p) [489-494] 6L
+        DOC: 读取分块会话元数据；损坏视为不存在。
+      METHOD _write_upload_meta(self, meta_p, meta) [496-504] 9L
+        DOC: 原子写分块会话元数据（临时文件 + os.replace）。
+      METHOD _upload_expired(self, meta) [506-514] 9L
+        DOC: 判断分块会话是否过期（无法解析到期时间视为过期）。
+      METHOD append_chunk(self, owner_id, upload_id, seq, data) [516-583] 68L
+        DOC: 追加一个上传分片；首次追加隐式开启会话，末片置 is_last。 Args: owner_id: 归属身份摘要（路径级隔离）。 upload_id: 客户端选定的上传会话 ID。 seq: 分片序号（非负）。 data: 本分片原始字节。 is_last: 是否为末片。 Returns: 含 upload_id / next_seq / received_chunks / received_bytes / is_last / complete 的会话状态。 Raises: UploadLimitError: 参数缺失、分片或总字节超上限。 UploadExpiredError: 既有会话已过期。
+      METHOD read_merged_upload(self, owner_id, upload_id) [585-619] 35L
+        DOC: 按 seq 顺序合并全部分片为完整字节，缺片则报错。 Args: owner_id: 归属身份摘要。 upload_id: 上传会话 ID。 Returns: 合并后的完整文件字节。 Raises: UploadIncompleteError: 会话不存在、无分片或存在缺口。 UploadExpiredError: 会话已过期。
+      METHOD discard_upload(self, owner_id, upload_id) [621-632] 12L
+        DOC: 删除某分块上传会话的元数据与全部数据分片。
+      METHOD purge_expired_uploads(self) [634-650] 17L
+        DOC: 回收所有归属下已过期的分块上传会话，返回清理数量。
+      METHOD purge_old_for_owner(self, owner_id) [654-693] 40L
+        DOC: 同一归属只保留最新一份快照，删除其余旧快照。 按 ``created_at`` 排序，保留最新一条，删除其余的元数据与模板文件。 Args: owner_id: 归属身份摘要。 Returns: 被清理的快照数量。
+      METHOD purge_expired(self) [695-718] 24L
+        DOC: 删除已过期快照的元数据与模板文件。 Returns: 被清理的快照数量。
+
+FILE mcp_server/archiving/stage_orchestrator.py
+  MODULE-DOC: 阶段依赖编排与汇总。 完整编排顺序为建档／挂载／全字段回读 → 参数保存回读 → 网关时钟 → ``20200002`` 批量下发 → 逐监测点 ``31800006`` 召测。每阶段分别 记录，依赖阶段未成功则后续阻止。单独诊断需独立确认目标范围， 不计入完整流程验收。 阶段状态： - NOT_RUN: 未执行。 - BLOCKED: 被前置阶段阻止。 - SUCCEEDED: 成功。 - FAILED: 失败。 - UNVERIFIED: 结果未验证（超时、仅受理等）。
+  TOP-ASSIGN __all__ [18]
+  CLASS StageState [27-34] bases=(str, Enum) methods=[]
+    DOC: 阶段状态枚举。
+  CLASS StageRecord [37-79] bases=(-) methods=[__init__, to_dict]
+    DOC: 单阶段执行记录。 Attributes: stage_name: 阶段名称。 state: 阶段状态。 reason: 状态原因（若有）。 detail: 详细结果（若有）。 gateway_key: 关联网关（若有）。
+      METHOD __init__(self, stage_name, state, reason, detail, gateway_key) [48-69] 22L
+        DOC: 初始化阶段记录。 Args: stage_name: 阶段名称。 state: 初始状态。 reason: 状态原因。 detail: 详细结果。 gateway_key: 关联网关。
+      METHOD to_dict(self) [71-79] 9L
+        DOC: 序列化为字典。
+  CLASS StageOrchestrator [92-252] bases=(-) methods=[__init__, record_stage, can_execute, mark_standalone_diagnostic, is_standalone_diagnostic, summary, old_call_excluded]
+    DOC: 阶段依赖编排器。 管理阶段状态与依赖检查，确保前置阶段成功后才执行后续阶段。 单独诊断不计入全链路汇总。
+      METHOD __init__(self, required_stages) [99-105] 7L
+        DOC: 初始化编排器，并明确该目标的适用阶段。
+      METHOD record_stage(self, stage_name, state, reason, detail, gateway_key) [107-135] 29L
+        DOC: 记录阶段结果。 Args: stage_name: 阶段名称。 state: 阶段状态。 reason: 原因描述。 detail: 详细结果。 gateway_key: 关联网关。 Returns: 阶段记录。
+      METHOD can_execute(self, stage_name) [137-175] 39L
+        DOC: 检查阶段是否可以执行。 前置阶段必须为 SUCCEEDED，否则当前阶段被阻止。 Args: stage_name: 阶段名称。 Returns: ``(可执行, 原因)`` 二元组。
+      METHOD mark_standalone_diagnostic(self) [177-182] 6L
+        DOC: 标记为单独诊断模式。 单独诊断不计入全链路汇总，不补做未授权前序写入。
+      METHOD is_standalone_diagnostic(self) [185-187] 3L
+        DOC: 是否为单独诊断模式。
+      METHOD summary(self) [189-237] 49L
+        DOC: 生成阶段汇总。 Returns: 汇总字典，含各阶段状态、整体结论和是否全链路。
+      METHOD old_call_excluded(self) [239-252] 14L
+        DOC: 声明旧 callDeviceData 不计入新链路证据。 Returns: 排除声明字典。
+
+FILE mcp_server/archiving/task_report_store.py
+  MODULE-DOC: 自动建档任务报告持久化存储。 将脱敏计划、动作意图/结果和补偿清单持久化到私有报告目录， 支持进程中断后查询、任务过期后由所属身份查报告。
+  TOP-ASSIGN __all__ [9]
+  TOP-ASSIGN DEFAULT_TTL_DAYS [27]
+  FUNC _now() [30-32] 3L deco=(-)
+    DOC: 返回当前 UTC 时间。
+  FUNC _default_base_dir() [35-40] 6L deco=(-)
+    DOC: 返回默认报告目录。
+  CLASS TaskReportError [43-44] bases=(Exception) methods=[]
+    DOC: 任务报告存储异常。
+  CLASS TaskReport [48-91] bases=(-) methods=[to_dict, from_dict]
+    DOC: 任务报告数据。
+      METHOD to_dict(self) [62-75] 14L
+        DOC: 序列化为字典。
+      METHOD from_dict(cls, data) [78-91] 14L
+        DOC: 从字典反序列化。
+  CLASS TaskReportStore [94-267] bases=(-) methods=[__init__, _report_path, _atomic_write_json, save, load, find_by_task, list_by_owner]
+    DOC: 任务报告的私有存储。 目录布局（``base_dir`` 下）： - ``<report_id>.json``：脱敏任务报告。 所有写入均为临时文件 + ``os.replace`` 原子落盘。
+      METHOD __init__(self, base_dir) [103-119] 17L
+        DOC: 初始化存储。 Args: base_dir: 私有状态目录；None 时用默认。 ttl_days: 报告有效期天数。 now_fn: 当前时间回调（测试注入用）。
+      METHOD _report_path(self, report_id) [121-125] 5L
+        DOC: 返回报告文件路径。
+      METHOD _atomic_write_json(self, path, data) [127-144] 18L
+        DOC: 原子写 JSON：先写临时文件再 ``os.replace``。
+      METHOD save(self) [146-201] 56L
+        DOC: 保存任务报告。 Args: task_id: 任务 ID。 owner_id: 归属身份摘要。 plan_summary: 脱敏计划摘要。 actions: 动作意图/结果列表。 compensation: 补偿清单。 stage_failures: 阶段失败记录。 stages: 逐设备、逐阶段的执行状态。 report_id: 已有报告 ID，空值时新建；不改变原归属。 Returns: 已落盘的 TaskReport。 Raises: TaskReportError: 归属为空或无法分配唯一报告 ID。
+      METHOD load(self, report_id) [203-229] 27L
+        DOC: 加载报告。 Args: report_id: 报告 ID。 Returns: TaskReport。 Raises: TaskReportError: 报告不存在或读取失败。
+      METHOD find_by_task(self, task_id, owner_id) [231-246] 16L
+        DOC: 按 task_id 和 owner_id 查找报告。 Args: task_id: 任务 ID。 owner_id: 归属身份。 Returns: 匹配的 TaskReport 或 None。
+      METHOD list_by_owner(self, owner_id) [248-267] 20L
+        DOC: 列出归属身份的全部报告。 Args: owner_id: 归属身份。 Returns: TaskReport 列表。
+
+FILE mcp_server/edge_tools.py
+  MODULE-DOC: XLPA 自动建档原子 MCP 工具注册。 将边缘建档能力拆分为可审计的原子工具，由 XLPA Skill 按 dry-run 计划、 用户确认和阶段结果编排调用；不提供不可审计的一键黑盒建档工具。 会话模型：``read_device_archive_template`` 解析 Excel 并生成 ``task_id``， 边缘凭据（password 等）仅保存在服务端内存会话中，后续工具用 ``task_id`` 引用，绝不作为工具参数反复传递，也不在任何返回中输出明文。 写入/下发/召测类工具均返回动作、关键入参摘要、返回码、返回消息与是否成功。
+  TOP-ASSIGN __all__ [15]
+  TOP-ASSIGN _op_store [54]
+  TOP-ASSIGN PATH_MODIFY_DEVICE [57]
+  TOP-ASSIGN PATH_GET_DEVICE_PARAM [58]
+  TOP-ASSIGN PATH_MODIFY_DEVICE_PARAM [59]
+  TOP-ASSIGN GATEWAY_ADDRESS_ITEM_ID [60]
+  TOP-ASSIGN PATH_UPDATE_PARENT [61]
+  TOP-ASSIGN PATH_GET_DEVICE_TREE [62]
+  TOP-ASSIGN PATH_GET_DEVICE_LIST_BY_PID [63]
+  TOP-ASSIGN PATH_GET_DEVICE_LIST [64]
+  TOP-ASSIGN PATH_SMART_EVENT [66]
+  TOP-ASSIGN PATH_CALL_DEVICE_DATA [67]
+  TOP-ASSIGN PATH_SET_DEVICE_PARAM [68]
+  TOP-ASSIGN PATH_CALL_CLOCK [70]
+  TOP-ASSIGN PATH_CALL_DEVICE_PARAM [72]
+  TOP-ASSIGN MONITOR_DEBUG_ITEM_ID [76]
+  FUNC _err(message) [79-83] 5L deco=(-)
+    DOC: 构造统一错误返回。
+  FUNC _action_result(action, summary, resp) [86-107] 22L deco=(-)
+    DOC: 将边缘响应归一化为写入类工具返回结构。 Args: action: 动作名。 summary: 关键入参摘要（已脱敏）。 resp: EdgeDeviceClient 归一化响应。 Returns: 含 action / request_summary / rtnCode / rtnMsg / ok / data 的字典。
+  CLASS EdgeSession [110-178] bases=(-) methods=[__init__, is_expired]
+    DOC: 一次自动建档任务的服务端会话状态。 Attributes: template: 解析后的任务模板（含边缘凭据，不外泄）。 owner_id: 归属身份摘要（由 MCP Token 派生）。 file_id: 关联的快照 ID（可为空，兼容旧路径入口）。 created_at: 创建时间（ISO 字符串）。 expires_at: 到期时间（ISO 字符串，默认 24 小时）。
+      METHOD __init__(self, template) [124-168] 45L
+        DOC: 初始化会话。 Args: template: 解析后的任务模板（含边缘凭据，不外泄）。 独立登录场景（edge_get_token）可为 None。 owner_id: 归属身份摘要。 file_id: 关联的快照 ID。
+      METHOD is_expired(self) [170-178] 9L
+        DOC: 判断会话是否已过期。
+  CLASS EdgeSessionStore [181-277] bases=(-) methods=[__init__, create, create_token_session, get, drop, purge_expired]
+    DOC: 内存会话存储，task_id -> EdgeSession。 支持归属校验与过期回收： - get() 检查归属 owner_id 与会话有效期 - drop() 关闭边缘客户端连接 - 重启不恢复写操作（内存存储，进程重启即清空）
+      METHOD __init__(self) [190-193] 4L
+        DOC: 初始化空存储。
+      METHOD create(self, template) [195-214] 20L
+        DOC: 创建会话并返回 task_id。 Args: template: 解析后的任务模板。独立登录场景可为 None。 owner_id: 归属身份摘要。 file_id: 关联的快照 ID。
+      METHOD create_token_session(self) [216-234] 19L
+        DOC: 创建无模板的独立登录会话并返回 task_id。 用于 ``edge_get_token`` 工具：仅持有已登录的边缘客户端， 不关联建档模板。 Args: owner_id: 归属身份摘要。
+      METHOD get(self, task_id) [236-257] 22L
+        DOC: 按 task_id 取会话，检查归属与有效期。 Args: task_id: 任务 ID。 owner_id: 请求方归属（非空时强制校验）。 Returns: 存在且有效返回 EdgeSession，否则 None。
+      METHOD drop(self, task_id) [259-266] 8L
+        DOC: 删除会话并关闭其边缘客户端。
+      METHOD purge_expired(self) [268-277] 10L
+        DOC: 清理已过期会话。
+  TOP-ASSIGN edge_sessions [280]
+  TOP-ASSIGN template_store [283]
+  FUNC _current_owner_id() [286-288] 3L deco=(-)
+    DOC: 从当前 MCP Token 派生归属身份摘要。
+  FUNC _generate_template_bytes() [291-306] 16L deco=(-)
+    DOC: 生成 v14 模板并返回字节（不写用户可见路径）。 Args: **kwargs: 透传给 generate_template 的字典参数。 Returns: 模板 XLSX 字节。
+  FUNC _client_for(session) [309-353] 45L deco=(-)
+    DOC: 惰性创建并登录边缘客户端。 代理模式下自动启用门户代理转发，无需调用方感知。 代理地址未配置或缺少手机号/验证码时拒绝代理模式请求。 Args: session: 会话状态。 Returns: 已登录的 EdgeDeviceClient。 Raises: EdgeApiError: 登录失败、网络错误、代理地址未配置或缺少凭据。
+  FUNC _resolve_node(session, node_key) [356-374] 19L deco=(-)
+    DOC: 按节点键解析 profile 与明细，返回 (node, profile, detail, error)。
+  FUNC _validate_plan_guard(session, plan_id, confirm, node_key, expected_action) [377-404] 28L deco=(-)
+    DOC: 计划动作守卫：校验 plan_id、confirm、动作资格与幂等。 design §7：写入类原子工具增加 plan_id 与 confirm， 服务端校验计划、调用者、节点、阶段和允许标志。 Args: session: 会话状态。 plan_id: 调用方传入的计划 ID。 confirm: 调用方是否已确认。 node_key: 目标节点键。 expected_action: 期望动作（create/skip）。 Returns: 校验失败返回错误字典；通过返回 None。
+  FUNC _validate_plan_guard_qualify(session, plan_id, confirm, node_key, expected_action) [407-455] 49L deco=(-)
+    DOC: 校验 plan_id、confirm 与计划动作资格（不含幂等检查）。 Args: session: 会话状态。 plan_id: 计划 ID。 confirm: 是否已确认。 node_key: 目标节点键。 expected_action: 期望动作。 Returns: 校验失败返回错误字典；通过返回 None。
+  FUNC _validate_plan_guard_idempotent(session, action_prefix, node_key) [458-478] 21L deco=(-)
+    DOC: 幂等检查：已完成动作返回缓存记录。 Args: session: 会话状态。 action_prefix: 动作前缀（create/mount/deploy 等）。 node_key: 目标节点键。 Returns: 幂等命中返回缓存字典（含 idempotent_hit=True）；未命中返回 None。
+  FUNC _plan_item(session, node_key) [481-487] 7L deco=(-)
+    DOC: 查找当前计划中唯一的节点动作。
+  FUNC _parse_stages(stages) [490-513] 24L deco=(-)
+    DOC: 解析 stages 字符串为各阶段开关。 逗号分隔、去空白、转小写；为空或含 all 时档案与三联通阶段全开； 否则仅按 clock/deploy/monitor 命中，档案阶段关闭（供联通重试）。 Args: stages: all/clock/deploy/monitor 的组合（逗号分隔）。 Returns: 含 archive/clock/deploy/monitor 四个布尔的字典。
+  FUNC _stage_succeeded(session, key, stage) [516-522] 7L deco=(-)
+    DOC: 某节点某阶段本任务内是否已 SUCCEEDED（供续跑跳过已完成阶段）。
+  FUNC _stage_for(session, node_key) [525-544] 20L deco=(-)
+    DOC: 获取节点的适用阶段，未执行阶段必须显式出现在报告中。
+  FUNC _persist_report(task_id, session) [547-573] 27L deco=(-)
+    DOC: 在执行前后持久化同一份脱敏报告。
+  TOP-ASSIGN _EDGE_STATE_MAP [576]
+  FUNC _action_duration_ms(action) [582-589] 8L deco=(-)
+    DOC: 由动作起止时间推算耗时（毫秒），不可解则返回 0。
+  FUNC _record_edge_action(tool_name, action, result, args) [592-624] 33L deco=(-)
+    DOC: 将 _tracked_action 的动作落入写操作日志并返回内联摘要（fail-open）。
+  FUNC _tracked_action(stage, key_argument, require_template, dedup) [627-804] 178L deco=(-)
+    DOC: 为原子动作添加串行执行、持久化意图、结果和防重发。 Args: stage: 阶段名称。 key_argument: 关键参数名称。 require_template: 是否要求会话绑定建档模板，默认 True。 设为 False 时允许独立登录会话执行。 dedup: 是否对同参数重复调用做幂等去重与档案变更失效 拦截，默认 True。联通类普通操作（下发/召测/时钟） 设为 False：每次真实发送、不查缓存、不因档案变更被拦。
+  FUNC _call_action(task_id, session, path, payload) [807-874] 68L deco=(-)
+    DOC: 先记下每次副作用请求的摘要，再调用后端；从不自动重试。
+  FUNC _require_stages(session, node_key, stages) [877-884] 8L deco=(-)
+    DOC: 校验指定节点的前置阶段，缺少回执即阻止。
+  FUNC _collect_descendants_leaf_first(tree_data, target_id) [890-925] 36L deco=(-)
+    DOC: 在设备树中查找目标节点并按叶子优先顺序收集全部后代。 Args: tree_data: getDeviceTree 的 rtnData（树节点列表）。 target_id: 目标设备 deviceId。 Returns: 二元组 ``(descendants, found)``： - descendants: 叶子优先排序的节点列表（目标自身在末尾）。 - found: 是否在树中找到目标节点。
+  FUNC _online_smart_event(session, device_id, st_time, end_time) [928-961] 34L deco=(-)
+    DOC: 按感知事件判在线（时间窗内该 deviceId 有任意上报即在线）。 模板与免模板会话共用，避免选路查询逻辑分叉。 Args: session: 已登录的边缘会话。 device_id: 目标 deviceId。 st_time: 起始时间（空=今天 00:00:00）。 end_time: 结束时间（空=今天 23:59:59）。 Returns: ``{ok, online, method, device_id, window, detail}`` 或错误体。
+  FUNC _resolve_profile_and_type(session, node_key, device_id) [964-992] 29L deco=(-)
+    DOC: 解析设备 profile 与类型名，供类型相关的读/判定复用。 模板会话按 node_key→_resolve_node；免模板按 device_id 读档案→registry。 Args: session: 边缘会话。 node_key: 模板会话节点键（可为空）。 device_id: 目标 deviceId（可为空，模板会话下用 node_key 解析）。 Returns: ``(profile, device_type, error)``；error 非空时为一个错误字典。
+  FUNC register_edge_tools(mcp, template_dict_source) [995-3991] 2997L deco=(-)
+    DOC: 将自动建档原子工具注册到 FastMCP 实例。 Args: mcp: FastMCP 实例。 template_dict_source: 可选异步回调 ``async () -> dict``，返回 ``generate_template`` 所需的平台字典 kwargs（device_types / user_big_nos / comm_modes / brands / models_by_brand）。 为 None 时生成空字典模板（无平台列）。由 server 注入用系统 超管 token 拉取字典，从而使用户侧与服务器侧拿到同一份完整模板。
+  TOP-ASSIGN EDGE_TOOL_NAMES [3995]
+  FUNC _flatten_devices(tree_data) [4022-4040] 19L deco=(-)
+    DOC: 递归展平设备树为设备字典列表。 Args: tree_data: getDeviceTree 的 rtnData（树节点列表）。 Returns: 展平后的设备字典列表。
+  FUNC _ext_infos_to_list(ext_infos, include_empty) [4043-4060] 18L deco=(-)
+    DOC: 将 extInfos 字典转为 modifyDevice 的 [{propertyCode, propertyValue}]。 Args: ext_infos: propertyCode -> propertyValue 字典。 include_empty: True 输出全部键（含空值，用于新建保证 UI 渲染）； False 仅输出非空值（用于更新，避免覆盖手工配置）。 Returns: extInfos 列表。
+  FUNC _resolve_new_device_id(client, node) [4063-4107] 45L deco=(-)
+    DOC: 新建后回查设备树，按条码解析后端 deviceId（唯一性校验）。 design §7：ID 只从已验证响应字段或唯一业务身份回查取得。 多个匹配即歧义，拒绝静默选择。 Args: client: 已登录边缘客户端。 node: 刚建档的拓扑节点。 Returns: 二元组 ``(device_id, issues)``： - device_id: 解析到的 deviceId；未找到或歧义返回空串。 - issues: 问题列表（空表示正常）。
+  FUNC _fix_agent_measured_num(client, device_id, payload) [4110-4134] 25L deco=(-)
+    DOC: 建档后二次 modifyDevice 修正分路号/测量点号。 新建时 agentNum/measuredPointNum 被后端默认成 1；带 deviceId 重发 完整顶层字段可正确写入（实测）。payload 无这两个字段时跳过（如网关）。 Args: client: 已登录边缘客户端。 device_id: 新建设备的 deviceId。 payload: 首次建档的完整 payload（含 agentNum/measuredPointNum）。 Returns: True 修正成功；False 修正失败；None 无需修正（无相关字段）。
+  FUNC _reapply_agent_num_after_mount(session, node, device_id) [4137-4179] 43L deco=(-)
+    DOC: 挂载后重新写入分路号/测量点号（updateDeviceParent 会重置为 1）。 仅对电表（非网关）节点生效：重新解析 profile 得到完整顶层字段 + extInfos，带 deviceId 重发以恢复 agentNum/measuredPointNum。 Args: session: 会话状态。 node: 已挂载的拓扑节点。 device_id: 该节点的后端 deviceId。 Returns: True 恢复成功；False 失败；None 无需恢复（网关/无字段/解析错误）。
+  FUNC _readback_verify_device(session, node, device_id) [4182-4233] 52L deco=(-)
+    DOC: 回读设备档案并逐字段比较。 design §7：新建→挂载→恢复编号后，逐字段回读比较， 修正失败或差异使该阶段失败，阻止后续下发。 Args: session: 会话状态。 node: 拓扑节点。 device_id: 后端 deviceId。 Returns: 二元组 ``(ok, mismatches)``： - ok: 全部匹配返回 True。 - mismatches: 不一致字段列表（空表示全部匹配）。
+  FUNC _save_meter_parameters(session, node, device_id, resolved, detail, task_id) [4236-4326] 91L deco=(-)
+    DOC: 保存监测点基本参数到设备本地运行时并回读验证。 调用 modifyDevice/v1（参数设置版），写入波特率、费率数、 扩展属性等运行时字段。保存后回读设备档案验证关键字段。 Args: session: 会话状态。 node: 拓扑节点。 device_id: 监测点设备 ID。 resolved: profile 解析结果。 detail: 电表明细行字典。 Returns: 不一致字段列表；空列表表示保存成功且回读通过。
+  FUNC _save_gateway_parameters_auto(session, node, device_id, resolved, task_id) [4329-4387] 59L deco=(-)
+    DOC: 网关 CREATE 后立即保存通讯地址参数（20100024）。 从 profile 解析结果中提取 deviceAddress 和 identifier， 写入参数项 20100024 并回读验证。 Args: session: 会话状态。 node: 拓扑节点。 device_id: 网关设备 ID。 resolved: profile 解析结果。 task_id: 任务 ID。 Returns: 保存结果字典，含 ok、mismatches 等。
+  FUNC _save_meter_parameters_auto(session, node, device_id, resolved, detail, task_id) [4390-4419] 30L deco=(-)
+    DOC: 监测点 CREATE+MOUNT 后立即保存基本参数。 委托给 _save_meter_parameters 执行实际的保存与回读验证。 Args: session: 会话状态。 node: 拓扑节点。 device_id: 监测点设备 ID。 resolved: profile 解析结果。 detail: 电表明细行字典。 task_id: 任务 ID。 Returns: 保存结果字典，含 ok、mismatches 等。
+  FUNC _read_device_record(session, device_id) [4422-4440] 19L deco=(-)
+    DOC: 从档案查询响应中严格选择目标设备，支持单对象及列表。
+  FUNC _compare_archive_fields(base, ext, actual) [4443-4467] 25L deco=(-)
+    DOC: 逐一比较已写字段；缺失、零值丢失和扩展字段差异均不能通过。
+  FUNC _read_gateway_address_body(session, device_id) [4470-4486] 17L deco=(-)
+    DOC: 读取唯一地址参数对象，拒绝结构异常，空列表表示尚无参数项。
+  FUNC _read_deploy_param_body(session, device_id) [4489-4527] 39L deco=(-)
+    DOC: 读取监测点 20200002 当前参数 itemBody（下发通用读）。 参数项缺失、不唯一或 itemBody 为空/结构异常时抛 EdgeApiError， 由调用方整批失败处理；禁止回退模板值或虚构默认报文。 Args: session: 会话状态。 device_id: 监测点后端 deviceId。 Returns: 设备当前参数的 itemBody 字典（非空）。 Raises: EdgeApiError: 读取失败或参数项不合法时。
+  FUNC _build_deploy_body_from_archive(session, device_id) [4530-4589] 60L deco=(-)
+    DOC: 从设备档案现值组装 20200002 下发 itemBody（免模板首写用）。 档案已是码值形态（protocolNumber/proxyCommPort/decimalNum…），字段 来源与 profile 一致；authParam 经 normalize_auth_param_for_deploy 归一。 必需项 commAddr 缺失或非法时抛 EdgeApiError，由调用方跳过该台，绝不虚构。 Args: session: 已登录边缘会话。 device_id: 目标监测点 deviceId。 Returns: 20200002 itemBody 字典。 Raises: EdgeApiError: 档案缺失、commAddr 非法等无法组装时。
+  FUNC _verify_gateway_address(session, device_id, expected) [4592-4614] 23L deco=(-)
+    DOC: 回读175网关20100024参数项，核对通讯地址（identifier 非后端持久化字段，跳过验证）。
+  FUNC _collect_all_monitor_point_keys(session, gateway_node_key) [4617-4653] 37L deco=(-)
+    DOC: 收集网关子树下所有监测点节点键（用于全量下发）。 递归遍历网关整棵子树，包含多级子网关下的监测点，排除网关本身。 下发/召测为通用能力，覆盖所有非网关监测点类型。 与 _build_monitor_point_item_body 的收集逻辑保持一致。 Args: session: 会话状态。 gateway_node_key: 网关节点键。 Returns: 监测点节点键列表，空列表表示无监测点。
+  FUNC _parse_smart_event_online(resp, device_id) [4656-4683] 28L deco=(-)
+    DOC: 解析 getSmartEventData 响应：时间窗内该 deviceId 有任意上报即在线。 兼容 data 为 rtnData（dict 含 responseData）或直接 list 两种形态。 不看 dataVal 的 0/1（那是开关状态），只看是否有上报记录。 Args: resp: client.call 归一化后的响应。 device_id: 目标 deviceId。 Returns: 在线为 True，无记录为 False。
+  FUNC _build_monitor_point_item_body(session, gateway_node_key, node_keys) [4686-4753] 68L deco=(-)
+    DOC: 收集下发用监测点 itemBody（数据源：模板填报值算出的 deploy_item_body）。 通用能力：不区分监测点类型，下发内容为 profile 依据用户在模板实际填报值 算出的 `deploy_item_body`（itemId 20200002），服务端不再实时读后端当前参数 记录。某目标无 deviceId 或无有效 deploy_item_body → 仅跳过该目标并记录 原因，不连坐整批。 Args: session: 会话状态。 gateway_node_key: 网关节点键。 node_keys: 显式非空监测点节点键列表；空或 None 表示全量下发。 Returns: 三元组 ``(item_bodies_by_item_id, included_keys, skipped)``： - item_bodies_by_item_id: {itemId: [itemBody, ...]}。 - inclu …
+
+FILE mcp_server/operation_log_store.py
+  MODULE-DOC: 写操作日志存储。 按调用方身份（owner_id）分区记录服务端写操作（建档/下发/召测/登录等）的 操作名、脱敏入参/结果摘要、状态、耗时与 trace 会话窗，采用内存环形缓冲与 本地 ``.jsonl`` 追加落盘双存，供客户端凭接入 Token 定向回看"本次操作"日志。 落盘与 TTL 范式参考 archiving/task_report_store.py，脱敏复用 archiving/log_sanitizer.sanitize_report。
+  TOP-ASSIGN __all__ [13]
+  TOP-ASSIGN _PROJECT_ROOT [30]
+  TOP-ASSIGN DEFAULT_TTL_DAYS [32]
+  TOP-ASSIGN DEFAULT_RING_CAPACITY [33]
+  TOP-ASSIGN MAX_SUMMARY_CHARS [36]
+  TOP-ASSIGN _MAX_STR_LEN [37]
+  TOP-ASSIGN _MAX_LIST_ITEMS [38]
+  TOP-ASSIGN _MAX_DICT_ITEMS [39]
+  TOP-ASSIGN _OWNER_RE [41]
+  FUNC _now() [44-46] 3L deco=(-)
+    DOC: 返回当前 UTC 时间。
+  FUNC _default_base_dir() [49-58] 10L deco=(-)
+    DOC: 返回默认操作日志目录（项目内 ``logs/`` 下，不写系统盘）。 优先用环境变量 ``PCA_OPERATION_LOGS_DIR``；否则落在仓库根目录的 ``logs/operation_logs``，避免写入用户主目录（C 盘）。
+  FUNC _shrink(value) [61-71] 11L deco=(-)
+    DOC: 递归收缩摘要：截断长字符串、限制列表长度，保持结构可读。
+  FUNC _summarize(raw, secrets) [74-86] 13L deco=(-)
+    DOC: 脱敏并收缩一份入参/结果摘要，控制序列化体积。
+  CLASS OperationLogEntry [90-117] bases=(-) methods=[to_dict, from_dict]
+    DOC: 单条写操作日志。
+      METHOD to_dict(self) [109-111] 3L
+        DOC: 序列化为字典。
+      METHOD from_dict(cls, data) [114-117] 4L
+        DOC: 从字典反序列化。
+  CLASS OperationLogStore [120-334] bases=(-) methods=[__init__, next_trace_id, set_current_trace, get_current_trace, _file_path, record, _append_mem, _append_disk, _expires, _load_disk, list_current]
+    DOC: 按 owner_id 分区的写操作日志存储（内存 + 落盘）。
+      METHOD __init__(self, base_dir) [123-145] 23L
+        DOC: 初始化存储。 Args: base_dir: 操作日志目录；None 时用默认（可被环境变量覆盖）。 ttl_days: 落盘日志有效期天数。 ring_capacity: 每个身份的内存环形缓冲上限。 now_fn: 当前时间回调（测试注入用）。
+      METHOD next_trace_id(self) [149-151] 3L
+        DOC: 生成新的 trace 会话窗标识。
+      METHOD set_current_trace(self, owner_id, trace_id) [153-156] 4L
+        DOC: 绑定某身份当前 trace 会话窗。
+      METHOD get_current_trace(self, owner_id) [158-160] 3L
+        DOC: 读取某身份当前 trace 会话窗，缺省为空串。
+      METHOD _file_path(self, owner_id) [164-168] 5L
+        DOC: 返回某身份的落盘文件路径，owner 非法时返回 None。
+      METHOD record(self) [170-228] 59L
+        DOC: 记录一条写操作日志（脱敏 + 内存环形 + 落盘）。 Args: mcp_token: 当前已验证 MCP 接入 Token，用于派生 owner_id。 tool: 工具/操作名。 status: 结果状态（SUCCESS/ERROR/PARTIAL/UNVERIFIED/BLOCKED/UNKNOWN）。 code: 业务错误码或阶段状态（可选）。 args: 原始入参（内部脱敏与截断后存储）。 result: 原始结果（内部脱敏与截断后存储）。 trace_id: 所属会话窗；留空时取当前身份绑定值。 source: 来源展示标识。 access_level: 权限级别。 duration_ms: 调用耗时（毫秒）。 started_at: 调用开始时间 ISO 串。 secrets_: 需额外剔除的明文凭据（如口令/验证码）。 Returns: 已写入的 OperationLogEntry。
+      METHOD _append_mem(self, owner_id, entry) [230-238] 9L
+        DOC: 写入内存环形缓冲，超出上限丢弃最旧。
+      METHOD _append_disk(self, owner_id, entry) [240-260] 21L
+        DOC: 追加一行 JSON 到该身份落盘文件（0o600 权限，占用时短重试）。
+      METHOD _expires(self, entry) [264-270] 7L
+        DOC: 判断条目是否已过 TTL。
+      METHOD _load_disk(self, owner_id) [272-295] 24L
+        DOC: 从落盘文件读取未过期条目（取最近 ring_capacity 条）。
+      METHOD list_current(self, owner_id) [297-334] 38L
+        DOC: 列出某身份本次会话窗内的操作日志。 Args: owner_id: 归属身份（由 Token 派生）。 trace_id: 指定会话窗；None 时用当前绑定值，空值则返回该身份全部未过期日志。 cursor: 增量游标（entry 序号），仅返回其后的条目。 limit: 单次返回上限。 Returns: ``(按时间升序的条目列表, 新游标)``。
+  FUNC default_store() [340-345] 6L deco=(-)
+    DOC: 返回进程共享的默认操作日志存储单例。
+
+FILE mcp_server/session.py
+  MODULE-DOC: 客户端 Session 管理：按 MCP 接入 Token 绑定身份和权限。 login 成功后创建 Session，后续工具调用通过 mcp_token_var 查找对应 Session， 据此判定读/写权限和 Token 降级策略。
+  TOP-ASSIGN __all__ [9]
+  CLASS Session [22-37] bases=(-) methods=[]
+    DOC: 单个客户端的身份会话。 Attributes: phone: 登录手机号。 role: 权限角色，"super" 或 "user"。 fallback_token: 用户 login 时获取的备用业务 Token。 login_at: 登录时间戳。 trace_id: 本次操作会话窗标识（login 时由服务端生成）。
+  CLASS SessionRegistry [40-105] bases=(-) methods=[__init__, create, get, delete, clear, count]
+    DOC: 按 MCP 接入 Token 管理的内存 Session 集合。 - 单进程 asyncio 环境，无需加锁。 - 服务端重启即清空（不持久化）。
+      METHOD __init__(self) [47-48] 2L
+        DOC: [NO-DOC]
+      METHOD create(self, mcp_token, phone, role, fallback_token) [50-74] 25L
+        DOC: 为指定 MCP Token 创建或覆盖 Session。 Args: mcp_token: 客户端的 MCP 接入 Bearer Token。 phone: 登录手机号。 role: "super" 或 "user"。 fallback_token: 备用业务 Token。 Returns: 创建的 Session 对象。
+      METHOD get(self, mcp_token) [76-85] 10L
+        DOC: 查询指定 MCP Token 的 Session。 Args: mcp_token: MCP 接入 Token。 Returns: 存在返回 Session，否则 None。
+      METHOD delete(self, mcp_token) [87-96] 10L
+        DOC: 删除指定 MCP Token 的 Session。 Args: mcp_token: MCP 接入 Token。 Returns: 删除成功返回 True，不存在返回 False。
+      METHOD clear(self) [98-100] 3L
+        DOC: 清空所有 Session（服务端重启时隐式调用）。
+      METHOD count(self) [103-105] 3L
+        DOC: 当前活跃 Session 数量。
+
