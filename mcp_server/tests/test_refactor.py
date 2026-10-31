@@ -309,7 +309,7 @@ class TestAuthParamNormalize:
 
 
 class TestTokenRegistryMigration:
-    """Token Registry v1 → v2 user-only 迁移。"""
+    """Token Registry v1/v2 → v3（Token 主键）迁移。"""
 
     def test_v1_registry_migrated_to_v2(self):
         from server import REGISTRY_SCHEMA_VERSION, TokenManager
@@ -333,15 +333,20 @@ class TestTokenRegistryMigration:
 
             mgr = TokenManager(admin_token="admin_tok", registry_path=tmp)
 
-            # 迁移后 entry 的 accessLevel 应为 user
+            # 迁移后 IDE 族复用语义与 user 级不变
             info = mgr.get_token_info("192.168.1.100")
             assert info["accessLevel"] == "user"
+            assert info["token"] == "old_token_1"
 
-            # 磁盘上应为 v2 schema
+            # 磁盘上应为 v3 schema：Token 主键、IDE 族、迁移标记
             disk = json.loads(tmp.read_text(encoding="utf-8"))
             assert disk["schema_version"] == REGISTRY_SCHEMA_VERSION
-            assert disk["entries"]["192.168.1.100"]["accessLevel"] == "user"
-            assert disk["entries"]["192.168.1.100"]["legacyMigrated"] is True
+            entry = disk["entries"]["old_token_1"]
+            assert entry["accessLevel"] == "user"
+            assert entry["family"] == "ide"
+            assert entry["ip"] == "192.168.1.100"
+            assert entry["owner_ref"] is None
+            assert entry["legacyMigrated"] is True
         finally:
             tmp.unlink(missing_ok=True)
             # 清理可能的备份文件
@@ -356,7 +361,7 @@ class TestTokenRegistryMigration:
 
         try:
             v2_data = {
-                "schema_version": REGISTRY_SCHEMA_VERSION,
+                "schema_version": 2,
                 "entries": {
                     "10.0.0.5": {
                         "token": "user_tok",
@@ -374,6 +379,73 @@ class TestTokenRegistryMigration:
             info = mgr.get_token_info("10.0.0.5")
             assert info["accessLevel"] == "user"
             assert info["token"] == "user_tok"
+            # v2 文件被迁移为 v3：Token 主键 + IDE 族
+            disk = json.loads(tmp.read_text(encoding="utf-8"))
+            assert disk["schema_version"] == REGISTRY_SCHEMA_VERSION
+            assert disk["entries"]["user_tok"]["family"] == "ide"
+            assert "10.0.0.5" not in disk["entries"]
+        finally:
+            tmp.unlink(missing_ok=True)
+
+
+class TestTokenRegistryV3:
+    """v3 行为：Token 主键、凭据族、同 IP 并存、族别撤销限制。"""
+
+    def test_same_ip_multiple_credentials_coexist(self):
+        """同一 IP 的 IDE 族与 webchat 族凭据并存、互不顶替。"""
+        from server import TokenManager
+
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as f:
+            tmp = Path(f.name)
+        try:
+            mgr = TokenManager(admin_token="admin_tok", registry_path=tmp)
+            ide_tok = mgr.get_or_create_token("192.168.1.100")
+            web_tok = mgr.mint_token("alice", 3600)
+            assert ide_tok != web_tok
+            assert mgr.is_valid(ide_tok)
+            assert mgr.is_valid(web_tok)
+            # IDE 族复用语义不因 webchat 族签发而改变
+            assert mgr.get_token_info("192.168.1.100")["token"] == ide_tok
+            # webchat 族带 owner_ref
+            entry = mgr.get_entry(web_tok)
+            assert entry["family"] == "webchat"
+            assert entry["owner_ref"]
+            assert entry["expires_at"] is not None
+        finally:
+            tmp.unlink(missing_ok=True)
+
+    def test_webchat_token_expires(self):
+        """webchat 族凭据超过 TTL 后失效。"""
+        from server import TokenManager
+
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as f:
+            tmp = Path(f.name)
+        try:
+            mgr = TokenManager(admin_token="admin_tok", registry_path=tmp)
+            web_tok = mgr.mint_token("alice", ttl_seconds=-5)  # 已过期
+            assert not mgr.is_valid(web_tok)
+            assert mgr.get_entry(web_tok) is None
+        finally:
+            tmp.unlink(missing_ok=True)
+
+    def test_revoke_webchat_only(self):
+        """revoke_webchat_token 拒绝 IDE 族、只撤销 webchat 族。"""
+        from server import TokenManager
+
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as f:
+            tmp = Path(f.name)
+        try:
+            mgr = TokenManager(admin_token="admin_tok", registry_path=tmp)
+            ide_tok = mgr.get_or_create_token("192.168.1.100")
+            web_tok = mgr.mint_token("alice", 3600)
+            # IDE 族撤销被拒绝，凭据保持有效
+            assert mgr.revoke_webchat_token(ide_tok) is False
+            assert mgr.is_valid(ide_tok)
+            # webchat 族撤销生效
+            assert mgr.revoke_webchat_token(web_tok) is True
+            assert not mgr.is_valid(web_tok)
+            # 二次撤销返回 False
+            assert mgr.revoke_webchat_token(web_tok) is False
         finally:
             tmp.unlink(missing_ok=True)
 
@@ -971,7 +1043,6 @@ def showcase_page() -> Iterator:
         )
         page = context.new_page()
         page.clock.install(time=1000000)
-        page.clock.pause_at(1000000)
         page.add_init_script("""
             Object.defineProperty(document, 'hidden', {get: () => window.__hidden === true});
         """)
@@ -1420,7 +1491,7 @@ def _first_markdown_table(text: str) -> list[dict[str, str]]:
 def test_modbus_resource_versions() -> None:
     """两个技能与资源包同步升版，不要求改变服务器版本。"""
     skills = _MCP_DIR.parent / "agent_assets/skills"
-    expected = {"modbus-conversion": "0.4.1", "test-validation": "0.1.1"}
+    expected = {"modbus-conversion": "0.5.1", "test-validation": "0.2.0"}
     for name, version in expected.items():
         manifest = json.loads((skills / name / "manifest.json").read_text(encoding="utf-8"))
         assert manifest["version"] == version

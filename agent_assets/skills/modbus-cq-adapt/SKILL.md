@@ -31,10 +31,13 @@ metadata:
 modbus-cq-adapt/
 ├── agents/
 │   └── openai.yaml       # skill 配置信息
-├── output/               # 重庆适配脚本输出目录
-│   └── {原文件名}_cq.json  # 命名规则：原文件名 + _cq 后缀
 └── SKILL.md
 ```
+
+> **目录只读与产物落位约束**：技能目录是多会话共享的只读分发母本，
+> 禁止向本目录写入任何文件。重庆适配产物等**最终产物**写入
+> `<会话工作区>/xlpa-output/`（与源文件同目录，用户显式指定目录时从其指定）。
+> 写入技能目录会污染其他会话并使资源包升版失效。
 
 ## 输入与输出
 
@@ -56,7 +59,7 @@ modbus-cq-adapt/
 
 - 用户提供文件路径
 - 用户直接粘贴 JSON 内容
-- 从 modbus-conversion 的 output/ 目录读取
+- 上一技能（modbus-conversion）落在会话工作区产物目录（如 `<会话工作区>/xlpa-output/`）的产物
 
 ### 输出
 
@@ -73,7 +76,7 @@ modbus-cq-adapt/
 ```
 
 - 文件名：`{原文件名}_cq.json`
-- 输出目录：`modbus-cq-adapt/output/`
+- 输出目录：与源文件同目录（默认即 `<会话工作区>/xlpa-output/`，用户显式指定目录时从其指定）
 - 原文件保留不动
 
 ## 执行流程
@@ -128,7 +131,7 @@ modbus-cq-adapt/
 
 1. 读取原文件名（不含路径和 `.json` 扩展名）
 2. 生成新文件名：`{原文件名}_cq.json`
-3. 将修改后的 JSON 写入 `modbus-cq-adapt/output/{原文件名}_cq.json`
+3. 将修改后的 JSON 写入与源文件同目录（默认即 `<会话工作区>/xlpa-output/`）：`{源文件所在目录}/{原文件名}_cq.json`
 4. 原文件保留不动
 5. 告知用户输出路径
 
@@ -154,7 +157,7 @@ modbus-cq-adapt/
 | 规则     | 说明                                 |
 | ------ | ---------------------------------- |
 | 仅替换字段名 | 只将 `modelNum` 改为 `prtlcode`，不修改值   |
-| 原文件保留  | 原文件不动，新文件写入 output/ 目录             |
+| 原文件保留  | 原文件不动，新文件写入源文件同目录（会话工作区产物目录） |
 | 文件命名   | `{原文件名}_cq.json`                   |
 | 必须确认   | 写入前必须展示 diff 给用户确认                 |
 | 格式校验   | 输入必须包含 5 个必填字段，否则拒绝执行              |
@@ -175,13 +178,13 @@ modbus-cq-adapt/
 ### 用例 1：用户明确提到重庆
 
 ```
-用户：/xlpa 帮我把这个 Modbus 脚本转成重庆格式，文件在 modbus-conversion/output/美的_水冷机组_20260827100000.json
+用户：/xlpa 帮我把这个 Modbus 脚本转成重庆格式，文件在 <会话工作区>/xlpa-output/美的_水冷机组_20260827100000.json
 
 → xlpa 识别"重庆"关键词 → 路由到 modbus-cq-adapt
 → Step 1: 读取并验证 JSON ✅
 → Step 2: modelNum → prtlcode
 → Step 3: 展示 diff → 用户确认
-→ Step 4: 保存到 modbus-cq-adapt/output/美的_水冷机组_20260827100000_cq.json
+→ Step 4: 保存到 <会话工作区>/xlpa-output/美的_水冷机组_20260827100000_cq.json
 ```
 
 ### 用例 2：用户未提到重庆但提供了标准格式

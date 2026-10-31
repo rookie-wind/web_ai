@@ -1,0 +1,82 @@
+{
+  "scriptCompleted": true,
+  "extractorNote": "python/c via cpython; docx excluded (binary source, .md text twin retained)",
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "results": [
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 65,
+      "nonEmptyLines": 49,
+      "sections": [
+        {
+          "heading": "PCA MCP Server",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "目录结构",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "快速启动",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "测试",
+          "level": 2,
+          "line": 42
+        },
+        {
+          "heading": "用户资源包",
+          "level": 2,
+          "line": 52
+        },
+        {
+          "heading": "关键文件",
+          "level": 2,
+          "line": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "_verify_download_fix.ps1",
+      "language": "powershell",
+      "fileCategory": "script",
+      "totalLines": 98,
+      "nonEmptyLines": 98,
+      "metrics": {},
+      "recovered": "no-parser-stale-read"
+    },
+    {
+      "path": "_vm_list.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 27,
+      "nonEmptyLines": 27,
+      "metrics": {},
+      "recovered": "no-parser-stale-read"
+    },
+    {
+      "path": "pytest.ini",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 4,
+      "nonEmptyLines": 4,
+      "metrics": {},
+      "recovered": "no-parser-stale-read"
+    }
+  ]
+}

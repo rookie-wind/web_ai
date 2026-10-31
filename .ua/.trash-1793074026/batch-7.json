@@ -1,0 +1,90 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/reference/edge-archive-fields.md",
+      "type": "document",
+      "name": "edge-archive-fields.md",
+      "filePath": "docs/reference/edge-archive-fields.md",
+      "summary": "边缘建档字段参考：逐字段记录边缘建档与参数接口所需的键名、类型、取值范围与现场核验结论。",
+      "tags": [
+        "documentation",
+        "字段参考",
+        "边缘建档",
+        "api-reference"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:docs/reference/mcp-service-design.md",
+      "type": "document",
+      "name": "mcp-service-design.md",
+      "filePath": "docs/reference/mcp-service-design.md",
+      "summary": "MCP 服务设计文档：描述工具分组、鉴权模型、会话与权限设计以及与服务端实现的对应关系。",
+      "tags": [
+        "documentation",
+        "架构设计",
+        "鉴权",
+        "mcp-server"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:docs/reference/protocol-management-api.md",
+      "type": "document",
+      "name": "protocol-management-api.md",
+      "filePath": "docs/reference/protocol-management-api.md",
+      "summary": "规约管理后端 API 参考：完整列出平台侧大类、设备类型、品牌型号、规约与数据项等接口契约。",
+      "tags": [
+        "documentation",
+        "api-reference",
+        "规约管理",
+        "平台后端"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:docs/reference/edge-archive-fields.md",
+      "target": "file:mcp_server/archiving/field_contract.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/reference/edge-archive-fields.md",
+      "target": "file:mcp_server/edge_client.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/reference/mcp-service-design.md",
+      "target": "file:mcp_server/server.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/reference/mcp-service-design.md",
+      "target": "file:mcp_server/permissions.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/reference/mcp-service-design.md",
+      "target": "file:mcp_server/session.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/reference/protocol-management-api.md",
+      "target": "file:mcp_server/api_client.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

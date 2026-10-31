@@ -1,0 +1,181 @@
+##### BATCH 2 #####
+FILE mcp_server/archiving/log_sanitizer.py (121 lines)
+   CLASSES: []
+   FNS: [["sanitize_report", 25]]
+FILE mcp_server/archiving/snapshot_store.py (719 lines)
+   CLASSES: [["SnapshotRecord", 72, 5, []], ["SnapshotStore", 488, 22, []]]
+   FNS: []
+   (below-threshold classes: SnapshotError,SnapshotNotFoundError,SnapshotOwnerMismatchError,SnapshotExpiredError,SnapshotTamperError,ChunkedUploadError,UploadIncompleteError,UploadLimitError,UploadExpiredError)
+FILE mcp_server/archiving/stage_orchestrator.py (253 lines)
+   CLASSES: [["StageRecord", 43, 2, []], ["StageOrchestrator", 161, 7, []]]
+   FNS: []
+   (below-threshold classes: StageState)
+FILE mcp_server/archiving/task_report_store.py (268 lines)
+   CLASSES: [["TaskReport", 44, 2, []], ["TaskReportStore", 174, 7, []]]
+   FNS: []
+   (below-threshold classes: TaskReportError)
+FILE mcp_server/edge_tools.py (4754 lines)
+   CLASSES: [["EdgeSession", 69, 2, []], ["EdgeSessionStore", 97, 6, []]]
+   FNS: [["_client_for", 45], ["_validate_plan_guard", 28], ["_validate_plan_guard_qualify", 49], ["_persist_report", 27], ["_record_edge_action", 33], ["_tracked_action", 178], ["decorate", 162], ["tracked", 157], ["_call_action", 68], ["_collect_descendants_leaf_first", 36], ["_online_smart_event", 34], ["_resolve_profile_and_type", 29], ["register_edge_tools", 2997], ["generate_device_archive_template", 64], ["get_device_archive_template_download", 33], ["upload_device_archive_template", 105], ["_finalize", 31], ["migrate_device_archive_template", 64], ["read_device_archive_template", 86], ["plan_device_archive", 99], ["_write_batched", 56], ["_upsert_one_core", 159], ["edge_upsert_device", 30], ["_mount_one_core", 97], ["edge_mount_device", 32], ["_save_one_core", 77], ["edge_save_device_parameters", 29], ["edge_get_device_parameters", 82], ["edge_delete_device", 88], ["edge_get_token", 68], ["edge_set_device_param", 69], ["_deploy_without_template", 179], ["_deploy_to_single_gateway", 196], ["edge_check_monitor_online", 115], ["edge_call_clock", 112], ["edge_call_monitor_debug", 290], ["execute_archive_task", 57], ["_execute_full_workflow", 207], ["_archive_unit", 42], ["_execute_standalone_workflow", 152], ["_aggregate_workflow_results", 45], ["_collect_meter_device_ids", 38], ["_standalone_call_clock", 29], ["edge_apply_compensation_plan", 57], ["_resolve_new_device_id", 45], ["_fix_agent_measured_num", 25], ["_reapply_agent_num_after_mount", 43], ["_readback_verify_device", 52], ["_save_meter_parameters", 91], ["_save_gateway_parameters_auto", 59], ["_save_meter_parameters_auto", 30], ["_compare_archive_fields", 25], ["_read_deploy_param_body", 39], ["_build_deploy_body_from_archive", 60], ["_collect_all_monitor_point_keys", 37], ["_parse_smart_event_online", 28], ["_build_monitor_point_item_body", 68]]
+FILE mcp_server/operation_log_store.py (346 lines)
+   CLASSES: [["OperationLogEntry", 28, 2, []], ["OperationLogStore", 215, 11, []]]
+   FNS: []
+FILE mcp_server/server.py (3140 lines)
+   CLASSES: [["TokenManager", 190, 10, []], ["AuthMiddleware", 62, 3, []], ["CompositeApp", 379, 10, []]]
+   FNS: [["_get_local_ips", 26], ["_template_dict_source", 65], ["_call_platform", 37], ["_get_server_ips", 39], ["_load_server_version", 35], ["_skill_capabilities", 54], ["_load_server_test_report", 36], ["_parse_server_test_xml", 36], ["_query_platform_stats", 37], ["_refresh_showcase_platform", 34], ["_build_showcase_data", 40], ["list_mcp_tools", 110], ["login", 56], ["update_protocol", 26], ["_classify_write_result", 27], ["_wrap_logged_tool", 26]]
+FILE mcp_server/session.py (106 lines)
+   CLASSES: [["SessionRegistry", 66, 6, []]]
+   FNS: []
+   (below-threshold classes: Session)
+FILE mcp_server/tests/test_get_device_parameters.py (124 lines)
+   CLASSES: []
+   FNS: []
+FILE mcp_server/tests/test_online_check_free_template.py (118 lines)
+   CLASSES: []
+   FNS: []
+FILE mcp_server/tests/test_operation_log_store.py (155 lines)
+   CLASSES: []
+   FNS: []
+FILE mcp_server/tests/test_snapshot_store.py (268 lines)
+   CLASSES: [["_Clock", 14, 3, []], ["TestSaveLoad", 42, 5, []], ["TestContentVerification", 37, 3, []], ["TestRejection", 32, 4, []], ["TestGenerationSemantics", 37, 2, []], ["TestOwnerAndPurge", 24, 2, []]]
+   FNS: []
+FILE mcp_server/tests/test_write_operation_logging.py (218 lines)
+   CLASSES: []
+   FNS: [["test_edge_action_logs_request_payload", 25], ["test_e2e_current_window_and_restart", 26]]
+##### BATCH 3 #####
+FILE mcp_server/api_client.py (1324 lines)
+   CLASSES: [["ProtocolApiClient", 1289, 54, []]]
+   FNS: []
+FILE mcp_server/archiving/reference_config.py (122 lines)
+   CLASSES: [["ReferenceConfig", 65, 5, []]]
+   FNS: []
+   (below-threshold classes: ReferenceConfigError)
+FILE mcp_server/archiving/reference_dict.py (553 lines)
+   CLASSES: [["DictRecord", 39, 1, []], ["DictFetchReport", 22, 0, []], ["ReferenceDictSet", 62, 6, []]]
+   FNS: [["_normalize_edge_list", 37], ["_fetch_cloud_paged", 76], ["detect_conflicts", 28], ["collect_reference_dictionaries", 89]]
+   (below-threshold classes: DictConflict,DictCollectionError)
+FILE mcp_server/archiving/reference_provider.py (273 lines)
+   CLASSES: [["ReferenceDictProvider", 208, 13, []]]
+   FNS: []
+   (below-threshold classes: ReferenceAuthError,ReferenceDictError)
+FILE mcp_server/edge_client.py (583 lines)
+   CLASSES: [["EdgeApiError", 26, 1, ["Exception"]], ["EdgeDeviceClient", 445, 15, []]]
+   FNS: []
+   (below-threshold classes: EdgeLinkState,EdgeStageState)
+FILE mcp_server/edge_proxy_config.py (47 lines)
+   CLASSES: []
+   FNS: []
+FILE mcp_server/permissions.py (272 lines)
+   CLASSES: [["SuperAccountConfig", 60, 3, []], ["BusinessTokenCache", 111, 7, []]]
+   FNS: []
+FILE mcp_server/tests/test_deploy_from_archive.py (67 lines)
+   CLASSES: []
+   FNS: []
+FILE mcp_server/tests/test_proxy_config.py (95 lines)
+   CLASSES: [["TestLoadFromFile", 25, 5, []], ["TestPortalProxyApiUrl", 39, 6, []]]
+   FNS: []
+FILE mcp_server/tests/test_reference_dict.py (435 lines)
+   CLASSES: [["_PagedCloud", 38, 5, []], ["_DictEdge", 32, 4, []], ["TestCollectComplete", 55, 4, []], ["TestZeroCode", 27, 2, []], ["TestPagination", 51, 3, []], ["TestScopeAssociationAndConflicts", 57, 4, []], ["TestAllOrNothing", 51, 3, []]]
+   FNS: []
+   (below-threshold classes: _BadEdge)
+FILE mcp_server/tests/test_reference_provider.py (340 lines)
+   CLASSES: [["_FakeCloud", 28, 5, []], ["_FakeEdge", 33, 4, []], ["TestReferenceConfig", 35, 4, []], ["TestCloudSystemTokenOnly", 30, 3, []], ["TestNoSourceSwitchOnRefresh", 39, 3, []], ["TestEdgeLoginWiring", 67, 4, []]]
+   FNS: []
+##### BATCH 4 #####
+FILE mcp_server/archiving/converter.py (97 lines)
+   CLASSES: []
+   FNS: [["convert_comm_address", 38]]
+   (below-threshold classes: AddressConversionError)
+FILE mcp_server/archiving/profiles/__init__.py (27 lines)
+   CLASSES: []
+   FNS: []
+FILE mcp_server/archiving/profiles/base.py (243 lines)
+   CLASSES: [["ProfileResult", 25, 1, []], ["DeviceProfile", 49, 2, []]]
+   FNS: [["assemble_auth_param", 57], ["encode_auth_param_hex", 30], ["normalize_auth_param_for_deploy", 29]]
+FILE mcp_server/archiving/profiles/gateway_8163.py (113 lines)
+   CLASSES: [["Gateway8163Profile", 88, 1, ["DeviceProfile"]]]
+   FNS: []
+FILE mcp_server/archiving/profiles/meter_lighting.py (31 lines)
+   CLASSES: []
+   FNS: []
+   (below-threshold classes: MeterLightingProfile)
+FILE mcp_server/archiving/profiles/meter_pdb.py (31 lines)
+   CLASSES: []
+   FNS: []
+   (below-threshold classes: MeterPdbProfile)
+FILE mcp_server/archiving/profiles/meter_xlba.py (504 lines)
+   CLASSES: [["MeterXlbaProfile", 373, 1, ["DeviceProfile"]]]
+   FNS: []
+FILE mcp_server/archiving/profiles/registry.py (210 lines)
+   CLASSES: [["VirtualGatewayPlaceholderProfile", 33, 1, ["DeviceProfile"]], ["ProfileRegistry", 122, 6, []]]
+   FNS: []
+   (below-threshold classes: ProfileLookupError)
+FILE mcp_server/tests/test_brand_model_code.py (244 lines)
+   CLASSES: [["TestBrandModelCode", 86, 8, []]]
+   FNS: [["test_batch_fields_match_all_three_targets", 33]]
+##### BATCH 5 #####
+##### BATCH 6 #####
+##### BATCH 7 #####
+##### BATCH 8 #####
+##### BATCH 9 #####
+##### BATCH 10 #####
+FILE agent_assets/skills/protocol-conversion/scripts/gen_test_report.py (89 lines)
+   CLASSES: []
+   FNS: []
+FILE agent_assets/skills/protocol-conversion/scripts/mapper_core.c (740 lines)
+   CLASSES: []
+   FNS: [["get_value_by_path", 52], ["ensure_path", 45], ["get_flat_array_from_path", 121], ["template_substitute", 459]]
+FILE agent_assets/skills/protocol-conversion/scripts/mapper_core.h (167 lines)
+   CLASSES: []
+   FNS: []
+FILE agent_assets/skills/protocol-conversion/scripts/protocol_converter.py (602 lines)
+   CLASSES: [["MapperCore", 570, 13, []]]
+   FNS: []
+FILE agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py (1052 lines)
+   CLASSES: [["TestPathResolution", 91, 13, ["TestCase"]], ["TestEnsurePath", 39, 5, ["TestCase"]], ["TestTypeConversion", 125, 22, ["TestCase"]], ["TestGenerators", 64, 12, ["TestCase"]], ["TestTemplateSubstitute", 28, 5, ["TestCase"]], ["TestArrayForeach", 115, 6, ["TestCase"]], ["TestMQTTTransform", 118, 7, ["TestCase"]], ["TestHTTPTransform", 144, 8, ["TestCase"]], ["TestEngineDifferences", 53, 4, ["TestCase"]], ["TestEdgeCases", 66, 7, ["TestCase"]], ["TestRealConfigs", 83, 2, ["TestCase"]], ["TestUnifiedCodeConsistency", 73, 4, ["TestCase"]]]
+   FNS: []
+##### BATCH 11 #####
+FILE agent_assets/skills/xlpa/tools/mcp_client.py (168 lines)
+   CLASSES: []
+   FNS: [["call_tool", 41]]
+FILE mcp_server/archiving/__init__.py (38 lines)
+   CLASSES: []
+   FNS: []
+FILE mcp_server/archiving/ooxml_validator.py (134 lines)
+   CLASSES: []
+   FNS: [["validate_ooxml", 89]]
+   (below-threshold classes: OOXMLValidationError)
+FILE mcp_server/archiving/templates/stage_zero_generate.py (251 lines)
+   CLASSES: []
+   FNS: [["_generate", 84], ["_self_check", 25]]
+   (below-threshold classes: StageZeroResult)
+FILE mcp_server/archiving/time_validator.py (195 lines)
+   CLASSES: [["TimeValidationResult", 55, 2, []]]
+   FNS: [["validate_data_time", 75]]
+FILE mcp_server/cleanup.py (136 lines)
+   CLASSES: []
+   FNS: [["cleanup_package_backups", 37], ["cleanup_artifacts", 34]]
+FILE mcp_server/mcp_client.py (22 lines)
+   CLASSES: []
+   FNS: []
+FILE mcp_server/tests/__init__.py (1 lines)
+   CLASSES: []
+   FNS: []
+FILE mcp_server/tests/test_auth_revamp.py (210 lines)
+   CLASSES: [["TestLoginDoubleSource", 45, 2, []], ["TestConcurrentIndependentRead", 68, 7, []], ["TestRestartPersistence", 39, 2, []]]
+   FNS: []
+FILE mcp_server/tests/test_oplog_panel.py (117 lines)
+   CLASSES: []
+   FNS: [["test_oplog_panel_judges_and_groups", 51]]
+FILE mcp_server/tests/test_portal_proxy.py (336 lines)
+   CLASSES: [["TestEdgeClientProxyMode", 178, 14, []], ["TestTaskConfigProxyMode", 33, 4, []], ["TestExcelReaderProxyDetection", 93, 8, []]]
+   FNS: []
+FILE mcp_server/tests/test_refactor.py (1663 lines)
+   CLASSES: [["TestConvertCommAddress", 38, 6, []], ["TestProfileRegistry", 34, 4, []], ["TestMeterXlbaProfile", 150, 17, []], ["TestAuthParamNormalize", 22, 5, []], ["TestTokenRegistryMigration", 68, 2, []], ["TestPermissionMatrix", 75, 5, []], ["TestEdgeClientNormalization", 33, 4, []], ["TestCompensationRecorder", 29, 2, []], ["TestShowcaseData", 42, 5, []]]
+   FNS: [["test_server_test_background_isolation", 29], ["test_showcase_concurrent_refresh_and_cancellation", 28], ["test_showcase_browser_dynamic_snapshot_and_scroll", 70], ["test_showcase_browser_visibility_failure_and_recovery", 37], ["test_showcase_browser_report_integrity", 42], ["test_showcase_browser_timeout_and_late_response", 28], ["test_showcase_browser_narrow_matrix", 28], ["test_access_browser_all_client_configs", 60], ["test_showcase_public_routes_share_client_catalog", 25], ["test_modbus_query_entry_contract", 42], ["test_modbus_legacy_example_contract", 36]]
+FILE mcp_server/tests/test_session_permission.py (275 lines)
+   CLASSES: [["TestLoginTool", 58, 3, []], ["TestRequireSession", 19, 2, []], ["TestRequireSuper", 20, 2, []], ["TestCallPlatform", 53, 4, []], ["TestGenScriptCounter", 23, 1, []], ["TestStatsHelpers", 21, 2, []]]
+   FNS: []
+FILE mcp_server/token_manager.py (246 lines)
+   CLASSES: [["SystemTokenManager", 176, 13, []]]
+   FNS: []

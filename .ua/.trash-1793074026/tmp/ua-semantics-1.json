@@ -1,0 +1,166 @@
+{
+  "files": [
+    {
+      "path": "mcp_server/archiving/compensation.py",
+      "summary": "建档执行的补偿模块：记录已成功的写操作步骤，失败时按逆序回滚或生成补偿计划。",
+      "tags": ["建档引擎", "补偿回滚", "副作用记录", "archiving"],
+      "subs": [
+        {"kind": "class", "name": "CompensationRecorder", "summary": "线程安全的补偿记录器，按节点累积已成功动作并支持逆序回放。", "tags": ["补偿回滚", "记录器", "线程安全"]},
+        {"kind": "function", "name": "apply_compensation", "summary": "按补偿计划逐条回写边缘侧状态，确认后置补偿结果并回写计划状态。", "tags": ["补偿回滚", "边缘调用", "批量执行"]}
+      ]
+    },
+    {
+      "path": "mcp_server/archiving/engine.py",
+      "summary": "自动建档引擎核心：把模板快照与边缘现有设备索引比对，生成拓扑有序的干跑计划并驱动逐阶段执行。",
+      "tags": ["建档引擎", "计划生成", "拓扑排序", "幂等", "entry-point"],
+      "languageNotes": "build_plan 单函数 400+ 行，集中承载了节点归属、幂等判定与阶段拆分，是引擎的主要复杂度来源。",
+      "subs": [
+        {"kind": "class", "name": "ExistingDevice", "summary": "边缘已有设备的归一化索引条目，用于按道路号/节点键匹配待建档对象。", "tags": ["data-model", "索引", "边缘设备"]},
+        {"kind": "class", "name": "ExecutionLockManager", "summary": "任务与节点级执行锁管理器，防止并发或断点续跑时重复推送同一节点。", "tags": ["并发控制", "锁", "断点续跑"]},
+        {"kind": "function", "name": "_norm_road_no", "summary": "道路号归一化，消除前导零与空白差异以保证匹配稳定。", "tags": ["归一化", "utility", "道路号"]},
+        {"kind": "function", "name": "build_existing_index", "summary": "把边缘设备树拉平为可按节点键与道路号检索的索引。", "tags": ["索引构建", "边缘设备", "建档引擎"]},
+        {"kind": "function", "name": "topological_order", "summary": "对拓扑节点做网关优先、子设备随后的排序，保证父子挂载顺序正确。", "tags": ["拓扑排序", "建档引擎", "依赖顺序"]},
+        {"kind": "function", "name": "_collect_subtree_meters", "summary": "收集某网关子树下的可下发电表节点集合，用于批量下发分组。", "tags": ["拓扑", "批量分组", "建档引擎"]},
+        {"kind": "function", "name": "_build_name_indexes", "summary": "构建名称与编码双向索引，支撑品牌/型号等名称到编码的映射。", "tags": ["索引构建", "名称映射", "建档引擎"]},
+        {"kind": "function", "name": "build_plan", "summary": "核心计划生成：逐节点判定新增/更新/跳过，产出带阶段与批次信息的干跑计划。", "tags": ["计划生成", "幂等", "建档引擎", "core-logic"], "complexity": "complex"},
+        {"kind": "function", "name": "revalidate_plan", "summary": "执行前用最新的边缘索引复核计划，剔除已被他人完成的步骤。", "tags": ["计划校验", "并发控制", "断点续跑"]}
+      ]
+    },
+    {
+      "path": "mcp_server/archiving/excel_reader.py",
+      "summary": "设备建档工作簿读取端：校验模板版本、表头契约与数据区洁净度，并把各 sheet 解析为建档模型对象。",
+      "tags": ["模板读取", "校验", "excel", "序列化", "archiving"],
+      "subs": [
+        {"kind": "class", "name": "TemplateReadError", "summary": "模板读取失败时抛出的专用异常类型。", "tags": ["异常", "validation", "模板读取"]},
+        {"kind": "class", "name": "ArchiveTemplate", "summary": "解析后的建档模板聚合根，承载任务配置、拓扑与各类明细表。", "tags": ["data-model", "聚合根", "模板读取"]},
+        {"kind": "function", "name": "_cell_str", "summary": "把单元格值安全转成字符串，统一空值与数值格式处理。", "tags": ["utility", "excel", "归一化"]},
+        {"kind": "function", "name": "_check_version_and_metadata", "summary": "校验模板版本与元数据行，版本不匹配时硬停以避免误读。", "tags": ["validation", "版本门禁", "模板读取"]},
+        {"kind": "function", "name": "_validate_sheet_headers", "summary": "逐表比对表头与字段契约，缺列或错序即判定模板不可用。", "tags": ["validation", "字段契约", "excel"]},
+        {"kind": "function", "name": "_validate_no_formulas_in_data", "summary": "拒收数据区含公式的单元格，避免读取到未计算的公式串。", "tags": ["validation", "excel", "数据洁净度"]},
+        {"kind": "function", "name": "_validate_beyond_declared_range", "summary": "检查声明数据区之外是否残留脏数据，防止静默丢行或多读。", "tags": ["validation", "excel", "数据洁净度"]},
+        {"kind": "function", "name": "_parse_task_config", "summary": "解析任务配置表，产出任务标识、边沿地址与执行参数模型。", "tags": ["解析", "任务配置", "data-model"]},
+        {"kind": "function", "name": "_parse_topology", "summary": "解析拓扑表构建网关与子设备的父子关系及节点键。", "tags": ["解析", "拓扑", "data-model"]},
+        {"kind": "function", "name": "_parse_detail", "summary": "通用明细表解析器，按表名与键列把行数据映射为模型字段。", "tags": ["解析", "明细表", "utility"]},
+        {"kind": "function", "name": "_parse_brand_model_mapping", "summary": "解析品牌型号映射表，构建名称到编码的候选字典。", "tags": ["解析", "名称映射", "品牌型号"]},
+        {"kind": "function", "name": "read_archive_template", "summary": "建档工作簿读取总入口：打开文件、执行全部契约校验并返回模板对象。", "tags": ["entry-point", "模板读取", "validation"], "complexity": "complex"}
+      ]
+    },
+    {
+      "path": "mcp_server/archiving/field_contract.py",
+      "summary": "建档字段契约中心：以单一事实源定义网关与各类电表的 sheet 列规格、来源、证据门禁与派生规则。",
+      "tags": ["字段契约", "schema-definition", "单一事实源", "archiving"],
+      "languageNotes": "字段规格以数据表方式集中声明，生成端、解析端与下发端共用同一份契约，避免各端漂移。",
+      "subs": [
+        {"kind": "function", "name": "_gateway_fields", "summary": "声明网关建档所需的全部字段规格与取值来源。", "tags": ["字段契约", "网关", "schema-definition"]},
+        {"kind": "function", "name": "_gateway_derived", "summary": "定义网关侧由其他字段推导得到的派生字段规则。", "tags": ["字段契约", "派生字段", "网关"]},
+        {"kind": "function", "name": "_meter_fields", "summary": "声明电表类监测点（含照明、配电房）的完整字段规格，是契约最厚重的部分。", "tags": ["字段契约", "电表", "schema-definition"], "complexity": "complex"},
+        {"kind": "function", "name": "_meter_derived", "summary": "定义电表侧派生字段（如认证参数、位域拼装）的推导规则。", "tags": ["字段契约", "派生字段", "电表"]},
+        {"kind": "function", "name": "get_sheet_spec", "summary": "按设备类型取回对应的 sheet 字段规格，供生成与解析复用。", "tags": ["字段契约", "查询", "utility"]},
+        {"kind": "function", "name": "get_sheet_spec_by_name", "summary": "按 sheet 名称反查字段规格，用于解析未知来源的工作簿。", "tags": ["字段契约", "查询", "utility"]}
+      ]
+    },
+    {
+      "path": "mcp_server/archiving/models.py",
+      "summary": "建档领域模型定义：以 dataclass 声明任务配置、拓扑节点、字段规格、干跑计划、执行结果与补偿计划等全部数据结构。",
+      "tags": ["data-model", "领域模型", "dataclass", "archiving"],
+      "subs": [
+        {"kind": "class", "name": "FieldTarget", "summary": "字段落点描述，标明写入目标接口与路径。", "tags": ["data-model", "字段契约"]},
+        {"kind": "class", "name": "PlanAction", "summary": "计划动作枚举，区分新增、更新与跳过等处置方式。", "tags": ["data-model", "枚举", "计划生成"]},
+        {"kind": "class", "name": "TaskConfig", "summary": "建档任务配置模型，含任务标识、边缘地址、代理凭据与执行开关。", "tags": ["data-model", "任务配置", "校验"]},
+        {"kind": "class", "name": "TopologyNode", "summary": "拓扑节点模型，表达网关/子设备的父子关系、节点键与设备类型。", "tags": ["data-model", "拓扑", "建档引擎"]},
+        {"kind": "class", "name": "ProfileField", "summary": "设备 Profile 字段载体，描述字段名、取值与来源。", "tags": ["data-model", "profile", "字段契约"]},
+        {"kind": "class", "name": "DryRunItem", "summary": "干跑计划中的单节点条目，记录动作、阶段与风险说明。", "tags": ["data-model", "干跑计划", "计划生成"]},
+        {"kind": "class", "name": "DryRunPlan", "summary": "干跑计划聚合，汇总条目、批次、游标与可执行性判定。", "tags": ["data-model", "干跑计划", "聚合根"], "complexity": "complex"},
+        {"kind": "class", "name": "ExecutionItem", "summary": "单节点执行结果条目，保存调用状态、设备标识与错误信息。", "tags": ["data-model", "执行结果"]},
+        {"kind": "class", "name": "ExecutionResult", "summary": "一次批量执行的整体结果，聚合各节点条目与成功失败计数。", "tags": ["data-model", "执行结果", "汇总"]},
+        {"kind": "class", "name": "CompensationEntry", "summary": "补偿条目，描述需要回滚或回写的具体动作与参数。", "tags": ["data-model", "补偿回滚"]},
+        {"kind": "class", "name": "CompensationPlan", "summary": "补偿计划，按执行顺序编排补偿条目并跟踪完成状态。", "tags": ["data-model", "补偿回滚", "聚合根"]},
+        {"kind": "class", "name": "FieldSource", "summary": "字段取值来源枚举，区分模板填写、系统字典、派生计算等来源。", "tags": ["data-model", "枚举", "字段契约"]},
+        {"kind": "class", "name": "EvidenceStatus", "summary": "字段证据状态枚举，用于现场核验门禁与契约可信度标记。", "tags": ["data-model", "枚举", "证据门禁"]},
+        {"kind": "class", "name": "InputType", "summary": "单元格输入类型枚举，驱动模板列的格式与校验方式。", "tags": ["data-model", "枚举", "模板读取"]},
+        {"kind": "class", "name": "FieldSpec", "summary": "字段规格实体，声明列位、必填性、参考字典、证据要求与派生表达式。", "tags": ["data-model", "字段契约", "schema-definition"], "complexity": "complex"},
+        {"kind": "class", "name": "CellInput", "summary": "单元格输入值载体，记录原始串与解析后的类型化值。", "tags": ["data-model", "模板读取", "归一化"]},
+        {"kind": "class", "name": "ResolvedField", "summary": "解析后的字段结果，包含取值、来源、校验告警与是否可下发标记。", "tags": ["data-model", "字段解析", "validation"]},
+        {"kind": "class", "name": "TemplateSnapshot", "summary": "模板快照模型，缓存系统字典与生成时间等上下文以便复现。", "tags": ["data-model", "快照", "模板生成"]},
+        {"kind": "class", "name": "TypeSheetSpec", "summary": "按设备类型划分的 sheet 规格集合，是每类型独立 sheet 的实现载体。", "tags": ["data-model", "字段契约", "sheet"], "complexity": "complex"}
+      ]
+    },
+    {
+      "path": "mcp_server/archiving/template_migrator.py",
+      "summary": "模板版本迁移器：把工作簿从旧模板版本升级到当前骨架版本，逐项判定可迁移、需重填或不可用。",
+      "tags": ["模板迁移", "版本门禁", "excel", "archiving"],
+      "subs": [
+        {"kind": "class", "name": "MigrateStatus", "summary": "迁移结果状态枚举，区分成功、部分迁移与需人工重填。", "tags": ["枚举", "模板迁移"]},
+        {"kind": "class", "name": "MigrateResult", "summary": "迁移结果模型，携带状态、告警清单与迁移后的工作簿字节。", "tags": ["data-model", "模板迁移"]},
+        {"kind": "function", "name": "_read_version", "summary": "读取旧工作簿 stamped 的模板版本号，供迁移判定。", "tags": ["版本门禁", "模板迁移", "utility"]},
+        {"kind": "function", "name": "_classify", "summary": "按版本差异分类迁移策略，决定逐 sheet 是复制还是重建。", "tags": ["版本门禁", "模板迁移", "utility"]},
+        {"kind": "function", "name": "_copy_sheet_data", "summary": "把旧 sheet 的数据行按列名对齐复制到新骨架，跳过元数据行。", "tags": ["excel", "模板迁移", "utility"]},
+        {"kind": "function", "name": "migrate_template", "summary": "迁移总入口：加载旧簿与新骨架，产出升级后的工作簿与告警。", "tags": ["entry-point", "模板迁移", "excel"]}
+      ]
+    },
+    {
+      "path": "mcp_server/archiving/templates/__init__.py",
+      "summary": "模板生成子包入口，重导出骨架生成器供建档引擎与服务端调用。",
+      "tags": ["barrel", "entry-point", "模板生成"],
+      "complexity": "simple"
+    },
+    {
+      "path": "mcp_server/archiving/templates/generator.py",
+      "summary": "设备建档模板骨架生成器：依据字段契约与系统字典快照写出多 sheet 工作簿，含下拉、命名区域与品牌型号级联校验。",
+      "tags": ["模板生成", "excel", "字段契约", "数据校验", "archiving"],
+      "languageNotes": "通过 openpyxl 的数据校验与命名区域实现品牌→型号级联下拉，模板结构与字段契约严格一一对应。",
+      "subs": [
+        {"kind": "function", "name": "_write_system_connection", "summary": "写出系统连接与快照元数据 sheet，记录快照标识与取数时间。", "tags": ["模板生成", "元数据", "excel"]},
+        {"kind": "function", "name": "_write_dict_sheet", "summary": "写出系统字典 sheet，落盘设备类型、大类号、通讯方式、品牌与型号等候选。", "tags": ["模板生成", "数据字典", "excel"], "complexity": "complex"},
+        {"kind": "function", "name": "_write_model_ranges", "summary": "为每个品牌生成型号命名区域，支撑级联下拉校验。", "tags": ["模板生成", "命名区域", "级联下拉"]},
+        {"kind": "function", "name": "_write_topo", "summary": "写出拓扑 sheet 的表头与示例结构。", "tags": ["模板生成", "拓扑", "excel"]},
+        {"kind": "function", "name": "_write_meter_sheet", "summary": "按字段契约写出电表类监测点 sheet，装配各类下拉与校验规则。", "tags": ["模板生成", "电表", "数据校验"], "complexity": "complex"},
+        {"kind": "function", "name": "_write_mapping_sheet", "summary": "写出品牌型号映射 sheet，供用户维护名称到编码的对应关系。", "tags": ["模板生成", "名称映射", "excel"]},
+        {"kind": "function", "name": "generate_template", "summary": "模板生成总入口：按快照与类型清单产出完整建档工作簿并写入磁盘。", "tags": ["entry-point", "模板生成", "excel"], "complexity": "complex"}
+      ]
+    },
+    {
+      "path": "mcp_server/tests/test_archiving_template.py",
+      "summary": "建档链路的主回归测试集，覆盖模板读取契约、计划生成、阶段编排、边缘下发与断点续跑等 47 组场景。",
+      "tags": ["test", "回归测试", "建档引擎", "边缘下发"],
+      "complexity": "complex"
+    },
+    {
+      "path": "mcp_server/tests/test_field_contract.py",
+      "summary": "字段契约回归测试，验证契约查询、生成端与解析端消费一致性以及证据门禁与不回填默认值的纪律。",
+      "tags": ["test", "字段契约", "证据门禁"],
+      "complexity": "complex"
+    },
+    {
+      "path": "mcp_server/tests/test_generator_v14.py",
+      "summary": "v14 模板骨架生成测试，校验 sheet 结构、系统连接、通讯端口下拉、串口命名区域与品牌型号级联。",
+      "tags": ["test", "模板生成", "excel", "级联下拉"],
+      "complexity": "complex"
+    },
+    {
+      "path": "mcp_server/tests/test_param_validation_and_resume.py",
+      "summary": "参数校验容错与断点续跑测试，验证结构可执行判定、阶段跳过与按类型的在线检查。",
+      "tags": ["test", "断点续跑", "参数校验", "在线判定"]
+    },
+    {
+      "path": "mcp_server/tests/test_template_migrator.py",
+      "summary": "模板版本迁移测试，覆盖成功迁移、缺表补建、多余行与版本戳处理。",
+      "tags": ["test", "模板迁移", "版本门禁"]
+    }
+  ],
+  "edges": [
+    {"source": "file:mcp_server/tests/test_archiving_template.py", "target": "file:mcp_server/archiving/engine.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_archiving_template.py", "target": "file:mcp_server/archiving/excel_reader.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_archiving_template.py", "target": "file:mcp_server/archiving/templates/generator.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_field_contract.py", "target": "file:mcp_server/archiving/field_contract.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_field_contract.py", "target": "file:mcp_server/archiving/models.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_generator_v14.py", "target": "file:mcp_server/archiving/templates/generator.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_generator_v14.py", "target": "file:mcp_server/archiving/excel_reader.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_generator_v14.py", "target": "file:mcp_server/archiving/field_contract.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_param_validation_and_resume.py", "target": "file:mcp_server/archiving/engine.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_param_validation_and_resume.py", "target": "file:mcp_server/archiving/excel_reader.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_template_migrator.py", "target": "file:mcp_server/archiving/template_migrator.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/archiving/excel_reader.py", "target": "class:mcp_server/archiving/models.py:TemplateSnapshot", "type": "depends_on", "weight": 0.6},
+    {"source": "file:mcp_server/archiving/field_contract.py", "target": "file:mcp_server/archiving/models.py", "type": "related", "weight": 0.5}
+  ]
+}

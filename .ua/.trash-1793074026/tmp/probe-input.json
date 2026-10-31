@@ -1,0 +1,9 @@
+{
+  "projectRoot": "e:/codeGIT/pca-mcp-server",
+  "batchFiles": [
+    {"path": "mcp_server/server.py", "language": "python", "sizeLines": 452, "fileCategory": "code"},
+    {"path": "mcp_server/api_client.py", "language": "python", "sizeLines": 1323, "fileCategory": "code"},
+    {"path": "mcp_server/session.py", "language": "python", "sizeLines": 105, "fileCategory": "code"}
+  ],
+  "batchImportData": {}
+}

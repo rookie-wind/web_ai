@@ -1,0 +1,195 @@
+[
+  {
+    "id": "layer:mcp-service-gateway",
+    "name": "MCP 服务与接入层",
+    "description": "FastMCP 服务装配、鉴权中间件、ASGI 复合应用与接入/展示页面，负责对外暴露 MCP 端点与 HTTP 端点。",
+    "nodeIds": [
+      "file:mcp_server/server.py",
+      "config:mcp_server/.env",
+      "file:mcp_server/install.bat",
+      "document:mcp_server/requirements.txt",
+      "file:mcp_server/start.bat",
+      "config:mcp_server/version.json",
+      "file:mcp_server/mcp_client.py",
+      "file:mcp_server/static/access.html",
+      "file:mcp_server/static/showcase.html"
+    ]
+  },
+  {
+    "id": "layer:session-auth",
+    "name": "会话与权限层",
+    "description": "MCP 接入 Token 分配、会话注册、超级账号判定与业务凭据缓存，为写操作提供 Fail-Closed 安全门禁。",
+    "nodeIds": [
+      "file:mcp_server/session.py",
+      "file:mcp_server/permissions.py",
+      "config:mcp_server/permissions.template.json",
+      "file:mcp_server/token_manager.py"
+    ]
+  },
+  {
+    "id": "layer:edge-integration",
+    "name": "边缘集成与审计层",
+    "description": "边缘平台客户端、代理配置与联通类 MCP 工具装配，并记录操作日志与任务报告供回读审计。",
+    "nodeIds": [
+      "file:mcp_server/edge_tools.py",
+      "file:mcp_server/operation_log_store.py",
+      "file:mcp_server/edge_client.py",
+      "file:mcp_server/edge_proxy_config.py",
+      "config:mcp_server/proxy_config.json",
+      "file:agent_assets/skills/xlpa/tools/mcp_client.py",
+      "file:mcp_server/cleanup.py"
+    ]
+  },
+  {
+    "id": "layer:platform-api",
+    "name": "平台 API 适配层",
+    "description": "封装规约管理后端的全部 REST 接口，向上传递平台主数据与写入能力。",
+    "nodeIds": [
+      "file:mcp_server/api_client.py"
+    ]
+  },
+  {
+    "id": "layer:archiving-engine",
+    "name": "自动建档引擎层",
+    "description": "建档领域模型、字段契约、模板生成与读取、版本迁移、Profile 装配、阶段编排、快照与补偿等核心引擎实现。",
+    "nodeIds": [
+      "file:mcp_server/archiving/compensation.py",
+      "file:mcp_server/archiving/engine.py",
+      "file:mcp_server/archiving/excel_reader.py",
+      "file:mcp_server/archiving/field_contract.py",
+      "file:mcp_server/archiving/models.py",
+      "file:mcp_server/archiving/template_migrator.py",
+      "file:mcp_server/archiving/templates/__init__.py",
+      "file:mcp_server/archiving/templates/generator.py",
+      "file:mcp_server/archiving/log_sanitizer.py",
+      "file:mcp_server/archiving/snapshot_store.py",
+      "file:mcp_server/archiving/stage_orchestrator.py",
+      "file:mcp_server/archiving/task_report_store.py",
+      "file:mcp_server/archiving/reference_config.py",
+      "file:mcp_server/archiving/reference_dict.py",
+      "file:mcp_server/archiving/reference_provider.py",
+      "file:mcp_server/archiving/converter.py",
+      "file:mcp_server/archiving/profiles/__init__.py",
+      "file:mcp_server/archiving/profiles/base.py",
+      "file:mcp_server/archiving/profiles/gateway_8163.py",
+      "file:mcp_server/archiving/profiles/meter_lighting.py",
+      "file:mcp_server/archiving/profiles/meter_pdb.py",
+      "file:mcp_server/archiving/profiles/meter_xlba.py",
+      "file:mcp_server/archiving/profiles/registry.py",
+      "file:mcp_server/archiving/__init__.py",
+      "file:mcp_server/archiving/ooxml_validator.py",
+      "file:mcp_server/archiving/templates/stage_zero_generate.py",
+      "file:mcp_server/archiving/time_validator.py"
+    ]
+  },
+  {
+    "id": "layer:conversion-engine",
+    "name": "协议转换与映射引擎层",
+    "description": "共享映射核心与协议转换技能：C 映射引擎、Python 封装、示例配置与测试报告，覆盖 MQTT/HTTP/Modbus 转换。",
+    "nodeIds": [
+      "document:agent_assets/skills/http-conversion/SKILL.md",
+      "config:agent_assets/skills/http-conversion/agents/openai.yaml",
+      "config:agent_assets/skills/http-conversion/manifest.json",
+      "config:agent_assets/skills/http-conversion/references/examples/aimcover-http.json",
+      "config:agent_assets/skills/http-conversion/references/examples/linktheall-http.json",
+      "document:agent_assets/skills/http-conversion/references/原子标签定义.md",
+      "document:agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.md",
+      "document:agent_assets/skills/modbus-conversion/SKILL.md",
+      "config:agent_assets/skills/modbus-conversion/agents/openai.yaml",
+      "config:agent_assets/skills/modbus-conversion/manifest.json",
+      "document:agent_assets/skills/modbus-conversion/references/原子标签定义.md",
+      "document:agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.md",
+      "document:agent_assets/skills/modbus-cq-adapt/SKILL.md",
+      "config:agent_assets/skills/modbus-cq-adapt/agents/openai.yaml",
+      "config:agent_assets/skills/modbus-cq-adapt/manifest.json",
+      "document:agent_assets/skills/mqtt-conversion/SKILL.md",
+      "config:agent_assets/skills/mqtt-conversion/agents/openai.yaml",
+      "config:agent_assets/skills/mqtt-conversion/manifest.json",
+      "config:agent_assets/skills/mqtt-conversion/references/examples/vpp-mqtt.json",
+      "document:agent_assets/skills/mqtt-conversion/references/原子标签定义.md",
+      "document:agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.md",
+      "document:agent_assets/skills/protocol-conversion/SKILL.md",
+      "config:agent_assets/skills/protocol-conversion/agents/openai.yaml",
+      "config:agent_assets/skills/protocol-conversion/manifest.json",
+      "file:agent_assets/skills/protocol-conversion/scripts/gen_test_report.py",
+      "file:agent_assets/skills/protocol-conversion/scripts/mapper_core.c",
+      "file:agent_assets/skills/protocol-conversion/scripts/mapper_core.h",
+      "file:agent_assets/skills/protocol-conversion/scripts/protocol_converter.py",
+      "file:agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py",
+      "config:agent_assets/skills/protocol-conversion/scripts/test_report.json"
+    ]
+  },
+  {
+    "id": "layer:agent-skills",
+    "name": "Agent 技能资产层",
+    "description": "面向作业编排的技能定义与资源包清单：XLPA 总纲、设备建档作业、打包分发与测试验证技能。",
+    "nodeIds": [
+      "document:agent_assets/skills/xlpa-device-archiving/references/device-onboarding-playbook.md",
+      "document:agent_assets/skills/xlpa-device-archiving/references/direct-edge-operation.md",
+      "document:agent_assets/skills/xlpa-device-archiving/references/edge-param-save-api.md",
+      "document:agent_assets/skills/xlpa-device-archiving/references/excel-template-schema.md",
+      "document:agent_assets/skills/xlpa-device-archiving/references/gateway-button-endpoints.md",
+      "document:agent_assets/skills/xlpa-device-archiving/references/platform-dict-template-generation.md",
+      "document:agent_assets/skills/pack-distribution/SKILL.md",
+      "config:agent_assets/skills/pack-distribution/agents/openai.yaml",
+      "config:agent_assets/skills/pack-distribution/manifest.json",
+      "config:agent_assets/skills/package-manifest.json",
+      "document:agent_assets/skills/test-validation/SKILL.md",
+      "config:agent_assets/skills/test-validation/agents/openai.yaml",
+      "config:agent_assets/skills/test-validation/manifest.json",
+      "document:agent_assets/skills/xlpa-device-archiving/SKILL.md",
+      "config:agent_assets/skills/xlpa-device-archiving/agents/openai.yaml",
+      "config:agent_assets/skills/xlpa-device-archiving/manifest.json",
+      "document:agent_assets/skills/xlpa/SKILL.md",
+      "config:agent_assets/skills/xlpa/agents/openai.yaml",
+      "config:agent_assets/skills/xlpa/manifest.json"
+    ]
+  },
+  {
+    "id": "layer:test-validation",
+    "name": "测试与回归层",
+    "description": "离线单元与集成回归测试集，覆盖建档链路、契约、鉴权、快照、日志与下发判据。",
+    "nodeIds": [
+      "file:mcp_server/tests/test_archiving_template.py",
+      "file:mcp_server/tests/test_field_contract.py",
+      "file:mcp_server/tests/test_generator_v14.py",
+      "file:mcp_server/tests/test_param_validation_and_resume.py",
+      "file:mcp_server/tests/test_template_migrator.py",
+      "file:mcp_server/tests/test_get_device_parameters.py",
+      "file:mcp_server/tests/test_online_check_free_template.py",
+      "file:mcp_server/tests/test_operation_log_store.py",
+      "file:mcp_server/tests/test_snapshot_store.py",
+      "file:mcp_server/tests/test_write_operation_logging.py",
+      "file:mcp_server/tests/test_deploy_from_archive.py",
+      "file:mcp_server/tests/test_proxy_config.py",
+      "file:mcp_server/tests/test_reference_dict.py",
+      "file:mcp_server/tests/test_reference_provider.py",
+      "file:mcp_server/tests/test_brand_model_code.py",
+      "file:_verify_download_fix.ps1",
+      "config:pytest.ini",
+      "file:mcp_server/tests/__init__.py",
+      "file:mcp_server/tests/test_auth_revamp.py",
+      "file:mcp_server/tests/test_oplog_panel.py",
+      "file:mcp_server/tests/test_portal_proxy.py",
+      "file:mcp_server/tests/test_refactor.py",
+      "file:mcp_server/tests/test_session_permission.py"
+    ]
+  },
+  {
+    "id": "layer:project-docs",
+    "name": "项目文档与参考资料",
+    "description": "项目总览、结构与运行时方案文档、部署与 API 参考资料、演示文稿及现场环境草稿。",
+    "nodeIds": [
+      "document:README.md",
+      "document:_vm_list.txt",
+      "document:docs/reference/edge-archive-fields.md",
+      "document:docs/reference/mcp-service-design.md",
+      "document:docs/reference/protocol-management-api.md",
+      "document:mcp_server/README.md",
+      "document:docs/architecture/project-structure.md",
+      "document:docs/architecture/web-chat-agent-runtime-solution.md",
+      "document:docs/deployment/mcp-server.md",
+      "file:docs/presentation/web-chat-agent-runtime-slides.html"
+    ]
+  }
+]

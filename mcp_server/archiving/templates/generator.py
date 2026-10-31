@@ -527,6 +527,49 @@ def _write_mapping_sheet(
     ws.column_dimensions["E"].width = 35
 
 
+def _normalize_xlsx_bytes(path: Path, stamp: datetime) -> None:
+    """将已生成的 .xlsx 重打包为字节级确定。
+
+    openpyxl 写包时会把各 ZIP 成员时间与 core.xml 的 modified 按当前
+    墙钟写入，导致同入参跨秒生成得到不同摘要。本函数按固定时间重建
+    归档，并把 docProps/core.xml 的 modified 锚定到 created（stamp），
+    使同输入产生确定字节。
+
+    Args:
+        path: 待规范化的 .xlsx 路径（原地重写）。
+        stamp: 锚定时间戳（来自入参 fetched_at）。
+    """
+    import io
+    import re
+    import zipfile
+
+    year = stamp.year if stamp.year >= 1980 else 1980
+    date_time = (year, stamp.month, stamp.day, stamp.hour, stamp.minute,
+                 max(0, stamp.second))
+    iso = stamp.replace(tzinfo=None).isoformat(timespec="seconds") + "Z"
+    modified_re = re.compile(
+        rb"(<dcterms:modified[^>]*>)[^<]*(</dcterms:modified>)"
+    )
+    with zipfile.ZipFile(path, "r") as src:
+        names = src.namelist()
+        entries = []
+        for name in names:
+            data = src.read(name)
+            if name == "docProps/core.xml" and modified_re.search(data):
+                data = modified_re.sub(
+                    lambda m: m.group(1) + iso.encode() + m.group(2),
+                    data,
+                )
+            entries.append((name, data))
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as dst:
+        for name, data in entries:
+            info = zipfile.ZipInfo(name, date_time=date_time)
+            info.compress_type = zipfile.ZIP_DEFLATED
+            dst.writestr(info, data)
+    path.write_bytes(buf.getvalue())
+
+
 def generate_template(
     output_path: str | Path,
     *,
@@ -631,7 +674,17 @@ def generate_template(
 
     out = Path(output_path)
     out.parent.mkdir(parents=True, exist_ok=True)
+    # 固定文档核心属性时间戳，保证同输入字节级可复现（AC-2 SHA256 校验前提）。
+    # openpyxl 默认把 created/modified 写成保存瞬间的墙钟时间，跨秒即变，
+    # 会让相同入参的两次生成得到不同摘要；改用入参 fetched_at 锚定。
+    try:
+        _stamp = datetime.fromisoformat(fetched_at.replace("Z", "+00:00"))
+    except ValueError:
+        _stamp = datetime.now(timezone.utc)
+    wb.properties.created = _stamp
+    wb.properties.modified = _stamp
     wb.save(out)
+    _normalize_xlsx_bytes(out, _stamp)
     return out
 
 

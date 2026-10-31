@@ -165,6 +165,12 @@ curl -X POST http://localhost:8765/mcp ^
 | `MCP_HOST` | `0.0.0.0` | 监听地址 |
 | `MCP_PORT` | `8765` | 监听端口 |
 | `MCP_AUTH_TOKEN` | (空) | 管理员 Bearer Token。空则自动生成。用于 localhost 系统级访问 |
+| `WEBCHAT_MINT_SECRET` | (空) | mint/revoke 端点共享密钥（空则 mint 一律 401） |
+| `MCP_PUBLIC_MODE` | `0` | 公网暴露门控开关。`0`=既有内网行为；`1`=展示类端点仅本机/allowlist，URL 凭据端点非本机补充鉴权 |
+| `MCP_PUBLIC_ALLOWLIST` | (空) | 公网模式下展示类端点的额外放行来源（逗号分隔 IP） |
+| `MCP_TRUSTED_PROXY` | (空) | 可信反向代理 IP 清单（逗号分隔）。仅直连来源命中时才采信 `X-Forwarded-For` 最左值；未配置时一律用直连地址 |
+
+> ⚠️ `.env` 仅由 `start.bat` 解析注入，直接 `python server.py` 启动的进程**不加载** `.env`——改完 `.env` 需经 `start.bat` 重启才生效。公网模式相关变量的模板见 `.env.example`（新变量请同步补全该模板）。
 
 ### MCP 客户端配置（服务端与工具解耦）
 

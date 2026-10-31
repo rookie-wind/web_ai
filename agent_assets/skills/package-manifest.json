@@ -1,6 +1,6 @@
 {
   "name": "xlpa-agent-assets",
-  "version": "0.24.0",
+  "version": "0.26.0",
   "kind": "agent-assets-package",
   "packageRoot": "skills",
   "updateMode": "full-replace-with-backup",

@@ -1,0 +1,161 @@
+{
+  "projectRoot": "e:\\codeGIT\\pca-mcp-server",
+  "batchFiles": [
+    {
+      "path": "agent_assets/skills/xlpa/agents/openai.yaml",
+      "language": "yaml",
+      "sizeLines": 3,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/xlpa/manifest.json",
+      "language": "json",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/xlpa/tools/mcp_client.py",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "docs/architecture/project-structure.md",
+      "language": "markdown",
+      "sizeLines": 312,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/architecture/web-chat-agent-runtime-solution.md",
+      "language": "markdown",
+      "sizeLines": 386,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/deployment/mcp-server.md",
+      "language": "markdown",
+      "sizeLines": 704,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/presentation/web-chat-agent-runtime-slides.html",
+      "language": "html",
+      "sizeLines": 626,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "mcp_server/archiving/__init__.py",
+      "language": "python",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/ooxml_validator.py",
+      "language": "python",
+      "sizeLines": 133,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/templates/stage_zero_generate.py",
+      "language": "python",
+      "sizeLines": 250,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/time_validator.py",
+      "language": "python",
+      "sizeLines": 194,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/cleanup.py",
+      "language": "python",
+      "sizeLines": 135,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/mcp_client.py",
+      "language": "python",
+      "sizeLines": 4,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/static/access.html",
+      "language": "html",
+      "sizeLines": 1043,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "mcp_server/static/showcase.html",
+      "language": "html",
+      "sizeLines": 2669,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "mcp_server/tests/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_auth_revamp.py",
+      "language": "python",
+      "sizeLines": 209,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_oplog_panel.py",
+      "language": "python",
+      "sizeLines": 116,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_portal_proxy.py",
+      "language": "python",
+      "sizeLines": 335,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_refactor.py",
+      "language": "python",
+      "sizeLines": 1662,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_session_permission.py",
+      "language": "python",
+      "sizeLines": 274,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/token_manager.py",
+      "language": "python",
+      "sizeLines": 245,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "agent_assets/skills/xlpa/agents/openai.yaml": [],
+    "agent_assets/skills/xlpa/manifest.json": [],
+    "agent_assets/skills/xlpa/tools/mcp_client.py": [],
+    "docs/architecture/project-structure.md": [],
+    "docs/architecture/web-chat-agent-runtime-solution.md": [],
+    "docs/deployment/mcp-server.md": [],
+    "docs/presentation/web-chat-agent-runtime-slides.html": [],
+    "mcp_server/archiving/__init__.py": [],
+    "mcp_server/archiving/ooxml_validator.py": [],
+    "mcp_server/archiving/templates/stage_zero_generate.py": [],
+    "mcp_server/archiving/time_validator.py": [],
+    "mcp_server/cleanup.py": [],
+    "mcp_server/mcp_client.py": [],
+    "mcp_server/static/access.html": [],
+    "mcp_server/static/showcase.html": [],
+    "mcp_server/tests/__init__.py": [],
+    "mcp_server/tests/test_auth_revamp.py": [],
+    "mcp_server/tests/test_oplog_panel.py": [],
+    "mcp_server/tests/test_portal_proxy.py": [],
+    "mcp_server/tests/test_refactor.py": [],
+    "mcp_server/tests/test_session_permission.py": [],
+    "mcp_server/token_manager.py": []
+  }
+}

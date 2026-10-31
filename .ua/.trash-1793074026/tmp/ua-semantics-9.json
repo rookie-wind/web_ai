@@ -1,0 +1,136 @@
+{
+  "files": [
+    {
+      "path": "agent_assets/skills/http-conversion/SKILL.md",
+      "summary": "HTTP 协议转换技能定义：描述如何分析第三方 HTTP/REST 协议与内部 MQTT 目标协议并生成 C 引擎读取的 JSON 配置。",
+      "tags": ["documentation", "技能定义", "http转换", "协议转换"],
+      "complexity": "complex"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/agents/openai.yaml",
+      "summary": "http-conversion 技能的子代理声明文件，指定该技能可用的代理与默认参数。",
+      "tags": ["configuration", "技能资产", "agent"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/manifest.json",
+      "summary": "http-conversion 技能清单，声明版本、必需文件与技能元信息。",
+      "tags": ["configuration", "技能清单", "资源包"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/examples/aimcover-http.json",
+      "summary": "HTTP→内部格式的示例转换配置（aimcover 数据源），供技能生成配置时参照。",
+      "tags": ["configuration", "示例", "http转换"],
+      "complexity": "moderate"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/examples/linktheall-http.json",
+      "summary": "HTTP→内部格式的示例转换配置（linktheall 数据源），覆盖多接口聚合场景。",
+      "tags": ["configuration", "示例", "http转换"],
+      "complexity": "moderate"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/原子标签定义.md",
+      "summary": "原子标签定义资料（http-conversion 副本）：列出平台侧全部原子标签与语义。",
+      "tags": ["documentation", "原子标签", "参考资料"],
+      "complexity": "complex"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.md",
+      "summary": "多类型设备集成系统大类号说明（http-conversion 副本）：解释大类号编码规则与适用范围。",
+      "tags": ["documentation", "大类号", "参考资料"],
+      "complexity": "moderate"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/SKILL.md",
+      "summary": "Modbus 协议转换技能定义：指导分析 Modbus 协议文档与内部类型定义，生成严格处理字节序、字序、位序与比例系数的 JSON 配置。",
+      "tags": ["documentation", "技能定义", "modbus转换", "协议转换"],
+      "complexity": "complex"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/agents/openai.yaml",
+      "summary": "modbus-conversion 技能的子代理声明文件。",
+      "tags": ["configuration", "技能资产", "agent"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/manifest.json",
+      "summary": "modbus-conversion 技能清单，声明版本与必需文件。",
+      "tags": ["configuration", "技能清单", "资源包"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/原子标签定义.md",
+      "summary": "原子标签定义资料（modbus-conversion 副本），内容与 http-conversion 版本一致。",
+      "tags": ["documentation", "原子标签", "参考资料", "重复副本"],
+      "complexity": "complex"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.md",
+      "summary": "大类号说明资料（modbus-conversion 副本），与 http-conversion 版本同源。",
+      "tags": ["documentation", "大类号", "参考资料", "重复副本"],
+      "complexity": "moderate"
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/SKILL.md",
+      "summary": "重庆地区 Modbus 脚本适配技能：将标准转换脚本中的 modelNum 字段替换为 protocolNum 并重命名文件。",
+      "tags": ["documentation", "技能定义", "地区适配", "modbus转换"],
+      "complexity": "moderate"
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/agents/openai.yaml",
+      "summary": "modbus-cq-adapt 技能的子代理声明，含较完整的代理参数配置。",
+      "tags": ["configuration", "技能资产", "agent"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/manifest.json",
+      "summary": "modbus-cq-adapt 技能清单。",
+      "tags": ["configuration", "技能清单", "资源包"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/SKILL.md",
+      "summary": "MQTT 协议转换技能定义：指导分析内部 MQTT 源协议与平台 MQTT 目标协议，产出 C 引擎使用的映射配置。",
+      "tags": ["documentation", "技能定义", "mqtt转换", "协议转换"],
+      "complexity": "complex"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/agents/openai.yaml",
+      "summary": "mqtt-conversion 技能的子代理声明文件。",
+      "tags": ["configuration", "技能资产", "agent"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/manifest.json",
+      "summary": "mqtt-conversion 技能清单，声明版本与必需文件。",
+      "tags": ["configuration", "技能清单", "资源包"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/examples/vpp-mqtt.json",
+      "summary": "MQTT→MQTT 上报的示例转换配置（vpp），演示映射脚本与目标主题结构。",
+      "tags": ["configuration", "示例", "mqtt转换"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {"source": "config:agent_assets/skills/http-conversion/manifest.json", "target": "document:agent_assets/skills/http-conversion/SKILL.md", "type": "documents", "weight": 0.5},
+    {"source": "config:agent_assets/skills/modbus-conversion/manifest.json", "target": "document:agent_assets/skills/modbus-conversion/SKILL.md", "type": "documents", "weight": 0.5},
+    {"source": "config:agent_assets/skills/modbus-cq-adapt/manifest.json", "target": "document:agent_assets/skills/modbus-cq-adapt/SKILL.md", "type": "documents", "weight": 0.5},
+    {"source": "config:agent_assets/skills/mqtt-conversion/manifest.json", "target": "document:agent_assets/skills/mqtt-conversion/SKILL.md", "type": "documents", "weight": 0.5},
+    {"source": "config:agent_assets/skills/http-conversion/agents/openai.yaml", "target": "config:agent_assets/skills/http-conversion/manifest.json", "type": "related", "weight": 0.5},
+    {"source": "config:agent_assets/skills/modbus-conversion/agents/openai.yaml", "target": "config:agent_assets/skills/modbus-conversion/manifest.json", "type": "related", "weight": 0.5},
+    {"source": "config:agent_assets/skills/modbus-cq-adapt/agents/openai.yaml", "target": "config:agent_assets/skills/modbus-cq-adapt/manifest.json", "type": "related", "weight": 0.5},
+    {"source": "config:agent_assets/skills/mqtt-conversion/agents/openai.yaml", "target": "config:agent_assets/skills/mqtt-conversion/manifest.json", "type": "related", "weight": 0.5},
+    {"source": "document:agent_assets/skills/http-conversion/SKILL.md", "target": "document:agent_assets/skills/protocol-conversion/SKILL.md", "type": "depends_on", "weight": 0.6},
+    {"source": "document:agent_assets/skills/mqtt-conversion/SKILL.md", "target": "document:agent_assets/skills/protocol-conversion/SKILL.md", "type": "depends_on", "weight": 0.6},
+    {"source": "document:agent_assets/skills/modbus-cq-adapt/SKILL.md", "target": "document:agent_assets/skills/modbus-conversion/SKILL.md", "type": "depends_on", "weight": 0.6},
+    {"source": "config:agent_assets/skills/http-conversion/references/examples/aimcover-http.json", "target": "document:agent_assets/skills/http-conversion/SKILL.md", "type": "related", "weight": 0.5},
+    {"source": "config:agent_assets/skills/http-conversion/references/examples/linktheall-http.json", "target": "document:agent_assets/skills/http-conversion/SKILL.md", "type": "related", "weight": 0.5},
+    {"source": "config:agent_assets/skills/mqtt-conversion/references/examples/vpp-mqtt.json", "target": "document:agent_assets/skills/mqtt-conversion/SKILL.md", "type": "related", "weight": 0.5},
+    {"source": "document:agent_assets/skills/modbus-conversion/references/原子标签定义.md", "target": "document:agent_assets/skills/http-conversion/references/原子标签定义.md", "type": "similar_to", "weight": 0.5},
+    {"source": "document:agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.md", "target": "document:agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.md", "type": "similar_to", "weight": 0.5}
+  ]
+}

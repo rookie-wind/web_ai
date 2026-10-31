@@ -1,0 +1,1259 @@
+{
+  "scriptCompleted": true,
+  "extractorNote": "python/c via cpython; docx excluded (binary source, .md text twin retained)",
+  "filesAnalyzed": 19,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "results": [
+    {
+      "path": "agent_assets/skills/http-conversion/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 586,
+      "nonEmptyLines": 454,
+      "sections": [
+        {
+          "heading": "HTTP 协议转换配置生成",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "引擎架构",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "配置文件格式（vpp_http_config.load.c 读取）",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "根对象",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "Token 配置",
+          "level": 3,
+          "line": 45
+        },
+        {
+          "heading": "API 配置",
+          "level": 3,
+          "line": 57
+        },
+        {
+          "heading": "body_params / data_mappings 规则字段",
+          "level": 3,
+          "line": 77
+        },
+        {
+          "heading": "工作流程（11 步，必须按序执行）",
+          "level": 2,
+          "line": 89
+        },
+        {
+          "heading": "Step 0: 文档预处理（条件步骤）",
+          "level": 3,
+          "line": 109
+        },
+        {
+          "heading": "Step 1: 分析源协议（第三方 HTTP/REST）",
+          "level": 3,
+          "line": 120
+        },
+        {
+          "heading": "Step 2: 分析目标协议（内部 MQTT）",
+          "level": 3,
+          "line": 137
+        },
+        {
+          "heading": "Step 2.5: 确定需要上报的数据项",
+          "level": 3,
+          "line": 148
+        },
+        {
+          "heading": "2.5.1 列出目标数据项",
+          "level": 4,
+          "line": 152
+        },
+        {
+          "heading": "2.5.2 查询源原子标签",
+          "level": 4,
+          "line": 169
+        },
+        {
+          "heading": "Step 3: 提取映射信息",
+          "level": 3,
+          "line": 223
+        },
+        {
+          "heading": "Step 4: 加载 protocol-conversion 获取映射规则",
+          "level": 3,
+          "line": 249
+        },
+        {
+          "heading": "Step 5: 输出结构确认报告",
+          "level": 3,
+          "line": 262
+        },
+        {
+          "heading": "Step 6: 等待用户确认",
+          "level": 3,
+          "line": 316
+        },
+        {
+          "heading": "Step 7: 生成 JSON 配置",
+          "level": 3,
+          "line": 320
+        },
+        {
+          "heading": "Step 8: 校验配置",
+          "level": 3,
+          "line": 332
+        },
+        {
+          "heading": "Step 9: 解释脚本",
+          "level": 3,
+          "line": 348
+        },
+        {
+          "heading": "Step10：验证脚本",
+          "level": 3,
+          "line": 362
+        },
+        {
+          "heading": "构造测试数据",
+          "level": 3,
+          "line": 364
+        },
+        {
+          "heading": "选择执行引擎",
+          "level": 3,
+          "line": 372
+        },
+        {
+          "heading": "执行转换",
+          "level": 3,
+          "line": 376
+        },
+        {
+          "heading": "比对结果表",
+          "level": 4,
+          "line": 380
+        },
+        {
+          "heading": "转化结论",
+          "level": 4,
+          "line": 391
+        },
+        {
+          "heading": "HTTP 核心规则",
+          "level": 2,
+          "line": 397
+        },
+        {
+          "heading": "链式调用规则",
+          "level": 3,
+          "line": 414
+        },
+        {
+          "heading": "MCP 工具调用",
+          "level": 2,
+          "line": 423
+        },
+        {
+          "heading": "真实协议示例",
+          "level": 2,
+          "line": 433
+        },
+        {
+          "heading": "源协议：抄表终端平台接口说明 v1.5.2（HTTP REST）",
+          "level": 3,
+          "line": 435
+        },
+        {
+          "heading": "目标协议：内部 MQTT 上报格式（businessObjList 结构）",
+          "level": 3,
+          "line": 446
+        },
+        {
+          "heading": "生成的 JSON 配置",
+          "level": 3,
+          "line": 467
+        },
+        {
+          "heading": "链式调用示例（两个 API 依次执行）",
+          "level": 3,
+          "line": 525
+        },
+        {
+          "heading": "约束规则",
+          "level": 2,
+          "line": 555
+        },
+        {
+          "heading": "部署说明",
+          "level": 2,
+          "line": 576
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 37
+      }
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 19,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "protocolDirections",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/examples/aimcover-http.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 88,
+      "nonEmptyLines": 88,
+      "sections": [
+        {
+          "heading": "base_url",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "timeout",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "domain",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "token",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "apis",
+          "level": 1,
+          "line": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/examples/linktheall-http.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 117,
+      "nonEmptyLines": 117,
+      "sections": [
+        {
+          "heading": "base_url",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "timeout",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "domain",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "token",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "apis",
+          "level": 1,
+          "line": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/原子标签定义.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1270,
+      "nonEmptyLines": 1200,
+      "sections": [
+        {
+          "heading": "原子标签定义（系统补充）",
+          "level": 5,
+          "line": 1
+        },
+        {
+          "heading": "故障码定义",
+          "level": 5,
+          "line": 721
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 155,
+      "nonEmptyLines": 104,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1015,
+      "nonEmptyLines": 813,
+      "sections": [
+        {
+          "heading": "Modbus 协议转换配置生成",
+          "level": 1,
+          "line": 20
+        },
+        {
+          "heading": "适用场景",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "目录结构",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "C 引擎实际读取的配置格式",
+          "level": 2,
+          "line": 52
+        },
+        {
+          "heading": "根对象字段",
+          "level": 3,
+          "line": 54
+        },
+        {
+          "heading": "taskList 结构",
+          "level": 3,
+          "line": 64
+        },
+        {
+          "heading": "labelList 结构",
+          "level": 3,
+          "line": 78
+        },
+        {
+          "heading": "处理流程",
+          "level": 2,
+          "line": 125
+        },
+        {
+          "heading": "步骤 1：协议文档分析",
+          "level": 3,
+          "line": 145
+        },
+        {
+          "heading": "步骤 2：查找 modelNum",
+          "level": 3,
+          "line": 168
+        },
+        {
+          "heading": "步骤 3：查找 classNum",
+          "level": 3,
+          "line": 188
+        },
+        {
+          "heading": "步骤 4：确定采集数据项",
+          "level": 3,
+          "line": 216
+        },
+        {
+          "heading": "4.1 数据项歧义确认（前置必做）",
+          "level": 4,
+          "line": 218
+        },
+        {
+          "heading": "4.2 用户选择采集数据项",
+          "level": 4,
+          "line": 242
+        },
+        {
+          "heading": "4.3 查询原子标签（平台功能项候选）",
+          "level": 4,
+          "line": 246
+        },
+        {
+          "heading": "4.4 汇总展示",
+          "level": 4,
+          "line": 290
+        },
+        {
+          "heading": "步骤 5：填充 read/write/convert 配置",
+          "level": 3,
+          "line": 307
+        },
+        {
+          "heading": "步骤 6：生成输出文件（二阶段同步）",
+          "level": 3,
+          "line": 322
+        },
+        {
+          "heading": "核心规则",
+          "level": 2,
+          "line": 330
+        },
+        {
+          "heading": "1. data_type 数据类型语法",
+          "level": 3,
+          "line": 332
+        },
+        {
+          "heading": "2. data_order 字节序",
+          "level": 3,
+          "line": 376
+        },
+        {
+          "heading": "3. data_exprs 表达式引擎",
+          "level": 3,
+          "line": 391
+        },
+        {
+          "heading": "3.1 单位转换（每点必核对）",
+          "level": 4,
+          "line": 410
+        },
+        {
+          "heading": "4. addr_exprs 地址表达式（多路设备）",
+          "level": 3,
+          "line": 443
+        },
+        {
+          "heading": "5. convert 枚举映射",
+          "level": 3,
+          "line": 453
+        },
+        {
+          "heading": "6. 符号位处理",
+          "level": 3,
+          "line": 469
+        },
+        {
+          "heading": "7. 位提取与按位运算互斥",
+          "level": 3,
+          "line": 489
+        },
+        {
+          "heading": "8. 一次值/二次值",
+          "level": 3,
+          "line": 495
+        },
+        {
+          "heading": "9. func_code 功能码",
+          "level": 3,
+          "line": 504
+        },
+        {
+          "heading": "10. 转换公式查找顺序",
+          "level": 3,
+          "line": 525
+        },
+        {
+          "heading": "11. 原子标签匹配规则",
+          "level": 3,
+          "line": 535
+        },
+        {
+          "heading": "MCP 工具编排",
+          "level": 2,
+          "line": 546
+        },
+        {
+          "heading": "步骤 0：登录与 Token（必做前置）",
+          "level": 3,
+          "line": 550
+        },
+        {
+          "heading": "原子工具映射表",
+          "level": 3,
+          "line": 567
+        },
+        {
+          "heading": "查询通用规则（品牌/型号/原子标签）",
+          "level": 3,
+          "line": 586
+        },
+        {
+          "heading": "写入保护与返回值展示",
+          "level": 3,
+          "line": 593
+        },
+        {
+          "heading": "平台同步（二阶段流程，默认不执行）",
+          "level": 3,
+          "line": 601
+        },
+        {
+          "heading": "可选衔接 XLPA 自动建档（MODBUS 转换完成后）",
+          "level": 3,
+          "line": 609
+        },
+        {
+          "heading": "首期禁用的工具",
+          "level": 3,
+          "line": 620
+        },
+        {
+          "heading": "参数来源标记与最终确认表",
+          "level": 3,
+          "line": 624
+        },
+        {
+          "heading": "字段语义拆分规则",
+          "level": 3,
+          "line": 638
+        },
+        {
+          "heading": "平台暂无数据项处理规则",
+          "level": 3,
+          "line": 655
+        },
+        {
+          "heading": "参考文档使用说明",
+          "level": 2,
+          "line": 674
+        },
+        {
+          "heading": "空调协议统计汇总.xlsx",
+          "level": 3,
+          "line": 676
+        },
+        {
+          "heading": "多类型设备集成系统大类号说明.docx",
+          "level": 3,
+          "line": 682
+        },
+        {
+          "heading": "原子标签定义.docx",
+          "level": 3,
+          "line": 687
+        },
+        {
+          "heading": "地址公式说明.png",
+          "level": 3,
+          "line": 693
+        },
+        {
+          "heading": "实际 JSON 配置样例（安科瑞 AMC 电表）",
+          "level": 2,
+          "line": 699
+        },
+        {
+          "heading": "多路设备配置样例（多联机空调，含 write/convert）",
+          "level": 2,
+          "line": 775
+        },
+        {
+          "heading": "简单设备配置样例（环境传感器，无辅助参数）",
+          "level": 2,
+          "line": 839
+        },
+        {
+          "heading": "交互记录输出规范",
+          "level": 2,
+          "line": 879
+        },
+        {
+          "heading": "输出结构",
+          "level": 3,
+          "line": 883
+        },
+        {
+          "heading": "增强点表格式",
+          "level": 3,
+          "line": 903
+        },
+        {
+          "heading": "歧义项确认表",
+          "level": 3,
+          "line": 928
+        },
+        {
+          "heading": "最小冒烟测试清单",
+          "level": 3,
+          "line": 945
+        },
+        {
+          "heading": "未验证项清单",
+          "level": 3,
+          "line": 963
+        },
+        {
+          "heading": "注意事项",
+          "level": 2,
+          "line": 980
+        },
+        {
+          "heading": "约束规则",
+          "level": 2,
+          "line": 994
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 58
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 19,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "protocolDirections",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/原子标签定义.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1270,
+      "nonEmptyLines": 1200,
+      "sections": [
+        {
+          "heading": "原子标签定义（系统补充）",
+          "level": 5,
+          "line": 1
+        },
+        {
+          "heading": "故障码定义",
+          "level": 5,
+          "line": 721
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 155,
+      "nonEmptyLines": 104,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 196,
+      "nonEmptyLines": 148,
+      "sections": [
+        {
+          "heading": "重庆地区 Modbus 脚本适配",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "适用场景",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "目录结构",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "输入与输出",
+          "level": 2,
+          "line": 39
+        },
+        {
+          "heading": "输入",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "输出",
+          "level": 3,
+          "line": 61
+        },
+        {
+          "heading": "执行流程",
+          "level": 2,
+          "line": 79
+        },
+        {
+          "heading": "Step 1：读取并验证输入 JSON",
+          "level": 3,
+          "line": 81
+        },
+        {
+          "heading": "Step 2：字段替换",
+          "level": 3,
+          "line": 96
+        },
+        {
+          "heading": "Step 3：展示 diff 并确认",
+          "level": 3,
+          "line": 110
+        },
+        {
+          "heading": "Step 4：保存输出",
+          "level": 3,
+          "line": 127
+        },
+        {
+          "heading": "智能识别规则",
+          "level": 2,
+          "line": 135
+        },
+        {
+          "heading": "约束规则",
+          "level": 2,
+          "line": 152
+        },
+        {
+          "heading": "与其他 Skill 的关系",
+          "level": 2,
+          "line": 164
+        },
+        {
+          "heading": "典型用例",
+          "level": 2,
+          "line": 173
+        },
+        {
+          "heading": "用例 1：用户明确提到重庆",
+          "level": 3,
+          "line": 175
+        },
+        {
+          "heading": "用例 2：用户未提到重庆但提供了标准格式",
+          "level": 3,
+          "line": 187
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 17
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 11,
+      "nonEmptyLines": 11,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 461,
+      "nonEmptyLines": 347,
+      "sections": [
+        {
+          "heading": "MQTT 协议转换配置生成",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "引擎架构",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "配置文件格式（config_loader.c 读取）",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "根对象字段",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "mappings 规则字段",
+          "level": 3,
+          "line": 44
+        },
+        {
+          "heading": "工作流程（10 步，必须按序执行）",
+          "level": 2,
+          "line": 56
+        },
+        {
+          "heading": "Step 0: 文档预处理（条件步骤）",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "Step 1: 分析源协议（内部 MQTT）",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "Step 2: 分析目标协议（平台 MQTT）",
+          "level": 3,
+          "line": 104
+        },
+        {
+          "heading": "Step 2.5: 确定需要上报的数据项",
+          "level": 3,
+          "line": 115
+        },
+        {
+          "heading": "2.5.1 列出目标数据项",
+          "level": 4,
+          "line": 119
+        },
+        {
+          "heading": "2.5.2 查询源原子标签",
+          "level": 4,
+          "line": 140
+        },
+        {
+          "heading": "Step 3: 提取映射信息",
+          "level": 3,
+          "line": 192
+        },
+        {
+          "heading": "Step 4: 加载 protocol-conversion 获取映射规则",
+          "level": 3,
+          "line": 213
+        },
+        {
+          "heading": "Step 5: 输出结构确认报告",
+          "level": 3,
+          "line": 224
+        },
+        {
+          "heading": "Step 6: 等待用户确认",
+          "level": 3,
+          "line": 292
+        },
+        {
+          "heading": "Step 7: 生成 JSON 配置",
+          "level": 3,
+          "line": 302
+        },
+        {
+          "heading": "Step 8: 解释脚本",
+          "level": 3,
+          "line": 312
+        },
+        {
+          "heading": "MCP 工具调用（下列的工具目前只是展示，暂不使用）",
+          "level": 2,
+          "line": 322
+        },
+        {
+          "heading": "Step9：验证脚本",
+          "level": 3,
+          "line": 331
+        },
+        {
+          "heading": "构造测试数据",
+          "level": 3,
+          "line": 333
+        },
+        {
+          "heading": "选择执行引擎",
+          "level": 3,
+          "line": 341
+        },
+        {
+          "heading": "执行转换",
+          "level": 3,
+          "line": 345
+        },
+        {
+          "heading": "比对结果表",
+          "level": 4,
+          "line": 349
+        },
+        {
+          "heading": "转化结论",
+          "level": 4,
+          "line": 360
+        },
+        {
+          "heading": "真实协议示例",
+          "level": 2,
+          "line": 366
+        },
+        {
+          "heading": "源协议：iot_agent 电气量采集数据",
+          "level": 3,
+          "line": 368
+        },
+        {
+          "heading": "目标协议：云南配电房协议（ywnyems）",
+          "level": 3,
+          "line": 392
+        },
+        {
+          "heading": "生成的 JSON 配置",
+          "level": 3,
+          "line": 410
+        },
+        {
+          "heading": "约束规则",
+          "level": 2,
+          "line": 443
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 30
+      }
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 19,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "protocolDirections",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/examples/vpp-mqtt.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 97,
+      "nonEmptyLines": 97,
+      "sections": [
+        {
+          "heading": "platform_name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "topic_pattern",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "mappings",
+          "level": 1,
+          "line": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "protocol-conversion",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "kind": "skill-assets",
   "entry": "SKILL.md",
   "required": [

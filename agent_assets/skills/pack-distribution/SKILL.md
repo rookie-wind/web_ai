@@ -6,17 +6,21 @@ description: >
 when_to_use: >
   测试通过后，需要打包分发转换配置时使用。
   用户要求导出、安装、分发转换包时使用。
-compatibility: "Requires xl-protocol-agent MCP server (待开发)"
+compatibility: "Requires xl-protocol-agent MCP server"
 metadata:
   tags: [pack, distribute, export]
   order: 5
   author: hub_port_test
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # 协议转换包打包分发
 
 > **目标：** 将转换配置、映射报告、测试报告打包为 ZIP，支持一键安装到目标环境。
+
+> **目录只读约束**：技能目录为只读母本，作业中间产物写
+> `<会话工作区>/xlpa-tmp/`，最终产物写 `<会话工作区>/xlpa-output/`
+> （或用户指定目录），禁止向技能目录写入任何文件。
 
 ## 适用场景
 
@@ -117,16 +121,13 @@ flowchart TD
 
 ### Phase 3 — 打包为 ZIP
 
-```
-打包步骤:
-  1. 在当前会话工作区创建临时目录（禁止在技能目录内创建）
-  2. 复制 config.json、mapping_report.md、test_report.json
-  3. 复制 source_protocol_spec.json、target_protocol_spec.json
-  4. 生成 manifest.json
-  5. 生成 README.md
-  6. 压缩为 ZIP
-  7. 输出 ZIP 文件路径
-```
+调用 `pack_bundle(pack_name, config, test_report_json, mapping_report_md, ...)`：
+
+- **测试门控**：`test_report_json.status` 必须为 `passed`，否则拒绝打包；
+- 工具生成 ZIP（config.json / mapping_report.md / test_report.json /
+  source_protocol_spec.json? / target_protocol_spec.json? / README.md /
+  manifest.json 含 SHA256 清单），存产物存储并返回 file_id 与下载链接；
+- 产物 30 天 TTL、file_id 即票据，经既有下载端点取回。
 
 ### Phase 4 — 安装到目标环境
 
@@ -139,15 +140,15 @@ flowchart TD
   5. 验证转换结果
 ```
 
-## 调用的 MCP 工具（MCP 就绪后）
+## 调用的 MCP 工具
 
-| 工具 | 用途 | 当前替代方案 |
+| 工具 | 用途 | 状态 |
 |------|------|------------|
-| `pack_bundle` | 打包配置+文档为 ZIP | AI 生成文件列表，用户手动打包 |
-| `install_pack` | 安装 ZIP 到目标环境 | AI 输出安装步骤，用户手动执行 |
-| `list_packs` | 列出所有已打包的转换包 | 无 |
-| `get_pack_info` | 获取包详情 | 无 |
-| `delete_pack` | 删除已打包的转换包 | 无 |
+| `pack_bundle` | 打包配置+文档为 ZIP（测试门控） | 已就绪 |
+| `install_pack` | 安装 ZIP 到目标环境 | 待开发（属目标环境运维） |
+| `list_packs` | 列出所有已打包的转换包 | 待开发 |
+| `get_pack_info` | 获取包详情 | 待开发 |
+| `delete_pack` | 删除已打包的转换包 | 待开发 |
 
 ## 约束规则
 

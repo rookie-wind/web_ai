@@ -1,0 +1,63 @@
+{
+  "projectRoot": "e:\\codeGIT\\pca-mcp-server",
+  "batchFiles": [
+    {
+      "path": "mcp_server/.env",
+      "language": "config",
+      "sizeLines": 1,
+      "fileCategory": "config"
+    },
+    {
+      "path": "mcp_server/README.md",
+      "language": "markdown",
+      "sizeLines": 226,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "mcp_server/install.bat",
+      "language": "batch",
+      "sizeLines": 101,
+      "fileCategory": "script"
+    },
+    {
+      "path": "mcp_server/permissions.template.json",
+      "language": "json",
+      "sizeLines": 10,
+      "fileCategory": "config"
+    },
+    {
+      "path": "mcp_server/proxy_config.json",
+      "language": "json",
+      "sizeLines": 2,
+      "fileCategory": "config"
+    },
+    {
+      "path": "mcp_server/requirements.txt",
+      "language": "txt",
+      "sizeLines": 3,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "mcp_server/start.bat",
+      "language": "batch",
+      "sizeLines": 40,
+      "fileCategory": "script"
+    },
+    {
+      "path": "mcp_server/version.json",
+      "language": "json",
+      "sizeLines": 6,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {
+    "mcp_server/.env": [],
+    "mcp_server/README.md": [],
+    "mcp_server/install.bat": [],
+    "mcp_server/permissions.template.json": [],
+    "mcp_server/proxy_config.json": [],
+    "mcp_server/requirements.txt": [],
+    "mcp_server/start.bat": [],
+    "mcp_server/version.json": []
+  }
+}

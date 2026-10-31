@@ -1,6 +1,6 @@
 {
   "name": "modbus-conversion",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "kind": "skill-assets",
   "entry": "SKILL.md",
   "protocolDirections": [

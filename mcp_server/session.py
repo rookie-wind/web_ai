@@ -6,7 +6,7 @@ login 成功后创建 Session，后续工具调用通过 mcp_token_var 查找对
 
 from __future__ import annotations
 
-__all__ = ["Session", "SessionRegistry", "mcp_token_var"]
+__all__ = ["Session", "SessionRegistry", "mcp_token_var", "owner_ref_var"]
 
 import contextvars
 import time
@@ -15,6 +15,11 @@ from dataclasses import dataclass, field
 # 当前请求的 MCP 接入 Token（由 AuthMiddleware 设置，工具读取）
 mcp_token_var: contextvars.ContextVar[str] = contextvars.ContextVar(
     "mcp_token", default=""
+)
+# 当前请求的归属引用（v3 entry 的 owner_ref，webchat 族由 AuthMiddleware
+# 注入；IDE 族为空字符串，操作日志分区回退 sha256(token)）
+owner_ref_var: contextvars.ContextVar[str] = contextvars.ContextVar(
+    "owner_ref", default=""
 )
 
 

@@ -1,0 +1,153 @@
+{
+  "nodes": [
+    {
+      "id": "document:agent_assets/skills/xlpa-device-archiving/references/device-onboarding-playbook.md",
+      "type": "document",
+      "name": "device-onboarding-playbook.md",
+      "filePath": "agent_assets/skills/xlpa-device-archiving/references/device-onboarding-playbook.md",
+      "summary": "设备建档作业手册：按顺序描述从生成模板、填写、上传到执行建档与召测的完整操作路径。",
+      "tags": [
+        "documentation",
+        "建档流程",
+        "技能资料",
+        "xlpa"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:agent_assets/skills/xlpa-device-archiving/references/direct-edge-operation.md",
+      "type": "document",
+      "name": "direct-edge-operation.md",
+      "filePath": "agent_assets/skills/xlpa-device-archiving/references/direct-edge-operation.md",
+      "summary": "免模板直连边缘操作说明：描述不上传档案时如何直接完成联通、下发与召测。",
+      "tags": [
+        "documentation",
+        "免模板",
+        "边缘联通",
+        "技能资料"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:agent_assets/skills/xlpa-device-archiving/references/edge-param-save-api.md",
+      "type": "document",
+      "name": "edge-param-save-api.md",
+      "filePath": "agent_assets/skills/xlpa-device-archiving/references/edge-param-save-api.md",
+      "summary": "边缘参数保存接口参考：逐项记录 setDeviceParam/updateDeviceParent 等接口的请求字段与返回语义。",
+      "tags": [
+        "documentation",
+        "api-reference",
+        "参数保存",
+        "边缘接口"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:agent_assets/skills/xlpa-device-archiving/references/excel-template-schema.md",
+      "type": "document",
+      "name": "excel-template-schema.md",
+      "filePath": "agent_assets/skills/xlpa-device-archiving/references/excel-template-schema.md",
+      "summary": "建档工作簿结构说明：描述各 sheet 的列定义、取值来源与填写规则，与字段契约保持一致。",
+      "tags": [
+        "documentation",
+        "模板结构",
+        "字段契约",
+        "schema-definition"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:agent_assets/skills/xlpa-device-archiving/references/gateway-button-endpoints.md",
+      "type": "document",
+      "name": "gateway-button-endpoints.md",
+      "filePath": "agent_assets/skills/xlpa-device-archiving/references/gateway-button-endpoints.md",
+      "summary": "网关按钮端点参考：列出边缘页面上各类按钮对应的接口与调用时机。",
+      "tags": [
+        "documentation",
+        "网关",
+        "端点参考",
+        "技能资料"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:agent_assets/skills/xlpa-device-archiving/references/platform-dict-template-generation.md",
+      "type": "document",
+      "name": "platform-dict-template-generation.md",
+      "filePath": "agent_assets/skills/xlpa-device-archiving/references/platform-dict-template-generation.md",
+      "summary": "平台字典与模板生成说明：解释模板骨架如何依赖平台系统字典以及生成时序。",
+      "tags": [
+        "documentation",
+        "数据字典",
+        "模板生成",
+        "技能资料"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:agent_assets/skills/xlpa-device-archiving/references/excel-template-schema.md",
+      "target": "file:mcp_server/archiving/field_contract.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:agent_assets/skills/xlpa-device-archiving/references/excel-template-schema.md",
+      "target": "file:mcp_server/archiving/excel_reader.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:agent_assets/skills/xlpa-device-archiving/references/platform-dict-template-generation.md",
+      "target": "file:mcp_server/archiving/templates/generator.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:agent_assets/skills/xlpa-device-archiving/references/platform-dict-template-generation.md",
+      "target": "file:mcp_server/archiving/reference_dict.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:agent_assets/skills/xlpa-device-archiving/references/edge-param-save-api.md",
+      "target": "file:mcp_server/edge_client.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:agent_assets/skills/xlpa-device-archiving/references/edge-param-save-api.md",
+      "target": "file:mcp_server/archiving/profiles/base.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:agent_assets/skills/xlpa-device-archiving/references/direct-edge-operation.md",
+      "target": "file:mcp_server/edge_tools.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:agent_assets/skills/xlpa-device-archiving/references/device-onboarding-playbook.md",
+      "target": "file:mcp_server/edge_tools.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:agent_assets/skills/xlpa-device-archiving/references/gateway-button-endpoints.md",
+      "target": "file:mcp_server/edge_client.py",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

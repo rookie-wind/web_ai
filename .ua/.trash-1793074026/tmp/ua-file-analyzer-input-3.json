@@ -1,0 +1,106 @@
+{
+  "projectRoot": "e:\\codeGIT\\pca-mcp-server",
+  "batchFiles": [
+    {
+      "path": "mcp_server/api_client.py",
+      "language": "python",
+      "sizeLines": 1323,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/reference_config.py",
+      "language": "python",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/reference_dict.py",
+      "language": "python",
+      "sizeLines": 552,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/reference_provider.py",
+      "language": "python",
+      "sizeLines": 272,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/edge_client.py",
+      "language": "python",
+      "sizeLines": 582,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/edge_proxy_config.py",
+      "language": "python",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/permissions.py",
+      "language": "python",
+      "sizeLines": 271,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_deploy_from_archive.py",
+      "language": "python",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_proxy_config.py",
+      "language": "python",
+      "sizeLines": 94,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_reference_dict.py",
+      "language": "python",
+      "sizeLines": 434,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_reference_provider.py",
+      "language": "python",
+      "sizeLines": 339,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "mcp_server/api_client.py": [],
+    "mcp_server/archiving/reference_config.py": [
+      "mcp_server/api_client.py",
+      "mcp_server/archiving/models.py"
+    ],
+    "mcp_server/archiving/reference_dict.py": [],
+    "mcp_server/archiving/reference_provider.py": [
+      "mcp_server/archiving/reference_config.py",
+      "mcp_server/edge_client.py",
+      "mcp_server/permissions.py"
+    ],
+    "mcp_server/edge_client.py": [
+      "mcp_server/edge_proxy_config.py"
+    ],
+    "mcp_server/edge_proxy_config.py": [],
+    "mcp_server/permissions.py": [],
+    "mcp_server/tests/test_deploy_from_archive.py": [
+      "mcp_server/archiving/converter.py",
+      "mcp_server/edge_client.py",
+      "mcp_server/edge_tools.py"
+    ],
+    "mcp_server/tests/test_proxy_config.py": [
+      "mcp_server/edge_proxy_config.py"
+    ],
+    "mcp_server/tests/test_reference_dict.py": [
+      "mcp_server/archiving/reference_config.py",
+      "mcp_server/archiving/reference_dict.py",
+      "mcp_server/archiving/reference_provider.py"
+    ],
+    "mcp_server/tests/test_reference_provider.py": [
+      "mcp_server/archiving/reference_config.py",
+      "mcp_server/archiving/reference_provider.py"
+    ]
+  }
+}

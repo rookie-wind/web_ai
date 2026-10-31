@@ -1,0 +1,470 @@
+{
+  "scriptCompleted": true,
+  "extractorNote": "python/c via cpython; docx excluded (binary source, .md text twin retained)",
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "results": [
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/device-onboarding-playbook.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 118,
+      "nonEmptyLines": 95,
+      "sections": [
+        {
+          "heading": "设备建档实测手册与新设备接入流程（经验固化）",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "一、当前建档编排（8163网关 + XLBA监测点）",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "0. 前置：登录与签名",
+          "level": 3,
+          "line": 9
+        },
+        {
+          "heading": "1. 生成模板（阶段零，填表前）",
+          "level": 3,
+          "line": 15
+        },
+        {
+          "heading": "2. 读模板 + dry-run 计划",
+          "level": 3,
+          "line": 23
+        },
+        {
+          "heading": "3. 建档网关（8163，deviceTypeId=100009）",
+          "level": 3,
+          "line": 34
+        },
+        {
+          "heading": "4. 建档监测点（XLBA，deviceTypeId=100019）",
+          "level": 3,
+          "line": 42
+        },
+        {
+          "heading": "5. 挂载（父先于子）+ 挂载后修正分路号（关键实测坑）",
+          "level": 3,
+          "line": 52
+        },
+        {
+          "heading": "6. 参数验收与通信阶段",
+          "level": 3,
+          "line": 63
+        },
+        {
+          "heading": "7. 报告与补偿",
+          "level": 3,
+          "line": 76
+        },
+        {
+          "heading": "二、新设备类型接入流程（先总结经验 → 再动文档 → 最后改代码）",
+          "level": 2,
+          "line": 85
+        },
+        {
+          "heading": "三、验证状态一览",
+          "level": 2,
+          "line": 108
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/direct-edge-operation.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 86,
+      "nonEmptyLines": 69,
+      "sections": [
+        {
+          "heading": "无模板直连：按 IP 查询/删除设备",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "凭据边界（先说清）",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "必填参数清单",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "整体流程",
+          "level": 2,
+          "line": 35
+        },
+        {
+          "heading": "查询编排",
+          "level": 2,
+          "line": 51
+        },
+        {
+          "heading": "删除编排（两阶段确认，禁止一步到位）",
+          "level": 2,
+          "line": 63
+        },
+        {
+          "heading": "安全护栏",
+          "level": 2,
+          "line": 73
+        },
+        {
+          "heading": "失败与边界处理",
+          "level": 2,
+          "line": 81
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/edge-param-save-api.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 300,
+      "nonEmptyLines": 239,
+      "sections": [
+        {
+          "heading": "边缘设备参数保存接口探测报告",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "一、背景",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "1.1 当前 MCP 工具链覆盖范围",
+          "level": 3,
+          "line": 12
+        },
+        {
+          "heading": "1.2 缺失环节",
+          "level": 3,
+          "line": 22
+        },
+        {
+          "heading": "二、接口一：网关 — 通讯地址保存",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "2.1 基本信息",
+          "level": 3,
+          "line": 32
+        },
+        {
+          "heading": "2.2 请求头（业务相关字段）",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "2.3 请求体",
+          "level": 3,
+          "line": 53
+        },
+        {
+          "heading": "2.4 字段说明",
+          "level": 3,
+          "line": 72
+        },
+        {
+          "heading": "2.5 成功响应",
+          "level": 3,
+          "line": 82
+        },
+        {
+          "heading": "2.6 其他已知 itemId（待补充）",
+          "level": 3,
+          "line": 92
+        },
+        {
+          "heading": "三、接口二：监测点 — 基本参数保存",
+          "level": 2,
+          "line": 102
+        },
+        {
+          "heading": "3.1 基本信息",
+          "level": 3,
+          "line": 104
+        },
+        {
+          "heading": "3.2 请求体",
+          "level": 3,
+          "line": 113
+        },
+        {
+          "heading": "3.3 字段说明",
+          "level": 3,
+          "line": 146
+        },
+        {
+          "heading": "顶层字段",
+          "level": 4,
+          "line": 148
+        },
+        {
+          "heading": "extInfos 属性",
+          "level": 4,
+          "line": 162
+        },
+        {
+          "heading": "3.4 成功响应",
+          "level": 3,
+          "line": 182
+        },
+        {
+          "heading": "四、两个接口的对比",
+          "level": 2,
+          "line": 194
+        },
+        {
+          "heading": "五、完整建档流程（建议）",
+          "level": 2,
+          "line": 209
+        },
+        {
+          "heading": "六、MCP 工具优化建议",
+          "level": 2,
+          "line": 228
+        },
+        {
+          "heading": "6.1 新增工具：`edge_save_device_parameters`",
+          "level": 3,
+          "line": 230
+        },
+        {
+          "heading": "6.2 需要确认的事项",
+          "level": 3,
+          "line": 258
+        },
+        {
+          "heading": "6.3 风险提示",
+          "level": 3,
+          "line": 268
+        },
+        {
+          "heading": "七、附录：实测数据",
+          "level": 2,
+          "line": 276
+        },
+        {
+          "heading": "7.1 网关 AI_test4 实测",
+          "level": 3,
+          "line": 278
+        },
+        {
+          "heading": "7.2 监测点200 实测",
+          "level": 3,
+          "line": 288
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 27
+      }
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/excel-template-schema.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 275,
+      "nonEmptyLines": 222,
+      "sections": [
+        {
+          "heading": "XLPA 自动建档 Excel 任务模板结构说明（v15 名称驱动）",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "工作簿总览（八表，每种监测点类型各自一张明细 sheet）",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "Sheet 1：系统连接（全中文配置项）",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "Sheet 2：挂载关系（只表达拓扑，不存条码）",
+          "level": 2,
+          "line": 56
+        },
+        {
+          "heading": "Sheet 3：网关·8163",
+          "level": 2,
+          "line": 98
+        },
+        {
+          "heading": "Sheet 4-6：监测点明细表（监测点·XLBA / 监测点·照明 / 监测点·配电房）",
+          "level": 2,
+          "line": 113
+        },
+        {
+          "heading": "通信端口号下拉（前端21项）",
+          "level": 3,
+          "line": 169
+        },
+        {
+          "heading": "Sheet 5：字典（一列一池 + 四串口命名区域）",
+          "level": 2,
+          "line": 212
+        },
+        {
+          "heading": "设备类型 → deviceTypeId",
+          "level": 3,
+          "line": 224
+        },
+        {
+          "heading": "代理通信方式 proxyCommType",
+          "level": 3,
+          "line": 238
+        },
+        {
+          "heading": "扩展：接入新的可建档设备类型",
+          "level": 2,
+          "line": 250
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/gateway-button-endpoints.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 76,
+      "nonEmptyLines": 63,
+      "sections": [
+        {
+          "heading": "网关与监测点参数端点、证据和执行边界",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. 按钮 → 端点总表",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "2. 转换通讯地址（建档一步：条码 → 通讯地址）",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "3. 保存契约与只读证据",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "4. 参数下发范围与门禁",
+          "level": 2,
+          "line": 49
+        },
+        {
+          "heading": "5. 时钟召测",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "6. 报告口径",
+          "level": 2,
+          "line": 71
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/platform-dict-template-generation.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 127,
+      "nonEmptyLines": 104,
+      "sections": [
+        {
+          "heading": "平台取参 → 生成最新建档模板（经验固化）",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. 两阶段运行时流程（总纲）",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "2. 平台字典来源（A 类：必须实时拉取）",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "3. B 类：不从平台拉（固定 / 用户指定 / 手填）",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "4. 当前工作簿结构（v15-engineer，每种监测点类型各自一张明细 sheet）",
+          "level": 2,
+          "line": 45
+        },
+        {
+          "heading": "5. 名称→码值映射来源（映射表）",
+          "level": 2,
+          "line": 74
+        },
+        {
+          "heading": "6. 填表前生成最新模板",
+          "level": 2,
+          "line": 109
+        },
+        {
+          "heading": "7. 解析与执行契约",
+          "level": 2,
+          "line": 118
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    }
+  ]
+}

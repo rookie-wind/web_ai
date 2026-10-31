@@ -1,0 +1,5755 @@
+{
+  "scriptCompleted": true,
+  "extractorNote": "python/c via cpython; docx excluded (binary source, .md text twin retained)",
+  "filesAnalyzed": 11,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "results": [
+    {
+      "path": "mcp_server/api_client.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1324,
+      "nonEmptyLines": 1119,
+      "functions": [],
+      "classes": [
+        {
+          "name": "ProtocolApiClient",
+          "startLine": 35,
+          "endLine": 1323,
+          "methods": [
+            "__init__",
+            "_ensure_client",
+            "close",
+            "_success",
+            "_error",
+            "_request",
+            "_request_json_file",
+            "_request_blob",
+            "login",
+            "get_classify_list",
+            "add_classify",
+            "update_classify",
+            "del_classify",
+            "get_device_type_list",
+            "add_device_type",
+            "update_device_type",
+            "del_device_type",
+            "get_brand_list",
+            "add_brand",
+            "update_brand",
+            "del_brand",
+            "get_model_list",
+            "add_model",
+            "update_model",
+            "del_model",
+            "export_model_data",
+            "get_protocol_info_list",
+            "add_protocol_info",
+            "update_protocol",
+            "del_protocol_info",
+            "del_protocol_file",
+            "get_data_item_list",
+            "add_data_item",
+            "update_data_item",
+            "del_data_item",
+            "get_script_list",
+            "get_json_detail",
+            "export_data",
+            "get_coeff_list",
+            "add_coeff",
+            "update_coeff",
+            "del_coeff",
+            "get_sense_list",
+            "add_sense",
+            "update_sense",
+            "del_sense",
+            "get_protocol_type_list",
+            "save_protocol_type",
+            "del_protocol_type",
+            "get_function_type_list",
+            "save_function_item",
+            "del_function_item",
+            "upload_protocol_file",
+            "gen_script"
+          ],
+          "properties": [
+            "base_url",
+            "_client",
+            "_client_loop"
+          ],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "__init__",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "_ensure_client",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "_success",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "_error",
+          "line": 107,
+          "isDefault": false
+        },
+        {
+          "name": "_request",
+          "line": 126,
+          "isDefault": false
+        },
+        {
+          "name": "_request_json_file",
+          "line": 196,
+          "isDefault": false
+        },
+        {
+          "name": "_request_blob",
+          "line": 266,
+          "isDefault": false
+        },
+        {
+          "name": "login",
+          "line": 333,
+          "isDefault": false
+        },
+        {
+          "name": "get_classify_list",
+          "line": 384,
+          "isDefault": false
+        },
+        {
+          "name": "add_classify",
+          "line": 404,
+          "isDefault": false
+        },
+        {
+          "name": "update_classify",
+          "line": 420,
+          "isDefault": false
+        },
+        {
+          "name": "del_classify",
+          "line": 437,
+          "isDefault": false
+        },
+        {
+          "name": "get_device_type_list",
+          "line": 456,
+          "isDefault": false
+        },
+        {
+          "name": "add_device_type",
+          "line": 491,
+          "isDefault": false
+        },
+        {
+          "name": "update_device_type",
+          "line": 515,
+          "isDefault": false
+        },
+        {
+          "name": "del_device_type",
+          "line": 541,
+          "isDefault": false
+        },
+        {
+          "name": "get_brand_list",
+          "line": 559,
+          "isDefault": false
+        },
+        {
+          "name": "add_brand",
+          "line": 595,
+          "isDefault": false
+        },
+        {
+          "name": "update_brand",
+          "line": 621,
+          "isDefault": false
+        },
+        {
+          "name": "del_brand",
+          "line": 649,
+          "isDefault": false
+        },
+        {
+          "name": "get_model_list",
+          "line": 669,
+          "isDefault": false
+        },
+        {
+          "name": "add_model",
+          "line": 700,
+          "isDefault": false
+        },
+        {
+          "name": "update_model",
+          "line": 717,
+          "isDefault": false
+        },
+        {
+          "name": "del_model",
+          "line": 735,
+          "isDefault": false
+        },
+        {
+          "name": "export_model_data",
+          "line": 751,
+          "isDefault": false
+        },
+        {
+          "name": "get_protocol_info_list",
+          "line": 768,
+          "isDefault": false
+        },
+        {
+          "name": "add_protocol_info",
+          "line": 815,
+          "isDefault": false
+        },
+        {
+          "name": "update_protocol",
+          "line": 853,
+          "isDefault": false
+        },
+        {
+          "name": "del_protocol_info",
+          "line": 894,
+          "isDefault": false
+        },
+        {
+          "name": "del_protocol_file",
+          "line": 911,
+          "isDefault": false
+        },
+        {
+          "name": "get_data_item_list",
+          "line": 927,
+          "isDefault": false
+        },
+        {
+          "name": "add_data_item",
+          "line": 953,
+          "isDefault": false
+        },
+        {
+          "name": "update_data_item",
+          "line": 969,
+          "isDefault": false
+        },
+        {
+          "name": "del_data_item",
+          "line": 985,
+          "isDefault": false
+        },
+        {
+          "name": "get_script_list",
+          "line": 1001,
+          "isDefault": false
+        },
+        {
+          "name": "get_json_detail",
+          "line": 1018,
+          "isDefault": false
+        },
+        {
+          "name": "export_data",
+          "line": 1030,
+          "isDefault": false
+        },
+        {
+          "name": "get_coeff_list",
+          "line": 1046,
+          "isDefault": false
+        },
+        {
+          "name": "add_coeff",
+          "line": 1063,
+          "isDefault": false
+        },
+        {
+          "name": "update_coeff",
+          "line": 1075,
+          "isDefault": false
+        },
+        {
+          "name": "del_coeff",
+          "line": 1087,
+          "isDefault": false
+        },
+        {
+          "name": "get_sense_list",
+          "line": 1099,
+          "isDefault": false
+        },
+        {
+          "name": "add_sense",
+          "line": 1111,
+          "isDefault": false
+        },
+        {
+          "name": "update_sense",
+          "line": 1123,
+          "isDefault": false
+        },
+        {
+          "name": "del_sense",
+          "line": 1135,
+          "isDefault": false
+        },
+        {
+          "name": "get_protocol_type_list",
+          "line": 1149,
+          "isDefault": false
+        },
+        {
+          "name": "save_protocol_type",
+          "line": 1183,
+          "isDefault": false
+        },
+        {
+          "name": "del_protocol_type",
+          "line": 1210,
+          "isDefault": false
+        },
+        {
+          "name": "get_function_type_list",
+          "line": 1228,
+          "isDefault": false
+        },
+        {
+          "name": "save_function_item",
+          "line": 1260,
+          "isDefault": false
+        },
+        {
+          "name": "del_function_item",
+          "line": 1272,
+          "isDefault": false
+        },
+        {
+          "name": "upload_protocol_file",
+          "line": 1290,
+          "isDefault": false
+        },
+        {
+          "name": "gen_script",
+          "line": 1313,
+          "isDefault": false
+        },
+        {
+          "name": "ProtocolApiClient",
+          "line": 35,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "os.getenv",
+          "lineNumber": 24
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "asyncio.get_running_loop",
+          "lineNumber": 59
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._client_loop.is_closed",
+          "lineNumber": 71
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._client.aclose",
+          "lineNumber": 73
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "httpx.AsyncClient",
+          "lineNumber": 74
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._client.aclose",
+          "lineNumber": 85
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 145
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._ensure_client",
+          "lineNumber": 155
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "client.post",
+          "lineNumber": 157
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 159
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 161
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 164
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "resp.json",
+          "lineNumber": 171
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 173
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "body.get",
+          "lineNumber": 179
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "body.get",
+          "lineNumber": 180
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 183
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 185
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "body.get",
+          "lineNumber": 191
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "isinstance",
+          "lineNumber": 193
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "payload.get",
+          "lineNumber": 193
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._success",
+          "lineNumber": 194
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 217
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._ensure_client",
+          "lineNumber": 222
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "dict",
+          "lineNumber": 224
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "client.post",
+          "lineNumber": 226
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 232
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 234
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 237
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "resp.json",
+          "lineNumber": 244
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 246
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "body.get",
+          "lineNumber": 252
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "body.get",
+          "lineNumber": 253
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 256
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 258
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._success",
+          "lineNumber": 264
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "body.get",
+          "lineNumber": 264
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 278
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._ensure_client",
+          "lineNumber": 288
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "client.post",
+          "lineNumber": 290
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 292
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 294
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 297
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "resp.headers.get",
+          "lineNumber": 303
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "content_type.lower",
+          "lineNumber": 304
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "resp.json",
+          "lineNumber": 307
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "body.get",
+          "lineNumber": 310
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 312
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 314
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "body.get",
+          "lineNumber": 316
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "base64.b64encode.decode",
+          "lineNumber": 322
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "base64.b64encode",
+          "lineNumber": 322
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._success",
+          "lineNumber": 323
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "len",
+          "lineNumber": 327
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._ensure_client",
+          "lineNumber": 344
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "client.post",
+          "lineNumber": 346
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 352
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 354
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 357
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "resp.json",
+          "lineNumber": 364
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 366
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "body.get",
+          "lineNumber": 372
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._error",
+          "lineNumber": 374
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "body.get",
+          "lineNumber": 376
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._success",
+          "lineNumber": 380
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "body.get",
+          "lineNumber": 380
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 398
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 414
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 431
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 448
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 479
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 505
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 530
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 551
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 582
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 610
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 637
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 661
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 689
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 711
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 729
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 745
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request_blob",
+          "lineNumber": 760
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 813
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 851
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 892
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 905
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 921
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 942
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 963
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 979
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 995
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1012
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1028
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request_blob",
+          "lineNumber": 1040
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1057
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1073
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1085
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1097
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1109
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1121
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1133
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1145
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1171
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1199
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1220
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1249
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1270
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1282
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request_json_file",
+          "lineNumber": 1303
+        },
+        {
+          "caller": "ProtocolApiClient",
+          "callee": "self._request",
+          "lineNumber": 1323
+        }
+      ],
+      "metrics": {
+        "exportCount": 55,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/archiving/reference_config.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 122,
+      "nonEmptyLines": 96,
+      "functions": [
+        {
+          "name": "load_reference_config",
+          "startLine": 99,
+          "endLine": 121,
+          "params": [
+            "env"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ReferenceConfigError",
+          "startLine": 27,
+          "endLine": 28,
+          "methods": [],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "Exception"
+          ]
+        },
+        {
+          "name": "ReferenceConfig",
+          "startLine": 32,
+          "endLine": 96,
+          "methods": [
+            "edge_ready",
+            "cloud_ready",
+            "require_edge",
+            "require_cloud",
+            "redacted"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ReferenceConfigError",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "edge_ready",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "cloud_ready",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "require_edge",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "require_cloud",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "redacted",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "ReferenceConfig",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "load_reference_config",
+          "line": 99,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ReferenceConfig",
+          "callee": "bool",
+          "lineNumber": 49
+        },
+        {
+          "caller": "ReferenceConfig",
+          "callee": "bool",
+          "lineNumber": 57
+        },
+        {
+          "caller": "ReferenceConfig",
+          "callee": "self.edge_ready",
+          "lineNumber": 65
+        },
+        {
+          "caller": "ReferenceConfig",
+          "callee": "ReferenceConfigError",
+          "lineNumber": 66
+        },
+        {
+          "caller": "ReferenceConfig",
+          "callee": "self.cloud_ready",
+          "lineNumber": 78
+        },
+        {
+          "caller": "ReferenceConfig",
+          "callee": "ReferenceConfigError",
+          "lineNumber": 79
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 109
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 109
+        },
+        {
+          "caller": "<module>",
+          "callee": "src.get",
+          "lineNumber": 109
+        },
+        {
+          "caller": "<module>",
+          "callee": "ReferenceConfig",
+          "lineNumber": 110
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 111
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 111
+        },
+        {
+          "caller": "<module>",
+          "callee": "src.get",
+          "lineNumber": 112
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 114
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 114
+        },
+        {
+          "caller": "<module>",
+          "callee": "src.get",
+          "lineNumber": 115
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 117
+        },
+        {
+          "caller": "<module>",
+          "callee": "src.get",
+          "lineNumber": 118
+        }
+      ],
+      "metrics": {
+        "exportCount": 8,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "mcp_server/archiving/reference_dict.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 553,
+      "nonEmptyLines": 468,
+      "functions": [
+        {
+          "name": "_now_iso",
+          "startLine": 68,
+          "endLine": 70,
+          "params": []
+        },
+        {
+          "name": "_clean_code",
+          "startLine": 73,
+          "endLine": 84,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "_map_user_big_no",
+          "startLine": 190,
+          "endLine": 203,
+          "params": [
+            "row",
+            "fetched_at"
+          ]
+        },
+        {
+          "name": "_map_brand",
+          "startLine": 206,
+          "endLine": 219,
+          "params": [
+            "row",
+            "fetched_at"
+          ]
+        },
+        {
+          "name": "_map_model",
+          "startLine": 222,
+          "endLine": 237,
+          "params": [
+            "row",
+            "fetched_at"
+          ]
+        },
+        {
+          "name": "_normalize_edge_list",
+          "startLine": 240,
+          "endLine": 276,
+          "params": [
+            "items",
+            "scope",
+            "name_key",
+            "code_key",
+            "fetched_at"
+          ]
+        },
+        {
+          "name": "_fetch_cloud_paged",
+          "startLine": 282,
+          "endLine": 357,
+          "params": [
+            "provider",
+            "api_method",
+            "scope",
+            "mapper",
+            "fetched_at",
+            "page_size",
+            "max_pages"
+          ]
+        },
+        {
+          "name": "detect_conflicts",
+          "startLine": 363,
+          "endLine": 390,
+          "params": [
+            "records"
+          ]
+        },
+        {
+          "name": "collect_reference_dictionaries",
+          "startLine": 464,
+          "endLine": 552,
+          "params": [
+            "provider",
+            "page_size",
+            "max_pages",
+            "fetched_at"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "DictRecord",
+          "startLine": 88,
+          "endLine": 126,
+          "methods": [
+            "to_dict"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "DictFetchReport",
+          "startLine": 130,
+          "endLine": 151,
+          "methods": [],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "DictConflict",
+          "startLine": 155,
+          "endLine": 168,
+          "methods": [],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "DictCollectionError",
+          "startLine": 171,
+          "endLine": 184,
+          "methods": [
+            "__init__"
+          ],
+          "properties": [
+            "failures"
+          ],
+          "exports": null,
+          "bases": [
+            "Exception"
+          ]
+        },
+        {
+          "name": "ReferenceDictSet",
+          "startLine": 397,
+          "endLine": 458,
+          "methods": [
+            "scope_records",
+            "code_map",
+            "has_conflicts",
+            "truncated_scopes",
+            "is_complete",
+            "to_snapshot_dict"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_now_iso",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "_clean_code",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "to_dict",
+          "line": 111,
+          "isDefault": false
+        },
+        {
+          "name": "DictRecord",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "DictFetchReport",
+          "line": 130,
+          "isDefault": false
+        },
+        {
+          "name": "DictConflict",
+          "line": 155,
+          "isDefault": false
+        },
+        {
+          "name": "__init__",
+          "line": 174,
+          "isDefault": false
+        },
+        {
+          "name": "DictCollectionError",
+          "line": 171,
+          "isDefault": false
+        },
+        {
+          "name": "_map_user_big_no",
+          "line": 190,
+          "isDefault": false
+        },
+        {
+          "name": "_map_brand",
+          "line": 206,
+          "isDefault": false
+        },
+        {
+          "name": "_map_model",
+          "line": 222,
+          "isDefault": false
+        },
+        {
+          "name": "_normalize_edge_list",
+          "line": 240,
+          "isDefault": false
+        },
+        {
+          "name": "_fetch_cloud_paged",
+          "line": 282,
+          "isDefault": false
+        },
+        {
+          "name": "detect_conflicts",
+          "line": 363,
+          "isDefault": false
+        },
+        {
+          "name": "scope_records",
+          "line": 412,
+          "isDefault": false
+        },
+        {
+          "name": "code_map",
+          "line": 416,
+          "isDefault": false
+        },
+        {
+          "name": "has_conflicts",
+          "line": 433,
+          "isDefault": false
+        },
+        {
+          "name": "truncated_scopes",
+          "line": 437,
+          "isDefault": false
+        },
+        {
+          "name": "is_complete",
+          "line": 441,
+          "isDefault": false
+        },
+        {
+          "name": "to_snapshot_dict",
+          "line": 449,
+          "isDefault": false
+        },
+        {
+          "name": "ReferenceDictSet",
+          "line": 397,
+          "isDefault": false
+        },
+        {
+          "name": "collect_reference_dictionaries",
+          "line": 464,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "datetime.now.isoformat",
+          "lineNumber": 70
+        },
+        {
+          "caller": "<module>",
+          "callee": "datetime.now",
+          "lineNumber": 70
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 84
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 84
+        },
+        {
+          "caller": "DictConflict",
+          "callee": "field",
+          "lineNumber": 168
+        },
+        {
+          "caller": "DictCollectionError",
+          "callee": "list",
+          "lineNumber": 180
+        },
+        {
+          "caller": "DictCollectionError",
+          "callee": "super.__init__",
+          "lineNumber": 182
+        },
+        {
+          "caller": "DictCollectionError",
+          "callee": "super",
+          "lineNumber": 182
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 192
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 192
+        },
+        {
+          "caller": "<module>",
+          "callee": "row.get",
+          "lineNumber": 192
+        },
+        {
+          "caller": "<module>",
+          "callee": "_clean_code",
+          "lineNumber": 193
+        },
+        {
+          "caller": "<module>",
+          "callee": "row.get",
+          "lineNumber": 193
+        },
+        {
+          "caller": "<module>",
+          "callee": "DictRecord",
+          "lineNumber": 196
+        },
+        {
+          "caller": "<module>",
+          "callee": "_clean_code",
+          "lineNumber": 201
+        },
+        {
+          "caller": "<module>",
+          "callee": "row.get",
+          "lineNumber": 201
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 208
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 208
+        },
+        {
+          "caller": "<module>",
+          "callee": "row.get",
+          "lineNumber": 208
+        },
+        {
+          "caller": "<module>",
+          "callee": "row.get",
+          "lineNumber": 208
+        },
+        {
+          "caller": "<module>",
+          "callee": "_clean_code",
+          "lineNumber": 209
+        },
+        {
+          "caller": "<module>",
+          "callee": "row.get",
+          "lineNumber": 209
+        },
+        {
+          "caller": "<module>",
+          "callee": "DictRecord",
+          "lineNumber": 212
+        },
+        {
+          "caller": "<module>",
+          "callee": "_clean_code",
+          "lineNumber": 217
+        },
+        {
+          "caller": "<module>",
+          "callee": "row.get",
+          "lineNumber": 217
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 224
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 224
+        },
+        {
+          "caller": "<module>",
+          "callee": "row.get",
+          "lineNumber": 224
+        },
+        {
+          "caller": "<module>",
+          "callee": "_clean_code",
+          "lineNumber": 225
+        },
+        {
+          "caller": "<module>",
+          "callee": "row.get",
+          "lineNumber": 225
+        },
+        {
+          "caller": "<module>",
+          "callee": "DictRecord",
+          "lineNumber": 228
+        },
+        {
+          "caller": "<module>",
+          "callee": "_clean_code",
+          "lineNumber": 233
+        },
+        {
+          "caller": "<module>",
+          "callee": "row.get",
+          "lineNumber": 233
+        },
+        {
+          "caller": "<module>",
+          "callee": "_clean_code",
+          "lineNumber": 234
+        },
+        {
+          "caller": "<module>",
+          "callee": "row.get",
+          "lineNumber": 234
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 235
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 235
+        },
+        {
+          "caller": "<module>",
+          "callee": "row.get",
+          "lineNumber": 235
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 261
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 263
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 263
+        },
+        {
+          "caller": "<module>",
+          "callee": "item.get",
+          "lineNumber": 263
+        },
+        {
+          "caller": "<module>",
+          "callee": "_clean_code",
+          "lineNumber": 264
+        },
+        {
+          "caller": "<module>",
+          "callee": "item.get",
+          "lineNumber": 264
+        },
+        {
+          "caller": "<module>",
+          "callee": "records.append",
+          "lineNumber": 267
+        },
+        {
+          "caller": "<module>",
+          "callee": "DictRecord",
+          "lineNumber": 268
+        },
+        {
+          "caller": "<module>",
+          "callee": "set",
+          "lineNumber": 309
+        },
+        {
+          "caller": "<module>",
+          "callee": "DictFetchReport",
+          "lineNumber": 310
+        },
+        {
+          "caller": "<module>",
+          "callee": "provider.cloud_call",
+          "lineNumber": 314
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 317
+        },
+        {
+          "caller": "<module>",
+          "callee": "result.get",
+          "lineNumber": 317
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 318
+        },
+        {
+          "caller": "<module>",
+          "callee": "data.get",
+          "lineNumber": 319
+        },
+        {
+          "caller": "<module>",
+          "callee": "data.get",
+          "lineNumber": 321
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 322
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 327
+        },
+        {
+          "caller": "<module>",
+          "callee": "mapper",
+          "lineNumber": 329
+        },
+        {
+          "caller": "<module>",
+          "callee": "seen.add",
+          "lineNumber": 337
+        },
+        {
+          "caller": "<module>",
+          "callee": "records.append",
+          "lineNumber": 338
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 344
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 346
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 351
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 353
+        },
+        {
+          "caller": "<module>",
+          "callee": "groups.setdefault.add",
+          "lineNumber": 378
+        },
+        {
+          "caller": "<module>",
+          "callee": "groups.setdefault",
+          "lineNumber": 378
+        },
+        {
+          "caller": "<module>",
+          "callee": "set",
+          "lineNumber": 378
+        },
+        {
+          "caller": "<module>",
+          "callee": "groups.items",
+          "lineNumber": 380
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 381
+        },
+        {
+          "caller": "<module>",
+          "callee": "conflicts.append",
+          "lineNumber": 382
+        },
+        {
+          "caller": "<module>",
+          "callee": "DictConflict",
+          "lineNumber": 383
+        },
+        {
+          "caller": "<module>",
+          "callee": "sorted",
+          "lineNumber": 387
+        },
+        {
+          "caller": "ReferenceDictSet",
+          "callee": "field",
+          "lineNumber": 408
+        },
+        {
+          "caller": "ReferenceDictSet",
+          "callee": "field",
+          "lineNumber": 409
+        },
+        {
+          "caller": "ReferenceDictSet",
+          "callee": "field",
+          "lineNumber": 410
+        },
+        {
+          "caller": "ReferenceDictSet",
+          "callee": "self.records.get",
+          "lineNumber": 414
+        },
+        {
+          "caller": "ReferenceDictSet",
+          "callee": "self.scope_records",
+          "lineNumber": 427
+        },
+        {
+          "caller": "ReferenceDictSet",
+          "callee": "bool",
+          "lineNumber": 435
+        },
+        {
+          "caller": "ReferenceDictSet",
+          "callee": "any",
+          "lineNumber": 443
+        },
+        {
+          "caller": "ReferenceDictSet",
+          "callee": "self.has_conflicts",
+          "lineNumber": 445
+        },
+        {
+          "caller": "ReferenceDictSet",
+          "callee": "self.truncated_scopes",
+          "lineNumber": 445
+        },
+        {
+          "caller": "ReferenceDictSet",
+          "callee": "rec.to_dict",
+          "lineNumber": 456
+        },
+        {
+          "caller": "ReferenceDictSet",
+          "callee": "self.records.items",
+          "lineNumber": 457
+        },
+        {
+          "caller": "<module>",
+          "callee": "_now_iso",
+          "lineNumber": 485
+        },
+        {
+          "caller": "<module>",
+          "callee": "fetch",
+          "lineNumber": 502
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 503
+        },
+        {
+          "caller": "<module>",
+          "callee": "result.get",
+          "lineNumber": 503
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 504
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 506
+        },
+        {
+          "caller": "<module>",
+          "callee": "data.get",
+          "lineNumber": 507
+        },
+        {
+          "caller": "<module>",
+          "callee": "_normalize_edge_list",
+          "lineNumber": 510
+        },
+        {
+          "caller": "<module>",
+          "callee": "reports.append",
+          "lineNumber": 512
+        },
+        {
+          "caller": "<module>",
+          "callee": "DictFetchReport",
+          "lineNumber": 513
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 517
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 518
+        },
+        {
+          "caller": "<module>",
+          "callee": "failures.append",
+          "lineNumber": 522
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 522
+        },
+        {
+          "caller": "<module>",
+          "callee": "_fetch_cloud_paged",
+          "lineNumber": 533
+        },
+        {
+          "caller": "<module>",
+          "callee": "reports.append",
+          "lineNumber": 537
+        },
+        {
+          "caller": "<module>",
+          "callee": "failures.append",
+          "lineNumber": 539
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 539
+        },
+        {
+          "caller": "<module>",
+          "callee": "DictCollectionError",
+          "lineNumber": 542
+        },
+        {
+          "caller": "<module>",
+          "callee": "records_by_scope.values",
+          "lineNumber": 545
+        },
+        {
+          "caller": "<module>",
+          "callee": "ReferenceDictSet",
+          "lineNumber": 547
+        },
+        {
+          "caller": "<module>",
+          "callee": "detect_conflicts",
+          "lineNumber": 551
+        }
+      ],
+      "metrics": {
+        "exportCount": 22,
+        "functionCount": 9,
+        "classCount": 5
+      }
+    },
+    {
+      "path": "mcp_server/archiving/reference_provider.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 273,
+      "nonEmptyLines": 222,
+      "functions": [],
+      "classes": [
+        {
+          "name": "ReferenceAuthError",
+          "startLine": 47,
+          "endLine": 48,
+          "methods": [],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "Exception"
+          ]
+        },
+        {
+          "name": "ReferenceDictError",
+          "startLine": 51,
+          "endLine": 62,
+          "methods": [
+            "__init__"
+          ],
+          "properties": [
+            "raw"
+          ],
+          "exports": null,
+          "bases": [
+            "Exception"
+          ]
+        },
+        {
+          "name": "ReferenceDictProvider",
+          "startLine": 65,
+          "endLine": 272,
+          "methods": [
+            "__init__",
+            "api_client",
+            "cloud_call",
+            "fetch_user_big_no",
+            "fetch_brands",
+            "fetch_models",
+            "open_edge",
+            "edge_call",
+            "fetch_device_types",
+            "fetch_comm_modes",
+            "close",
+            "__enter__",
+            "__exit__"
+          ],
+          "properties": [
+            "_config",
+            "_api",
+            "_get_system_token",
+            "_refresh_system_token",
+            "_edge_factory",
+            "_edge",
+            "_edge"
+          ],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ReferenceAuthError",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "__init__",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "ReferenceDictError",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "__init__",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "api_client",
+          "line": 105,
+          "isDefault": false
+        },
+        {
+          "name": "cloud_call",
+          "line": 111,
+          "isDefault": false
+        },
+        {
+          "name": "fetch_user_big_no",
+          "line": 157,
+          "isDefault": false
+        },
+        {
+          "name": "fetch_brands",
+          "line": 165,
+          "isDefault": false
+        },
+        {
+          "name": "fetch_models",
+          "line": 173,
+          "isDefault": false
+        },
+        {
+          "name": "open_edge",
+          "line": 183,
+          "isDefault": false
+        },
+        {
+          "name": "edge_call",
+          "line": 214,
+          "isDefault": false
+        },
+        {
+          "name": "fetch_device_types",
+          "line": 241,
+          "isDefault": false
+        },
+        {
+          "name": "fetch_comm_modes",
+          "line": 249,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 260,
+          "isDefault": false
+        },
+        {
+          "name": "__enter__",
+          "line": 266,
+          "isDefault": false
+        },
+        {
+          "name": "__exit__",
+          "line": 270,
+          "isDefault": false
+        },
+        {
+          "name": "ReferenceDictProvider",
+          "line": 65,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ReferenceDictError",
+          "callee": "super.__init__",
+          "lineNumber": 61
+        },
+        {
+          "caller": "ReferenceDictError",
+          "callee": "super",
+          "lineNumber": 61
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self._config.require_cloud",
+          "lineNumber": 128
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self._get_system_token",
+          "lineNumber": 129
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "ReferenceAuthError",
+          "lineNumber": 131
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "api_method",
+          "lineNumber": 134
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "is_auth_expired",
+          "lineNumber": 135
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self._refresh_system_token",
+          "lineNumber": 136
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "ReferenceAuthError",
+          "lineNumber": 138
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self._get_system_token",
+          "lineNumber": 141
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "ReferenceAuthError",
+          "lineNumber": 143
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "api_method",
+          "lineNumber": 146
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "is_auth_expired",
+          "lineNumber": 147
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "ReferenceAuthError",
+          "lineNumber": 148
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "isinstance",
+          "lineNumber": 151
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "result.get",
+          "lineNumber": 151
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "ReferenceDictError",
+          "lineNumber": 152
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "str",
+          "lineNumber": 153
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "result.get",
+          "lineNumber": 153
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self.cloud_call",
+          "lineNumber": 163
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self.cloud_call",
+          "lineNumber": 171
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self.cloud_call",
+          "lineNumber": 179
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self._config.require_edge",
+          "lineNumber": 195
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self._edge_factory",
+          "lineNumber": 197
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "client.login",
+          "lineNumber": 203
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "client.close",
+          "lineNumber": 207
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self.open_edge",
+          "lineNumber": 227
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "client.call",
+          "lineNumber": 229
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "ReferenceDictError",
+          "lineNumber": 231
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "str",
+          "lineNumber": 232
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "result.get",
+          "lineNumber": 234
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "ReferenceDictError",
+          "lineNumber": 235
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "result.get",
+          "lineNumber": 236
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self.edge_call",
+          "lineNumber": 247
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self.edge_call",
+          "lineNumber": 255
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self._edge.close",
+          "lineNumber": 263
+        },
+        {
+          "caller": "ReferenceDictProvider",
+          "callee": "self.close",
+          "lineNumber": 272
+        }
+      ],
+      "metrics": {
+        "exportCount": 17,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "mcp_server/edge_client.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 583,
+      "nonEmptyLines": 504,
+      "functions": [
+        {
+          "name": "rsa_encrypt",
+          "startLine": 116,
+          "endLine": 135,
+          "params": [
+            "public_key_pem",
+            "plain"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "EdgeLinkState",
+          "startLine": 62,
+          "endLine": 67,
+          "methods": [],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "str",
+            "Enum"
+          ]
+        },
+        {
+          "name": "EdgeStageState",
+          "startLine": 70,
+          "endLine": 85,
+          "methods": [],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "str",
+            "Enum"
+          ]
+        },
+        {
+          "name": "EdgeApiError",
+          "startLine": 88,
+          "endLine": 113,
+          "methods": [
+            "__init__"
+          ],
+          "properties": [
+            "rtn_code",
+            "rtn_msg",
+            "http_status",
+            "raw"
+          ],
+          "exports": null,
+          "bases": [
+            "Exception"
+          ]
+        },
+        {
+          "name": "EdgeDeviceClient",
+          "startLine": 138,
+          "endLine": 582,
+          "methods": [
+            "__init__",
+            "get_rsa_key",
+            "login",
+            "_request_url",
+            "_proxy_headers",
+            "_sign_headers",
+            "_post_raw",
+            "call",
+            "_post_signed",
+            "_normalize",
+            "_unwrap",
+            "call_link",
+            "close",
+            "__enter__",
+            "__exit__"
+          ],
+          "properties": [
+            "base_url",
+            "login_name",
+            "_password",
+            "request_timeout",
+            "link_timeout",
+            "_client",
+            "proxy_mode",
+            "proxy_api_url",
+            "_phone",
+            "_captcha",
+            "_skip_proxy_headers",
+            "login_str",
+            "token",
+            "user_id",
+            "logged_in"
+          ],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EdgeLinkState",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "EdgeStageState",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "__init__",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "EdgeApiError",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "rsa_encrypt",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "__init__",
+          "line": 154,
+          "isDefault": false
+        },
+        {
+          "name": "get_rsa_key",
+          "line": 207,
+          "isDefault": false
+        },
+        {
+          "name": "login",
+          "line": 230,
+          "isDefault": false
+        },
+        {
+          "name": "_request_url",
+          "line": 266,
+          "isDefault": false
+        },
+        {
+          "name": "_proxy_headers",
+          "line": 281,
+          "isDefault": false
+        },
+        {
+          "name": "_sign_headers",
+          "line": 299,
+          "isDefault": false
+        },
+        {
+          "name": "_post_raw",
+          "line": 320,
+          "isDefault": false
+        },
+        {
+          "name": "call",
+          "line": 364,
+          "isDefault": false
+        },
+        {
+          "name": "_post_signed",
+          "line": 403,
+          "isDefault": false
+        },
+        {
+          "name": "_normalize",
+          "line": 453,
+          "isDefault": false
+        },
+        {
+          "name": "_unwrap",
+          "line": 488,
+          "isDefault": false
+        },
+        {
+          "name": "call_link",
+          "line": 518,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 571,
+          "isDefault": false
+        },
+        {
+          "name": "__enter__",
+          "line": 576,
+          "isDefault": false
+        },
+        {
+          "name": "__exit__",
+          "line": 580,
+          "isDefault": false
+        },
+        {
+          "name": "EdgeDeviceClient",
+          "line": 138,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "edge_proxy_config.portal_proxy_api_url",
+          "lineNumber": 55
+        },
+        {
+          "caller": "EdgeApiError",
+          "callee": "super.__init__",
+          "lineNumber": 109
+        },
+        {
+          "caller": "EdgeApiError",
+          "callee": "super",
+          "lineNumber": 109
+        },
+        {
+          "caller": "<module>",
+          "callee": "serialization.load_pem_public_key",
+          "lineNumber": 132
+        },
+        {
+          "caller": "<module>",
+          "callee": "public_key_pem.encode",
+          "lineNumber": 132
+        },
+        {
+          "caller": "<module>",
+          "callee": "base64.b64encode.decode",
+          "lineNumber": 133
+        },
+        {
+          "caller": "<module>",
+          "callee": "base64.b64encode",
+          "lineNumber": 133
+        },
+        {
+          "caller": "<module>",
+          "callee": "key.encrypt",
+          "lineNumber": 134
+        },
+        {
+          "caller": "<module>",
+          "callee": "plain.encode",
+          "lineNumber": 134
+        },
+        {
+          "caller": "<module>",
+          "callee": "padding.PKCS1v15",
+          "lineNumber": 134
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "base_url.rstrip",
+          "lineNumber": 181
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "float",
+          "lineNumber": 185
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "float",
+          "lineNumber": 188
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "httpx.Client",
+          "lineNumber": 190
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "proxy_api_url.rstrip",
+          "lineNumber": 198
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._post_raw",
+          "lineNumber": 222
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._unwrap",
+          "lineNumber": 228
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self.get_rsa_key",
+          "lineNumber": 240
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "secrets.token_hex",
+          "lineNumber": 244
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "rsa_encrypt",
+          "lineNumber": 246
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "rsa_encrypt",
+          "lineNumber": 247
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "rsa_encrypt",
+          "lineNumber": 249
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._post_raw",
+          "lineNumber": 251
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._unwrap",
+          "lineNumber": 256
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 257
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "data.get",
+          "lineNumber": 257
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 258
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "data.get",
+          "lineNumber": 258
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "EdgeApiError",
+          "lineNumber": 260
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "getattr",
+          "lineNumber": 290
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "int",
+          "lineNumber": 306
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "time.time",
+          "lineNumber": 306
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "hashlib.md5.hexdigest",
+          "lineNumber": 307
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "hashlib.md5",
+          "lineNumber": 307
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 314
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "headers.update",
+          "lineNumber": 317
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._proxy_headers",
+          "lineNumber": 317
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._proxy_headers",
+          "lineNumber": 343
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "headers.update",
+          "lineNumber": 345
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._client.post",
+          "lineNumber": 347
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._request_url",
+          "lineNumber": 348
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "EdgeApiError",
+          "lineNumber": 354
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 354
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "EdgeApiError",
+          "lineNumber": 356
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 356
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "resp.json",
+          "lineNumber": 358
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "EdgeApiError",
+          "lineNumber": 360
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "EdgeApiError",
+          "lineNumber": 382
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "float",
+          "lineNumber": 383
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._post_signed",
+          "lineNumber": 385
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 390
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 392
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 397
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._normalize",
+          "lineNumber": 401
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._client.post",
+          "lineNumber": 422
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._request_url",
+          "lineNumber": 423
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._sign_headers",
+          "lineNumber": 426
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "EdgeApiError",
+          "lineNumber": 429
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 430
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "EdgeApiError",
+          "lineNumber": 433
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 434
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "EdgeApiError",
+          "lineNumber": 438
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "resp.json",
+          "lineNumber": 444
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "EdgeApiError",
+          "lineNumber": 446
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "isinstance",
+          "lineNumber": 463
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "resp.get",
+          "lineNumber": 469
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "resp.get",
+          "lineNumber": 470
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "any",
+          "lineNumber": 474
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "resp.get",
+          "lineNumber": 482
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "isinstance",
+          "lineNumber": 501
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "EdgeApiError",
+          "lineNumber": 502
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "resp.get",
+          "lineNumber": 503
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "EdgeApiError",
+          "lineNumber": 505
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "resp.get",
+          "lineNumber": 506
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 508
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "resp.get",
+          "lineNumber": 508
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "resp.get",
+          "lineNumber": 511
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "isinstance",
+          "lineNumber": 512
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "EdgeApiError",
+          "lineNumber": 513
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "float",
+          "lineNumber": 537
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "time.time",
+          "lineNumber": 538
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._post_signed",
+          "lineNumber": 540
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "round",
+          "lineNumber": 542
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "time.time",
+          "lineNumber": 542
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 543
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 545
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "round",
+          "lineNumber": 556
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "time.time",
+          "lineNumber": 556
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._normalize",
+          "lineNumber": 557
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "str",
+          "lineNumber": 558
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "normalized.get",
+          "lineNumber": 558
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "any",
+          "lineNumber": 561
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "any",
+          "lineNumber": 563
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "normalized.update",
+          "lineNumber": 568
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self._client.close",
+          "lineNumber": 574
+        },
+        {
+          "caller": "EdgeDeviceClient",
+          "callee": "self.close",
+          "lineNumber": 582
+        }
+      ],
+      "metrics": {
+        "exportCount": 21,
+        "functionCount": 1,
+        "classCount": 4
+      }
+    },
+    {
+      "path": "mcp_server/edge_proxy_config.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 35,
+      "functions": [
+        {
+          "name": "_load_from_file",
+          "startLine": 26,
+          "endLine": 35,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "portal_proxy_api_url",
+          "startLine": 38,
+          "endLine": 47,
+          "params": []
+        }
+      ],
+      "classes": [],
+      "exports": [
+        {
+          "name": "_load_from_file",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "portal_proxy_api_url",
+          "line": 38,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "Path.resolve",
+          "lineNumber": 23
+        },
+        {
+          "caller": "<module>",
+          "callee": "Path",
+          "lineNumber": 23
+        },
+        {
+          "caller": "<module>",
+          "callee": "json.loads",
+          "lineNumber": 29
+        },
+        {
+          "caller": "<module>",
+          "callee": "path.read_text",
+          "lineNumber": 29
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 32
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 34
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 34
+        },
+        {
+          "caller": "<module>",
+          "callee": "data.get",
+          "lineNumber": 34
+        },
+        {
+          "caller": "<module>",
+          "callee": "Path",
+          "lineNumber": 43
+        },
+        {
+          "caller": "<module>",
+          "callee": "os.getenv",
+          "lineNumber": 43
+        },
+        {
+          "caller": "<module>",
+          "callee": "_load_from_file",
+          "lineNumber": 44
+        },
+        {
+          "caller": "<module>",
+          "callee": "os.getenv.strip",
+          "lineNumber": 47
+        },
+        {
+          "caller": "<module>",
+          "callee": "os.getenv",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "mcp_server/permissions.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 272,
+      "nonEmptyLines": 223,
+      "functions": [
+        {
+          "name": "_dig",
+          "startLine": 36,
+          "endLine": 58,
+          "params": [
+            "data",
+            "keys"
+          ]
+        },
+        {
+          "name": "extract_account_identity",
+          "startLine": 61,
+          "endLine": 77,
+          "params": [
+            "login_data"
+          ]
+        },
+        {
+          "name": "is_auth_expired",
+          "startLine": 80,
+          "endLine": 96,
+          "params": [
+            "result"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "SuperAccountConfig",
+          "startLine": 99,
+          "endLine": 158,
+          "methods": [
+            "__init__",
+            "load",
+            "is_super"
+          ],
+          "properties": [
+            "path",
+            "user_ids",
+            "phones",
+            "user_ids",
+            "phones"
+          ],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "BusinessTokenCache",
+          "startLine": 161,
+          "endLine": 271,
+          "methods": [
+            "__init__",
+            "_load",
+            "_save",
+            "save",
+            "get_account",
+            "invalidate",
+            "most_recent_token"
+          ],
+          "properties": [
+            "path",
+            "_entries",
+            "_entries",
+            "_entries"
+          ],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_dig",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "extract_account_identity",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "is_auth_expired",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "__init__",
+          "line": 114,
+          "isDefault": false
+        },
+        {
+          "name": "load",
+          "line": 125,
+          "isDefault": false
+        },
+        {
+          "name": "is_super",
+          "line": 141,
+          "isDefault": false
+        },
+        {
+          "name": "SuperAccountConfig",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "__init__",
+          "line": 169,
+          "isDefault": false
+        },
+        {
+          "name": "_load",
+          "line": 180,
+          "isDefault": false
+        },
+        {
+          "name": "_save",
+          "line": 194,
+          "isDefault": false
+        },
+        {
+          "name": "save",
+          "line": 206,
+          "isDefault": false
+        },
+        {
+          "name": "get_account",
+          "line": 225,
+          "isDefault": false
+        },
+        {
+          "name": "invalidate",
+          "line": 241,
+          "isDefault": false
+        },
+        {
+          "name": "most_recent_token",
+          "line": 256,
+          "isDefault": false
+        },
+        {
+          "name": "BusinessTokenCache",
+          "line": 161,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 46
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 50
+        },
+        {
+          "caller": "<module>",
+          "callee": "data.get",
+          "lineNumber": 53
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 54
+        },
+        {
+          "caller": "<module>",
+          "callee": "_dig",
+          "lineNumber": 55
+        },
+        {
+          "caller": "<module>",
+          "callee": "_dig",
+          "lineNumber": 74
+        },
+        {
+          "caller": "<module>",
+          "callee": "_dig",
+          "lineNumber": 75
+        },
+        {
+          "caller": "<module>",
+          "callee": "_dig",
+          "lineNumber": 76
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 89
+        },
+        {
+          "caller": "<module>",
+          "callee": "result.get",
+          "lineNumber": 89
+        },
+        {
+          "caller": "<module>",
+          "callee": "result.get",
+          "lineNumber": 91
+        },
+        {
+          "caller": "<module>",
+          "callee": "result.get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 94
+        },
+        {
+          "caller": "<module>",
+          "callee": "raw.get",
+          "lineNumber": 94
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "Path",
+          "lineNumber": 120
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "set",
+          "lineNumber": 121
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "set",
+          "lineNumber": 122
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "self.load",
+          "lineNumber": 123
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "set",
+          "lineNumber": 127
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "set",
+          "lineNumber": 128
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "self.path.exists",
+          "lineNumber": 129
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "json.loads",
+          "lineNumber": 132
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "self.path.read_text",
+          "lineNumber": 132
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "isinstance",
+          "lineNumber": 135
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "data.get",
+          "lineNumber": 135
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "isinstance",
+          "lineNumber": 136
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "str",
+          "lineNumber": 138
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "accounts.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "str",
+          "lineNumber": 138
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "str",
+          "lineNumber": 139
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "accounts.get",
+          "lineNumber": 139
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "str",
+          "lineNumber": 139
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "account.get",
+          "lineNumber": 152
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "account.get",
+          "lineNumber": 153
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "str",
+          "lineNumber": 154
+        },
+        {
+          "caller": "SuperAccountConfig",
+          "callee": "str",
+          "lineNumber": 156
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "Path",
+          "lineNumber": 175
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "self._load",
+          "lineNumber": 178
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "self.path.exists",
+          "lineNumber": 182
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "json.loads",
+          "lineNumber": 186
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "self.path.read_text",
+          "lineNumber": 186
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "data.get",
+          "lineNumber": 187
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "entries.items",
+          "lineNumber": 189
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "isinstance",
+          "lineNumber": 189
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "self.path.with_suffix",
+          "lineNumber": 198
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "tmp.write_text",
+          "lineNumber": 199
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "json.dumps",
+          "lineNumber": 200
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "os.replace",
+          "lineNumber": 202
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "int",
+          "lineNumber": 215
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "time.time",
+          "lineNumber": 215
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "self._entries.get",
+          "lineNumber": 216
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "account.get",
+          "lineNumber": 218
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "account.get",
+          "lineNumber": 219
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "existing.get",
+          "lineNumber": 220
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "self._save",
+          "lineNumber": 223
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "self._entries.get",
+          "lineNumber": 234
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "int",
+          "lineNumber": 237
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "time.time",
+          "lineNumber": 237
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "self._save",
+          "lineNumber": 238
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "self._save",
+          "lineNumber": 252
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "max",
+          "lineNumber": 267
+        },
+        {
+          "caller": "BusinessTokenCache",
+          "callee": "self._entries.items",
+          "lineNumber": 268
+        }
+      ],
+      "metrics": {
+        "exportCount": 15,
+        "functionCount": 3,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "mcp_server/tests/test_deploy_from_archive.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 67,
+      "nonEmptyLines": 54,
+      "functions": [
+        {
+          "name": "_record",
+          "startLine": 15,
+          "endLine": 32,
+          "params": [
+            "**over"
+          ]
+        },
+        {
+          "name": "test_build_from_archive_maps_fields",
+          "startLine": 35,
+          "endLine": 47,
+          "params": [
+            "monkeypatch"
+          ]
+        },
+        {
+          "name": "test_build_from_archive_missing_commaddr_raises",
+          "startLine": 50,
+          "endLine": 56,
+          "params": [
+            "monkeypatch"
+          ]
+        },
+        {
+          "name": "test_build_from_archive_optional_defaults",
+          "startLine": 59,
+          "endLine": 66,
+          "params": [
+            "monkeypatch"
+          ]
+        }
+      ],
+      "classes": [],
+      "exports": [
+        {
+          "name": "_record",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "test_build_from_archive_maps_fields",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "test_build_from_archive_missing_commaddr_raises",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "test_build_from_archive_optional_defaults",
+          "line": 59,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "rec.update",
+          "lineNumber": 31
+        },
+        {
+          "caller": "<module>",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 37
+        },
+        {
+          "caller": "<module>",
+          "callee": "_record",
+          "lineNumber": 37
+        },
+        {
+          "caller": "<module>",
+          "callee": "tools._build_deploy_body_from_archive",
+          "lineNumber": 38
+        },
+        {
+          "caller": "<module>",
+          "callee": "object",
+          "lineNumber": 38
+        },
+        {
+          "caller": "<module>",
+          "callee": "validate_device_address",
+          "lineNumber": 39
+        },
+        {
+          "caller": "<module>",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 52
+        },
+        {
+          "caller": "<module>",
+          "callee": "_record",
+          "lineNumber": 53
+        },
+        {
+          "caller": "<module>",
+          "callee": "pytest.raises",
+          "lineNumber": 55
+        },
+        {
+          "caller": "<module>",
+          "callee": "tools._build_deploy_body_from_archive",
+          "lineNumber": 56
+        },
+        {
+          "caller": "<module>",
+          "callee": "object",
+          "lineNumber": 56
+        },
+        {
+          "caller": "<module>",
+          "callee": "_record",
+          "lineNumber": 61
+        },
+        {
+          "caller": "<module>",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 62
+        },
+        {
+          "caller": "<module>",
+          "callee": "tools._build_deploy_body_from_archive",
+          "lineNumber": 63
+        },
+        {
+          "caller": "<module>",
+          "callee": "object",
+          "lineNumber": 63
+        }
+      ],
+      "metrics": {
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "mcp_server/tests/test_proxy_config.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 95,
+      "nonEmptyLines": 73,
+      "functions": [
+        {
+          "name": "_write",
+          "startLine": 24,
+          "endLine": 27,
+          "params": [
+            "path",
+            "obj"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestLoadFromFile",
+          "startLine": 30,
+          "endLine": 54,
+          "methods": [
+            "test_valid_url",
+            "test_invalid_json_returns_empty",
+            "test_non_dict_returns_empty",
+            "test_empty_value_returns_empty",
+            "test_missing_file_returns_empty"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "TestPortalProxyApiUrl",
+          "startLine": 57,
+          "endLine": 95,
+          "methods": [
+            "test_config_file_priority_over_env",
+            "test_env_fallback_when_config_missing",
+            "test_env_fallback_when_config_empty",
+            "test_only_env_gives_value",
+            "test_neither_configured_returns_empty",
+            "test_repo_config_file_present_with_value"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_write",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "test_valid_url",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "test_invalid_json_returns_empty",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "test_non_dict_returns_empty",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "test_empty_value_returns_empty",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "test_missing_file_returns_empty",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "TestLoadFromFile",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "test_config_file_priority_over_env",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "test_env_fallback_when_config_missing",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "test_env_fallback_when_config_empty",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "test_only_env_gives_value",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "test_neither_configured_returns_empty",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "test_repo_config_file_present_with_value",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "TestPortalProxyApiUrl",
+          "line": 57,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "sys.path.insert",
+          "lineNumber": 13
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 13
+        },
+        {
+          "caller": "<module>",
+          "callee": "Path.resolve",
+          "lineNumber": 13
+        },
+        {
+          "caller": "<module>",
+          "callee": "Path",
+          "lineNumber": 13
+        },
+        {
+          "caller": "<module>",
+          "callee": "path.parent.mkdir",
+          "lineNumber": 26
+        },
+        {
+          "caller": "<module>",
+          "callee": "path.write_text",
+          "lineNumber": 27
+        },
+        {
+          "caller": "<module>",
+          "callee": "json.dumps",
+          "lineNumber": 27
+        },
+        {
+          "caller": "TestLoadFromFile",
+          "callee": "_write",
+          "lineNumber": 35
+        },
+        {
+          "caller": "TestLoadFromFile",
+          "callee": "_load_from_file",
+          "lineNumber": 36
+        },
+        {
+          "caller": "TestLoadFromFile",
+          "callee": "p.write_text",
+          "lineNumber": 40
+        },
+        {
+          "caller": "TestLoadFromFile",
+          "callee": "_load_from_file",
+          "lineNumber": 41
+        },
+        {
+          "caller": "TestLoadFromFile",
+          "callee": "_write",
+          "lineNumber": 45
+        },
+        {
+          "caller": "TestLoadFromFile",
+          "callee": "_load_from_file",
+          "lineNumber": 46
+        },
+        {
+          "caller": "TestLoadFromFile",
+          "callee": "_write",
+          "lineNumber": 50
+        },
+        {
+          "caller": "TestLoadFromFile",
+          "callee": "_load_from_file",
+          "lineNumber": 51
+        },
+        {
+          "caller": "TestLoadFromFile",
+          "callee": "_load_from_file",
+          "lineNumber": 54
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "_write",
+          "lineNumber": 62
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 63
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "str",
+          "lineNumber": 63
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 64
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "portal_proxy_api_url",
+          "lineNumber": 65
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 68
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "str",
+          "lineNumber": 68
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 69
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "portal_proxy_api_url",
+          "lineNumber": 70
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "_write",
+          "lineNumber": 74
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 75
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "str",
+          "lineNumber": 75
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 76
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "portal_proxy_api_url",
+          "lineNumber": 77
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 81
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "str",
+          "lineNumber": 81
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "Path",
+          "lineNumber": 81
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 82
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "portal_proxy_api_url",
+          "lineNumber": 83
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "monkeypatch.delenv",
+          "lineNumber": 86
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 87
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "str",
+          "lineNumber": 87
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "Path",
+          "lineNumber": 87
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "monkeypatch.delenv",
+          "lineNumber": 88
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "portal_proxy_api_url",
+          "lineNumber": 89
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "DEFAULT_CONFIG_PATH.exists",
+          "lineNumber": 93
+        },
+        {
+          "caller": "TestPortalProxyApiUrl",
+          "callee": "_load_from_file",
+          "lineNumber": 94
+        }
+      ],
+      "metrics": {
+        "exportCount": 14,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "mcp_server/tests/test_reference_dict.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 435,
+      "nonEmptyLines": 362,
+      "functions": [
+        {
+          "name": "_never",
+          "startLine": 140,
+          "endLine": 142,
+          "params": []
+        },
+        {
+          "name": "_provider",
+          "startLine": 145,
+          "endLine": 153,
+          "params": [
+            "cloud"
+          ]
+        },
+        {
+          "name": "_default_pages",
+          "startLine": 156,
+          "endLine": 162,
+          "params": []
+        },
+        {
+          "name": "_clear_edge",
+          "startLine": 166,
+          "endLine": 168,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "_PagedCloud",
+          "startLine": 58,
+          "endLine": 95,
+          "methods": [
+            "__init__",
+            "_serve",
+            "get_device_type_list",
+            "get_brand_list",
+            "get_model_list"
+          ],
+          "properties": [
+            "_pages",
+            "_totals",
+            "_raise_for"
+          ],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "_DictEdge",
+          "startLine": 98,
+          "endLine": 129,
+          "methods": [
+            "__init__",
+            "login",
+            "call",
+            "close"
+          ],
+          "properties": [
+            "base_url",
+            "logged_in",
+            "closed",
+            "logged_in",
+            "closed"
+          ],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "TestCollectComplete",
+          "startLine": 174,
+          "endLine": 228,
+          "methods": [
+            "test_all_five_scopes_complete",
+            "test_edge_records_normalized",
+            "test_model_uses_business_code_not_internal_id",
+            "test_brand_code_map"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "TestZeroCode",
+          "startLine": 234,
+          "endLine": 260,
+          "methods": [
+            "test_zero_code_preserved",
+            "test_integer_zero_code_preserved"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "TestPagination",
+          "startLine": 266,
+          "endLine": 316,
+          "methods": [
+            "test_duplicate_page_detected",
+            "test_truncation_detected",
+            "test_multi_page_collects_all"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "TestScopeAssociationAndConflicts",
+          "startLine": 322,
+          "endLine": 378,
+          "methods": [
+            "test_cross_brand_same_name_legal",
+            "test_same_brand_same_name_diff_code_conflict",
+            "test_model_code_map_scoped_by_brand",
+            "test_detect_conflicts_global_scope"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "_BadEdge",
+          "startLine": 402,
+          "endLine": 404,
+          "methods": [
+            "login"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "_DictEdge"
+          ]
+        },
+        {
+          "name": "TestAllOrNothing",
+          "startLine": 384,
+          "endLine": 434,
+          "methods": [
+            "test_partial_cloud_failure_raises_with_source",
+            "test_edge_failure_raises_with_source",
+            "test_snapshot_dict_serializable"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "__init__",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "_serve",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "get_device_type_list",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "get_brand_list",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "get_model_list",
+          "line": 93,
+          "isDefault": false
+        },
+        {
+          "name": "_PagedCloud",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "__init__",
+          "line": 103,
+          "isDefault": false
+        },
+        {
+          "name": "login",
+          "line": 111,
+          "isDefault": false
+        },
+        {
+          "name": "call",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 127,
+          "isDefault": false
+        },
+        {
+          "name": "_DictEdge",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "_never",
+          "line": 140,
+          "isDefault": false
+        },
+        {
+          "name": "_provider",
+          "line": 145,
+          "isDefault": false
+        },
+        {
+          "name": "_default_pages",
+          "line": 156,
+          "isDefault": false
+        },
+        {
+          "name": "_clear_edge",
+          "line": 166,
+          "isDefault": false
+        },
+        {
+          "name": "test_all_five_scopes_complete",
+          "line": 178,
+          "isDefault": false
+        },
+        {
+          "name": "test_edge_records_normalized",
+          "line": 193,
+          "isDefault": false
+        },
+        {
+          "name": "test_model_uses_business_code_not_internal_id",
+          "line": 208,
+          "isDefault": false
+        },
+        {
+          "name": "test_brand_code_map",
+          "line": 221,
+          "isDefault": false
+        },
+        {
+          "name": "TestCollectComplete",
+          "line": 174,
+          "isDefault": false
+        },
+        {
+          "name": "test_zero_code_preserved",
+          "line": 238,
+          "isDefault": false
+        },
+        {
+          "name": "test_integer_zero_code_preserved",
+          "line": 249,
+          "isDefault": false
+        },
+        {
+          "name": "TestZeroCode",
+          "line": 234,
+          "isDefault": false
+        },
+        {
+          "name": "test_duplicate_page_detected",
+          "line": 270,
+          "isDefault": false
+        },
+        {
+          "name": "test_truncation_detected",
+          "line": 288,
+          "isDefault": false
+        },
+        {
+          "name": "test_multi_page_collects_all",
+          "line": 301,
+          "isDefault": false
+        },
+        {
+          "name": "TestPagination",
+          "line": 266,
+          "isDefault": false
+        },
+        {
+          "name": "test_cross_brand_same_name_legal",
+          "line": 326,
+          "isDefault": false
+        },
+        {
+          "name": "test_same_brand_same_name_diff_code_conflict",
+          "line": 336,
+          "isDefault": false
+        },
+        {
+          "name": "test_model_code_map_scoped_by_brand",
+          "line": 358,
+          "isDefault": false
+        },
+        {
+          "name": "test_detect_conflicts_global_scope",
+          "line": 368,
+          "isDefault": false
+        },
+        {
+          "name": "TestScopeAssociationAndConflicts",
+          "line": 322,
+          "isDefault": false
+        },
+        {
+          "name": "test_partial_cloud_failure_raises_with_source",
+          "line": 388,
+          "isDefault": false
+        },
+        {
+          "name": "test_edge_failure_raises_with_source",
+          "line": 400,
+          "isDefault": false
+        },
+        {
+          "name": "login",
+          "line": 403,
+          "isDefault": false
+        },
+        {
+          "name": "_BadEdge",
+          "line": 402,
+          "isDefault": false
+        },
+        {
+          "name": "test_snapshot_dict_serializable",
+          "line": 420,
+          "isDefault": false
+        },
+        {
+          "name": "TestAllOrNothing",
+          "line": 384,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "Path",
+          "lineNumber": 15
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 16
+        },
+        {
+          "caller": "<module>",
+          "callee": "sys.path.insert",
+          "lineNumber": 17
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 17
+        },
+        {
+          "caller": "_PagedCloud",
+          "callee": "set",
+          "lineNumber": 71
+        },
+        {
+          "caller": "_PagedCloud",
+          "callee": "self.calls.append",
+          "lineNumber": 75
+        },
+        {
+          "caller": "_PagedCloud",
+          "callee": "ReferenceDictError",
+          "lineNumber": 77
+        },
+        {
+          "caller": "_PagedCloud",
+          "callee": "self._pages.get",
+          "lineNumber": 78
+        },
+        {
+          "caller": "_PagedCloud",
+          "callee": "len",
+          "lineNumber": 79
+        },
+        {
+          "caller": "_PagedCloud",
+          "callee": "self._serve",
+          "lineNumber": 87
+        },
+        {
+          "caller": "_PagedCloud",
+          "callee": "self._serve",
+          "lineNumber": 91
+        },
+        {
+          "caller": "_PagedCloud",
+          "callee": "self._serve",
+          "lineNumber": 95
+        },
+        {
+          "caller": "_DictEdge",
+          "callee": "_DictEdge.instances.append",
+          "lineNumber": 109
+        },
+        {
+          "caller": "_DictEdge",
+          "callee": "self.calls.append",
+          "lineNumber": 118
+        },
+        {
+          "caller": "_DictEdge",
+          "callee": "path.endswith",
+          "lineNumber": 119
+        },
+        {
+          "caller": "<module>",
+          "callee": "ReferenceConfig",
+          "lineNumber": 132
+        },
+        {
+          "caller": "<module>",
+          "callee": "ReferenceDictProvider",
+          "lineNumber": 147
+        },
+        {
+          "caller": "<module>",
+          "callee": "_DictEdge.instances.clear",
+          "lineNumber": 168
+        },
+        {
+          "caller": "<module>",
+          "callee": "pytest.fixture",
+          "lineNumber": 165
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "_provider",
+          "lineNumber": 180
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "_PagedCloud",
+          "lineNumber": 180
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "_default_pages",
+          "lineNumber": 180
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 181
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "result.is_complete",
+          "lineNumber": 184
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "len",
+          "lineNumber": 185
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "result.scope_records",
+          "lineNumber": 185
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "len",
+          "lineNumber": 186
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "result.scope_records",
+          "lineNumber": 186
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "len",
+          "lineNumber": 187
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "result.scope_records",
+          "lineNumber": 187
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "len",
+          "lineNumber": 188
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "result.scope_records",
+          "lineNumber": 188
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "len",
+          "lineNumber": 189
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "result.scope_records",
+          "lineNumber": 189
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "provider.close",
+          "lineNumber": 190
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "_provider",
+          "lineNumber": 195
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "_PagedCloud",
+          "lineNumber": 195
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "_default_pages",
+          "lineNumber": 195
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 196
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "result.scope_records",
+          "lineNumber": 199
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "result.scope_records",
+          "lineNumber": 201
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "all",
+          "lineNumber": 203
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "result.scope_records",
+          "lineNumber": 204
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "provider.close",
+          "lineNumber": 205
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "_provider",
+          "lineNumber": 210
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "_PagedCloud",
+          "lineNumber": 210
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "_default_pages",
+          "lineNumber": 210
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 211
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "result.scope_records",
+          "lineNumber": 214
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "provider.close",
+          "lineNumber": 218
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "_provider",
+          "lineNumber": 223
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "_PagedCloud",
+          "lineNumber": 223
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "_default_pages",
+          "lineNumber": 223
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 224
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "result.code_map",
+          "lineNumber": 227
+        },
+        {
+          "caller": "TestCollectComplete",
+          "callee": "provider.close",
+          "lineNumber": 228
+        },
+        {
+          "caller": "TestZeroCode",
+          "callee": "_provider",
+          "lineNumber": 240
+        },
+        {
+          "caller": "TestZeroCode",
+          "callee": "_PagedCloud",
+          "lineNumber": 240
+        },
+        {
+          "caller": "TestZeroCode",
+          "callee": "_default_pages",
+          "lineNumber": 240
+        },
+        {
+          "caller": "TestZeroCode",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 241
+        },
+        {
+          "caller": "TestZeroCode",
+          "callee": "result.code_map",
+          "lineNumber": 244
+        },
+        {
+          "caller": "TestZeroCode",
+          "callee": "provider.close",
+          "lineNumber": 246
+        },
+        {
+          "caller": "TestZeroCode",
+          "callee": "_default_pages",
+          "lineNumber": 251
+        },
+        {
+          "caller": "TestZeroCode",
+          "callee": "_provider",
+          "lineNumber": 255
+        },
+        {
+          "caller": "TestZeroCode",
+          "callee": "_PagedCloud",
+          "lineNumber": 255
+        },
+        {
+          "caller": "TestZeroCode",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 256
+        },
+        {
+          "caller": "TestZeroCode",
+          "callee": "result.code_map",
+          "lineNumber": 259
+        },
+        {
+          "caller": "TestZeroCode",
+          "callee": "provider.close",
+          "lineNumber": 260
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "_default_pages",
+          "lineNumber": 273
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "_provider",
+          "lineNumber": 278
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "_PagedCloud",
+          "lineNumber": 278
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 279
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "next",
+          "lineNumber": 282
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "provider.close",
+          "lineNumber": 285
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "_default_pages",
+          "lineNumber": 290
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "_provider",
+          "lineNumber": 292
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "_PagedCloud",
+          "lineNumber": 292
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 293
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "result.truncated_scopes",
+          "lineNumber": 296
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "result.is_complete",
+          "lineNumber": 297
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "provider.close",
+          "lineNumber": 298
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "str",
+          "lineNumber": 303
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "range",
+          "lineNumber": 304
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "_default_pages",
+          "lineNumber": 306
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "_provider",
+          "lineNumber": 309
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "_PagedCloud",
+          "lineNumber": 309
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 310
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "next",
+          "lineNumber": 313
+        },
+        {
+          "caller": "TestPagination",
+          "callee": "provider.close",
+          "lineNumber": 316
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "_provider",
+          "lineNumber": 328
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "_PagedCloud",
+          "lineNumber": 328
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "_default_pages",
+          "lineNumber": 328
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 329
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "result.has_conflicts",
+          "lineNumber": 332
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "provider.close",
+          "lineNumber": 333
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "_default_pages",
+          "lineNumber": 338
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "_provider",
+          "lineNumber": 345
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "_PagedCloud",
+          "lineNumber": 345
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 346
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "result.has_conflicts",
+          "lineNumber": 349
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "result.is_complete",
+          "lineNumber": 354
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "provider.close",
+          "lineNumber": 355
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "_provider",
+          "lineNumber": 360
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "_PagedCloud",
+          "lineNumber": 360
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "_default_pages",
+          "lineNumber": 360
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 361
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "result.code_map",
+          "lineNumber": 364
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "result.code_map",
+          "lineNumber": 365
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "provider.close",
+          "lineNumber": 366
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "DictRecord",
+          "lineNumber": 373
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "DictRecord",
+          "lineNumber": 374
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "detect_conflicts",
+          "lineNumber": 376
+        },
+        {
+          "caller": "TestScopeAssociationAndConflicts",
+          "callee": "len",
+          "lineNumber": 377
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "_provider",
+          "lineNumber": 390
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "_PagedCloud",
+          "lineNumber": 391
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "_default_pages",
+          "lineNumber": 391
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "pytest.raises",
+          "lineNumber": 393
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 394
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "provider.close",
+          "lineNumber": 397
+        },
+        {
+          "caller": "_BadEdge",
+          "callee": "ReferenceDictError",
+          "lineNumber": 404
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "ReferenceDictProvider",
+          "lineNumber": 406
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "_PagedCloud",
+          "lineNumber": 408
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "_default_pages",
+          "lineNumber": 408
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "pytest.raises",
+          "lineNumber": 413
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 414
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "provider.close",
+          "lineNumber": 417
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "_provider",
+          "lineNumber": 424
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "_PagedCloud",
+          "lineNumber": 424
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "_default_pages",
+          "lineNumber": 424
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "collect_reference_dictionaries",
+          "lineNumber": 425
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "result.to_snapshot_dict",
+          "lineNumber": 428
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "json.dumps",
+          "lineNumber": 429
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "set",
+          "lineNumber": 430
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "snap.keys",
+          "lineNumber": 430
+        },
+        {
+          "caller": "TestAllOrNothing",
+          "callee": "provider.close",
+          "lineNumber": 434
+        }
+      ],
+      "metrics": {
+        "exportCount": 38,
+        "functionCount": 4,
+        "classCount": 8
+      }
+    },
+    {
+      "path": "mcp_server/tests/test_reference_provider.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 340,
+      "nonEmptyLines": 277,
+      "functions": [
+        {
+          "name": "_provider",
+          "startLine": 112,
+          "endLine": 135,
+          "params": [
+            "cfg",
+            "cloud",
+            "tokens",
+            "refresh_results"
+          ]
+        },
+        {
+          "name": "accessor",
+          "startLine": 118,
+          "endLine": 119,
+          "params": []
+        },
+        {
+          "name": "refresher",
+          "startLine": 121,
+          "endLine": 126,
+          "params": []
+        },
+        {
+          "name": "_never",
+          "startLine": 337,
+          "endLine": 339,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "_FakeCloud",
+          "startLine": 47,
+          "endLine": 74,
+          "methods": [
+            "__init__",
+            "_pop",
+            "get_device_type_list",
+            "get_brand_list",
+            "get_model_list"
+          ],
+          "properties": [
+            "_responses"
+          ],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "_FakeEdge",
+          "startLine": 77,
+          "endLine": 109,
+          "methods": [
+            "__init__",
+            "login",
+            "call",
+            "close"
+          ],
+          "properties": [
+            "base_url",
+            "login_name",
+            "password",
+            "logged_in",
+            "closed",
+            "logged_in",
+            "closed"
+          ],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "TestReferenceConfig",
+          "startLine": 149,
+          "endLine": 183,
+          "methods": [
+            "test_no_preset_field_address",
+            "test_require_edge_raises_when_missing",
+            "test_reads_env_and_preserves_password",
+            "test_redacted_masks_password"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "TestCloudSystemTokenOnly",
+          "startLine": 189,
+          "endLine": 218,
+          "methods": [
+            "test_fetch_with_system_token_only",
+            "test_no_system_token_raises_without_calling_api",
+            "test_business_error_raises_dict_error"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "TestNoSourceSwitchOnRefresh",
+          "startLine": 224,
+          "endLine": 262,
+          "methods": [
+            "test_refresh_failure_does_not_switch_source",
+            "test_refresh_success_retries_with_new_system_token",
+            "test_refresh_success_but_still_expired_raises"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "TestEdgeLoginWiring",
+          "startLine": 268,
+          "endLine": 334,
+          "methods": [
+            "test_open_edge_uses_reference_source_not_field",
+            "test_open_edge_reuses_session",
+            "test_fetch_comm_modes_uses_verified_path",
+            "test_open_edge_raises_when_config_missing"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "__init__",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "_pop",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "get_device_type_list",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "get_brand_list",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "get_model_list",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "_FakeCloud",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "__init__",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "login",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "call",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 107,
+          "isDefault": false
+        },
+        {
+          "name": "_FakeEdge",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "_provider",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "accessor",
+          "line": 118,
+          "isDefault": false
+        },
+        {
+          "name": "refresher",
+          "line": 121,
+          "isDefault": false
+        },
+        {
+          "name": "test_no_preset_field_address",
+          "line": 152,
+          "isDefault": false
+        },
+        {
+          "name": "test_require_edge_raises_when_missing",
+          "line": 160,
+          "isDefault": false
+        },
+        {
+          "name": "test_reads_env_and_preserves_password",
+          "line": 166,
+          "isDefault": false
+        },
+        {
+          "name": "test_redacted_masks_password",
+          "line": 179,
+          "isDefault": false
+        },
+        {
+          "name": "TestReferenceConfig",
+          "line": 149,
+          "isDefault": false
+        },
+        {
+          "name": "test_fetch_with_system_token_only",
+          "line": 193,
+          "isDefault": false
+        },
+        {
+          "name": "test_no_system_token_raises_without_calling_api",
+          "line": 203,
+          "isDefault": false
+        },
+        {
+          "name": "test_business_error_raises_dict_error",
+          "line": 212,
+          "isDefault": false
+        },
+        {
+          "name": "TestCloudSystemTokenOnly",
+          "line": 189,
+          "isDefault": false
+        },
+        {
+          "name": "test_refresh_failure_does_not_switch_source",
+          "line": 228,
+          "isDefault": false
+        },
+        {
+          "name": "test_refresh_success_retries_with_new_system_token",
+          "line": 239,
+          "isDefault": false
+        },
+        {
+          "name": "test_refresh_success_but_still_expired_raises",
+          "line": 252,
+          "isDefault": false
+        },
+        {
+          "name": "TestNoSourceSwitchOnRefresh",
+          "line": 224,
+          "isDefault": false
+        },
+        {
+          "name": "test_open_edge_uses_reference_source_not_field",
+          "line": 271,
+          "isDefault": false
+        },
+        {
+          "name": "test_open_edge_reuses_session",
+          "line": 288,
+          "isDefault": false
+        },
+        {
+          "name": "test_fetch_comm_modes_uses_verified_path",
+          "line": 303,
+          "isDefault": false
+        },
+        {
+          "name": "test_open_edge_raises_when_config_missing",
+          "line": 321,
+          "isDefault": false
+        },
+        {
+          "name": "TestEdgeLoginWiring",
+          "line": 268,
+          "isDefault": false
+        },
+        {
+          "name": "_never",
+          "line": 337,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "Path",
+          "lineNumber": 19
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 20
+        },
+        {
+          "caller": "<module>",
+          "callee": "sys.path.insert",
+          "lineNumber": 21
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 21
+        },
+        {
+          "caller": "_FakeCloud",
+          "callee": "list",
+          "lineNumber": 56
+        },
+        {
+          "caller": "_FakeCloud",
+          "callee": "responses.items",
+          "lineNumber": 56
+        },
+        {
+          "caller": "_FakeCloud",
+          "callee": "self.calls.append",
+          "lineNumber": 60
+        },
+        {
+          "caller": "_FakeCloud",
+          "callee": "self._responses.get",
+          "lineNumber": 61
+        },
+        {
+          "caller": "_FakeCloud",
+          "callee": "len",
+          "lineNumber": 62
+        },
+        {
+          "caller": "_FakeCloud",
+          "callee": "seq.pop",
+          "lineNumber": 62
+        },
+        {
+          "caller": "_FakeCloud",
+          "callee": "self._pop",
+          "lineNumber": 66
+        },
+        {
+          "caller": "_FakeCloud",
+          "callee": "self._pop",
+          "lineNumber": 70
+        },
+        {
+          "caller": "_FakeCloud",
+          "callee": "self._pop",
+          "lineNumber": 74
+        },
+        {
+          "caller": "_FakeEdge",
+          "callee": "_FakeEdge.instances.append",
+          "lineNumber": 90
+        },
+        {
+          "caller": "_FakeEdge",
+          "callee": "self.calls.append",
+          "lineNumber": 99
+        },
+        {
+          "caller": "<module>",
+          "callee": "list",
+          "lineNumber": 114
+        },
+        {
+          "caller": "<module>",
+          "callee": "list",
+          "lineNumber": 115
+        },
+        {
+          "caller": "<module>",
+          "callee": "refresh_seq.pop",
+          "lineNumber": 123
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 124
+        },
+        {
+          "caller": "<module>",
+          "callee": "token_seq.pop",
+          "lineNumber": 125
+        },
+        {
+          "caller": "<module>",
+          "callee": "ReferenceDictProvider",
+          "lineNumber": 128
+        },
+        {
+          "caller": "<module>",
+          "callee": "ReferenceConfig",
+          "lineNumber": 138
+        },
+        {
+          "caller": "TestReferenceConfig",
+          "callee": "load_reference_config",
+          "lineNumber": 154
+        },
+        {
+          "caller": "TestReferenceConfig",
+          "callee": "cfg.edge_ready",
+          "lineNumber": 158
+        },
+        {
+          "caller": "TestReferenceConfig",
+          "callee": "load_reference_config",
+          "lineNumber": 162
+        },
+        {
+          "caller": "TestReferenceConfig",
+          "callee": "pytest.raises",
+          "lineNumber": 163
+        },
+        {
+          "caller": "TestReferenceConfig",
+          "callee": "cfg.require_edge",
+          "lineNumber": 164
+        },
+        {
+          "caller": "TestReferenceConfig",
+          "callee": "load_reference_config",
+          "lineNumber": 168
+        },
+        {
+          "caller": "TestReferenceConfig",
+          "callee": "cfg.edge_ready",
+          "lineNumber": 177
+        },
+        {
+          "caller": "TestReferenceConfig",
+          "callee": "cfg.cloud_ready",
+          "lineNumber": 177
+        },
+        {
+          "caller": "TestReferenceConfig",
+          "callee": "_FULL_CFG.redacted",
+          "lineNumber": 181
+        },
+        {
+          "caller": "TestCloudSystemTokenOnly",
+          "callee": "_FakeCloud",
+          "lineNumber": 195
+        },
+        {
+          "caller": "TestCloudSystemTokenOnly",
+          "callee": "_provider",
+          "lineNumber": 196
+        },
+        {
+          "caller": "TestCloudSystemTokenOnly",
+          "callee": "provider.fetch_user_big_no",
+          "lineNumber": 197
+        },
+        {
+          "caller": "TestCloudSystemTokenOnly",
+          "callee": "_FakeCloud",
+          "lineNumber": 205
+        },
+        {
+          "caller": "TestCloudSystemTokenOnly",
+          "callee": "_provider",
+          "lineNumber": 206
+        },
+        {
+          "caller": "TestCloudSystemTokenOnly",
+          "callee": "pytest.raises",
+          "lineNumber": 207
+        },
+        {
+          "caller": "TestCloudSystemTokenOnly",
+          "callee": "provider.fetch_user_big_no",
+          "lineNumber": 208
+        },
+        {
+          "caller": "TestCloudSystemTokenOnly",
+          "callee": "_FakeCloud",
+          "lineNumber": 214
+        },
+        {
+          "caller": "TestCloudSystemTokenOnly",
+          "callee": "_provider",
+          "lineNumber": 215
+        },
+        {
+          "caller": "TestCloudSystemTokenOnly",
+          "callee": "pytest.raises",
+          "lineNumber": 216
+        },
+        {
+          "caller": "TestCloudSystemTokenOnly",
+          "callee": "provider.fetch_brands",
+          "lineNumber": 217
+        },
+        {
+          "caller": "TestNoSourceSwitchOnRefresh",
+          "callee": "_FakeCloud",
+          "lineNumber": 230
+        },
+        {
+          "caller": "TestNoSourceSwitchOnRefresh",
+          "callee": "_provider",
+          "lineNumber": 231
+        },
+        {
+          "caller": "TestNoSourceSwitchOnRefresh",
+          "callee": "pytest.raises",
+          "lineNumber": 232
+        },
+        {
+          "caller": "TestNoSourceSwitchOnRefresh",
+          "callee": "provider.fetch_user_big_no",
+          "lineNumber": 233
+        },
+        {
+          "caller": "TestNoSourceSwitchOnRefresh",
+          "callee": "_FakeCloud",
+          "lineNumber": 241
+        },
+        {
+          "caller": "TestNoSourceSwitchOnRefresh",
+          "callee": "_provider",
+          "lineNumber": 242
+        },
+        {
+          "caller": "TestNoSourceSwitchOnRefresh",
+          "callee": "provider.fetch_user_big_no",
+          "lineNumber": 243
+        },
+        {
+          "caller": "TestNoSourceSwitchOnRefresh",
+          "callee": "_FakeCloud",
+          "lineNumber": 254
+        },
+        {
+          "caller": "TestNoSourceSwitchOnRefresh",
+          "callee": "_provider",
+          "lineNumber": 255
+        },
+        {
+          "caller": "TestNoSourceSwitchOnRefresh",
+          "callee": "pytest.raises",
+          "lineNumber": 256
+        },
+        {
+          "caller": "TestNoSourceSwitchOnRefresh",
+          "callee": "provider.fetch_models",
+          "lineNumber": 257
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "_FakeEdge.instances.clear",
+          "lineNumber": 273
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "ReferenceDictProvider",
+          "lineNumber": 274
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "_FakeCloud",
+          "lineNumber": 276
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "_never",
+          "lineNumber": 278
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "provider.open_edge",
+          "lineNumber": 281
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "provider.close",
+          "lineNumber": 285
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "_FakeEdge.instances.clear",
+          "lineNumber": 290
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "ReferenceDictProvider",
+          "lineNumber": 291
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "_FakeCloud",
+          "lineNumber": 293
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "_never",
+          "lineNumber": 295
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "provider.open_edge",
+          "lineNumber": 298
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "provider.open_edge",
+          "lineNumber": 299
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "len",
+          "lineNumber": 300
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "provider.close",
+          "lineNumber": 301
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "_FakeEdge.instances.clear",
+          "lineNumber": 305
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "ReferenceDictProvider",
+          "lineNumber": 306
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "_FakeCloud",
+          "lineNumber": 308
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "_never",
+          "lineNumber": 310
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "provider.fetch_comm_modes",
+          "lineNumber": 313
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "provider.close",
+          "lineNumber": 319
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "_FakeEdge.instances.clear",
+          "lineNumber": 323
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "ReferenceConfig",
+          "lineNumber": 324
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "ReferenceDictProvider",
+          "lineNumber": 325
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "_FakeCloud",
+          "lineNumber": 327
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "_never",
+          "lineNumber": 329
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "pytest.raises",
+          "lineNumber": 332
+        },
+        {
+          "caller": "TestEdgeLoginWiring",
+          "callee": "provider.open_edge",
+          "lineNumber": 333
+        }
+      ],
+      "metrics": {
+        "exportCount": 33,
+        "functionCount": 4,
+        "classCount": 6
+      }
+    }
+  ]
+}

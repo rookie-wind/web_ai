@@ -1,0 +1,7 @@
+{
+  "projectRoot": "e:/codeGIT/pca-mcp-server/.ua/tmp/clean",
+  "batchFiles": [
+    {"path": "mcp_server/server.py", "language": "python", "sizeLines": 3140, "fileCategory": "code"}
+  ],
+  "batchImportData": {}
+}

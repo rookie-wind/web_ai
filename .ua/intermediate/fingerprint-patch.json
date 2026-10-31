@@ -1,0 +1,99 @@
+{
+  "version": "1.0.0",
+  "baseCommit": "bf42713278102d598302ab775844315d40bfcd5e",
+  "headCommit": "2cc1e4c4771c58af85330356cbe6d0f16762927e",
+  "generatedAt": "2026-10-27T05:59:07.500Z",
+  "files": {
+    "agent_assets/skills/http-conversion/references/原子标签定义.docx": {
+      "filePath": "agent_assets/skills/http-conversion/references/原子标签定义.docx",
+      "contentHash": "9b9c44d18addc747e24b9f65e66dfb40956e11a724f42f09ad9c38f931fbd6ee",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 516,
+      "hasStructuralAnalysis": false
+    },
+    "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.docx": {
+      "filePath": "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.docx",
+      "contentHash": "5ebb41da87b392af31fd5577dd9ef0d907e8cf0a9dd7af53c9a8fe5f6c0d5f62",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 84,
+      "hasStructuralAnalysis": false
+    },
+    "agent_assets/skills/http-conversion/references/数据采集通信协议.docx": {
+      "filePath": "agent_assets/skills/http-conversion/references/数据采集通信协议.docx",
+      "contentHash": "576b6eecb6890872687f7de1567f4819c73a287c5f954d195702b6d4ba00646f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6102,
+      "hasStructuralAnalysis": false
+    },
+    "agent_assets/skills/modbus-conversion/references/原子标签定义.docx": {
+      "filePath": "agent_assets/skills/modbus-conversion/references/原子标签定义.docx",
+      "contentHash": "9b9c44d18addc747e24b9f65e66dfb40956e11a724f42f09ad9c38f931fbd6ee",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 516,
+      "hasStructuralAnalysis": false
+    },
+    "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.docx": {
+      "filePath": "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.docx",
+      "contentHash": "5ebb41da87b392af31fd5577dd9ef0d907e8cf0a9dd7af53c9a8fe5f6c0d5f62",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 84,
+      "hasStructuralAnalysis": false
+    },
+    "agent_assets/skills/modbus-conversion/references/数据采集通信协议.docx": {
+      "filePath": "agent_assets/skills/modbus-conversion/references/数据采集通信协议.docx",
+      "contentHash": "576b6eecb6890872687f7de1567f4819c73a287c5f954d195702b6d4ba00646f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6102,
+      "hasStructuralAnalysis": false
+    },
+    "agent_assets/skills/mqtt-conversion/references/原子标签定义.docx": {
+      "filePath": "agent_assets/skills/mqtt-conversion/references/原子标签定义.docx",
+      "contentHash": "9b9c44d18addc747e24b9f65e66dfb40956e11a724f42f09ad9c38f931fbd6ee",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 516,
+      "hasStructuralAnalysis": false
+    },
+    "agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.docx": {
+      "filePath": "agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.docx",
+      "contentHash": "5ebb41da87b392af31fd5577dd9ef0d907e8cf0a9dd7af53c9a8fe5f6c0d5f62",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 84,
+      "hasStructuralAnalysis": false
+    },
+    "agent_assets/skills/mqtt-conversion/references/数据采集通信协议.docx": {
+      "filePath": "agent_assets/skills/mqtt-conversion/references/数据采集通信协议.docx",
+      "contentHash": "576b6eecb6890872687f7de1567f4819c73a287c5f954d195702b6d4ba00646f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6102,
+      "hasStructuralAnalysis": false
+    }
+  },
+  "deletedFiles": []
+}

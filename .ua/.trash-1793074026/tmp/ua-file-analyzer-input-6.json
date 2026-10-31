@@ -1,0 +1,49 @@
+{
+  "projectRoot": "e:\\codeGIT\\pca-mcp-server",
+  "batchFiles": [
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/device-onboarding-playbook.md",
+      "language": "markdown",
+      "sizeLines": 118,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/direct-edge-operation.md",
+      "language": "markdown",
+      "sizeLines": 85,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/edge-param-save-api.md",
+      "language": "markdown",
+      "sizeLines": 300,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/excel-template-schema.md",
+      "language": "markdown",
+      "sizeLines": 274,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/gateway-button-endpoints.md",
+      "language": "markdown",
+      "sizeLines": 76,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/platform-dict-template-generation.md",
+      "language": "markdown",
+      "sizeLines": 127,
+      "fileCategory": "docs"
+    }
+  ],
+  "batchImportData": {
+    "agent_assets/skills/xlpa-device-archiving/references/device-onboarding-playbook.md": [],
+    "agent_assets/skills/xlpa-device-archiving/references/direct-edge-operation.md": [],
+    "agent_assets/skills/xlpa-device-archiving/references/edge-param-save-api.md": [],
+    "agent_assets/skills/xlpa-device-archiving/references/excel-template-schema.md": [],
+    "agent_assets/skills/xlpa-device-archiving/references/gateway-button-endpoints.md": [],
+    "agent_assets/skills/xlpa-device-archiving/references/platform-dict-template-generation.md": []
+  }
+}

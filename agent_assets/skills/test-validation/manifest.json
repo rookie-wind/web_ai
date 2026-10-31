@@ -1,6 +1,6 @@
 {
   "name": "test-validation",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "kind": "skill-assets",
   "entry": "SKILL.md",
   "required": [

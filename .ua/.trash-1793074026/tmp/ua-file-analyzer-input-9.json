@@ -1,0 +1,182 @@
+{
+  "projectRoot": "e:\\codeGIT\\pca-mcp-server",
+  "batchFiles": [
+    {
+      "path": "agent_assets/skills/http-conversion/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 586,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "sizeLines": 3,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/manifest.json",
+      "language": "json",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/examples/aimcover-http.json",
+      "language": "json",
+      "sizeLines": 88,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/examples/linktheall-http.json",
+      "language": "json",
+      "sizeLines": 117,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/原子标签定义.docx",
+      "language": "docx",
+      "sizeLines": 515,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/原子标签定义.md",
+      "language": "markdown",
+      "sizeLines": 1270,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.docx",
+      "language": "docx",
+      "sizeLines": 83,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.md",
+      "language": "markdown",
+      "sizeLines": 155,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/数据采集通信协议.docx",
+      "language": "docx",
+      "sizeLines": 6101,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 1015,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "sizeLines": 3,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/manifest.json",
+      "language": "json",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/原子标签定义.docx",
+      "language": "docx",
+      "sizeLines": 515,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/原子标签定义.md",
+      "language": "markdown",
+      "sizeLines": 1270,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.docx",
+      "language": "docx",
+      "sizeLines": 83,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.md",
+      "language": "markdown",
+      "sizeLines": 155,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/数据采集通信协议.docx",
+      "language": "docx",
+      "sizeLines": 6101,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 196,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/agents/openai.yaml",
+      "language": "yaml",
+      "sizeLines": 11,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/manifest.json",
+      "language": "json",
+      "sizeLines": 15,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 461,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "sizeLines": 3,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/manifest.json",
+      "language": "json",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/examples/vpp-mqtt.json",
+      "language": "json",
+      "sizeLines": 97,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {
+    "agent_assets/skills/http-conversion/SKILL.md": [],
+    "agent_assets/skills/http-conversion/agents/openai.yaml": [],
+    "agent_assets/skills/http-conversion/manifest.json": [],
+    "agent_assets/skills/http-conversion/references/examples/aimcover-http.json": [],
+    "agent_assets/skills/http-conversion/references/examples/linktheall-http.json": [],
+    "agent_assets/skills/http-conversion/references/原子标签定义.docx": [],
+    "agent_assets/skills/http-conversion/references/原子标签定义.md": [],
+    "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.docx": [],
+    "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.md": [],
+    "agent_assets/skills/http-conversion/references/数据采集通信协议.docx": [],
+    "agent_assets/skills/modbus-conversion/SKILL.md": [],
+    "agent_assets/skills/modbus-conversion/agents/openai.yaml": [],
+    "agent_assets/skills/modbus-conversion/manifest.json": [],
+    "agent_assets/skills/modbus-conversion/references/原子标签定义.docx": [],
+    "agent_assets/skills/modbus-conversion/references/原子标签定义.md": [],
+    "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.docx": [],
+    "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.md": [],
+    "agent_assets/skills/modbus-conversion/references/数据采集通信协议.docx": [],
+    "agent_assets/skills/modbus-cq-adapt/SKILL.md": [],
+    "agent_assets/skills/modbus-cq-adapt/agents/openai.yaml": [],
+    "agent_assets/skills/modbus-cq-adapt/manifest.json": [],
+    "agent_assets/skills/mqtt-conversion/SKILL.md": [],
+    "agent_assets/skills/mqtt-conversion/agents/openai.yaml": [],
+    "agent_assets/skills/mqtt-conversion/manifest.json": [],
+    "agent_assets/skills/mqtt-conversion/references/examples/vpp-mqtt.json": []
+  }
+}

@@ -1,0 +1,65 @@
+# .understandignore — 知识图谱分析排除规则
+# 语法同 .gitignore（通配符、# 注释、! 强制纳入、目录尾斜杠）
+#
+# 内置默认（始终排除，除非用 ! 取消）：
+#   node_modules/、.git/、dist/、build/、obj/、*.lock、*.min.js 等
+#
+# 本次分析范围决策（2026-10-27 与用户确认）：
+#   纳入 —— mcp_server/ 源码与测试、agent_assets/ 技能资产、docs/、根目录脚本
+#   排除 —— .qoder/（Qoder 工具资产）、openspec/（规格与变更文档）、运行时产物
+
+# --- 工具与编辑器资产（非项目代码）---
+
+.qoder/
+.trae/
+
+# --- 规格/变更文档（本次不纳入图谱）---
+
+openspec/
+
+# --- Python 运行期产物 ---
+
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# --- 现场验证与作业产物（体积大、非代码）---
+
+validation/
+logs/
+.ua/
+_understand_tmp/
+
+# --- 临时运行状态与缓存 ---
+
+.token_registry.json
+.token_registry.json.*.backup
+.business_token_cache.json
+.showcase_cache.json
+.stats.json
+.server_test_report.json
+archive_reports/
+
+# --- 调试日志与二进制/生成物 ---
+
+*.log
+*.tmp
+*.zip
+*.xlsx
+~$*
+
+# --- 根目录临时探查脚本与草稿 ---
+
+_c_*.txt
+_c_*.ps1
+_c_*.cmd
+_review_diff_*.txt
+_probe_*.json
+_create_*.json
+
+# --- 明确保留（防止被上面规则误伤）---
+
+!mcp_server/.env
+!mcp_server/static/*.html
+!mcp_server/tests/

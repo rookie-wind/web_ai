@@ -1,0 +1,1556 @@
+{
+  "ports": {
+    "mcp": 8772,
+    "webchat": 8808,
+    "base": "http://127.0.0.1:8808"
+  },
+  "upload_table": {
+    "http": 200,
+    "body": {
+      "channel": "archive_table",
+      "file_id": "f796d780b514a54a8b89095f1a1ad5d0",
+      "size": 127193,
+      "sha256": "15442490eb83aa17256fb5b2105c002e3976ba245f890570e5a36e5573c3b720"
+    }
+  },
+  "webchat": {
+    "session_id": "5cfbe752f65b9188cd73413b380950ac",
+    "holder_id": "probe-holder-01"
+  },
+  "tool_count": 77,
+  "schemas": {
+    "login": {
+      "properties": {
+        "phoneNum": {
+          "title": "Phonenum",
+          "type": "string"
+        }
+      },
+      "required": [
+        "phoneNum",
+        "code"
+      ],
+      "title": "loginArguments",
+      "type": "object"
+    },
+    "get_classify_list": {
+      "properties": {
+        "sysName": {
+          "default": "",
+          "title": "Sysname",
+          "type": "string"
+        },
+        "pageIndex": {
+          "default": 1,
+          "title": "Pageindex",
+          "type": "integer"
+        },
+        "pageSize": {
+          "default": 9999,
+          "title": "Pagesize",
+          "type": "integer"
+        }
+      },
+      "title": "get_classify_listArguments",
+      "type": "object"
+    },
+    "add_classify": {
+      "properties": {
+        "sysName": {
+          "title": "Sysname",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sysName"
+      ],
+      "title": "add_classifyArguments",
+      "type": "object"
+    },
+    "del_classify": {
+      "properties": {
+        "classify_id": {
+          "title": "Classify Id",
+          "type": "integer"
+        },
+        "sysName": {
+          "title": "Sysname",
+          "type": "string"
+        }
+      },
+      "required": [
+        "classify_id",
+        "sysName"
+      ],
+      "title": "del_classifyArguments",
+      "type": "object"
+    },
+    "get_device_type_list": {
+      "properties": {
+        "deviceTypeName": {
+          "default": "",
+          "title": "Devicetypename",
+          "type": "string"
+        },
+        "deviceTypeCode": {
+          "default": "",
+          "title": "Devicetypecode",
+          "type": "string"
+        },
+        "sysId": {
+          "default": -1,
+          "title": "Sysid",
+          "type": "integer"
+        },
+        "pageIndex": {
+          "default": 1,
+          "title": "Pageindex",
+          "type": "integer"
+        },
+        "pageSize": {
+          "default": 9999,
+          "title": "Pagesize",
+          "type": "integer"
+        }
+      },
+      "title": "get_device_type_listArguments",
+      "type": "object"
+    },
+    "get_brand_list": {
+      "properties": {
+        "nameCN": {
+          "default": "",
+          "title": "Namecn",
+          "type": "string"
+        },
+        "deviceTypeId": {
+          "default": -1,
+          "title": "Devicetypeid",
+          "type": "integer"
+        },
+        "pageIndex": {
+          "default": 1,
+          "title": "Pageindex",
+          "type": "integer"
+        },
+        "pageSize": {
+          "default": 9999,
+          "title": "Pagesize",
+          "type": "integer"
+        }
+      },
+      "title": "get_brand_listArguments",
+      "type": "object"
+    },
+    "add_brand": {
+      "properties": {
+        "nameCN": {
+          "title": "Namecn",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "deviceTypeId": {
+          "title": "Devicetypeid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "nameCN",
+        "name",
+        "code",
+        "deviceTypeId"
+      ],
+      "title": "add_brandArguments",
+      "type": "object"
+    },
+    "del_brand": {
+      "properties": {
+        "brand_id": {
+          "title": "Brand Id",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "brand_id",
+        "name",
+        "code"
+      ],
+      "title": "del_brandArguments",
+      "type": "object"
+    },
+    "get_model_list": {
+      "properties": {
+        "name": {
+          "default": "",
+          "title": "Name",
+          "type": "string"
+        },
+        "brandId": {
+          "default": -1,
+          "title": "Brandid",
+          "type": "integer"
+        },
+        "pageIndex": {
+          "default": 1,
+          "title": "Pageindex",
+          "type": "integer"
+        },
+        "pageSize": {
+          "default": 9999,
+          "title": "Pagesize",
+          "type": "integer"
+        }
+      },
+      "title": "get_model_listArguments",
+      "type": "object"
+    },
+    "add_model": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "brandId": {
+          "title": "Brandid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "brandId"
+      ],
+      "title": "add_modelArguments",
+      "type": "object"
+    },
+    "del_model": {
+      "properties": {
+        "model_id": {
+          "title": "Model Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "model_id"
+      ],
+      "title": "del_modelArguments",
+      "type": "object"
+    }
+  },
+  "login_bind": {
+    "success": true,
+    "role": "super",
+    "message": "已授权，系统账号",
+    "operation_log": {
+      "entry_id": "op0000000000003",
+      "trace_id": "trc_20261030051052_bff5c2ad",
+      "status": "SUCCESS",
+      "duration_ms": 153
+    }
+  },
+  "classify_list": {
+    "error": false,
+    "empty": false,
+    "message": "成功",
+    "data": {
+      "total": 30,
+      "rows": [
+        {
+          "id": 2,
+          "sysName": "电表"
+        },
+        {
+          "id": 3,
+          "sysName": "空调机组"
+        },
+        {
+          "id": 4,
+          "sysName": "环境传感器"
+        },
+        {
+          "id": 5,
+          "sysName": "空调多联机控制器"
+        },
+        {
+          "id": 7,
+          "sysName": "开关量"
+        },
+        {
+          "id": 8,
+          "sysName": "空调模块机"
+        },
+        {
+          "id": 9,
+          "sysName": "通讯网关"
+        },
+        {
+          "id": 10,
+          "sysName": "智能传感器"
+        },
+        {
+          "id": 11,
+          "sysName": "振动传感器"
+        },
+        {
+          "id": 12,
+          "sysName": "局放传感器"
+        },
+        {
+          "id": 13,
+          "sysName": "分体空调"
+        },
+        {
+          "id": 14,
+          "sysName": "储能系统"
+        },
+        {
+          "id": 15,
+          "sysName": "储能变流器"
+        },
+        {
+          "id": 16,
+          "sysName": "电池管理系统"
+        },
+        {
+          "id": 17,
+          "sysName": "能源采集"
+        },
+        {
+          "id": 18,
+          "sysName": "冷热量表"
+        },
+        {
+          "id": 19,
+          "sysName": "水泵"
+        },
+        {
+          "id": 20,
+          "sysName": "冷却塔"
+        },
+        {
+          "id": 21,
+          "sysName": "系统信息"
+        },
+        {
+          "id": 22,
+          "sysName": "阀门"
+        },
+        {
+          "id": 23,
+          "sysName": "风冷热泵"
+        },
+        {
+          "id": 24,
+          "sysName": "调节阀门"
+        },
+        {
+          "id": 25,
+          "sysName": "温控仪"
+        },
+        {
+          "id": 26,
+          "sysName": "逆变器"
+        },
+        {
+          "id": 27,
+          "sysName": "充电桩"
+        },
+        {
+          "id": 28,
+          "sysName": "充电枪"
+        },
+        {
+          "id": 29,
+          "sysName": "风力发电逆变器"
+        },
+        {
+          "id": 30,
+          "sysName": "多联机末端"
+        },
+        {
+          "id": 31,
+          "sysName": "智能照明灯"
+        },
+        {
+          "id": 32,
+          "sysName": "气象表"
+        }
+      ]
+    }
+  },
+  "classify_has_ac1_mark": false,
+  "brand_list": {
+    "error": false,
+    "empty": false,
+    "message": "成功",
+    "data": {
+      "total": 164,
+      "rows": [
+        {
+          "id": 3,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "Acerl",
+          "nameCN": "安科瑞"
+        },
+        {
+          "id": 9,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "Midea",
+          "nameCN": "美的"
+        },
+        {
+          "id": 10,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "Carrier",
+          "nameCN": "开利"
+        },
+        {
+          "id": 11,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "EK",
+          "nameCN": "欧科"
+        },
+        {
+          "id": 12,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "TRANE",
+          "nameCN": "特灵"
+        },
+        {
+          "id": 16,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "FEIYI",
+          "nameCN": "飞奕"
+        },
+        {
+          "id": 17,
+          "deviceTypeId": 23,
+          "deviceTypeName": "多联机末端",
+          "name": "ZHONG",
+          "nameCN": "中弘"
+        },
+        {
+          "id": 18,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "HG",
+          "nameCN": "汉高"
+        },
+        {
+          "id": 19,
+          "deviceTypeId": 5,
+          "deviceTypeName": "环境传感器",
+          "name": "BCE",
+          "nameCN": "蓝控电子科技"
+        },
+        {
+          "id": 20,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "XY",
+          "nameCN": "讯饶网关"
+        },
+        {
+          "id": 21,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "YK",
+          "nameCN": "约克"
+        },
+        {
+          "id": 22,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "GREE",
+          "nameCN": "格力"
+        },
+        {
+          "id": 23,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "VK",
+          "nameCN": "维克"
+        },
+        {
+          "id": 24,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "McQuay",
+          "nameCN": "麦克维尔"
+        },
+        {
+          "id": 25,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "TICA",
+          "nameCN": "天加"
+        },
+        {
+          "id": 26,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "Hai",
+          "nameCN": "海思"
+        },
+        {
+          "id": 29,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "CLIMVENET",
+          "nameCN": "克莱门特"
+        },
+        {
+          "id": 30,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "TOSHIBA",
+          "nameCN": "东芝"
+        },
+        {
+          "id": 31,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "Haier",
+          "nameCN": "海尔"
+        },
+        {
+          "id": 32,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "CORX",
+          "nameCN": "科星照明"
+        },
+        {
+          "id": 33,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "WS05",
+          "nameCN": "星纵开关"
+        },
+        {
+          "id": 34,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "hisense",
+          "nameCN": "海信"
+        },
+        {
+          "id": 35,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "zhigao",
+          "nameCN": "志高"
+        },
+        {
+          "id": 36,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "HITACHI",
+          "nameCN": "日立"
+        },
+        {
+          "id": 37,
+          "deviceTypeId": 9,
+          "deviceTypeName": "智能传感器",
+          "name": "C-SAFE",
+          "nameCN": "福州创安恒业"
+        },
+        {
+          "id": 38,
+          "deviceTypeId": 5,
+          "deviceTypeName": "环境传感器",
+          "name": "S-SAFE(HUANJ)",
+          "nameCN": "福州创安恒业HJ"
+        },
+        {
+          "id": 39,
+          "deviceTypeId": 10,
+          "deviceTypeName": "局放传感器",
+          "name": "C-SAFE(JF)",
+          "nameCN": "福州创安恒业(局放)"
+        },
+        {
+          "id": 40,
+          "deviceTypeId": 11,
+          "deviceTypeName": "单相分体空调控制器",
+          "name": "TR",
+          "nameCN": "天睿信诚"
+        },
+        {
+          "id": 41,
+          "deviceTypeId": 30,
+          "deviceTypeName": "逆变器（新）",
+          "name": "HBCNSYS",
+          "nameCN": "河北储能系统"
+        },
+        {
+          "id": 42,
+          "deviceTypeId": 13,
+          "deviceTypeName": "水泵",
+          "name": "HBCNDC",
+          "nameCN": "河北储能电池"
+        },
+        {
+          "id": 43,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "XD",
+          "nameCN": "江苏兄弟仪表"
+        },
+        {
+          "id": 44,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "DunAn",
+          "nameCN": "盾安"
+        },
+        {
+          "id": 45,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "CT",
+          "nameCN": "重庆通用工业"
+        },
+        {
+          "id": 46,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "JALA",
+          "nameCN": "上海佳岚智能"
+        },
+        {
+          "id": 47,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "DLhaifeng",
+          "nameCN": "大连海峰"
+        },
+        {
+          "id": 48,
+          "deviceTypeId": 15,
+          "deviceTypeName": "冷热量表",
+          "name": "DLFH",
+          "nameCN": "海峰"
+        },
+        {
+          "id": 49,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "YOURS-IOT",
+          "nameCN": "优势科技"
+        },
+        {
+          "id": 50,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "AI2000",
+          "nameCN": "AI2000"
+        },
+        {
+          "id": 51,
+          "deviceTypeId": 30,
+          "deviceTypeName": "逆变器（新）",
+          "name": "DDDSB",
+          "nameCN": "地电大厦BA系统"
+        },
+        {
+          "id": 52,
+          "deviceTypeId": 13,
+          "deviceTypeName": "水泵",
+          "name": "DDDSBALDB",
+          "nameCN": "地电大厦BA冷冻泵"
+        },
+        {
+          "id": 53,
+          "deviceTypeId": 13,
+          "deviceTypeName": "水泵",
+          "name": "DDDSBALQB",
+          "nameCN": "地电大厦BA冷却泵"
+        },
+        {
+          "id": 54,
+          "deviceTypeId": 16,
+          "deviceTypeName": "冷却塔",
+          "name": "DDDSBALQT",
+          "nameCN": "地电大厦BA冷却塔"
+        },
+        {
+          "id": 55,
+          "deviceTypeId": 17,
+          "deviceTypeName": "开关阀门",
+          "name": "DDDSBAFM",
+          "nameCN": "地电大厦BA阀门"
+        },
+        {
+          "id": 56,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "CHET",
+          "nameCN": "浙江正泰物联"
+        },
+        {
+          "id": 57,
+          "deviceTypeId": 15,
+          "deviceTypeName": "冷热量表",
+          "name": "csb",
+          "nameCN": "超声波热量表"
+        },
+        {
+          "id": 58,
+          "deviceTypeId": 7,
+          "deviceTypeName": "风冷热泵及其网关",
+          "name": "MideaMK",
+          "nameCN": "美的模块机"
+        },
+        {
+          "id": 59,
+          "deviceTypeId": 13,
+          "deviceTypeName": "水泵",
+          "name": "CNP",
+          "nameCN": "南方泵业"
+        },
+        {
+          "id": 60,
+          "deviceTypeId": 30,
+          "deviceTypeName": "逆变器（新）",
+          "name": "qy4z",
+          "nameCN": "曲阳4中2号系统"
+        },
+        {
+          "id": 61,
+          "deviceTypeId": 30,
+          "deviceTypeName": "逆变器（新）",
+          "name": "qy4z3",
+          "nameCN": "曲阳4中3号系统"
+        },
+        {
+          "id": 62,
+          "deviceTypeId": 18,
+          "deviceTypeName": "调节阀门",
+          "name": "qy2fm",
+          "nameCN": "曲阳4中2号系统调节阀门"
+        },
+        {
+          "id": 63,
+          "deviceTypeId": 18,
+          "deviceTypeName": "调节阀门",
+          "name": "qy3fm",
+          "nameCN": "曲阳4中3号系统调节阀门"
+        },
+        {
+          "id": 64,
+          "deviceTypeId": 19,
+          "deviceTypeName": "温控仪",
+          "name": "YYCJYB",
+          "nameCN": "长江仪表厂"
+        },
+        {
+          "id": 65,
+          "deviceTypeId": 17,
+          "deviceTypeName": "开关阀门",
+          "name": "qyszkgf",
+          "nameCN": "曲阳4中3号2.3号开关阀"
+        },
+        {
+          "id": 69,
+          "deviceTypeId": 13,
+          "deviceTypeName": "水泵",
+          "name": "ZMDQ",
+          "nameCN": "中苗电气"
+        },
+        {
+          "id": 71,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "BTDB",
+          "nameCN": "包头modbus电表"
+        },
+        {
+          "id": 72,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "OPCUA",
+          "nameCN": "OPCUA电表测试"
+        },
+        {
+          "id": 79,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "xiaomi",
+          "nameCN": "小米"
+        },
+        {
+          "id": 80,
+          "deviceTypeId": 7,
+          "deviceTypeName": "风冷热泵及其网关",
+          "name": "OUTES",
+          "nameCN": "中广欧斯特"
+        },
+        {
+          "id": 81,
+          "deviceTypeId": 30,
+          "deviceTypeName": "逆变器（新）",
+          "name": "G00DWE",
+          "nameCN": "固德威"
+        },
+        {
+          "id": 82,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "HM",
+          "nameCN": "智盟"
+        },
+        {
+          "id": 83,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "SISEN",
+          "nameCN": "西森"
+        },
+        {
+          "id": 84,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "XATC",
+          "nameCN": "西安同创"
+        },
+        {
+          "id": 85,
+          "deviceTypeId": 30,
+          "deviceTypeName": "逆变器（新）",
+          "name": "SUNGROW",
+          "nameCN": "阳光电源"
+        },
+        {
+          "id": 86,
+          "deviceTypeId": 22,
+          "deviceTypeName": "充电枪",
+          "name": "NJNR",
+          "nameCN": "南京能瑞"
+        },
+        {
+          "id": 87,
+          "deviceTypeId": 23,
+          "deviceTypeName": "多联机末端",
+          "name": "FYDLJ",
+          "nameCN": "飞奕多联机控制器"
+        },
+        {
+          "id": 88,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "zhiming",
+          "nameCN": "知民新风"
+        },
+        {
+          "id": 89,
+          "deviceTypeId": 24,
+          "deviceTypeName": "逆变器",
+          "name": "XTL",
+          "nameCN": "星特莱"
+        },
+        {
+          "id": 90,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "shpd",
+          "nameCN": "上海浦东国际机场数据库"
+        },
+        {
+          "id": 91,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "hongsimai",
+          "nameCN": "红斯迈G02水浸"
+        },
+        {
+          "id": 92,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "rgby",
+          "nameCN": "如皋八院电表"
+        },
+        {
+          "id": 93,
+          "deviceTypeId": 13,
+          "deviceTypeName": "水泵",
+          "name": "rgbyxhsb",
+          "nameCN": "如皋八院循环水泵"
+        },
+        {
+          "id": 94,
+          "deviceTypeId": 17,
+          "deviceTypeName": "开关阀门",
+          "name": "rgbyfm",
+          "nameCN": "如皋八院阀门"
+        },
+        {
+          "id": 95,
+          "deviceTypeId": 18,
+          "deviceTypeName": "调节阀门",
+          "name": "rgbyptf",
+          "nameCN": "如皋八院旁通阀"
+        },
+        {
+          "id": 96,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "rgbyflrb",
+          "nameCN": "如皋八院风冷热泵"
+        },
+        {
+          "id": 97,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "rgbykqn",
+          "nameCN": "如皋八院空气能"
+        },
+        {
+          "id": 98,
+          "deviceTypeId": 30,
+          "deviceTypeName": "逆变器（新）",
+          "name": "rgbyxtjk",
+          "nameCN": "如皋八院系统集控"
+        },
+        {
+          "id": 99,
+          "deviceTypeId": 30,
+          "deviceTypeName": "逆变器（新）",
+          "name": "bybsxt",
+          "nameCN": "如皋八院定压补水系统"
+        },
+        {
+          "id": 100,
+          "deviceTypeId": 13,
+          "deviceTypeName": "水泵",
+          "name": "rg1b",
+          "nameCN": "如皋八院1泵"
+        },
+        {
+          "id": 102,
+          "deviceTypeId": 17,
+          "deviceTypeName": "开关阀门",
+          "name": "rgbybsf",
+          "nameCN": "如皋八院补水阀"
+        },
+        {
+          "id": 105,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "rgby3flrb",
+          "nameCN": "如皋八院3#风冷热泵"
+        },
+        {
+          "id": 106,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "rgbyxit",
+          "nameCN": "如皋八院3号风冷热泵系统"
+        },
+        {
+          "id": 107,
+          "deviceTypeId": 15,
+          "deviceTypeName": "冷热量表",
+          "name": "mt",
+          "nameCN": "迈拓"
+        },
+        {
+          "id": 109,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "ZEM",
+          "nameCN": "智尔美"
+        },
+        {
+          "id": 110,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "zemkz",
+          "nameCN": "智尔美控制"
+        },
+        {
+          "id": 111,
+          "deviceTypeId": 23,
+          "deviceTypeName": "多联机末端",
+          "name": "TKM",
+          "nameCN": "TKM卡式风盘"
+        },
+        {
+          "id": 112,
+          "deviceTypeId": 7,
+          "deviceTypeName": "风冷热泵及其网关",
+          "name": "haiermokj",
+          "nameCN": "海尔模块机"
+        },
+        {
+          "id": 113,
+          "deviceTypeId": 15,
+          "deviceTypeName": "冷热量表",
+          "name": "ColliHigh",
+          "nameCN": "昆仑海岸"
+        },
+        {
+          "id": 114,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "sankai",
+          "nameCN": "三凯平台测试"
+        },
+        {
+          "id": 115,
+          "deviceTypeId": 9,
+          "deviceTypeName": "智能传感器",
+          "name": "klhazdbsq",
+          "nameCN": "昆仑海岸照度变送器"
+        },
+        {
+          "id": 116,
+          "deviceTypeId": 23,
+          "deviceTypeName": "多联机末端",
+          "name": "Medidlj",
+          "nameCN": "美的多联机控制器CCM18"
+        },
+        {
+          "id": 117,
+          "deviceTypeId": 7,
+          "deviceTypeName": "风冷热泵及其网关",
+          "name": "RLKJFLRB",
+          "nameCN": "RLKJ风冷热泵"
+        },
+        {
+          "id": 118,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "RLKJfl",
+          "nameCN": "RLKJ风冷"
+        },
+        {
+          "id": 119,
+          "deviceTypeId": 23,
+          "deviceTypeName": "多联机末端",
+          "name": "CCM-18",
+          "nameCN": "美的CCM18"
+        },
+        {
+          "id": 120,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "ZHONGCZH",
+          "nameCN": "中创智合"
+        },
+        {
+          "id": 121,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "JUYING",
+          "nameCN": "聚英电子"
+        },
+        {
+          "id": 122,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "CET",
+          "nameCN": "深圳市中电电力技术股份有限公司"
+        },
+        {
+          "id": 123,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "yddq",
+          "nameCN": "易达电器仪表"
+        },
+        {
+          "id": 124,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "HY",
+          "nameCN": "鸿远"
+        },
+        {
+          "id": 125,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "ZNKG",
+          "nameCN": "智能开关"
+        },
+        {
+          "id": 126,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "znkgkz",
+          "nameCN": "智能开关控制"
+        },
+        {
+          "id": 128,
+          "deviceTypeId": 15,
+          "deviceTypeName": "冷热量表",
+          "name": "S7",
+          "nameCN": "河北能源站西门子冷热量表"
+        },
+        {
+          "id": 129,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "s7mkj",
+          "nameCN": "河北能源站西门子模块机"
+        },
+        {
+          "id": 130,
+          "deviceTypeId": 18,
+          "deviceTypeName": "调节阀门",
+          "name": "s7ptf",
+          "nameCN": "河北能源站西门子旁通阀"
+        },
+        {
+          "id": 131,
+          "deviceTypeId": 13,
+          "deviceTypeName": "水泵",
+          "name": "S7SB",
+          "nameCN": "河北能源站西门子水泵"
+        },
+        {
+          "id": 132,
+          "deviceTypeId": 25,
+          "deviceTypeName": "系统信息",
+          "name": "s7sys",
+          "nameCN": "河北能源站西门子系统"
+        },
+        {
+          "id": 133,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "DELIXI",
+          "nameCN": "德力西"
+        },
+        {
+          "id": 134,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "ZK",
+          "nameCN": "无锡兆坤"
+        },
+        {
+          "id": 135,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "HIRUN",
+          "nameCN": "恒瑞"
+        },
+        {
+          "id": 136,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "ahtq",
+          "nameCN": "安徽拓强"
+        },
+        {
+          "id": 137,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "ahtqsb",
+          "nameCN": "安徽拓强综合能源表"
+        },
+        {
+          "id": 138,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "tj",
+          "nameCN": "台佳"
+        },
+        {
+          "id": 139,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "czghtra",
+          "nameCN": "常州港华"
+        },
+        {
+          "id": 140,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "sfere",
+          "nameCN": "江苏斯菲尔"
+        },
+        {
+          "id": 141,
+          "deviceTypeId": 6,
+          "deviceTypeName": "多联机空调控制器",
+          "name": "feiyijiangsu",
+          "nameCN": "飞奕江苏定制"
+        },
+        {
+          "id": 142,
+          "deviceTypeId": 29,
+          "deviceTypeName": "储能系统（新）",
+          "name": "TJXDY",
+          "nameCN": "天津鑫达源"
+        },
+        {
+          "id": 143,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "NZJN",
+          "nameCN": "南自江宁（控制器）"
+        },
+        {
+          "id": 144,
+          "deviceTypeId": 30,
+          "deviceTypeName": "逆变器（新）",
+          "name": "NZJNSCGF",
+          "nameCN": "南自江宁（数采与光伏）"
+        },
+        {
+          "id": 145,
+          "deviceTypeId": 29,
+          "deviceTypeName": "储能系统（新）",
+          "name": "hwsccl",
+          "nameCN": "南自江宁（华为数采储能）"
+        },
+        {
+          "id": 146,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "mantunscid",
+          "nameCN": "曼顿物联空开电"
+        },
+        {
+          "id": 147,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "mantunscik",
+          "nameCN": "曼顿物联空开控"
+        },
+        {
+          "id": 148,
+          "deviceTypeId": 26,
+          "deviceTypeName": "智能照明灯",
+          "name": "milesightrg",
+          "nameCN": "星纵人感"
+        },
+        {
+          "id": 149,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "milesightmb",
+          "nameCN": "星纵面板"
+        },
+        {
+          "id": 150,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "xkjh",
+          "nameCN": "新科聚合"
+        },
+        {
+          "id": 151,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "xdydb",
+          "nameCN": "天津鑫达源电表"
+        },
+        {
+          "id": 152,
+          "deviceTypeId": 9,
+          "deviceTypeName": "智能传感器",
+          "name": "sfereonoff",
+          "nameCN": "斯菲尔开关量状态"
+        },
+        {
+          "id": 153,
+          "deviceTypeId": 9,
+          "deviceTypeName": "智能传感器",
+          "name": "powersmart",
+          "nameCN": "电睿"
+        },
+        {
+          "id": 154,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "XLDZ",
+          "nameCN": "新联电子量测modbus"
+        },
+        {
+          "id": 155,
+          "deviceTypeId": 9,
+          "deviceTypeName": "智能传感器",
+          "name": "xinzong",
+          "nameCN": "星纵人感传感器"
+        },
+        {
+          "id": 156,
+          "deviceTypeId": 26,
+          "deviceTypeName": "智能照明灯",
+          "name": "xinzmb",
+          "nameCN": "星纵面板cc"
+        },
+        {
+          "id": 157,
+          "deviceTypeId": 9,
+          "deviceTypeName": "智能传感器",
+          "name": "SiN",
+          "nameCN": "塞恩电子"
+        },
+        {
+          "id": 158,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "yhck",
+          "nameCN": "上海有恒测控"
+        },
+        {
+          "id": 159,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "shyb",
+          "nameCN": "上海仪表"
+        },
+        {
+          "id": 160,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "shhj",
+          "nameCN": "上海好久测控"
+        },
+        {
+          "id": 161,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "senj",
+          "nameCN": "森吉"
+        },
+        {
+          "id": 162,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "shza",
+          "nameCN": "上海振安"
+        },
+        {
+          "id": 163,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "shaj",
+          "nameCN": "上海安钧"
+        },
+        {
+          "id": 164,
+          "deviceTypeId": 5,
+          "deviceTypeName": "环境传感器",
+          "name": "Yunideal",
+          "nameCN": "深圳云迪尔"
+        },
+        {
+          "id": 165,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "shktxm",
+          "nameCN": "上海空调"
+        },
+        {
+          "id": 166,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "hltx",
+          "nameCN": "海联天下"
+        },
+        {
+          "id": 167,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "DB",
+          "nameCN": "顿汉布什"
+        },
+        {
+          "id": 168,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "COMATE",
+          "nameCN": "科迈捷"
+        },
+        {
+          "id": 169,
+          "deviceTypeId": 5,
+          "deviceTypeName": "环境传感器",
+          "name": "LD",
+          "nameCN": "力得"
+        },
+        {
+          "id": 170,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "yhckyq",
+          "nameCN": "仪华测控"
+        },
+        {
+          "id": 171,
+          "deviceTypeId": 5,
+          "deviceTypeName": "环境传感器",
+          "name": "xldzcw",
+          "nameCN": "新联电子测温"
+        },
+        {
+          "id": 172,
+          "deviceTypeId": 9,
+          "deviceTypeName": "智能传感器",
+          "name": "xldzyx",
+          "nameCN": "新联电子遥信"
+        },
+        {
+          "id": 173,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "elecall",
+          "nameCN": "伊莱科"
+        },
+        {
+          "id": 174,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "xzsxxm",
+          "nameCN": "星纵陕西项目"
+        },
+        {
+          "id": 175,
+          "deviceTypeId": 8,
+          "deviceTypeName": "开关量",
+          "name": "SMRTE",
+          "nameCN": "斯玛瑞特智能"
+        },
+        {
+          "id": 176,
+          "deviceTypeId": 5,
+          "deviceTypeName": "环境传感器",
+          "name": "StartMeter",
+          "nameCN": "星仪"
+        },
+        {
+          "id": 177,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "LONIX",
+          "nameCN": "龙芯科技"
+        },
+        {
+          "id": 178,
+          "deviceTypeId": 23,
+          "deviceTypeName": "多联机末端",
+          "name": "mddlj",
+          "nameCN": "美的多联机重庆"
+        },
+        {
+          "id": 179,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "xldzacpdu",
+          "nameCN": "新联电子G30抄ACPDU"
+        },
+        {
+          "id": 180,
+          "deviceTypeId": 23,
+          "deviceTypeName": "多联机末端",
+          "name": "gldlj",
+          "nameCN": "格力多联机"
+        },
+        {
+          "id": 181,
+          "deviceTypeId": 5,
+          "deviceTypeName": "环境传感器",
+          "name": "yongytest",
+          "nameCN": "用于测试"
+        },
+        {
+          "id": 182,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "WoYat",
+          "nameCN": "南京沃亚特"
+        },
+        {
+          "id": 184,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "zjcey",
+          "nameCN": "主机测试用"
+        },
+        {
+          "id": 186,
+          "deviceTypeId": 4,
+          "deviceTypeName": "水冷机组及其网关",
+          "name": "KINGAIR",
+          "nameCN": "国祥空调"
+        },
+        {
+          "id": 187,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "xlshlc",
+          "nameCN": "上海量测单元"
+        },
+        {
+          "id": 188,
+          "deviceTypeId": 31,
+          "deviceTypeName": "气象表",
+          "name": "fsbsq",
+          "nameCN": "阳光气象"
+        },
+        {
+          "id": 189,
+          "deviceTypeId": 3,
+          "deviceTypeName": "电表类",
+          "name": "ADTEK",
+          "nameCN": "ADTEK"
+        },
+        {
+          "id": 190,
+          "deviceTypeId": 30,
+          "deviceTypeName": "逆变器（新）",
+          "name": "jlkj",
+          "nameCN": "锦浪科技"
+        },
+        {
+          "id": 191,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "supmea",
+          "nameCN": "杭州美仪"
+        },
+        {
+          "id": 192,
+          "deviceTypeId": 14,
+          "deviceTypeName": "能源采集表",
+          "name": "sdwwkj",
+          "nameCN": "山东潍微科技"
+        },
+        {
+          "id": 193,
+          "deviceTypeId": 6,
+          "deviceTypeName": "多联机空调控制器",
+          "name": "njny",
+          "nameCN": "南京隆远"
+        }
+      ]
+    }
+  },
+  "auth_me": {
+    "http": 200,
+    "body": {
+      "username": "admin",
+      "expires_at": 1793380248,
+      "is_super": true,
+      "phone_tail": "6342"
+    }
+  },
+  "ok": true
+}

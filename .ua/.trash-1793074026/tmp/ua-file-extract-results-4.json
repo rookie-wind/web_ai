@@ -1,0 +1,2615 @@
+{
+  "scriptCompleted": true,
+  "extractorNote": "python/c via cpython; docx excluded (binary source, .md text twin retained)",
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "results": [
+    {
+      "path": "mcp_server/archiving/converter.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 97,
+      "nonEmptyLines": 79,
+      "functions": [
+        {
+          "name": "convert_comm_address",
+          "startLine": 35,
+          "endLine": 72,
+          "params": [
+            "identifier"
+          ]
+        },
+        {
+          "name": "validate_device_address",
+          "startLine": 75,
+          "endLine": 96,
+          "params": [
+            "device_address"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AddressConversionError",
+          "startLine": 31,
+          "endLine": 32,
+          "methods": [],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "ValueError"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AddressConversionError",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "convert_comm_address",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "validate_device_address",
+          "line": 75,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "AddressConversionError",
+          "lineNumber": 52
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 53
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 53
+        },
+        {
+          "caller": "<module>",
+          "callee": "barcode.isdigit",
+          "lineNumber": 54
+        },
+        {
+          "caller": "<module>",
+          "callee": "AddressConversionError",
+          "lineNumber": 55
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 56
+        },
+        {
+          "caller": "<module>",
+          "callee": "AddressConversionError",
+          "lineNumber": 57
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 58
+        },
+        {
+          "caller": "<module>",
+          "callee": "enumerate",
+          "lineNumber": 62
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 64
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 64
+        },
+        {
+          "caller": "<module>",
+          "callee": "AddressConversionError",
+          "lineNumber": 65
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 68
+        },
+        {
+          "caller": "<module>",
+          "callee": "AddressConversionError",
+          "lineNumber": 69
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 70
+        },
+        {
+          "caller": "<module>",
+          "callee": "AddressConversionError",
+          "lineNumber": 88
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 89
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 89
+        },
+        {
+          "caller": "<module>",
+          "callee": "addr.isdigit",
+          "lineNumber": 90
+        },
+        {
+          "caller": "<module>",
+          "callee": "AddressConversionError",
+          "lineNumber": 91
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 92
+        },
+        {
+          "caller": "<module>",
+          "callee": "AddressConversionError",
+          "lineNumber": 93
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 94
+        }
+      ],
+      "metrics": {
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 21,
+      "functions": [],
+      "classes": [],
+      "exports": [],
+      "callGraph": [],
+      "metrics": {
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/base.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 243,
+      "nonEmptyLines": 202,
+      "functions": [
+        {
+          "name": "assemble_auth_param",
+          "startLine": 72,
+          "endLine": 128,
+          "params": [
+            "ip",
+            "port",
+            "comm_port",
+            "ip_ports",
+            "password"
+          ]
+        },
+        {
+          "name": "encode_auth_param_hex",
+          "startLine": 131,
+          "endLine": 160,
+          "params": [
+            "ip",
+            "port"
+          ]
+        },
+        {
+          "name": "normalize_auth_param_for_deploy",
+          "startLine": 163,
+          "endLine": 191,
+          "params": [
+            "value"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileResult",
+          "startLine": 45,
+          "endLine": 69,
+          "methods": [
+            "ok"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        },
+        {
+          "name": "DeviceProfile",
+          "startLine": 194,
+          "endLine": 242,
+          "methods": [
+            "resolve",
+            "_undeclared_columns"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ok",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "ProfileResult",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "assemble_auth_param",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "encode_auth_param_hex",
+          "line": 131,
+          "isDefault": false
+        },
+        {
+          "name": "normalize_auth_param_for_deploy",
+          "line": 163,
+          "isDefault": false
+        },
+        {
+          "name": "resolve",
+          "line": 216,
+          "isDefault": false
+        },
+        {
+          "name": "_undeclared_columns",
+          "line": 230,
+          "isDefault": false
+        },
+        {
+          "name": "DeviceProfile",
+          "line": 194,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ProfileResult",
+          "callee": "field",
+          "lineNumber": 58
+        },
+        {
+          "caller": "ProfileResult",
+          "callee": "field",
+          "lineNumber": 59
+        },
+        {
+          "caller": "ProfileResult",
+          "callee": "field",
+          "lineNumber": 60
+        },
+        {
+          "caller": "ProfileResult",
+          "callee": "field",
+          "lineNumber": 61
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 105
+        },
+        {
+          "caller": "<module>",
+          "callee": "password.strip",
+          "lineNumber": 106
+        },
+        {
+          "caller": "<module>",
+          "callee": "ValueError",
+          "lineNumber": 107
+        },
+        {
+          "caller": "<module>",
+          "callee": "ValueError",
+          "lineNumber": 114
+        },
+        {
+          "caller": "<module>",
+          "callee": "ip.split",
+          "lineNumber": 117
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 118
+        },
+        {
+          "caller": "<module>",
+          "callee": "all",
+          "lineNumber": 118
+        },
+        {
+          "caller": "<module>",
+          "callee": "p.isdigit",
+          "lineNumber": 118
+        },
+        {
+          "caller": "<module>",
+          "callee": "int",
+          "lineNumber": 118
+        },
+        {
+          "caller": "<module>",
+          "callee": "ValueError",
+          "lineNumber": 119
+        },
+        {
+          "caller": "<module>",
+          "callee": "port.isdigit",
+          "lineNumber": 120
+        },
+        {
+          "caller": "<module>",
+          "callee": "ValueError",
+          "lineNumber": 121
+        },
+        {
+          "caller": "<module>",
+          "callee": "ValueError",
+          "lineNumber": 124
+        },
+        {
+          "caller": "<module>",
+          "callee": "password.strip",
+          "lineNumber": 128
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 150
+        },
+        {
+          "caller": "<module>",
+          "callee": "all",
+          "lineNumber": 150
+        },
+        {
+          "caller": "<module>",
+          "callee": "p.isdigit",
+          "lineNumber": 151
+        },
+        {
+          "caller": "<module>",
+          "callee": "int",
+          "lineNumber": 151
+        },
+        {
+          "caller": "<module>",
+          "callee": "ValueError",
+          "lineNumber": 153
+        },
+        {
+          "caller": "<module>",
+          "callee": "port_text.isdigit",
+          "lineNumber": 155
+        },
+        {
+          "caller": "<module>",
+          "callee": "ValueError",
+          "lineNumber": 156
+        },
+        {
+          "caller": "<module>",
+          "callee": "int",
+          "lineNumber": 157
+        },
+        {
+          "caller": "<module>",
+          "callee": "ValueError",
+          "lineNumber": 159
+        },
+        {
+          "caller": "<module>",
+          "callee": "int",
+          "lineNumber": 160
+        },
+        {
+          "caller": "<module>",
+          "callee": "text.split",
+          "lineNumber": 182
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 183
+        },
+        {
+          "caller": "<module>",
+          "callee": "encode_auth_param_hex",
+          "lineNumber": 185
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 189
+        },
+        {
+          "caller": "<module>",
+          "callee": "all",
+          "lineNumber": 189
+        },
+        {
+          "caller": "<module>",
+          "callee": "text.lower",
+          "lineNumber": 190
+        },
+        {
+          "caller": "DeviceProfile",
+          "callee": "sorted",
+          "lineNumber": 240
+        }
+      ],
+      "metrics": {
+        "exportCount": 8,
+        "functionCount": 3,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/gateway_8163.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 113,
+      "nonEmptyLines": 97,
+      "functions": [],
+      "classes": [
+        {
+          "name": "Gateway8163Profile",
+          "startLine": 25,
+          "endLine": 112,
+          "methods": [
+            "resolve"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "DeviceProfile"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "resolve",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "Gateway8163Profile",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "ProfileResult",
+          "lineNumber": 44
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "self._undeclared_columns",
+          "lineNumber": 48
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "str.strip",
+          "lineNumber": 49
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "str",
+          "lineNumber": 49
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "result.errors.append",
+          "lineNumber": 50
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "str.strip",
+          "lineNumber": 53
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "str",
+          "lineNumber": 53
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "str.strip",
+          "lineNumber": 54
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "str",
+          "lineNumber": 54
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "validate_device_address",
+          "lineNumber": 57
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "result.errors.append",
+          "lineNumber": 59
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "convert_comm_address",
+          "lineNumber": 63
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "result.errors.append",
+          "lineNumber": 65
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "result.errors.append",
+          "lineNumber": 67
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "str.strip",
+          "lineNumber": 74
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "str",
+          "lineNumber": 74
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "detail.get",
+          "lineNumber": 74
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "result.warnings.append",
+          "lineNumber": 76
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "_COMM_MODE_CODE_MAP.get",
+          "lineNumber": 83
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "_COMM_MODE_CODE_MAP.values",
+          "lineNumber": 84
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "result.errors.append",
+          "lineNumber": 87
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "result.errors.append",
+          "lineNumber": 94
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "str.strip",
+          "lineNumber": 104
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "str",
+          "lineNumber": 104
+        },
+        {
+          "caller": "Gateway8163Profile",
+          "callee": "result.warnings.append",
+          "lineNumber": 109
+        }
+      ],
+      "metrics": {
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/meter_lighting.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 21,
+      "functions": [],
+      "classes": [
+        {
+          "name": "MeterLightingProfile",
+          "startLine": 19,
+          "endLine": 30,
+          "methods": [],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "MeterXlbaProfile"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MeterLightingProfile",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [],
+      "metrics": {
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/meter_pdb.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 21,
+      "functions": [],
+      "classes": [
+        {
+          "name": "MeterPdbProfile",
+          "startLine": 19,
+          "endLine": 30,
+          "methods": [],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "MeterXlbaProfile"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MeterPdbProfile",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [],
+      "metrics": {
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/meter_xlba.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 504,
+      "nonEmptyLines": 464,
+      "functions": [
+        {
+          "name": "_text",
+          "startLine": 59,
+          "endLine": 61,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "_map_code",
+          "startLine": 64,
+          "endLine": 85,
+          "params": [
+            "raw",
+            "mapping",
+            "default"
+          ]
+        },
+        {
+          "name": "_to_int",
+          "startLine": 88,
+          "endLine": 103,
+          "params": [
+            "value",
+            "default"
+          ]
+        },
+        {
+          "name": "_compute_fee_num",
+          "startLine": 106,
+          "endLine": 128,
+          "params": [
+            "baud_code",
+            "stop_code",
+            "check_code",
+            "data_code"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "MeterXlbaProfile",
+          "startLine": 131,
+          "endLine": 503,
+          "methods": [
+            "resolve"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "DeviceProfile"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_text",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "_map_code",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "_to_int",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "_compute_fee_num",
+          "line": 106,
+          "isDefault": false
+        },
+        {
+          "name": "resolve",
+          "line": 141,
+          "isDefault": false
+        },
+        {
+          "name": "MeterXlbaProfile",
+          "line": 131,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 61
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 61
+        },
+        {
+          "caller": "<module>",
+          "callee": "_text",
+          "lineNumber": 77
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 80
+        },
+        {
+          "caller": "<module>",
+          "callee": "_text",
+          "lineNumber": 80
+        },
+        {
+          "caller": "<module>",
+          "callee": "mapping.items",
+          "lineNumber": 80
+        },
+        {
+          "caller": "<module>",
+          "callee": "normalized.values",
+          "lineNumber": 83
+        },
+        {
+          "caller": "<module>",
+          "callee": "ValueError",
+          "lineNumber": 85
+        },
+        {
+          "caller": "<module>",
+          "callee": "int",
+          "lineNumber": 101
+        },
+        {
+          "caller": "<module>",
+          "callee": "str.strip",
+          "lineNumber": 101
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 101
+        },
+        {
+          "caller": "<module>",
+          "callee": "int",
+          "lineNumber": 122
+        },
+        {
+          "caller": "<module>",
+          "callee": "int",
+          "lineNumber": 123
+        },
+        {
+          "caller": "<module>",
+          "callee": "int",
+          "lineNumber": 124
+        },
+        {
+          "caller": "<module>",
+          "callee": "int",
+          "lineNumber": 125
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "ProfileResult",
+          "lineNumber": 164
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "dict",
+          "lineNumber": 165
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "self._undeclared_columns",
+          "lineNumber": 166
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 167
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 168
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "getattr",
+          "lineNumber": 181
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "set",
+          "lineNumber": 191
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "set",
+          "lineNumber": 191
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 192
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 192
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "aliases.get",
+          "lineNumber": 192
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "COMM_PORT_CODE_MAP.get",
+          "lineNumber": 197
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_map_code",
+          "lineNumber": 199
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "len",
+          "lineNumber": 200
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "set",
+          "lineNumber": 200
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "ValueError",
+          "lineNumber": 201
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 204
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "aliases.values",
+          "lineNumber": 206
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.pop",
+          "lineNumber": 208
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 210
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 210
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "isinstance",
+          "lineNumber": 213
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "int",
+          "lineNumber": 213
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 215
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "int",
+          "lineNumber": 215
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 217
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 218
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 218
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "fee_num.isdecimal",
+          "lineNumber": 219
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "int",
+          "lineNumber": 219
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 220
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 225
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 225
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 226
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 226
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 227
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 227
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "assemble_auth_param",
+          "lineNumber": 229
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 231
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 231
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 235
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.warnings.append",
+          "lineNumber": 243
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 253
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 253
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 253
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.warnings.append",
+          "lineNumber": 256
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "int",
+          "lineNumber": 262
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 266
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 273
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 273
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 275
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 275
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 275
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 277
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 277
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "validate_device_address",
+          "lineNumber": 280
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 282
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 285
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 290
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_map_code",
+          "lineNumber": 294
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 295
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "getattr",
+          "lineNumber": 296
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_map_code",
+          "lineNumber": 300
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 301
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 308
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 308
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 308
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 309
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 309
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 309
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 310
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 310
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 310
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 311
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 311
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 311
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "sum",
+          "lineNumber": 314
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.warnings.append",
+          "lineNumber": 316
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 320
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 321
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_map_code",
+          "lineNumber": 331
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_map_code",
+          "lineNumber": 332
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_map_code",
+          "lineNumber": 333
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 338
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 338
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 338
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_map_code",
+          "lineNumber": 335
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 336
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 336
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 336
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 339
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 339
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 340
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 340
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 348
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 348
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 351
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 353
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 353
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 356
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 356
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 356
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 365
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 365
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 366
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 366
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "getattr",
+          "lineNumber": 369
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "getattr",
+          "lineNumber": 370
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_map_code",
+          "lineNumber": 373
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "ValueError",
+          "lineNumber": 376
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "brand_map.items",
+          "lineNumber": 378
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 378
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "len",
+          "lineNumber": 382
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "ValueError",
+          "lineNumber": 383
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_map_code",
+          "lineNumber": 384
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "model_map.get",
+          "lineNumber": 384
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 385
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 385
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "ValueError",
+          "lineNumber": 387
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 389
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 393
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 393
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "model_map.get",
+          "lineNumber": 403
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 415
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 415
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 415
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.zfill",
+          "lineNumber": 417
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 417
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "base_payload.get",
+          "lineNumber": 431
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "base_payload.get",
+          "lineNumber": 432
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "base_payload.get",
+          "lineNumber": 433
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "ext_infos.get",
+          "lineNumber": 434
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "ext_infos.get",
+          "lineNumber": 435
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "ext_infos.get",
+          "lineNumber": 436
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 439
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "sources.items",
+          "lineNumber": 440
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 441
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "int",
+          "lineNumber": 445
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 447
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "encode_auth_param_hex",
+          "lineNumber": 460
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 464
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "normalize_auth_param_for_deploy",
+          "lineNumber": 467
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 468
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "item_body.get",
+          "lineNumber": 468
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 471
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "base_payload.get",
+          "lineNumber": 471
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 478
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 478
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 478
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 479
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 479
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 479
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 480
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 480
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 480
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str.strip",
+          "lineNumber": 481
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 481
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 481
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_text",
+          "lineNumber": 482
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "detail.get",
+          "lineNumber": 482
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_map_code",
+          "lineNumber": 485
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "base_payload.get",
+          "lineNumber": 486
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "base_payload.get",
+          "lineNumber": 487
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "base_payload.get",
+          "lineNumber": 488
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_compute_fee_num",
+          "lineNumber": 490
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "_to_int",
+          "lineNumber": 495
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "int",
+          "lineNumber": 499
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 500
+        },
+        {
+          "caller": "MeterXlbaProfile",
+          "callee": "str",
+          "lineNumber": 501
+        }
+      ],
+      "metrics": {
+        "exportCount": 6,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/archiving/profiles/registry.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 210,
+      "nonEmptyLines": 171,
+      "functions": [
+        {
+          "name": "_build_default_registry",
+          "startLine": 192,
+          "endLine": 205,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileLookupError",
+          "startLine": 29,
+          "endLine": 30,
+          "methods": [],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "Exception"
+          ]
+        },
+        {
+          "name": "VirtualGatewayPlaceholderProfile",
+          "startLine": 33,
+          "endLine": 65,
+          "methods": [
+            "resolve"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "DeviceProfile"
+          ]
+        },
+        {
+          "name": "ProfileRegistry",
+          "startLine": 68,
+          "endLine": 189,
+          "methods": [
+            "__init__",
+            "register",
+            "get",
+            "resolve",
+            "sheet_spec",
+            "supported_types"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileLookupError",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "resolve",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "VirtualGatewayPlaceholderProfile",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "__init__",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "register",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "get",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "resolve",
+          "line": 109,
+          "isDefault": false
+        },
+        {
+          "name": "sheet_spec",
+          "line": 137,
+          "isDefault": false
+        },
+        {
+          "name": "supported_types",
+          "line": 157,
+          "isDefault": false
+        },
+        {
+          "name": "ProfileRegistry",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "_build_default_registry",
+          "line": 192,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "VirtualGatewayPlaceholderProfile",
+          "callee": "ProfileResult",
+          "lineNumber": 58
+        },
+        {
+          "caller": "VirtualGatewayPlaceholderProfile",
+          "callee": "result.errors.append",
+          "lineNumber": 59
+        },
+        {
+          "caller": "VirtualGatewayPlaceholderProfile",
+          "callee": "getattr",
+          "lineNumber": 61
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "str",
+          "lineNumber": 89
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "str",
+          "lineNumber": 105
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "str",
+          "lineNumber": 106
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "self.get",
+          "lineNumber": 122
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "getattr",
+          "lineNumber": 129
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "get_sheet_spec",
+          "lineNumber": 155
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "set",
+          "lineNumber": 164
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "list",
+          "lineNumber": 169
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "self._by_name.values",
+          "lineNumber": 169
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "list",
+          "lineNumber": 169
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "self._by_id.values",
+          "lineNumber": 169
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "seen.add",
+          "lineNumber": 172
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "get_sheet_spec",
+          "lineNumber": 173
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "out.append",
+          "lineNumber": 174
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "getattr",
+          "lineNumber": 179
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "dict",
+          "lineNumber": 182
+        },
+        {
+          "caller": "ProfileRegistry",
+          "callee": "spec.unverified_fields",
+          "lineNumber": 185
+        },
+        {
+          "caller": "<module>",
+          "callee": "ProfileRegistry",
+          "lineNumber": 199
+        },
+        {
+          "caller": "<module>",
+          "callee": "registry.register",
+          "lineNumber": 200
+        },
+        {
+          "caller": "<module>",
+          "callee": "Gateway8163Profile",
+          "lineNumber": 200
+        },
+        {
+          "caller": "<module>",
+          "callee": "registry.register",
+          "lineNumber": 201
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 201
+        },
+        {
+          "caller": "<module>",
+          "callee": "registry.register",
+          "lineNumber": 202
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterLightingProfile",
+          "lineNumber": 202
+        },
+        {
+          "caller": "<module>",
+          "callee": "registry.register",
+          "lineNumber": 203
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterPdbProfile",
+          "lineNumber": 203
+        },
+        {
+          "caller": "<module>",
+          "callee": "registry.register",
+          "lineNumber": 204
+        },
+        {
+          "caller": "<module>",
+          "callee": "VirtualGatewayPlaceholderProfile",
+          "lineNumber": 204
+        },
+        {
+          "caller": "<module>",
+          "callee": "_build_default_registry",
+          "lineNumber": 209
+        }
+      ],
+      "metrics": {
+        "exportCount": 11,
+        "functionCount": 1,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "mcp_server/tests/test_brand_model_code.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 244,
+      "nonEmptyLines": 210,
+      "functions": [
+        {
+          "name": "_node",
+          "startLine": 19,
+          "endLine": 22,
+          "params": [
+            "**kw"
+          ]
+        },
+        {
+          "name": "test_batch_fields_match_all_three_targets",
+          "startLine": 125,
+          "endLine": 157,
+          "params": [
+            "name",
+            "barcode",
+            "road",
+            "brand",
+            "model",
+            "brand_code",
+            "model_code",
+            "interval",
+            "interval_code"
+          ]
+        },
+        {
+          "name": "test_unknown_enum_blocks",
+          "startLine": 161,
+          "endLine": 166,
+          "params": [
+            "field",
+            "value"
+          ]
+        },
+        {
+          "name": "test_zero_serial_values_preserved",
+          "startLine": 169,
+          "endLine": 178,
+          "params": []
+        },
+        {
+          "name": "test_gateway_conversion_matches_175_handler",
+          "startLine": 185,
+          "endLine": 190,
+          "params": [
+            "barcode",
+            "address"
+          ]
+        },
+        {
+          "name": "test_invalid_parameter_contract_blocks",
+          "startLine": 198,
+          "endLine": 207,
+          "params": [
+            "field",
+            "value"
+          ]
+        },
+        {
+          "name": "test_conflicting_aliases_block",
+          "startLine": 218,
+          "endLine": 223,
+          "params": [
+            "aliases"
+          ]
+        },
+        {
+          "name": "test_equivalent_aliases_share_normalized_output",
+          "startLine": 226,
+          "endLine": 240,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestBrandModelCode",
+          "startLine": 25,
+          "endLine": 110,
+          "methods": [
+            "test_gateway_identifier_written",
+            "test_gateway_no_identifier_omitted",
+            "test_meter_brand_model_to_code",
+            "test_meter_empty_mapping_rejected",
+            "test_meter_model_key_fixed",
+            "test_meter_user_big_no_dynamic_mapping",
+            "test_meter_user_big_no_fallback_to_hardcoded",
+            "test_meter_user_big_no_unknown_name_rejected"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_node",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "test_gateway_identifier_written",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "test_gateway_no_identifier_omitted",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "test_meter_brand_model_to_code",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "test_meter_empty_mapping_rejected",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "test_meter_model_key_fixed",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "test_meter_user_big_no_dynamic_mapping",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "test_meter_user_big_no_fallback_to_hardcoded",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "test_meter_user_big_no_unknown_name_rejected",
+          "line": 100,
+          "isDefault": false
+        },
+        {
+          "name": "TestBrandModelCode",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "test_batch_fields_match_all_three_targets",
+          "line": 125,
+          "isDefault": false
+        },
+        {
+          "name": "test_unknown_enum_blocks",
+          "line": 161,
+          "isDefault": false
+        },
+        {
+          "name": "test_zero_serial_values_preserved",
+          "line": 169,
+          "isDefault": false
+        },
+        {
+          "name": "test_gateway_conversion_matches_175_handler",
+          "line": 185,
+          "isDefault": false
+        },
+        {
+          "name": "test_invalid_parameter_contract_blocks",
+          "line": 198,
+          "isDefault": false
+        },
+        {
+          "name": "test_conflicting_aliases_block",
+          "line": 218,
+          "isDefault": false
+        },
+        {
+          "name": "test_equivalent_aliases_share_normalized_output",
+          "line": 226,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "Path",
+          "lineNumber": 9
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 10
+        },
+        {
+          "caller": "<module>",
+          "callee": "sys.path.insert",
+          "lineNumber": 11
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 11
+        },
+        {
+          "caller": "<module>",
+          "callee": "dict",
+          "lineNumber": 20
+        },
+        {
+          "caller": "<module>",
+          "callee": "defaults.update",
+          "lineNumber": 21
+        },
+        {
+          "caller": "<module>",
+          "callee": "TopologyNode",
+          "lineNumber": 22
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "_node",
+          "lineNumber": 29
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "Gateway8163Profile",
+          "lineNumber": 31
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "prof.resolve",
+          "lineNumber": 32
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "TaskConfig",
+          "lineNumber": 32
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "r.base_payload.get",
+          "lineNumber": 33
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "_node",
+          "lineNumber": 36
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "Gateway8163Profile",
+          "lineNumber": 38
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "prof.resolve",
+          "lineNumber": 39
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "TaskConfig",
+          "lineNumber": 39
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "TaskConfig",
+          "lineNumber": 43
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "_node",
+          "lineNumber": 47
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 49
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "prof.resolve",
+          "lineNumber": 50
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "TaskConfig",
+          "lineNumber": 56
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "_node",
+          "lineNumber": 57
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 59
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "prof.resolve",
+          "lineNumber": 60
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "any",
+          "lineNumber": 61
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "TaskConfig",
+          "lineNumber": 67
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "_node",
+          "lineNumber": 68
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 70
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "prof.resolve",
+          "lineNumber": 71
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "any",
+          "lineNumber": 73
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "TaskConfig",
+          "lineNumber": 77
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "_node",
+          "lineNumber": 80
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 82
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "prof.resolve",
+          "lineNumber": 83
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "TaskConfig",
+          "lineNumber": 91
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "_node",
+          "lineNumber": 92
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 94
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "prof.resolve",
+          "lineNumber": 95
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "TaskConfig",
+          "lineNumber": 102
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "_node",
+          "lineNumber": 105
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 107
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "prof.resolve",
+          "lineNumber": 108
+        },
+        {
+          "caller": "TestBrandModelCode",
+          "callee": "any",
+          "lineNumber": 109
+        },
+        {
+          "caller": "<module>",
+          "callee": "TaskConfig",
+          "lineNumber": 129
+        },
+        {
+          "caller": "<module>",
+          "callee": "_node",
+          "lineNumber": 133
+        },
+        {
+          "caller": "<module>",
+          "callee": "str",
+          "lineNumber": 133
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile.resolve",
+          "lineNumber": 140
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 140
+        },
+        {
+          "caller": "<module>",
+          "callee": "resolved.base_payload.get",
+          "lineNumber": 143
+        },
+        {
+          "caller": "<module>",
+          "callee": "int",
+          "lineNumber": 151
+        },
+        {
+          "caller": "<module>",
+          "callee": "int",
+          "lineNumber": 152
+        },
+        {
+          "caller": "<module>",
+          "callee": "pytest.mark.parametrize",
+          "lineNumber": 113
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile.resolve",
+          "lineNumber": 163
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 163
+        },
+        {
+          "caller": "<module>",
+          "callee": "_node",
+          "lineNumber": 164
+        },
+        {
+          "caller": "<module>",
+          "callee": "TaskConfig",
+          "lineNumber": 164
+        },
+        {
+          "caller": "<module>",
+          "callee": "pytest.mark.parametrize",
+          "lineNumber": 160
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile.resolve",
+          "lineNumber": 171
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 171
+        },
+        {
+          "caller": "<module>",
+          "callee": "_node",
+          "lineNumber": 172
+        },
+        {
+          "caller": "<module>",
+          "callee": "TaskConfig",
+          "lineNumber": 172
+        },
+        {
+          "caller": "<module>",
+          "callee": "convert_comm_address",
+          "lineNumber": 189
+        },
+        {
+          "caller": "<module>",
+          "callee": "pytest.mark.parametrize",
+          "lineNumber": 181
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile.resolve",
+          "lineNumber": 204
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 204
+        },
+        {
+          "caller": "<module>",
+          "callee": "_node",
+          "lineNumber": 205
+        },
+        {
+          "caller": "<module>",
+          "callee": "TaskConfig",
+          "lineNumber": 205
+        },
+        {
+          "caller": "<module>",
+          "callee": "pytest.mark.parametrize",
+          "lineNumber": 193
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile.resolve",
+          "lineNumber": 220
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 220
+        },
+        {
+          "caller": "<module>",
+          "callee": "_node",
+          "lineNumber": 221
+        },
+        {
+          "caller": "<module>",
+          "callee": "TaskConfig",
+          "lineNumber": 221
+        },
+        {
+          "caller": "<module>",
+          "callee": "any",
+          "lineNumber": 223
+        },
+        {
+          "caller": "<module>",
+          "callee": "pytest.mark.parametrize",
+          "lineNumber": 210
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile.resolve",
+          "lineNumber": 228
+        },
+        {
+          "caller": "<module>",
+          "callee": "MeterXlbaProfile",
+          "lineNumber": 228
+        },
+        {
+          "caller": "<module>",
+          "callee": "_node",
+          "lineNumber": 229
+        },
+        {
+          "caller": "<module>",
+          "callee": "TaskConfig",
+          "lineNumber": 229
+        },
+        {
+          "caller": "<module>",
+          "callee": "pytest.main",
+          "lineNumber": 244
+        }
+      ],
+      "metrics": {
+        "exportCount": 17,
+        "functionCount": 8,
+        "classCount": 1
+      }
+    }
+  ]
+}

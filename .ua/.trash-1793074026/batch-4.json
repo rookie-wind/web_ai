@@ -1,0 +1,657 @@
+{
+  "nodes": [
+    {
+      "id": "file:mcp_server/archiving/converter.py",
+      "type": "file",
+      "name": "converter.py",
+      "filePath": "mcp_server/archiving/converter.py",
+      "summary": "通讯地址转换器：把用户填写的通讯标识解析为边缘所需的地址结构，非法格式直接报错。",
+      "tags": [
+        "转换",
+        "通讯地址",
+        "utility",
+        "archiving"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:mcp_server/archiving/converter.py:AddressConversionError",
+      "type": "class",
+      "name": "AddressConversionError",
+      "filePath": "mcp_server/archiving/converter.py",
+      "lineRange": [
+        31,
+        32
+      ],
+      "summary": "通讯地址解析失败时抛出的异常。",
+      "tags": [
+        "异常",
+        "转换"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/archiving/converter.py:convert_comm_address",
+      "type": "function",
+      "name": "convert_comm_address",
+      "filePath": "mcp_server/archiving/converter.py",
+      "lineRange": [
+        35,
+        72
+      ],
+      "summary": "将通讯地址标识（串口/以太网等）转换为标准地址对象并校验合法性。",
+      "tags": [
+        "转换",
+        "通讯地址",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mcp_server/archiving/profiles/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "mcp_server/archiving/profiles/__init__.py",
+      "summary": "设备 Profile 子包入口，重导出注册表供建档引擎按类型取用 Profile。",
+      "tags": [
+        "barrel",
+        "entry-point",
+        "profile"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mcp_server/archiving/profiles/base.py",
+      "type": "file",
+      "name": "base.py",
+      "filePath": "mcp_server/archiving/profiles/base.py",
+      "summary": "设备 Profile 抽象基座：定义 Profile 接口、结果模型，并实现认证参数（authParam）的组装、十六进制编码与下发前归一化。",
+      "tags": [
+        "profile",
+        "抽象基类",
+        "认证参数",
+        "archiving"
+      ],
+      "complexity": "complex",
+      "languageNotes": "authParam 在以太网设备报文里实际承载通信 IP 与端口，因此编码规则必须与页面口径严格一致。"
+    },
+    {
+      "id": "class:mcp_server/archiving/profiles/base.py:ProfileResult",
+      "type": "class",
+      "name": "ProfileResult",
+      "filePath": "mcp_server/archiving/profiles/base.py",
+      "lineRange": [
+        45,
+        69
+      ],
+      "summary": "Profile 装配结果模型，承载字段映射、告警与可下发判定。",
+      "tags": [
+        "data-model",
+        "profile"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/archiving/profiles/base.py:assemble_auth_param",
+      "type": "function",
+      "name": "assemble_auth_param",
+      "filePath": "mcp_server/archiving/profiles/base.py",
+      "lineRange": [
+        72,
+        128
+      ],
+      "summary": "按通讯方式组装认证参数，以太网写入 IP/端口，串口写入口令。",
+      "tags": [
+        "认证参数",
+        "组装",
+        "core-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/archiving/profiles/base.py:encode_auth_param_hex",
+      "type": "function",
+      "name": "encode_auth_param_hex",
+      "filePath": "mcp_server/archiving/profiles/base.py",
+      "lineRange": [
+        131,
+        160
+      ],
+      "summary": "把 IP 与端口编码为 ETH 设备使用的十六进制 authParam 串。",
+      "tags": [
+        "认证参数",
+        "编码",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/archiving/profiles/base.py:normalize_auth_param_for_deploy",
+      "type": "function",
+      "name": "normalize_auth_param_for_deploy",
+      "filePath": "mcp_server/archiving/profiles/base.py",
+      "lineRange": [
+        163,
+        191
+      ],
+      "summary": "下发前归一化 authParam，退回占位值并补齐缺失分隔符。",
+      "tags": [
+        "认证参数",
+        "归一化",
+        "下发"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/profiles/base.py:DeviceProfile",
+      "type": "class",
+      "name": "DeviceProfile",
+      "filePath": "mcp_server/archiving/profiles/base.py",
+      "lineRange": [
+        194,
+        242
+      ],
+      "summary": "设备 Profile 抽象基类，约定字段解析、报文组装与回读校验的子类接口。",
+      "tags": [
+        "抽象基类",
+        "profile",
+        "扩展点"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mcp_server/archiving/profiles/gateway_8163.py",
+      "type": "file",
+      "name": "gateway_8163.py",
+      "filePath": "mcp_server/archiving/profiles/gateway_8163.py",
+      "summary": "8163 网关 Profile：实现网关类设备的字段解析与建档报文组装规则。",
+      "tags": [
+        "profile",
+        "网关",
+        "建档"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:mcp_server/archiving/profiles/gateway_8163.py:Gateway8163Profile",
+      "type": "class",
+      "name": "Gateway8163Profile",
+      "filePath": "mcp_server/archiving/profiles/gateway_8163.py",
+      "lineRange": [
+        25,
+        112
+      ],
+      "summary": "8163 网关具体 Profile，覆写网关侧字段装配与校验逻辑。",
+      "tags": [
+        "profile",
+        "网关",
+        "建档"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/archiving/profiles/meter_lighting.py",
+      "type": "file",
+      "name": "meter_lighting.py",
+      "filePath": "mcp_server/archiving/profiles/meter_lighting.py",
+      "summary": "照明电表 Profile：在 XLBA 基础上适配照明类监测点的字段差异。",
+      "tags": [
+        "profile",
+        "照明",
+        "电表"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/profiles/meter_lighting.py:MeterLightingProfile",
+      "type": "class",
+      "name": "MeterLightingProfile",
+      "filePath": "mcp_server/archiving/profiles/meter_lighting.py",
+      "lineRange": [
+        19,
+        30
+      ],
+      "summary": "照明类监测点 Profile，复用 XLBA 装配逻辑并调整类型相关字段。",
+      "tags": [
+        "profile",
+        "照明",
+        "电表"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mcp_server/archiving/profiles/meter_pdb.py",
+      "type": "file",
+      "name": "meter_pdb.py",
+      "filePath": "mcp_server/archiving/profiles/meter_pdb.py",
+      "summary": "配电房电表 Profile：在 XLBA 基础上适配配电房类监测点的字段差异。",
+      "tags": [
+        "profile",
+        "配电房",
+        "电表"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/profiles/meter_pdb.py:MeterPdbProfile",
+      "type": "class",
+      "name": "MeterPdbProfile",
+      "filePath": "mcp_server/archiving/profiles/meter_pdb.py",
+      "lineRange": [
+        19,
+        30
+      ],
+      "summary": "配电房类监测点 Profile，复用 XLBA 装配逻辑并调整类型相关字段。",
+      "tags": [
+        "profile",
+        "配电房",
+        "电表"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mcp_server/archiving/profiles/meter_xlba.py",
+      "type": "file",
+      "name": "meter_xlba.py",
+      "filePath": "mcp_server/archiving/profiles/meter_xlba.py",
+      "summary": "XLBA 电表 Profile：电表建档与参数报文的核心装配实现，覆盖数据项、费率位数、采集器编号等细节。",
+      "tags": [
+        "profile",
+        "电表",
+        "报文组装",
+        "core-logic"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:mcp_server/archiving/profiles/meter_xlba.py:MeterXlbaProfile",
+      "type": "class",
+      "name": "MeterXlbaProfile",
+      "filePath": "mcp_server/archiving/profiles/meter_xlba.py",
+      "lineRange": [
+        131,
+        503
+      ],
+      "summary": "电表类设备主 Profile，实现字段解析、报文组装、免模板回推与回读校验。",
+      "tags": [
+        "profile",
+        "电表",
+        "报文组装"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:mcp_server/archiving/profiles/registry.py",
+      "type": "file",
+      "name": "registry.py",
+      "filePath": "mcp_server/archiving/profiles/registry.py",
+      "summary": "设备 Profile 注册表：按设备类型解析应使用的 Profile，并提供虚拟网关占位与查找失败处理。",
+      "tags": [
+        "profile",
+        "注册表",
+        "路由",
+        "archiving"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:mcp_server/archiving/profiles/registry.py:ProfileLookupError",
+      "type": "class",
+      "name": "ProfileLookupError",
+      "filePath": "mcp_server/archiving/profiles/registry.py",
+      "lineRange": [
+        29,
+        30
+      ],
+      "summary": "按类型查找 Profile 失败时抛出的异常。",
+      "tags": [
+        "异常",
+        "profile"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/profiles/registry.py:VirtualGatewayPlaceholderProfile",
+      "type": "class",
+      "name": "VirtualGatewayPlaceholderProfile",
+      "filePath": "mcp_server/archiving/profiles/registry.py",
+      "lineRange": [
+        33,
+        65
+      ],
+      "summary": "虚拟网关占位 Profile，用于无实体网关时仅生成档案不执行下发。",
+      "tags": [
+        "profile",
+        "占位",
+        "虚拟网关"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/profiles/registry.py:ProfileRegistry",
+      "type": "class",
+      "name": "ProfileRegistry",
+      "filePath": "mcp_server/archiving/profiles/registry.py",
+      "lineRange": [
+        68,
+        189
+      ],
+      "summary": "Profile 注册与解析中心，维护类型到 Profile 的映射并支持能力门控式选择。",
+      "tags": [
+        "注册表",
+        "profile",
+        "路由"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/tests/test_brand_model_code.py",
+      "type": "file",
+      "name": "test_brand_model_code.py",
+      "filePath": "mcp_server/tests/test_brand_model_code.py",
+      "summary": "品牌型号编码测试，校验名称到编码映射在档案、下发与回读三处目标保持一致。",
+      "tags": [
+        "test",
+        "品牌型号",
+        "名称映射"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:mcp_server/archiving/converter.py",
+      "target": "class:mcp_server/archiving/converter.py:AddressConversionError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/converter.py",
+      "target": "function:mcp_server/archiving/converter.py:convert_comm_address",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/base.py",
+      "target": "class:mcp_server/archiving/profiles/base.py:ProfileResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/base.py",
+      "target": "function:mcp_server/archiving/profiles/base.py:assemble_auth_param",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/base.py",
+      "target": "function:mcp_server/archiving/profiles/base.py:encode_auth_param_hex",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/base.py",
+      "target": "function:mcp_server/archiving/profiles/base.py:normalize_auth_param_for_deploy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/base.py",
+      "target": "class:mcp_server/archiving/profiles/base.py:DeviceProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/gateway_8163.py",
+      "target": "class:mcp_server/archiving/profiles/gateway_8163.py:Gateway8163Profile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/meter_lighting.py",
+      "target": "class:mcp_server/archiving/profiles/meter_lighting.py:MeterLightingProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/meter_pdb.py",
+      "target": "class:mcp_server/archiving/profiles/meter_pdb.py:MeterPdbProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/meter_xlba.py",
+      "target": "class:mcp_server/archiving/profiles/meter_xlba.py:MeterXlbaProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/registry.py",
+      "target": "class:mcp_server/archiving/profiles/registry.py:ProfileLookupError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/registry.py",
+      "target": "class:mcp_server/archiving/profiles/registry.py:VirtualGatewayPlaceholderProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/registry.py",
+      "target": "class:mcp_server/archiving/profiles/registry.py:ProfileRegistry",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/__init__.py",
+      "target": "file:mcp_server/archiving/profiles/registry.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/gateway_8163.py",
+      "target": "file:mcp_server/archiving/converter.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/gateway_8163.py",
+      "target": "file:mcp_server/archiving/profiles/base.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/meter_lighting.py",
+      "target": "file:mcp_server/archiving/profiles/base.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/meter_lighting.py",
+      "target": "file:mcp_server/archiving/profiles/meter_xlba.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/meter_pdb.py",
+      "target": "file:mcp_server/archiving/profiles/base.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/meter_pdb.py",
+      "target": "file:mcp_server/archiving/profiles/meter_xlba.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/meter_xlba.py",
+      "target": "file:mcp_server/archiving/converter.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/meter_xlba.py",
+      "target": "file:mcp_server/archiving/profiles/base.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/registry.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/registry.py",
+      "target": "file:mcp_server/archiving/profiles/base.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/registry.py",
+      "target": "file:mcp_server/archiving/profiles/gateway_8163.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/registry.py",
+      "target": "file:mcp_server/archiving/profiles/meter_lighting.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/registry.py",
+      "target": "file:mcp_server/archiving/profiles/meter_pdb.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/registry.py",
+      "target": "file:mcp_server/archiving/profiles/meter_xlba.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_brand_model_code.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_brand_model_code.py",
+      "target": "file:mcp_server/archiving/profiles/gateway_8163.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_brand_model_code.py",
+      "target": "file:mcp_server/archiving/profiles/meter_xlba.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/gateway_8163.py",
+      "target": "file:mcp_server/tests/test_brand_model_code.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/meter_xlba.py",
+      "target": "file:mcp_server/tests/test_brand_model_code.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:mcp_server/archiving/models.py",
+      "target": "file:mcp_server/tests/test_brand_model_code.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "class:mcp_server/archiving/profiles/gateway_8163.py:Gateway8163Profile",
+      "target": "class:mcp_server/archiving/profiles/base.py:DeviceProfile",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/profiles/meter_xlba.py:MeterXlbaProfile",
+      "target": "class:mcp_server/archiving/profiles/base.py:DeviceProfile",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/profiles/meter_lighting.py:MeterLightingProfile",
+      "target": "class:mcp_server/archiving/profiles/meter_xlba.py:MeterXlbaProfile",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/profiles/meter_pdb.py:MeterPdbProfile",
+      "target": "class:mcp_server/archiving/profiles/meter_xlba.py:MeterXlbaProfile",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/profiles/registry.py:VirtualGatewayPlaceholderProfile",
+      "target": "class:mcp_server/archiving/profiles/base.py:DeviceProfile",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/registry.py",
+      "target": "class:mcp_server/archiving/profiles/base.py:DeviceProfile",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:mcp_server/archiving/profiles/meter_xlba.py",
+      "target": "file:mcp_server/archiving/converter.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

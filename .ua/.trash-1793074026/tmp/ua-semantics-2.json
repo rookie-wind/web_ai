@@ -1,0 +1,207 @@
+{
+  "files": [
+    {
+      "path": "mcp_server/archiving/log_sanitizer.py",
+      "summary": "日志脱敏器：递归遍历报告结构，把 Token、口令等敏感值替换为掩码后再落审计日志。",
+      "tags": ["安全", "脱敏", "日志审计", "utility"],
+      "subs": [
+        {"kind": "function", "name": "sanitize_report", "summary": "深度遍历字典/列表报告对象，按敏感键与已知密钥集合执行掩码替换。", "tags": ["脱敏", "安全", "递归"]}
+      ]
+    },
+    {
+      "path": "mcp_server/archiving/snapshot_store.py",
+      "summary": "建档模板快照与分块上传存储：按所有者隔离缓存快照，校验内容一致性并提供过期与篡改防护。",
+      "tags": ["快照存储", "分块上传", "会话隔离", "archiving"],
+      "languageNotes": "所有失败路径统一抛出 SnapshotError 家族异常，便于服务端把原因映射为稳定错误码。",
+      "subs": [
+        {"kind": "class", "name": "SnapshotError", "summary": "快照存储异常基类，其余快照错误都继承自它。", "tags": ["异常", "快照存储"]},
+        {"kind": "class", "name": "SnapshotNotFoundError", "summary": "按快照标识取不到数据时抛出的异常。", "tags": ["异常", "快照存储"]},
+        {"kind": "class", "name": "SnapshotOwnerMismatchError", "summary": "访问方与快照所有者不匹配时抛出的越权异常。", "tags": ["异常", "会话隔离", "安全"]},
+        {"kind": "class", "name": "SnapshotExpiredError", "summary": "快照超过保留期失效时抛出的异常。", "tags": ["异常", "快照存储", "过期"]},
+        {"kind": "class", "name": "SnapshotTamperError", "summary": "快照内容摘要与记录不一致时抛出的篡改异常。", "tags": ["异常", "完整性校验", "安全"]},
+        {"kind": "class", "name": "ChunkedUploadError", "summary": "分块上传失败的基类异常。", "tags": ["异常", "分块上传"]},
+        {"kind": "class", "name": "UploadIncompleteError", "summary": "分块未到齐即请求合并时抛出的异常。", "tags": ["异常", "分块上传"]},
+        {"kind": "class", "name": "UploadLimitError", "summary": "上传体积或分块数量超出上限时抛出的异常。", "tags": ["异常", "分块上传", "限额"]},
+        {"kind": "class", "name": "UploadExpiredError", "summary": "上传会话过期时抛出的异常。", "tags": ["异常", "分块上传", "过期"]},
+        {"kind": "class", "name": "SnapshotRecord", "summary": "单条快照记录模型，含标识、所有者、摘要、生成时间与体积等元信息。", "tags": ["data-model", "快照存储"]},
+        {"kind": "class", "name": "SnapshotStore", "summary": "快照存储主体：落盘/读取快照、按 owner 隔离校验、维护分块上传缓冲并定期清理过期项。", "tags": ["快照存储", "分块上传", "持久化", "core-logic"], "complexity": "complex"}
+      ]
+    },
+    {
+      "path": "mcp_server/archiving/stage_orchestrator.py",
+      "summary": "建档阶段编排器：以阶段状态为权威进度记录，驱动逐阶段执行、跳过已完成项并支持断点续跑。",
+      "tags": ["阶段编排", "断点续跑", "状态机", "archiving"],
+      "subs": [
+        {"kind": "class", "name": "StageState", "summary": "阶段状态枚举（待执行、执行中、成功、失败、跳过）。", "tags": ["枚举", "状态机", "阶段编排"]},
+        {"kind": "class", "name": "StageRecord", "summary": "单个阶段的执行记录，保存状态、时间、结果与错误说明。", "tags": ["data-model", "阶段编排"]},
+        {"kind": "class", "name": "StageOrchestrator", "summary": "编排各阶段顺序执行，依据阶段状态决定跳过或续跑并汇总整体进度。", "tags": ["阶段编排", "断点续跑", "core-logic"]}
+      ]
+    },
+    {
+      "path": "mcp_server/archiving/task_report_store.py",
+      "summary": "建档任务报告存储：按任务持久化脱敏后的执行报告，供召测回读与审计面板查询。",
+      "tags": ["任务报告", "持久化", "日志审计", "archiving"],
+      "subs": [
+        {"kind": "class", "name": "TaskReportError", "summary": "任务报告读写失败的异常类型。", "tags": ["异常", "任务报告"]},
+        {"kind": "class", "name": "TaskReport", "summary": "任务报告模型，含任务标识、阶段结果、明细与时间戳。", "tags": ["data-model", "任务报告"]},
+        {"kind": "class", "name": "TaskReportStore", "summary": "报告存储实现：原子替换写入、按窗口读取、并发冲突重试与历史清理。", "tags": ["任务报告", "持久化", "原子写"]}
+      ]
+    },
+    {
+      "path": "mcp_server/edge_tools.py",
+      "summary": "边缘联通 MCP 工具的注册与实现总入口：模板生成/上传/读取、建档计划、逐阶段执行、参数下发与召测在线判定全部在此装配。",
+      "tags": ["边缘联通", "mcp-tools", "建档编排", "下发召测", "entry-point"],
+      "languageNotes": "register_edge_tools 是一个近 3000 行的闭包工厂，内部工具共享 session/task 上下文闭包，因此体积巨大但耦合度低。",
+      "complexity": "complex",
+      "subs": [
+        {"kind": "class", "name": "EdgeSession", "summary": "边缘会话模型，承载 token、地址、归属与过期时间等上下文。", "tags": ["data-model", "会话", "边缘联通"]},
+        {"kind": "class", "name": "EdgeSessionStore", "summary": "边缘会话存储，负责会话创建、取回、过期回收与归属隔离。", "tags": ["会话管理", "边缘联通", "存储"]},
+        {"kind": "function", "name": "_client_for", "summary": "按会话构造或复用边缘 API 客户端，统一注入代理与超时配置。", "tags": ["factory", "边缘客户端", "utility"]},
+        {"kind": "function", "name": "_validate_plan_guard", "summary": "写操作前置门禁：校验 plan_id、confirm 与节点动作匹配，不通过即拒绝执行。", "tags": ["安全门禁", "写操作确认", "校验"]},
+        {"kind": "function", "name": "_validate_plan_guard_qualify", "summary": "针对资格类动作的计划门禁校验，允许更宽的节点定位规则。", "tags": ["安全门禁", "校验", "计划守护"]},
+        {"kind": "function", "name": "_persist_report", "summary": "把任务执行过程中的报告脱敏后落盘，保证异常中途中断仍留有痕迹。", "tags": ["任务报告", "持久化", "脱敏"]},
+        {"kind": "function", "name": "_record_edge_action", "summary": "记录单次边缘动作的请求与结果到操作日志。", "tags": ["日志审计", "边缘动作"]},
+        {"kind": "function", "name": "_tracked_action", "summary": "生成统一的动作追踪装饰器，串联阶段状态、幂等去重与操作日志。", "tags": ["装饰器", "幂等", "日志审计"], "complexity": "complex"},
+        {"kind": "function", "name": "_call_action", "summary": "对边缘接口发起一次动作调用并归一化返回结果。", "tags": ["边缘调用", "utility"]},
+        {"kind": "function", "name": "_collect_descendants_leaf_first", "summary": "按叶子优先顺序收集目标节点的全部后代，保证子设备先于父设备处理。", "tags": ["拓扑", "遍历", "utility"]},
+        {"kind": "function", "name": "_online_smart_event", "summary": "通过智能事件查询判定监测点在时间窗内是否上报过数据。", "tags": ["在线判定", "边缘调用", "事件"]},
+        {"kind": "function", "name": "_resolve_profile_and_type", "summary": "由节点键解析设备 Profile 与类型，决定后续字段组装路径。", "tags": ["profile", "解析", "路由"]},
+        {"kind": "function", "name": "register_edge_tools", "summary": "向 FastMCP 注册全套边缘工具的工厂函数，内部定义全部工具与共享状态。", "tags": ["entry-point", "mcp-tools", "工厂", "边缘联通"], "complexity": "complex"},
+        {"kind": "function", "name": "generate_device_archive_template", "summary": "生成设备建档模板工作簿并登记为快照，返回文件标识供下载。", "tags": ["mcp-tool", "模板生成", "建档"]},
+        {"kind": "function", "name": "get_device_archive_template_download", "summary": "按文件标识取回建档模板的下载内容与文件名。", "tags": ["mcp-tool", "下载", "模板"]},
+        {"kind": "function", "name": "upload_device_archive_template", "summary": "接收 Base64 分块上传的建档工作簿，到齐后落为任务快照。", "tags": ["mcp-tool", "分块上传", "建档"]},
+        {"kind": "function", "name": "migrate_device_archive_template", "summary": "对已上传的旧版本工作簿执行模板迁移并回存新簿。", "tags": ["mcp-tool", "模板迁移", "版本门禁"]},
+        {"kind": "function", "name": "read_device_archive_template", "summary": "读取并校验上传的工作簿，产出模板对象与校验告警清单。", "tags": ["mcp-tool", "模板读取", "校验"]},
+        {"kind": "function", "name": "plan_device_archive", "summary": "依据任务快照生成建档干跑计划，返回阶段、批次与风险明细。", "tags": ["mcp-tool", "计划生成", "干跑"]},
+        {"kind": "function", "name": "_write_batched", "summary": "把逐节点写操作按批次编排执行并汇总结果，统一处理批量与单点差异。", "tags": ["批量执行", "utility", "下发"]},
+        {"kind": "function", "name": "_upsert_one_core", "summary": "单节点建档写入核心：组装报文、调用边缘接口并回写阶段状态。", "tags": ["建档", "核心逻辑", "下发"], "complexity": "complex"},
+        {"kind": "function", "name": "edge_upsert_device", "summary": "MCP 工具：新增或更新设备档案，支持单节点与节点集合批量。", "tags": ["mcp-tool", "建档", "写操作"]},
+        {"kind": "function", "name": "_mount_one_core", "summary": "把子设备挂载到指定父设备下的单节点执行核心。", "tags": ["挂载", "核心逻辑", "下发"]},
+        {"kind": "function", "name": "edge_mount_device", "summary": "MCP 工具：执行设备挂载（含子网关挂载），支持批量与确认门禁。", "tags": ["mcp-tool", "挂载", "写操作"]},
+        {"kind": "function", "name": "_save_one_core", "summary": "单节点设备参数保存核心，按 Profile 组装并推送参数报文。", "tags": ["参数保存", "核心逻辑", "下发"]},
+        {"kind": "function", "name": "edge_save_device_parameters", "summary": "MCP 工具：保存设备运行参数到边缘，支持节点集合批量下发。", "tags": ["mcp-tool", "参数保存", "写操作"]},
+        {"kind": "function", "name": "edge_get_device_parameters", "summary": "MCP 工具：按数据项读取设备当前参数，回读结果逐节点透传。", "tags": ["mcp-tool", "参数读取", "回读"]},
+        {"kind": "function", "name": "edge_delete_device", "summary": "MCP 工具：删除边缘设备，要求显式 confirm 以避免误删。", "tags": ["mcp-tool", "删除", "写操作"]},
+        {"kind": "function", "name": "edge_get_token", "summary": "MCP 工具：以账号或手机号验证码换取边缘业务 Token。", "tags": ["mcp-tool", "登录", "凭据"]},
+        {"kind": "function", "name": "edge_set_device_param", "summary": "MCP 工具：向网关下挂电表下发参数，按档案回推内容并在必要时先做在线检查。", "tags": ["mcp-tool", "参数下发", "批量"], "complexity": "complex"},
+        {"kind": "function", "name": "_deploy_without_template", "summary": "免模板下发路径：以边缘当前档案与参数回推下发报文，缺省字段按平台默认补齐。", "tags": ["免模板下发", "核心逻辑", "回推"], "complexity": "complex"},
+        {"kind": "function", "name": "_deploy_to_single_gateway", "summary": "对单个网关执行参数下发编排，含在线检查、批次控制与 rtnCode 判定。", "tags": ["下发", "网关", "核心逻辑"], "complexity": "complex"},
+        {"kind": "function", "name": "edge_check_monitor_online", "summary": "MCP 工具：判定监测点在线状态，按档案类型自动选择事件查询或时钟召测路径。", "tags": ["mcp-tool", "在线判定", "免模板"]},
+        {"kind": "function", "name": "edge_call_clock", "summary": "MCP 工具：对设备发起时钟召测，用作可达性判据与校时手段。", "tags": ["mcp-tool", "时钟召测", "可达判定"]},
+        {"kind": "function", "name": "edge_call_monitor_debug", "summary": "MCP 工具：调用监测点运维调试接口，覆盖召测、参数读写等多种调试动作。", "tags": ["mcp-tool", "运维调试", "召测"], "complexity": "complex"},
+        {"kind": "function", "name": "execute_archive_task", "summary": "MCP 工具：建档任务总执行入口，按阶段与预算驱动完整或独立工作流并返回游标。", "tags": ["mcp-tool", "建档编排", "断点续跑"]},
+        {"kind": "function", "name": "_execute_full_workflow", "summary": "有模板场景的全流程执行：逐单元建档、挂载、参数保存与下发，按游标可续跑。", "tags": ["工作流", "建档编排", "核心逻辑"], "complexity": "complex"},
+        {"kind": "function", "name": "_archive_unit", "summary": "执行单个建档单元（网关及其电表）的阶段动作。", "tags": ["建档", "单元执行", "utility"]},
+        {"kind": "function", "name": "_execute_standalone_workflow", "summary": "免模板独立工作流：不依赖上传档案，直接按边缘现状组装并执行下发链路。", "tags": ["免模板", "工作流", "核心逻辑"], "complexity": "complex"},
+        {"kind": "function", "name": "_aggregate_workflow_results", "summary": "汇总工作流各阶段结果为统一报告，标注部分完成与剩余游标。", "tags": ["结果汇总", "报告", "utility"]},
+        {"kind": "function", "name": "_collect_meter_device_ids", "summary": "收集网关子树内电表的设备标识集合，供批量下发与回读使用。", "tags": ["拓扑", "utility", "批量"]},
+        {"kind": "function", "name": "_standalone_call_clock", "summary": "免模板路径下对网关执行时钟召测以确认联通性。", "tags": ["时钟召测", "可达判定", "免模板"]},
+        {"kind": "function", "name": "edge_apply_compensation_plan", "summary": "MCP 工具：执行补偿计划回滚失败的建档动作。", "tags": ["mcp-tool", "补偿回滚", "写操作"]},
+        {"kind": "function", "name": "_resolve_new_device_id", "summary": "建档写入后回查新设备的标识，避免依赖返回值层级导致的取值错误。", "tags": ["回读", "设备标识", "utility"]},
+        {"kind": "function", "name": "_fix_agent_measured_num", "summary": "修正采集器测量点编号，保证下发报文与页面口径一致。", "tags": ["参数修正", "utility", "下发"]},
+        {"kind": "function", "name": "_reapply_agent_num_after_mount", "summary": "挂载完成后重新写回采集器编号，防止父级关系变更冲掉配置。", "tags": ["挂载", "参数回写", "utility"]},
+        {"kind": "function", "name": "_readback_verify_device", "summary": "逐节点回读校验建档结果，确认平台值与边缘实际一致。", "tags": ["回读校验", "建档", "utility"]},
+        {"kind": "function", "name": "_save_meter_parameters", "summary": "按解析后的字段结果为电表写入参数报文。", "tags": ["参数保存", "电表", "核心逻辑"], "complexity": "complex"},
+        {"kind": "function", "name": "_save_gateway_parameters_auto", "summary": "自动组装并保存网关参数，无需用户上传档案。", "tags": ["参数保存", "网关", "免模板"]},
+        {"kind": "function", "name": "_save_meter_parameters_auto", "summary": "自动组装并保存电表参数，字段取自边缘当前配置。", "tags": ["参数保存", "电表", "免模板"]},
+        {"kind": "function", "name": "_compare_archive_fields", "summary": "比对档案基线、扩展与实际回读字段，产出差异清单。", "tags": ["字段比对", "回读", "utility"]},
+        {"kind": "function", "name": "_read_deploy_param_body", "summary": "读取设备当前下发参数报文体，作为免模板回推的基础。", "tags": ["回读", "参数报文", "免模板"]},
+        {"kind": "function", "name": "_build_deploy_body_from_archive", "summary": "由现有档案与参数组装完整下发报文，对齐页面恒含默认字段的行为。", "tags": ["报文组装", "免模板下发", "核心逻辑"]},
+        {"kind": "function", "name": "_collect_all_monitor_point_keys", "summary": "收集网关下全部监测点节点键，用于全量下发或召测。", "tags": ["拓扑", "utility", "批量"]},
+        {"kind": "function", "name": "_parse_smart_event_online", "summary": "解析智能事件响应判定设备在线，缺失字段时保守返回未知。", "tags": ["在线判定", "解析", "utility"]},
+        {"kind": "function", "name": "_build_monitor_point_item_body", "summary": "组装监测点数据项报文体，供召测与参数读写复用。", "tags": ["报文组装", "监测点", "utility"]}
+      ]
+    },
+    {
+      "path": "mcp_server/operation_log_store.py",
+      "summary": "操作日志存储：按会话身份隔离落盘 JSONL 审计流水，提供窗口查询、聚合与脱敏读写。",
+      "tags": ["日志审计", "持久化", "会话隔离", "jsonl"],
+      "subs": [
+        {"kind": "class", "name": "OperationLogEntry", "summary": "单条操作日志模型，含工具名、参数摘要、结果与时间戳。", "tags": ["data-model", "日志审计"]},
+        {"kind": "class", "name": "OperationLogStore", "summary": "日志存储主体：写入与滚动、按 owner 读取、聚合统计与过期清理，全部经脱敏处理。", "tags": ["日志审计", "持久化", "脱敏", "core-logic"]}
+      ]
+    },
+    {
+      "path": "mcp_server/server.py",
+      "summary": "MCP Server 主入口：装配 FastMCP 工具集、鉴权中间件与 ASGI 复合应用，并托管接入页、展示页与资源包下载端点。",
+      "tags": ["entry-point", "mcp-server", "鉴权", "asgi", "服务装配"],
+      "languageNotes": "工具函数集中声明并用统一装饰器包装以注入权限校验与操作日志；CompositeApp 自行路由 /mcp 与静态页面。",
+      "complexity": "complex",
+      "subs": [
+        {"kind": "class", "name": "TokenManager", "summary": "MCP 接入 Token 管理器：本机 IP 授予系统级 Token，外部 IP 生成用户级只读 Token 并持久化登记。", "tags": ["鉴权", "token", "singleton", "core-logic"]},
+        {"kind": "class", "name": "AuthMiddleware", "summary": "ASGI 鉴权中间件，校验 Bearer Token 并把客户端 IP 与会话上下文注入到工具调用链。", "tags": ["middleware", "鉴权", "asgi"]},
+        {"kind": "class", "name": "CompositeApp", "summary": "复合 ASGI 应用：分流 MCP 协议端点、静态接入页、展示页与文档/下载 REST 端点。", "tags": ["asgi", "路由", "entry-point"], "complexity": "complex"},
+        {"kind": "function", "name": "_get_local_ips", "summary": "枚举本机网卡 IP，用于判定访问方是否具备系统级权限。", "tags": ["鉴权", "utility", "网络"]},
+        {"kind": "function", "name": "_template_dict_source", "summary": "为模板生成提供系统字典来源，按需从平台或边缘拉取候选集。", "tags": ["模板生成", "数据字典", "adapter"]},
+        {"kind": "function", "name": "_call_platform", "summary": "统一的后端 API 调用包装：注入会话 Token、归一化错误并写审计日志。", "tags": ["api-client", "utility", "日志审计"]},
+        {"kind": "function", "name": "_get_server_ips", "summary": "汇总对外展示的服务器 IPv4 地址列表，绝不暴露 IPv6。", "tags": ["网络", "utility", "接入页"]},
+        {"kind": "function", "name": "_load_server_version", "summary": "读取 version.json 得到服务端版本，供能力探测与展示页使用。", "tags": ["版本管理", "utility"]},
+        {"kind": "function", "name": "_skill_capabilities", "summary": "解析资源包清单得到技能能力矩阵，用于展示与准入判定。", "tags": ["资源包", "能力探测", "utility"]},
+        {"kind": "function", "name": "_load_server_test_report", "summary": "加载服务端自测报告并归一化为展示结构。", "tags": ["自测报告", "展示页", "utility"]},
+        {"kind": "function", "name": "_parse_server_test_xml", "summary": "解析 pytest JUnit XML 输出，提取用例通过/失败统计。", "tags": ["解析", "自测报告", "utility"]},
+        {"kind": "function", "name": "_query_platform_stats", "summary": "向平台查询统计指标（协议数、设备数等）供展示页动态渲染。", "tags": ["统计", "api-client", "展示页"]},
+        {"kind": "function", "name": "_refresh_showcase_platform", "summary": "刷新展示页缓存的平台侧数据，控制并发与失败降级。", "tags": ["展示页", "缓存", "刷新"]},
+        {"kind": "function", "name": "_build_showcase_data", "summary": "组装展示页所需的完整数据快照（版本、能力、统计、自测结果）。", "tags": ["展示页", "聚合", "utility"]},
+        {"kind": "function", "name": "list_mcp_tools", "summary": "MCP 工具：列出全部已注册工具并回显当前鉴权与权限级别，用作连通性探测。", "tags": ["mcp-tool", "探测", "鉴权"]},
+        {"kind": "function", "name": "login", "summary": "MCP 工具：手机号加验证码登录平台，返回仅用于后端调用的业务 Token。", "tags": ["mcp-tool", "登录", "凭据"]},
+        {"kind": "function", "name": "update_protocol", "summary": "MCP 工具：更新规约主数据（名称、类型、归属与协议文件）。", "tags": ["mcp-tool", "规约管理", "写操作"]},
+        {"kind": "function", "name": "_classify_write_result", "summary": "归类写操作返回结果，区分成功、业务失败与鉴权失效。", "tags": ["写操作", "结果归类", "utility"]},
+        {"kind": "function", "name": "_wrap_logged_tool", "summary": "统一包装工具函数以注入权限校验、审计日志与错误归一化。", "tags": ["装饰器", "鉴权", "日志审计"]}
+      ]
+    },
+    {
+      "path": "mcp_server/session.py",
+      "summary": "会话与身份上下文：定义会话模型、注册表以及贯穿工具调用的 MCP Token 上下文变量。",
+      "tags": ["会话管理", "上下文", "鉴权", "contextvar"],
+      "subs": [
+        {"kind": "class", "name": "Session", "summary": "用户会话模型，绑定账号身份、业务 Token 与过期时间。", "tags": ["data-model", "会话"]},
+        {"kind": "class", "name": "SessionRegistry", "summary": "会话注册表：按 MCP Token 存取会话、判定归属并清理过期项。", "tags": ["会话管理", "鉴权", "存储"]}
+      ]
+    },
+    {
+      "path": "mcp_server/tests/test_get_device_parameters.py",
+      "summary": "设备参数读取工具测试，验证 itemBody 透传与逐节点回读行为。",
+      "tags": ["test", "参数读取", "边缘联通"]
+    },
+    {
+      "path": "mcp_server/tests/test_online_check_free_template.py",
+      "summary": "在线检查与免模板下发测试，验证按档案类型自动选路及免模板回推行为。",
+      "tags": ["test", "在线判定", "免模板下发"]
+    },
+    {
+      "path": "mcp_server/tests/test_operation_log_store.py",
+      "summary": "操作日志存储测试，覆盖身份隔离、脱敏、窗口查询与过期清理。",
+      "tags": ["test", "日志审计", "会话隔离"]
+    },
+    {
+      "path": "mcp_server/tests/test_snapshot_store.py",
+      "summary": "快照存储测试，验证保存读取、内容校验、越权拒绝、代际语义与所有者清理。",
+      "tags": ["test", "快照存储", "安全"]
+    },
+    {
+      "path": "mcp_server/tests/test_write_operation_logging.py",
+      "summary": "写操作日志链路测试，贯通服务端工具包装、边缘动作记录与展示面板的重启持久化。",
+      "tags": ["test", "日志审计", "写操作"]
+    }
+  ],
+  "edges": [
+    {"source": "file:mcp_server/tests/test_get_device_parameters.py", "target": "file:mcp_server/edge_tools.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_online_check_free_template.py", "target": "file:mcp_server/edge_tools.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_operation_log_store.py", "target": "file:mcp_server/operation_log_store.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_operation_log_store.py", "target": "file:mcp_server/archiving/snapshot_store.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_snapshot_store.py", "target": "file:mcp_server/archiving/snapshot_store.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_write_operation_logging.py", "target": "file:mcp_server/server.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_write_operation_logging.py", "target": "file:mcp_server/edge_tools.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_write_operation_logging.py", "target": "file:mcp_server/operation_log_store.py", "type": "tested_by", "weight": 0.5},
+    {"source": "class:mcp_server/archiving/snapshot_store.py:SnapshotNotFoundError", "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError", "type": "inherits", "weight": 0.9},
+    {"source": "class:mcp_server/archiving/snapshot_store.py:SnapshotOwnerMismatchError", "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError", "type": "inherits", "weight": 0.9},
+    {"source": "class:mcp_server/archiving/snapshot_store.py:SnapshotExpiredError", "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError", "type": "inherits", "weight": 0.9},
+    {"source": "class:mcp_server/archiving/snapshot_store.py:SnapshotTamperError", "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError", "type": "inherits", "weight": 0.9},
+    {"source": "class:mcp_server/archiving/snapshot_store.py:UploadIncompleteError", "target": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError", "type": "inherits", "weight": 0.9},
+    {"source": "class:mcp_server/archiving/snapshot_store.py:UploadLimitError", "target": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError", "type": "inherits", "weight": 0.9},
+    {"source": "class:mcp_server/archiving/snapshot_store.py:UploadExpiredError", "target": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError", "type": "inherits", "weight": 0.9},
+    {"source": "file:mcp_server/server.py", "target": "file:mcp_server/edge_tools.py", "type": "depends_on", "weight": 0.6},
+    {"source": "file:mcp_server/edge_tools.py", "target": "file:mcp_server/archiving/engine.py", "type": "depends_on", "weight": 0.6},
+    {"source": "class:mcp_server/server.py:CompositeApp", "target": "class:mcp_server/server.py:AuthMiddleware", "type": "depends_on", "weight": 0.6}
+  ]
+}

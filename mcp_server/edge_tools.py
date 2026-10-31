@@ -107,6 +107,78 @@ def _action_result(action: str, summary: dict, resp: dict) -> dict:
     }
 
 
+# 读取类工具分页常量：单页字符预算远低于 Agent 运行时（qoderclicn）
+# 的工具结果 spill 阈值，确保单页不触发截断。
+TREE_PAGE_DEFAULT_LIMIT: int = 50
+TREE_PAGE_MAX_LIMIT: int = 500
+TREE_PAGE_MAX_CHARS: int = 12000
+
+
+def _flatten_device_tree(
+    nodes: list[dict], depth: int = 0, parent_id: str = "",
+) -> list[dict]:
+    """深度优先展平设备树为节点行列表。
+
+    每行为去掉 ``children`` 的节点副本，附 ``depth`` 与 ``parent_id``，
+    供调用方据此重建层级。用于大树分页，避免嵌套 children 重复计入。
+
+    Args:
+        nodes: 设备树节点列表（根层或某层 children）。
+        depth: 当前层深度（根为 0）。
+        parent_id: 父节点 deviceId（根为空串）。
+
+    Returns:
+        展平后的节点行列表。
+    """
+    rows: list[dict] = []
+    for node in nodes or []:
+        if not isinstance(node, dict):
+            continue
+        children = node.get("children") or []
+        row = {k: v for k, v in node.items() if k != "children"}
+        row["depth"] = depth
+        row["parent_id"] = parent_id
+        rows.append(row)
+        nid = str(node.get("id") or node.get("deviceId") or "")
+        rows.extend(_flatten_device_tree(children, depth + 1, nid))
+    return rows
+
+
+def _bounded_page(
+    items: list[dict], offset: int, limit: int, max_chars: int,
+) -> tuple[list[dict], int, bool]:
+    """按 offset/limit 取页并用字符预算夹断，避免单页过大触发截断。
+
+    至少返回一条（即使单条超预算），以保证分页始终有进展。
+
+    Args:
+        items: 待分页的完整列表。
+        offset: 起始下标（<0 视作 0）。
+        limit: 本页最大条目数（<=0 取默认上限，超上限夹到最大值）。
+        max_chars: 本页序列化字符预算，超出即停止追加。
+
+    Returns:
+        (page, next_offset, has_more)。next_offset 为下一页起始下标；
+        has_more 表示仍有未取条目。
+    """
+    start = max(int(offset), 0)
+    total = len(items)
+    cap = TREE_PAGE_DEFAULT_LIMIT if int(limit) <= 0 else min(
+        int(limit), TREE_PAGE_MAX_LIMIT,
+    )
+    page: list[dict] = []
+    used = 0
+    idx = start
+    while idx < total and len(page) < cap:
+        cost = len(json.dumps(items[idx], ensure_ascii=False))
+        if page and used + cost > max_chars:
+            break
+        page.append(items[idx])
+        used += cost
+        idx += 1
+    return page, idx, idx < total
+
+
 class EdgeSession:
     """一次自动建档任务的服务端会话状态。
 
@@ -1997,11 +2069,26 @@ def register_edge_tools(mcp, template_dict_source=None) -> None:
         )
 
     @mcp.tool()
-    def edge_get_device_tree(task_id: str) -> dict:
-        """读取边缘后端完整设备树（getDeviceTree）。
+    def edge_get_device_tree(
+        task_id: str, offset: int = 0, limit: int = 0,
+    ) -> dict:
+        """读取边缘后端设备树（getDeviceTree）。
+
+        默认（limit<=0）返回完整嵌套树。整树可达数十万字符，直接返回会被
+        Agent 运行时截断；数据量大时传 limit>0 走分页：把树深度优先展平为
+        节点行（每行去掉 children，附 depth/parent_id，可据此重建），按
+        offset/limit 取一页并保证单页字符受控，用返回的 next_offset 续取，
+        直到 has_more=false。
 
         Args:
             task_id: 会话 ID。
+            offset: 分页起始下标（仅 limit>0 生效）。
+            limit: 本页最大条目数；<=0 表示不分页、返回完整嵌套树。
+
+        Returns:
+            limit<=0：{ok, action, data:<嵌套树>, ...}（同旧行为）。
+            limit>0：data 为本页节点行，另附 pagination
+            {total, offset, limit, returned, has_more, next_offset}。
         """
         session = edge_sessions.get(task_id, owner_id=_current_owner_id())
         if session is None:
@@ -2011,17 +2098,44 @@ def register_edge_tools(mcp, template_dict_source=None) -> None:
             resp = client.call(PATH_GET_DEVICE_TREE, {})
         except EdgeApiError as exc:
             return _err(f"读取设备树失败: {exc}")
-        return _action_result("get_device_tree", {}, resp)
+        result = _action_result("get_device_tree", {}, resp)
+        if limit is None or int(limit) <= 0:
+            return result
+        tree = result.get("data")
+        flat = _flatten_device_tree(tree if isinstance(tree, list) else [])
+        page, next_offset, has_more = _bounded_page(
+            flat, offset, limit, TREE_PAGE_MAX_CHARS,
+        )
+        result["data"] = page
+        result["pagination"] = {
+            "total": len(flat), "offset": max(int(offset), 0),
+            "limit": min(int(limit), TREE_PAGE_MAX_LIMIT),
+            "returned": len(page), "has_more": has_more,
+            "next_offset": next_offset,
+        }
+        return result
 
     @mcp.tool()
-    def edge_get_device_list(task_id: str, device_id: str, recursive: bool = True) -> dict:
+    def edge_get_device_list(
+        task_id: str, device_id: str, recursive: bool = True,
+        offset: int = 0, limit: int = 0,
+    ) -> dict:
         """读取设备档案列表。
+
+        默认（limit<=0）返回全部。数据量大时传 limit>0 分页，用返回的
+        next_offset 续取（分页语义同 edge_get_device_tree）。
 
         Args:
             task_id: 会话 ID。
             device_id: 目标设备 deviceId。
             recursive: True 用 getDeviceListByPId 返回自身+全部递归后代；
                 False 用 getDeviceList 返回单设备档案字段。
+            offset: 分页起始下标（仅 limit>0 生效）。
+            limit: 本页最大条目数；<=0 表示不分页。
+
+        Returns:
+            limit<=0：{ok, action, data:<列表>, ...}（同旧行为）。
+            limit>0：data 为本页条目，另附 pagination。
         """
         session = edge_sessions.get(task_id, owner_id=_current_owner_id())
         if session is None:
@@ -2033,7 +2147,24 @@ def register_edge_tools(mcp, template_dict_source=None) -> None:
             resp = client.call(path, {"deviceId": device_id})
         except EdgeApiError as exc:
             return _err(f"读取设备列表失败: {exc}", request_summary=summary)
-        return _action_result("get_device_list", summary, resp)
+        result = _action_result("get_device_list", summary, resp)
+        if limit is None or int(limit) <= 0:
+            return result
+        data = result.get("data")
+        if isinstance(data, dict):
+            data = [data]
+        items = data if isinstance(data, list) else []
+        page, next_offset, has_more = _bounded_page(
+            items, offset, limit, TREE_PAGE_MAX_CHARS,
+        )
+        result["data"] = page
+        result["pagination"] = {
+            "total": len(items), "offset": max(int(offset), 0),
+            "limit": min(int(limit), TREE_PAGE_MAX_LIMIT),
+            "returned": len(page), "has_more": has_more,
+            "next_offset": next_offset,
+        }
+        return result
 
     @mcp.tool()
     def edge_get_device_parameters(

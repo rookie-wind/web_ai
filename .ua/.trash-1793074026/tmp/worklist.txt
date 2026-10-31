@@ -1,0 +1,542 @@
+##### BATCH 1 (files=13) #####
+FILE mcp_server/archiving/compensation.py [python/code] lines=166 nonEmpty=141 classes=1 functions=2
+  CLASS CompensationRecorder [26-68] methods=4
+  FN apply_compensation [87-165] params=client,plan,confirm,write_call
+  IMPORTS=mcp_server/archiving/models.py
+FILE mcp_server/archiving/engine.py [python/code] lines=823 nonEmpty=727 classes=2 functions=9
+  CLASS ExecutionLockManager [646-737] methods=7
+  FN build_existing_index [75-102] params=devices
+  FN topological_order [105-141] params=nodes
+  FN _collect_subtree_meters [144-176] params=gateway_key,child_map,deployable_meter_keys
+  FN _build_name_indexes [179-216] params=existing_index
+  FN build_plan [219-643] params=template,existing_index,registry
+  FN revalidate_plan [740-822] params=plan,current_index
+  IMPORTS=mcp_server/archiving/excel_reader.py | mcp_server/archiving/models.py | mcp_server/archiving/profiles/registry.py
+FILE mcp_server/archiving/excel_reader.py [python/code] lines=751 nonEmpty=660 classes=2 functions=14
+  CLASS ArchiveTemplate [67-108] methods=3
+  FN _check_version_and_metadata [181-214] params=wb,template
+  FN _validate_sheet_headers [217-266] params=wb,template,sheet_name,expected_headers
+  FN _validate_no_formulas_in_data [269-313] params=wb,template,sheet_name,data_start_row,data_end_row,data_cols
+  FN _validate_beyond_declared_range [316-351] params=wb,template,sheet_name,max_data_rows,header_row
+  FN _parse_task_config [354-419] params=rows,template
+  FN _parse_topology [422-502] params=rows,template
+  FN _parse_detail [505-540] params=rows,sheet_name,key_column,header_map,template
+  FN _parse_brand_model_mapping [543-589] params=ws,template
+  FN read_archive_template [592-750] params=path
+  IMPORTS=mcp_server/archiving/field_contract.py | mcp_server/archiving/models.py | mcp_server/archiving/templates/generator.py
+FILE mcp_server/archiving/field_contract.py [python/code] lines=594 nonEmpty=546 classes=0 functions=7
+  FN _gateway_fields [164-204] params=
+  FN _meter_fields [241-450] params=
+  FN _meter_derived [453-498] params=
+  IMPORTS=mcp_server/archiving/models.py | mcp_server/archiving/profiles/base.py
+FILE mcp_server/archiving/models.py [python/code] lines=1003 nonEmpty=854 classes=19 functions=0
+  CLASS TaskConfig [63-145] methods=2
+  CLASS TopologyNode [149-206] methods=3
+  CLASS ProfileField [210-249] methods=2
+  CLASS DryRunItem [253-303] methods=2
+  CLASS DryRunPlan [307-421] methods=4
+  CLASS ExecutionItem [425-464] methods=2
+  CLASS ExecutionResult [468-501] methods=2
+  CLASS CompensationEntry [505-541] methods=2
+  CLASS CompensationPlan [545-595] methods=4
+  CLASS FieldSpec [630-725] methods=4
+  CLASS CellInput [729-785] methods=2
+  CLASS ResolvedField [789-851] methods=2
+  CLASS TemplateSnapshot [855-909] methods=2
+  CLASS TypeSheetSpec [913-1002] methods=6
+FILE mcp_server/archiving/template_migrator.py [python/code] lines=208 nonEmpty=174 classes=2 functions=4
+  FN _copy_sheet_data [92-136] params=old_ws,new_ws,skip_meta
+  FN migrate_template [139-207] params=old_bytes,skeleton_bytes
+  IMPORTS=mcp_server/archiving/templates/generator.py
+FILE mcp_server/archiving/templates/__init__.py [python/code] lines=8 nonEmpty=4 classes=0 functions=0
+  IMPORTS=mcp_server/archiving/templates/generator.py
+FILE mcp_server/archiving/templates/generator.py [python/code] lines=692 nonEmpty=633 classes=0 functions=10
+  FN _write_system_connection [129-167] params=ws,snapshot_id,source_time,fetched_at
+  FN _write_dict_sheet [170-248] params=wb,ws,device_types,user_big_nos,comm_modes,brands,models_by_brand
+  FN _write_model_ranges [251-292] params=wb,ws,brands,models_by_brand,model_columns
+  FN _write_meter_sheet [331-447] params=ws,protocol_names,user_big_names,brand_names,interval_names,comm_mode_names,baud_names,stop_names,check_names,data_names
+  FN _write_mapping_sheet [450-527] params=ws,device_types,user_big_nos,comm_modes,brands,models_by_brand
+  FN generate_template [530-635] params=output_path,with_examples,device_types,user_big_nos,comm_modes,brands,models_by_brand,snapshot_id,source_time,fetched_at
+  IMPORTS=mcp_server/archiving/field_contract.py
+FILE mcp_server/tests/test_archiving_template.py [python/code] lines=5479 nonEmpty=4948 classes=47 functions=22
+  CLASS TestReaderContract [102-140] methods=7
+  CLASS TestReaderValidation [143-183] methods=3
+  CLASS TestTypeFaithful [186-248] methods=4
+  CLASS TestEngineIdempotency [256-357] methods=9
+  CLASS TestValidation [379-426] methods=4
+  CLASS TestCandidateSetIdempotency [429-489] methods=4
+  CLASS TestGatewayNumberIndexes [492-639] methods=6
+  CLASS TestDryRunPlanMetadata [644-741] methods=8
+  CLASS TestExecutionLockAndRevalidation [744-842] methods=6
+  CLASS TestPlanGuard [845-911] methods=7
+  CLASS TestNewDeviceIdResolution [914-1005] methods=7
+  CLASS TestStageFailurePropagation [1008-1134] methods=7
+  CLASS TestDeployBatchConstruction [1142-1252] methods=8
+  CLASS TestDeployStateInterpretation [1260-1328] methods=5
+  CLASS TestCompensationOwnership [1336-1408] methods=5
+  CLASS TestTaskReportPersistence [1416-1492] methods=5
+  CLASS TestNameCodeMapping [1500-1548] methods=6
+  CLASS TestSerialParamEncoding [1556-1607] methods=6
+  CLASS TestG3ReadContract [1615-1707] methods=6
+  CLASS TestMonitorDebugContract [1715-1761] methods=3
+  CLASS TestDeployContract [1769-1828] methods=3
+  CLASS TestTemplateGenerateDownload [1831-2016] methods=9
+  CLASS TestOOXMLValidation [2019-2132] methods=11
+  CLASS TestCompositeAppRoutes [2135-2235] methods=6
+  CLASS TestSessionOwnershipExpiration [2238-2333] methods=7
+  CLASS TestLogSanitization [2336-2387] methods=5
+  CLASS TestMcpClientFileOps [2390-2485] methods=5
+  CLASS TestEdgeStageState [2488-2568] methods=7
+  CLASS TestEdgeCallClockContract [2629-2855] methods=9
+  CLASS TestEdgeCallMonitorDebug [2859-3077] methods=10
+  CLASS TestTimeValidation [3080-3251] methods=8
+  CLASS TestStageOrchestration [3254-3363] methods=8
+  CLASS TestEndToEndIntegration [3366-3457] methods=3
+  CLASS ArchiveMemoryBackend [3460-3588] methods=5
+  CLASS TestUploadDeviceArchiveTemplate [3624-3659] methods=3
+  CLASS TestChunkedUploadDeviceArchiveTemplate [3662-3840] methods=10
+  CLASS TestRegisteredArchiveWorkflow [3864-4192] methods=14
+  CLASS TestClockBasedReachability [4235-4322] methods=5
+  CLASS TestStandaloneDeployWithoutTemplate [4343-4497] methods=10
+  CLASS TestSubGatewayMount [4762-4935] methods=6
+  CLASS TestMonitorSheetTyping [4944-5030] methods=6
+  CLASS TestLightingPdbProfilePayload [5033-5114] methods=8
+  CLASS TestLightingArchiveOnlyPlan [5117-5152] methods=1
+  CLASS TestResumePreservesProgress [5155-5177] methods=1
+  CLASS TestExecuteArchiveTaskWorkflow [5203-5362] methods=10
+  CLASS TestBatchArchiveOperators [5365-5478] methods=7
+  FN _add_test_data [54-86] params=path
+  FN _make_communication_session [2577-2611] params=
+  FN test_full_batch_registered_workflow [4549-4641] params=archive_runtime,existing
+  FN _complete_offline_archives [4644-4698] params=runtime
+  FN test_atomic_report_replace_windows_contention [4725-4754] params=tmp_path,monkeypatch,failures
+  IMPORTS=mcp_server/archiving/engine.py | mcp_server/archiving/excel_reader.py | mcp_server/archiving/templates/generator.py | mcp_server/edge_tools.py
+FILE mcp_server/tests/test_field_contract.py [python/code] lines=674 nonEmpty=576 classes=10 functions=1
+  CLASS TestContractLookup [81-97] methods=4
+  CLASS TestGenerationConsumer [100-127] methods=4
+  CLASS TestParsingConsumer [130-145] methods=3
+  CLASS TestPayloadAndReadbackConsumer [148-198] methods=7
+  CLASS TestEvidenceGate [201-261] methods=8
+  CLASS TestGatewayContract [264-276] methods=2
+  CLASS TestSnapshotRoundTrip [279-318] methods=3
+  CLASS TestProfileCodeMapping [321-433] methods=6
+  CLASS TestFeeNumBitField [436-494] methods=3
+  CLASS TestNoDefaultBackfill [497-673] methods=8
+  FN resolve_field [50-78] params=spec,raw
+  IMPORTS=mcp_server/archiving/field_contract.py | mcp_server/archiving/models.py | mcp_server/archiving/profiles/registry.py
+FILE mcp_server/tests/test_generator_v14.py [python/code] lines=814 nonEmpty=739 classes=7 functions=5
+  CLASS TestSheetStructure [93-118] methods=2
+  CLASS TestSystemConnection [124-168] methods=4
+  CLASS TestDeviceSheets [174-247] methods=4
+  CLASS TestDictAndMapping [253-286] methods=2
+  CLASS TestCommPortDropdown [289-461] methods=6
+  CLASS TestSerialNamedRanges [467-503] methods=3
+  CLASS TestBrandModelCascade [527-696] methods=9
+  FN test_model_dropdown_in_spreadsheet [703-813] params=tmp_path
+  IMPORTS=mcp_server/archiving/engine.py | mcp_server/archiving/excel_reader.py | mcp_server/archiving/field_contract.py | mcp_server/archiving/models.py | mcp_server/archiving/profiles/meter_xlba.py | mcp_server/archiving/templates/__init__.py | mcp_server/archiving/templates/generator.py
+FILE mcp_server/tests/test_param_validation_and_resume.py [python/code] lines=199 nonEmpty=169 classes=3 functions=3
+  CLASS TestExecutableStructuralOnly [49-99] methods=4
+  CLASS TestOnlineCheckByType [122-198] methods=4
+  IMPORTS=mcp_server/archiving/engine.py | mcp_server/archiving/excel_reader.py | mcp_server/archiving/models.py | mcp_server/archiving/profiles/registry.py | mcp_server/edge_tools.py
+FILE mcp_server/tests/test_template_migrator.py [python/code] lines=171 nonEmpty=154 classes=1 functions=2
+  CLASS TestMigrateSuccess [74-170] methods=5
+  FN _make_old_fixture [29-71] params=drop_sheets,add_sheet,extra_rows,stamp_version
+  IMPORTS=mcp_server/archiving/excel_reader.py | mcp_server/archiving/template_migrator.py | mcp_server/archiving/templates/generator.py
+##### BATCH 2 (files=13) #####
+FILE mcp_server/archiving/log_sanitizer.py [python/code] lines=121 nonEmpty=96 classes=0 functions=4
+  FN sanitize_report [96-120] params=value,secrets
+FILE mcp_server/archiving/snapshot_store.py [python/code] lines=719 nonEmpty=603 classes=11 functions=4
+  CLASS SnapshotRecord [157-228] methods=5
+  CLASS SnapshotStore [231-718] methods=22
+  IMPORTS=mcp_server/archiving/models.py
+FILE mcp_server/archiving/stage_orchestrator.py [python/code] lines=253 nonEmpty=216 classes=3 functions=0
+  CLASS StageRecord [37-79] methods=2
+  CLASS StageOrchestrator [92-252] methods=7
+FILE mcp_server/archiving/task_report_store.py [python/code] lines=268 nonEmpty=227 classes=3 functions=2
+  CLASS TaskReport [48-91] methods=2
+  CLASS TaskReportStore [94-267] methods=7
+  IMPORTS=mcp_server/archiving/log_sanitizer.py
+FILE mcp_server/edge_tools.py [python/code] lines=4754 nonEmpty=4416 classes=2 functions=99
+  CLASS EdgeSession [110-178] methods=2
+  CLASS EdgeSessionStore [181-277] methods=6
+  FN _client_for [309-353] params=session
+  FN _validate_plan_guard [377-404] params=session,plan_id,confirm,node_key,expected_action
+  FN _validate_plan_guard_qualify [407-455] params=session,plan_id,confirm,node_key,expected_action
+  FN _persist_report [547-573] params=task_id,session
+  FN _record_edge_action [592-624] params=tool_name,action,result,args
+  FN _tracked_action [627-804] params=stage,key_argument,require_template,dedup
+  FN decorate [642-803] params=function
+  FN tracked [646-802] params=*args,**kwargs
+  FN _call_action [807-874] params=task_id,session,path,payload,link
+  FN _collect_descendants_leaf_first [890-925] params=tree_data,target_id
+  FN _online_smart_event [928-961] params=session,device_id,st_time,end_time
+  FN _resolve_profile_and_type [964-992] params=session,node_key,device_id
+  FN register_edge_tools [995-3991] params=mcp,template_dict_source
+  FN generate_device_archive_template [1024-1087] params=
+  FN get_device_archive_template_download [1090-1122] params=file_id
+  FN upload_device_archive_template [1125-1229] params=file_content_base64,file_name,upload_id,seq,is_last
+  FN _finalize [1157-1187] params=body
+  FN migrate_device_archive_template [1232-1295] params=file_id
+  FN read_device_archive_template [1298-1383] params=excel_path,file_id
+  FN plan_device_archive [1386-1484] params=task_id
+  FN _write_batched [1496-1551] params=single_fn,task_id,node_key,node_keys,plan_id,confirm,include_details
+  FN _upsert_one_core [1553-1711] params=task_id,node_key,plan_id,confirm
+  FN edge_upsert_device [1719-1748] params=task_id,node_key,node_keys,plan_id,confirm,include_details
+  FN _mount_one_core [1750-1846] params=task_id,node_key,parent_device_id,plan_id,confirm
+  FN edge_mount_device [1853-1884] params=task_id,node_key,node_keys,parent_device_id,plan_id,confirm,include_details
+  FN _save_one_core [1886-1962] params=task_id,node_key,plan_id,confirm
+  FN edge_save_device_parameters [1969-1997] params=task_id,node_key,node_keys,plan_id,confirm,include_details
+  FN edge_get_device_parameters [2039-2120] params=task_id,device_id,node_key,item_ids
+  FN edge_delete_device [2123-2210] params=task_id,device_id,confirm
+  FN edge_get_token [2213-2280] params=ip,username,password,port,phone,captcha
+  FN edge_set_device_param [2287-2355] params=task_id,gateway_node_key,confirm,meter_node_keys,plan_id,check_online,batch_size
+  FN _deploy_without_template [2357-2535] params=task_id,session,gateway_node_key,meter_node_keys,check_online,warnings,batch_size
+  FN _deploy_to_single_gateway [2537-2732] params=task_id,gateway_node_key,confirm,meter_node_keys,plan_id,check_online,batch_size
+  FN edge_check_monitor_online [2735-2849] params=task_id,node_key,device_id,st_time,end_time,road_no,check_method,device_type
+  FN edge_call_clock [2878-2989] params=task_id,device_id,plan_id,confirm,allow_poll
+  FN edge_call_monitor_debug [2993-3282] params=task_id,node_key,plan_id,tag,confirm,device_id,road_no
+  FN execute_archive_task [3285-3341] params=task_id,gateway_node_key,meter_node_keys,stages,auto_confirm,batch_size,budget,cursor
+  FN _execute_full_workflow [3343-3549] params=task_id,stages,auto_confirm,batch_size,budget_seconds,cursor
+  FN _archive_unit [3380-3421] params=item
+  FN _execute_standalone_workflow [3551-3702] params=task_id,gateway_node_key,meter_node_keys,stages,auto_confirm
+  FN _aggregate_workflow_results [3715-3759] params=task_id,plan_id,results,details,session,stages_requested,cursor,remaining,partial
+  FN _collect_meter_device_ids [3795-3832] params=tree,gateway_node_key,gateway_device_id
+  FN _standalone_call_clock [3834-3862] params=session,gateway_device_id
+  FN edge_apply_compensation_plan [3885-3941] params=task_id,confirm,plan_id
+  FN _resolve_new_device_id [4063-4107] params=client,node
+  FN _fix_agent_measured_num [4110-4134] params=client,device_id,payload
+  FN _reapply_agent_num_after_mount [4137-4179] params=session,node,device_id,task_id
+  FN _readback_verify_device [4182-4233] params=session,node,device_id
+  FN _save_meter_parameters [4236-4326] params=session,node,device_id,resolved,detail,task_id
+  FN _save_gateway_parameters_auto [4329-4387] params=session,node,device_id,resolved,task_id
+  FN _save_meter_parameters_auto [4390-4419] params=session,node,device_id,resolved,detail,task_id
+  FN _compare_archive_fields [4443-4467] params=base,ext,actual
+  FN _read_deploy_param_body [4489-4527] params=session,device_id
+  FN _build_deploy_body_from_archive [4530-4589] params=session,device_id
+  FN _collect_all_monitor_point_keys [4617-4653] params=session,gateway_node_key
+  FN _parse_smart_event_online [4656-4683] params=resp,device_id
+  FN _build_monitor_point_item_body [4686-4753] params=session,gateway_node_key,node_keys
+  IMPORTS=mcp_server/archiving/compensation.py | mcp_server/archiving/converter.py | mcp_server/archiving/engine.py | mcp_server/archiving/excel_reader.py | mcp_server/archiving/log_sanitizer.py | mcp_server/archiving/models.py | mcp_server/archiving/profiles/base.py | mcp_server/archiving/profiles/registry.py | mcp_server/archiving/snapshot_store.py | mcp_server/archiving/stage_orchestrator.py | mcp_server/archiving/task_report_store.py | mcp_server/archiving/template_migrator.py | mcp_server/archiving/templates/generator.py | mcp_server/edge_client.py | mcp_server/operation_log_store.py | mcp_server/session.py
+FILE mcp_server/operation_log_store.py [python/code] lines=346 nonEmpty=297 classes=2 functions=5
+  CLASS OperationLogEntry [90-117] methods=2
+  CLASS OperationLogStore [120-334] methods=11
+  IMPORTS=mcp_server/archiving/log_sanitizer.py | mcp_server/archiving/snapshot_store.py
+FILE mcp_server/server.py [python/code] lines=3140 nonEmpty=2704 classes=3 functions=96
+  CLASS TokenManager [431-620] methods=10
+  CLASS AuthMiddleware [2623-2684] methods=3
+  CLASS CompositeApp [2690-3068] methods=10
+  FN _get_local_ips [104-129] params=
+  FN _template_dict_source [652-716] params=
+  FN _call_platform [791-827] params=api_method,*args,**kwargs
+  FN _get_server_ips [897-935] params=
+  FN _load_server_version [956-990] params=
+  FN _skill_capabilities [1112-1165] params=package
+  FN _load_server_test_report [1258-1293] params=
+  FN _parse_server_test_xml [1309-1344] params=path,returncode
+  FN _query_platform_stats [1386-1422] params=token
+  FN _refresh_showcase_platform [1431-1464] params=
+  FN _build_showcase_data [1482-1521] params=
+  FN list_mcp_tools [1528-1637] params=
+  FN login [1655-1710] params=phoneNum,code
+  FN update_protocol [2062-2087] params=protocol_id,protocolName,protoType,classifyId,deviceTypeId,brandId,modelId,protocolFiles
+  FN _classify_write_result [2519-2545] params=result
+  FN _wrap_logged_tool [2572-2597] params=name,fn,is_async
+FILE mcp_server/session.py [python/code] lines=106 nonEmpty=81 classes=2 functions=0
+  CLASS SessionRegistry [40-105] methods=6
+FILE mcp_server/tests/test_get_device_parameters.py [python/code] lines=124 nonEmpty=98 classes=0 functions=10
+  IMPORTS=mcp_server/edge_tools.py
+FILE mcp_server/tests/test_online_check_free_template.py [python/code] lines=118 nonEmpty=88 classes=0 functions=8
+  IMPORTS=mcp_server/edge_tools.py
+FILE mcp_server/tests/test_operation_log_store.py [python/code] lines=155 nonEmpty=124 classes=0 functions=10
+  IMPORTS=mcp_server/archiving/snapshot_store.py | mcp_server/operation_log_store.py
+FILE mcp_server/tests/test_snapshot_store.py [python/code] lines=268 nonEmpty=215 classes=6 functions=2
+  CLASS _Clock [39-52] methods=3
+  CLASS TestSaveLoad [76-117] methods=5
+  CLASS TestContentVerification [123-159] methods=3
+  CLASS TestRejection [165-196] methods=4
+  CLASS TestGenerationSemantics [202-238] methods=2
+  CLASS TestOwnerAndPurge [244-267] methods=2
+  IMPORTS=mcp_server/archiving/models.py | mcp_server/archiving/snapshot_store.py
+FILE mcp_server/tests/test_write_operation_logging.py [python/code] lines=218 nonEmpty=167 classes=0 functions=18
+  FN test_edge_action_logs_request_payload [102-126] params=store
+  FN test_e2e_current_window_and_restart [192-217] params=store,composite_app
+  IMPORTS=mcp_server/archiving/snapshot_store.py | mcp_server/edge_tools.py | mcp_server/operation_log_store.py | mcp_server/server.py | mcp_server/session.py
+##### BATCH 3 (files=11) #####
+FILE mcp_server/api_client.py [python/code] lines=1324 nonEmpty=1119 classes=1 functions=0
+  CLASS ProtocolApiClient [35-1323] methods=54
+FILE mcp_server/archiving/reference_config.py [python/code] lines=122 nonEmpty=96 classes=2 functions=1
+  CLASS ReferenceConfig [32-96] methods=5
+  IMPORTS=mcp_server/api_client.py | mcp_server/archiving/models.py
+FILE mcp_server/archiving/reference_dict.py [python/code] lines=553 nonEmpty=468 classes=5 functions=9
+  CLASS DictRecord [88-126] methods=1
+  CLASS DictFetchReport [130-151] methods=0
+  CLASS ReferenceDictSet [397-458] methods=6
+  FN _normalize_edge_list [240-276] params=items,scope,name_key,code_key,fetched_at
+  FN _fetch_cloud_paged [282-357] params=provider,api_method,scope,mapper,fetched_at,page_size,max_pages
+  FN detect_conflicts [363-390] params=records
+  FN collect_reference_dictionaries [464-552] params=provider,page_size,max_pages,fetched_at
+FILE mcp_server/archiving/reference_provider.py [python/code] lines=273 nonEmpty=222 classes=3 functions=0
+  CLASS ReferenceDictProvider [65-272] methods=13
+  IMPORTS=mcp_server/archiving/reference_config.py | mcp_server/edge_client.py | mcp_server/permissions.py
+FILE mcp_server/edge_client.py [python/code] lines=583 nonEmpty=504 classes=4 functions=1
+  CLASS EdgeApiError [88-113] methods=1 bases=Exception
+  CLASS EdgeDeviceClient [138-582] methods=15
+  IMPORTS=mcp_server/edge_proxy_config.py
+FILE mcp_server/edge_proxy_config.py [python/code] lines=47 nonEmpty=35 classes=0 functions=2
+FILE mcp_server/permissions.py [python/code] lines=272 nonEmpty=223 classes=2 functions=3
+  CLASS SuperAccountConfig [99-158] methods=3
+  CLASS BusinessTokenCache [161-271] methods=7
+FILE mcp_server/tests/test_deploy_from_archive.py [python/code] lines=67 nonEmpty=54 classes=0 functions=4
+  IMPORTS=mcp_server/archiving/converter.py | mcp_server/edge_client.py | mcp_server/edge_tools.py
+FILE mcp_server/tests/test_proxy_config.py [python/code] lines=95 nonEmpty=73 classes=2 functions=1
+  CLASS TestLoadFromFile [30-54] methods=5
+  CLASS TestPortalProxyApiUrl [57-95] methods=6
+  IMPORTS=mcp_server/edge_proxy_config.py
+FILE mcp_server/tests/test_reference_dict.py [python/code] lines=435 nonEmpty=362 classes=8 functions=4
+  CLASS _PagedCloud [58-95] methods=5
+  CLASS _DictEdge [98-129] methods=4
+  CLASS TestCollectComplete [174-228] methods=4
+  CLASS TestZeroCode [234-260] methods=2
+  CLASS TestPagination [266-316] methods=3
+  CLASS TestScopeAssociationAndConflicts [322-378] methods=4
+  CLASS TestAllOrNothing [384-434] methods=3
+  IMPORTS=mcp_server/archiving/reference_config.py | mcp_server/archiving/reference_dict.py | mcp_server/archiving/reference_provider.py
+FILE mcp_server/tests/test_reference_provider.py [python/code] lines=340 nonEmpty=277 classes=6 functions=4
+  CLASS _FakeCloud [47-74] methods=5
+  CLASS _FakeEdge [77-109] methods=4
+  CLASS TestReferenceConfig [149-183] methods=4
+  CLASS TestCloudSystemTokenOnly [189-218] methods=3
+  CLASS TestNoSourceSwitchOnRefresh [224-262] methods=3
+  CLASS TestEdgeLoginWiring [268-334] methods=4
+  IMPORTS=mcp_server/archiving/reference_config.py | mcp_server/archiving/reference_provider.py
+##### BATCH 4 (files=9) #####
+FILE mcp_server/archiving/converter.py [python/code] lines=97 nonEmpty=79 classes=1 functions=2
+  FN convert_comm_address [35-72] params=identifier
+FILE mcp_server/archiving/profiles/__init__.py [python/code] lines=27 nonEmpty=21 classes=0 functions=0
+  IMPORTS=mcp_server/archiving/profiles/registry.py
+FILE mcp_server/archiving/profiles/base.py [python/code] lines=243 nonEmpty=202 classes=2 functions=3
+  CLASS ProfileResult [45-69] methods=1
+  CLASS DeviceProfile [194-242] methods=2
+  FN assemble_auth_param [72-128] params=ip,port,comm_port,ip_ports,password
+  FN encode_auth_param_hex [131-160] params=ip,port
+  FN normalize_auth_param_for_deploy [163-191] params=value
+FILE mcp_server/archiving/profiles/gateway_8163.py [python/code] lines=113 nonEmpty=97 classes=1 functions=0
+  CLASS Gateway8163Profile [25-112] methods=1 bases=DeviceProfile
+  IMPORTS=mcp_server/archiving/converter.py | mcp_server/archiving/profiles/base.py
+FILE mcp_server/archiving/profiles/meter_lighting.py [python/code] lines=31 nonEmpty=21 classes=1 functions=0
+  IMPORTS=mcp_server/archiving/profiles/base.py | mcp_server/archiving/profiles/meter_xlba.py
+FILE mcp_server/archiving/profiles/meter_pdb.py [python/code] lines=31 nonEmpty=21 classes=1 functions=0
+  IMPORTS=mcp_server/archiving/profiles/base.py | mcp_server/archiving/profiles/meter_xlba.py
+FILE mcp_server/archiving/profiles/meter_xlba.py [python/code] lines=504 nonEmpty=464 classes=1 functions=4
+  CLASS MeterXlbaProfile [131-503] methods=1 bases=DeviceProfile
+  IMPORTS=mcp_server/archiving/converter.py | mcp_server/archiving/profiles/base.py
+FILE mcp_server/archiving/profiles/registry.py [python/code] lines=210 nonEmpty=171 classes=3 functions=1
+  CLASS VirtualGatewayPlaceholderProfile [33-65] methods=1 bases=DeviceProfile
+  CLASS ProfileRegistry [68-189] methods=6
+  IMPORTS=mcp_server/archiving/models.py | mcp_server/archiving/profiles/base.py | mcp_server/archiving/profiles/gateway_8163.py | mcp_server/archiving/profiles/meter_lighting.py | mcp_server/archiving/profiles/meter_pdb.py | mcp_server/archiving/profiles/meter_xlba.py
+FILE mcp_server/tests/test_brand_model_code.py [python/code] lines=244 nonEmpty=210 classes=1 functions=8
+  CLASS TestBrandModelCode [25-110] methods=8
+  FN test_batch_fields_match_all_three_targets [125-157] params=name,barcode,road,brand,model,brand_code,model_code,interval,interval_code
+  IMPORTS=mcp_server/archiving/models.py | mcp_server/archiving/profiles/gateway_8163.py | mcp_server/archiving/profiles/meter_xlba.py
+##### BATCH 5 (files=4) #####
+FILE README.md [markdown/docs] lines=65 nonEmpty=49 classes=0 functions=0
+  SECTIONS=6
+FILE _verify_download_fix.ps1 [powershell/script] lines=98 nonEmpty=98 classes=0 functions=0
+FILE _vm_list.txt [txt/docs] lines=27 nonEmpty=27 classes=0 functions=0
+FILE pytest.ini [config/config] lines=4 nonEmpty=4 classes=0 functions=0
+##### BATCH 6 (files=6) #####
+FILE agent_assets/skills/xlpa-device-archiving/references/device-onboarding-playbook.md [markdown/docs] lines=118 nonEmpty=95 classes=0 functions=0
+  SECTIONS=12
+FILE agent_assets/skills/xlpa-device-archiving/references/direct-edge-operation.md [markdown/docs] lines=86 nonEmpty=69 classes=0 functions=0
+  SECTIONS=8
+FILE agent_assets/skills/xlpa-device-archiving/references/edge-param-save-api.md [markdown/docs] lines=300 nonEmpty=239 classes=0 functions=0
+  SECTIONS=27
+FILE agent_assets/skills/xlpa-device-archiving/references/excel-template-schema.md [markdown/docs] lines=275 nonEmpty=222 classes=0 functions=0
+  SECTIONS=11
+FILE agent_assets/skills/xlpa-device-archiving/references/gateway-button-endpoints.md [markdown/docs] lines=76 nonEmpty=63 classes=0 functions=0
+  SECTIONS=7
+FILE agent_assets/skills/xlpa-device-archiving/references/platform-dict-template-generation.md [markdown/docs] lines=127 nonEmpty=104 classes=0 functions=0
+  SECTIONS=8
+##### BATCH 7 (files=3) #####
+FILE docs/reference/edge-archive-fields.md [markdown/docs] lines=905 nonEmpty=692 classes=0 functions=0
+  SECTIONS=74
+FILE docs/reference/mcp-service-design.md [markdown/docs] lines=1253 nonEmpty=949 classes=0 functions=0
+  SECTIONS=106
+FILE docs/reference/protocol-management-api.md [markdown/docs] lines=1147 nonEmpty=872 classes=0 functions=0
+  SECTIONS=97
+##### BATCH 8 (files=8) #####
+FILE mcp_server/.env [config/config] lines=1 nonEmpty=1 classes=0 functions=0
+FILE mcp_server/README.md [markdown/docs] lines=226 nonEmpty=169 classes=0 functions=0
+  SECTIONS=19
+FILE mcp_server/permissions.template.json [json/config] lines=10 nonEmpty=10 classes=0 functions=0
+  SECTIONS=2
+FILE mcp_server/proxy_config.json [json/config] lines=3 nonEmpty=3 classes=0 functions=0
+  SECTIONS=1
+FILE mcp_server/version.json [json/config] lines=6 nonEmpty=6 classes=0 functions=0
+  SECTIONS=4
+FILE mcp_server/install.bat [batch/script] lines=101 nonEmpty=101 classes=0 functions=0
+FILE mcp_server/requirements.txt [txt/docs] lines=3 nonEmpty=3 classes=0 functions=0
+FILE mcp_server/start.bat [batch/script] lines=40 nonEmpty=40 classes=0 functions=0
+##### BATCH 9 (files=19) #####
+FILE agent_assets/skills/http-conversion/SKILL.md [markdown/docs] lines=586 nonEmpty=454 classes=0 functions=0
+  SECTIONS=37
+FILE agent_assets/skills/http-conversion/agents/openai.yaml [yaml/config] lines=3 nonEmpty=3 classes=0 functions=0
+  SECTIONS=1
+FILE agent_assets/skills/http-conversion/manifest.json [json/config] lines=19 nonEmpty=19 classes=0 functions=0
+  SECTIONS=7
+FILE agent_assets/skills/http-conversion/references/examples/aimcover-http.json [json/config] lines=88 nonEmpty=88 classes=0 functions=0
+  SECTIONS=5
+FILE agent_assets/skills/http-conversion/references/examples/linktheall-http.json [json/config] lines=117 nonEmpty=117 classes=0 functions=0
+  SECTIONS=5
+FILE agent_assets/skills/http-conversion/references/原子标签定义.md [markdown/docs] lines=1270 nonEmpty=1200 classes=0 functions=0
+  SECTIONS=2
+FILE agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.md [markdown/docs] lines=155 nonEmpty=104 classes=0 functions=0
+FILE agent_assets/skills/modbus-conversion/SKILL.md [markdown/docs] lines=1015 nonEmpty=813 classes=0 functions=0
+  SECTIONS=58
+FILE agent_assets/skills/modbus-conversion/agents/openai.yaml [yaml/config] lines=3 nonEmpty=3 classes=0 functions=0
+  SECTIONS=1
+FILE agent_assets/skills/modbus-conversion/manifest.json [json/config] lines=19 nonEmpty=19 classes=0 functions=0
+  SECTIONS=7
+FILE agent_assets/skills/modbus-conversion/references/原子标签定义.md [markdown/docs] lines=1270 nonEmpty=1200 classes=0 functions=0
+  SECTIONS=2
+FILE agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.md [markdown/docs] lines=155 nonEmpty=104 classes=0 functions=0
+FILE agent_assets/skills/modbus-cq-adapt/SKILL.md [markdown/docs] lines=196 nonEmpty=148 classes=0 functions=0
+  SECTIONS=17
+FILE agent_assets/skills/modbus-cq-adapt/agents/openai.yaml [yaml/config] lines=11 nonEmpty=11 classes=0 functions=0
+  SECTIONS=1
+FILE agent_assets/skills/modbus-cq-adapt/manifest.json [json/config] lines=16 nonEmpty=16 classes=0 functions=0
+  SECTIONS=6
+FILE agent_assets/skills/mqtt-conversion/SKILL.md [markdown/docs] lines=461 nonEmpty=347 classes=0 functions=0
+  SECTIONS=30
+FILE agent_assets/skills/mqtt-conversion/agents/openai.yaml [yaml/config] lines=3 nonEmpty=3 classes=0 functions=0
+  SECTIONS=1
+FILE agent_assets/skills/mqtt-conversion/manifest.json [json/config] lines=19 nonEmpty=19 classes=0 functions=0
+  SECTIONS=7
+FILE agent_assets/skills/mqtt-conversion/references/examples/vpp-mqtt.json [json/config] lines=97 nonEmpty=97 classes=0 functions=0
+  SECTIONS=3
+##### BATCH 10 (files=22) #####
+FILE agent_assets/skills/mqtt-conversion/references/原子标签定义.md [markdown/docs] lines=1270 nonEmpty=1200 classes=0 functions=0
+  SECTIONS=2
+FILE agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.md [markdown/docs] lines=155 nonEmpty=104 classes=0 functions=0
+FILE agent_assets/skills/pack-distribution/SKILL.md [markdown/docs] lines=161 nonEmpty=130 classes=0 functions=0
+  SECTIONS=13
+FILE agent_assets/skills/pack-distribution/agents/openai.yaml [yaml/config] lines=3 nonEmpty=3 classes=0 functions=0
+  SECTIONS=1
+FILE agent_assets/skills/pack-distribution/manifest.json [json/config] lines=16 nonEmpty=16 classes=0 functions=0
+  SECTIONS=6
+FILE agent_assets/skills/package-manifest.json [json/config] lines=66 nonEmpty=66 classes=0 functions=0
+  SECTIONS=10
+FILE agent_assets/skills/protocol-conversion/SKILL.md [markdown/docs] lines=460 nonEmpty=347 classes=0 functions=0
+  SECTIONS=35
+FILE agent_assets/skills/protocol-conversion/agents/openai.yaml [yaml/config] lines=13 nonEmpty=13 classes=0 functions=0
+  SECTIONS=4
+FILE agent_assets/skills/protocol-conversion/manifest.json [json/config] lines=16 nonEmpty=16 classes=0 functions=0
+  SECTIONS=6
+FILE agent_assets/skills/protocol-conversion/scripts/gen_test_report.py [python/code] lines=89 nonEmpty=80 classes=0 functions=0
+FILE agent_assets/skills/protocol-conversion/scripts/mapper_core.c [c/code] lines=740 nonEmpty=651 classes=0 functions=7
+  FN get_value_by_path [41-92] params=cJSON* root,const char* path
+  FN ensure_path [116-160] params=cJSON* root,const char* path
+  FN get_flat_array_from_path [161-281] params=cJSON* root,const char* path
+  FN template_substitute [282-740] params=const char* template_str,MappingContext* ctx
+FILE agent_assets/skills/protocol-conversion/scripts/mapper_core.h [c/code] lines=167 nonEmpty=141 classes=0 functions=0
+FILE agent_assets/skills/protocol-conversion/scripts/protocol_converter.py [python/code] lines=602 nonEmpty=497 classes=1 functions=0
+  CLASS MapperCore [32-601] methods=13
+FILE agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py [python/code] lines=1052 nonEmpty=903 classes=12 functions=0
+  CLASS TestPathResolution [27-117] methods=13 bases=TestCase
+  CLASS TestEnsurePath [120-158] methods=5 bases=TestCase
+  CLASS TestTypeConversion [161-285] methods=22 bases=TestCase
+  CLASS TestGenerators [288-351] methods=12 bases=TestCase
+  CLASS TestTemplateSubstitute [354-381] methods=5 bases=TestCase
+  CLASS TestArrayForeach [384-498] methods=6 bases=TestCase
+  CLASS TestMQTTTransform [501-618] methods=7 bases=TestCase
+  CLASS TestHTTPTransform [621-764] methods=8 bases=TestCase
+  CLASS TestEngineDifferences [767-819] methods=4 bases=TestCase
+  CLASS TestEdgeCases [822-887] methods=7 bases=TestCase
+  CLASS TestRealConfigs [890-972] methods=2 bases=TestCase
+  CLASS TestUnifiedCodeConsistency [975-1047] methods=4 bases=TestCase
+FILE agent_assets/skills/protocol-conversion/scripts/test_report.json [json/config] lines=83 nonEmpty=83 classes=0 functions=0
+  SECTIONS=8
+FILE agent_assets/skills/test-validation/SKILL.md [markdown/docs] lines=204 nonEmpty=168 classes=0 functions=0
+  SECTIONS=15
+FILE agent_assets/skills/test-validation/agents/openai.yaml [yaml/config] lines=3 nonEmpty=3 classes=0 functions=0
+  SECTIONS=1
+FILE agent_assets/skills/test-validation/manifest.json [json/config] lines=16 nonEmpty=16 classes=0 functions=0
+  SECTIONS=6
+FILE agent_assets/skills/xlpa-device-archiving/SKILL.md [markdown/docs] lines=284 nonEmpty=240 classes=0 functions=0
+  SECTIONS=20
+FILE agent_assets/skills/xlpa-device-archiving/agents/openai.yaml [yaml/config] lines=3 nonEmpty=3 classes=0 functions=0
+  SECTIONS=1
+FILE agent_assets/skills/xlpa-device-archiving/manifest.json [json/config] lines=21 nonEmpty=21 classes=0 functions=0
+  SECTIONS=7
+FILE agent_assets/skills/xlpa/SKILL.md [markdown/docs] lines=782 nonEmpty=600 classes=0 functions=0
+  SECTIONS=38
+##### BATCH 11 (files=22) #####
+FILE agent_assets/skills/xlpa/agents/openai.yaml [yaml/config] lines=3 nonEmpty=3 classes=0 functions=0
+  SECTIONS=1
+FILE agent_assets/skills/xlpa/manifest.json [json/config] lines=19 nonEmpty=19 classes=0 functions=0
+  SECTIONS=7
+FILE agent_assets/skills/xlpa/tools/mcp_client.py [python/code] lines=168 nonEmpty=135 classes=0 functions=7
+  FN call_tool [99-139] params=tool_name,arguments,url,token,retry
+FILE docs/architecture/project-structure.md [markdown/docs] lines=312 nonEmpty=249 classes=0 functions=0
+  SECTIONS=22
+FILE docs/architecture/web-chat-agent-runtime-solution.md [markdown/docs] lines=386 nonEmpty=289 classes=0 functions=0
+  SECTIONS=30
+FILE docs/deployment/mcp-server.md [markdown/docs] lines=704 nonEmpty=528 classes=0 functions=0
+  SECTIONS=36
+FILE mcp_server/archiving/__init__.py [python/code] lines=38 nonEmpty=32 classes=0 functions=0
+FILE mcp_server/archiving/ooxml_validator.py [python/code] lines=134 nonEmpty=108 classes=1 functions=1
+  FN validate_ooxml [45-133] params=data,max_uncompressed,max_ratio
+FILE mcp_server/archiving/templates/stage_zero_generate.py [python/code] lines=251 nonEmpty=205 classes=1 functions=7
+  FN _generate [87-170] params=url,token,output_dir
+  FN _self_check [173-197] params=path,counts
+FILE mcp_server/archiving/time_validator.py [python/code] lines=195 nonEmpty=161 classes=1 functions=3
+  CLASS TimeValidationResult [27-81] methods=2
+  FN validate_data_time [84-158] params=data_time_str,gateway_clock_str,request_elapsed,max_drift_seconds
+FILE mcp_server/cleanup.py [python/code] lines=136 nonEmpty=110 classes=0 functions=4
+  FN cleanup_package_backups [50-86] params=backup_dirs,validation_ok,user_confirmed
+  FN cleanup_artifacts [102-135] params=entries
+FILE mcp_server/mcp_client.py [python/code] lines=22 nonEmpty=16 classes=0 functions=0
+FILE mcp_server/tests/__init__.py [python/code] lines=1 nonEmpty=0 classes=0 functions=0
+FILE mcp_server/tests/test_auth_revamp.py [python/code] lines=210 nonEmpty=167 classes=3 functions=1
+  CLASS TestLoginDoubleSource [45-89] methods=2
+  CLASS TestConcurrentIndependentRead [97-164] methods=7
+  CLASS TestRestartPersistence [172-210] methods=2
+FILE mcp_server/tests/test_oplog_panel.py [python/code] lines=117 nonEmpty=96 classes=0 functions=5
+  FN test_oplog_panel_judges_and_groups [66-116] params=oplog_page
+FILE mcp_server/tests/test_portal_proxy.py [python/code] lines=336 nonEmpty=272 classes=3 functions=0
+  CLASS TestEdgeClientProxyMode [28-205] methods=14
+  CLASS TestTaskConfigProxyMode [208-240] methods=4
+  CLASS TestExcelReaderProxyDetection [243-335] methods=8
+FILE mcp_server/tests/test_refactor.py [python/code] lines=1663 nonEmpty=1416 classes=9 functions=52
+  CLASS TestConvertCommAddress [44-81] methods=6
+  CLASS TestProfileRegistry [89-122] methods=4
+  CLASS TestMeterXlbaProfile [130-279] methods=17
+  CLASS TestAuthParamNormalize [282-303] methods=5
+  CLASS TestTokenRegistryMigration [311-378] methods=2
+  CLASS TestPermissionMatrix [386-460] methods=5
+  CLASS TestEdgeClientNormalization [468-500] methods=4
+  CLASS TestCompensationRecorder [508-536] methods=2
+  CLASS TestShowcaseData [544-585] methods=5
+  FN test_server_test_background_isolation [720-748] params=showcase_server,monkeypatch,tmp_path
+  FN test_showcase_concurrent_refresh_and_cancellation [931-958] params=showcase_server,monkeypatch
+  FN test_showcase_browser_dynamic_snapshot_and_scroll [1034-1103] params=showcase_page
+  FN test_showcase_browser_visibility_failure_and_recovery [1106-1142] params=showcase_page
+  FN test_showcase_browser_report_integrity [1145-1186] params=showcase_page
+  FN test_showcase_browser_timeout_and_late_response [1189-1216] params=showcase_page
+  FN test_showcase_browser_narrow_matrix [1219-1246] params=showcase_page,tmp_path
+  FN test_access_browser_all_client_configs [1249-1308] params=showcase_page,tmp_path
+  FN test_showcase_public_routes_share_client_catalog [1312-1336] params=showcase_server,monkeypatch
+  FN test_modbus_query_entry_contract [1432-1473] params=modbus_docs
+  FN test_modbus_legacy_example_contract [1626-1661] params=modbus_docs
+FILE mcp_server/tests/test_session_permission.py [python/code] lines=275 nonEmpty=212 classes=6 functions=1
+  CLASS TestLoginTool [51-108] methods=3
+  CLASS TestRequireSession [116-134] methods=2
+  CLASS TestRequireSuper [137-156] methods=2
+  CLASS TestCallPlatform [164-216] methods=4
+  CLASS TestGenScriptCounter [224-246] methods=1
+  CLASS TestStatsHelpers [254-274] methods=2
+FILE mcp_server/token_manager.py [python/code] lines=246 nonEmpty=206 classes=1 functions=2
+  CLASS SystemTokenManager [24-199] methods=13
+FILE docs/presentation/web-chat-agent-runtime-slides.html [html/markup] lines=626 nonEmpty=626 classes=0 functions=0
+FILE mcp_server/static/access.html [html/markup] lines=1043 nonEmpty=1043 classes=0 functions=0
+FILE mcp_server/static/showcase.html [html/markup] lines=2669 nonEmpty=2669 classes=0 functions=0

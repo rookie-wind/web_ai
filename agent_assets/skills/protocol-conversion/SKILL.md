@@ -13,12 +13,16 @@ metadata:
   tags: [mapping-core, shared, mqtt, http, unified]
   order: 1
   author: song
-  version: "1.4.0"
+  version: "1.4.1"
 ---
 
 # 共享协议映射核心
 
 > **角色：** 本 skill 是 mqtt-conversion 和 http-conversion 的共享映射规则库。不直接面向用户，不包含协议分析流程。mqtt-conversion 和 http-conversion 在执行到「映射步骤」时加载本 skill，按此处的规则设计字段映射。
+
+> **目录只读约束**：技能目录为只读母本，作业中间产物写
+> `<会话工作区>/xlpa-tmp/`，最终产物写 `<会话工作区>/xlpa-output/`
+> （或用户指定目录），禁止向技能目录写入任何文件。
 
 ## 1. 引擎归属
 
@@ -339,6 +343,16 @@ python -m unittest test_protocol_converter -v
 
 > 技能目录按客户端而定：Qoder 为 `.qoder/skills`，Trae 为 `.trae/skills`。
 > 执行前先用实际存在的那个路径；不得将测试产物或 `__pycache__` 依赖当作技能目录输出位置。
+
+### 服务端沙箱执行入口
+
+Web/IDE 会话无需本地 Bash 也能运行镜像引擎：服务端提供
+`execute_conversion_test` 工具，在沙箱中加载本目录的 `protocol_converter.py`
+（单一事实源，随资源包升级自动跟随）逐 case 执行 `transform_mqtt /
+transform_http`。配套工具：`validate_config_format`（结构校验）、
+`generate_test_data`（测试输入生成）、`get_test_report`（报告查询）、
+`save_conversion_config`（配置保存）。本脚本仍可本地 `python -m unittest`
+运行 91 项测试套件作离线验证。
 
 ## 14. 结构确认报告模板
 

@@ -1,0 +1,1 @@
+{"test_run_id": "1c41b244928f0a85eb648de814e6f0b7", "owner_id": "7096ba967369c4350d22850342041dd22164fbe98509d5a8b3bafdc5ed411ef2", "created_at": 1793258965.1599889, "report": {"conversion_type": "mqtt_to_mqtt", "total": 1, "passed": 1, "failed": 0, "skipped": 0, "results": [{"name": "ok", "status": "passed", "output": {"deviceId": "1"}}]}}

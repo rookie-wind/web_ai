@@ -1,0 +1,700 @@
+{
+  "projectRoot": "e:\\codeGIT\\pca-mcp-server",
+  "files": [
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "_verify_download_fix.ps1",
+      "language": "powershell",
+      "fileCategory": "script"
+    },
+    {
+      "path": "_vm_list.txt",
+      "language": "txt",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/manifest.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/examples/aimcover-http.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/examples/linktheall-http.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/原子标签定义.docx",
+      "language": "docx",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/原子标签定义.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.docx",
+      "language": "docx",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/http-conversion/references/数据采集通信协议.docx",
+      "language": "docx",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/manifest.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/原子标签定义.docx",
+      "language": "docx",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/原子标签定义.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.docx",
+      "language": "docx",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/modbus-conversion/references/数据采集通信协议.docx",
+      "language": "docx",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/modbus-cq-adapt/manifest.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/manifest.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/examples/vpp-mqtt.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/原子标签定义.docx",
+      "language": "docx",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/原子标签定义.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.docx",
+      "language": "docx",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/数据采集通信协议.docx",
+      "language": "docx",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/manifest.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/package-manifest.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/manifest.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/gen_test_report.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.c",
+      "language": "c",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.h",
+      "language": "c",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/protocol_converter.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/test_report.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/test-validation/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/test-validation/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/test-validation/manifest.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/manifest.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/device-onboarding-playbook.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/direct-edge-operation.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/edge-param-save-api.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/excel-template-schema.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/gateway-button-endpoints.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/references/platform-dict-template-generation.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "agent_assets/skills/xlpa/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/xlpa/manifest.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "agent_assets/skills/xlpa/tools/mcp_client.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "docs/architecture/project-structure.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/architecture/web-chat-agent-runtime-solution.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/deployment/mcp-server.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/presentation/web-chat-agent-runtime-slides.html",
+      "language": "html",
+      "fileCategory": "markup"
+    },
+    {
+      "path": "docs/reference/edge-archive-fields.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/reference/mcp-service-design.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/reference/protocol-management-api.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "mcp_server/.env",
+      "language": "config",
+      "fileCategory": "config"
+    },
+    {
+      "path": "mcp_server/README.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "mcp_server/api_client.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/__init__.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/compensation.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/converter.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/engine.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/excel_reader.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/field_contract.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/log_sanitizer.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/models.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/ooxml_validator.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/__init__.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/base.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/gateway_8163.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/meter_lighting.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/meter_pdb.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/meter_xlba.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/registry.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/reference_config.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/reference_dict.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/reference_provider.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/snapshot_store.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/stage_orchestrator.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/task_report_store.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/template_migrator.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/templates/__init__.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/templates/generator.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/templates/stage_zero_generate.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/time_validator.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/cleanup.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/edge_client.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/edge_proxy_config.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/edge_tools.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/install.bat",
+      "language": "batch",
+      "fileCategory": "script"
+    },
+    {
+      "path": "mcp_server/mcp_client.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/operation_log_store.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/permissions.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/permissions.template.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "mcp_server/proxy_config.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "mcp_server/requirements.txt",
+      "language": "txt",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "mcp_server/server.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/session.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/start.bat",
+      "language": "batch",
+      "fileCategory": "script"
+    },
+    {
+      "path": "mcp_server/static/access.html",
+      "language": "html",
+      "fileCategory": "markup"
+    },
+    {
+      "path": "mcp_server/static/showcase.html",
+      "language": "html",
+      "fileCategory": "markup"
+    },
+    {
+      "path": "mcp_server/tests/__init__.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_archiving_template.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_auth_revamp.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_brand_model_code.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_deploy_from_archive.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_field_contract.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_generator_v14.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_get_device_parameters.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_online_check_free_template.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_operation_log_store.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_oplog_panel.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_param_validation_and_resume.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_portal_proxy.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_proxy_config.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_refactor.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_reference_dict.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_reference_provider.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_session_permission.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_snapshot_store.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_template_migrator.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_write_operation_logging.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/token_manager.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/version.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "pytest.ini",
+      "language": "config",
+      "fileCategory": "config"
+    }
+  ]
+}

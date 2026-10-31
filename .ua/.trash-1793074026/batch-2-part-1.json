@@ -1,0 +1,2647 @@
+{
+  "nodes": [
+    {
+      "id": "file:mcp_server/archiving/log_sanitizer.py",
+      "type": "file",
+      "name": "log_sanitizer.py",
+      "filePath": "mcp_server/archiving/log_sanitizer.py",
+      "summary": "日志脱敏器：递归遍历报告结构，把 Token、口令等敏感值替换为掩码后再落审计日志。",
+      "tags": [
+        "安全",
+        "脱敏",
+        "日志审计",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/archiving/log_sanitizer.py:sanitize_report",
+      "type": "function",
+      "name": "sanitize_report",
+      "filePath": "mcp_server/archiving/log_sanitizer.py",
+      "lineRange": [
+        96,
+        120
+      ],
+      "summary": "深度遍历字典/列表报告对象，按敏感键与已知密钥集合执行掩码替换。",
+      "tags": [
+        "脱敏",
+        "安全",
+        "递归"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mcp_server/archiving/snapshot_store.py",
+      "type": "file",
+      "name": "snapshot_store.py",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "summary": "建档模板快照与分块上传存储：按所有者隔离缓存快照，校验内容一致性并提供过期与篡改防护。",
+      "tags": [
+        "快照存储",
+        "分块上传",
+        "会话隔离",
+        "archiving"
+      ],
+      "complexity": "complex",
+      "languageNotes": "所有失败路径统一抛出 SnapshotError 家族异常，便于服务端把原因映射为稳定错误码。"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "class",
+      "name": "SnapshotError",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "lineRange": [
+        120,
+        121
+      ],
+      "summary": "快照存储异常基类，其余快照错误都继承自它。",
+      "tags": [
+        "异常",
+        "快照存储"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotNotFoundError",
+      "type": "class",
+      "name": "SnapshotNotFoundError",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "lineRange": [
+        124,
+        125
+      ],
+      "summary": "按快照标识取不到数据时抛出的异常。",
+      "tags": [
+        "异常",
+        "快照存储"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotOwnerMismatchError",
+      "type": "class",
+      "name": "SnapshotOwnerMismatchError",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "lineRange": [
+        128,
+        129
+      ],
+      "summary": "访问方与快照所有者不匹配时抛出的越权异常。",
+      "tags": [
+        "异常",
+        "会话隔离",
+        "安全"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotExpiredError",
+      "type": "class",
+      "name": "SnapshotExpiredError",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "lineRange": [
+        132,
+        133
+      ],
+      "summary": "快照超过保留期失效时抛出的异常。",
+      "tags": [
+        "异常",
+        "快照存储",
+        "过期"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotTamperError",
+      "type": "class",
+      "name": "SnapshotTamperError",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "lineRange": [
+        136,
+        137
+      ],
+      "summary": "快照内容摘要与记录不一致时抛出的篡改异常。",
+      "tags": [
+        "异常",
+        "完整性校验",
+        "安全"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError",
+      "type": "class",
+      "name": "ChunkedUploadError",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "lineRange": [
+        140,
+        141
+      ],
+      "summary": "分块上传失败的基类异常。",
+      "tags": [
+        "异常",
+        "分块上传"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:UploadIncompleteError",
+      "type": "class",
+      "name": "UploadIncompleteError",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "lineRange": [
+        144,
+        145
+      ],
+      "summary": "分块未到齐即请求合并时抛出的异常。",
+      "tags": [
+        "异常",
+        "分块上传"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:UploadLimitError",
+      "type": "class",
+      "name": "UploadLimitError",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "lineRange": [
+        148,
+        149
+      ],
+      "summary": "上传体积或分块数量超出上限时抛出的异常。",
+      "tags": [
+        "异常",
+        "分块上传",
+        "限额"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:UploadExpiredError",
+      "type": "class",
+      "name": "UploadExpiredError",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "lineRange": [
+        152,
+        153
+      ],
+      "summary": "上传会话过期时抛出的异常。",
+      "tags": [
+        "异常",
+        "分块上传",
+        "过期"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotRecord",
+      "type": "class",
+      "name": "SnapshotRecord",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "lineRange": [
+        157,
+        228
+      ],
+      "summary": "单条快照记录模型，含标识、所有者、摘要、生成时间与体积等元信息。",
+      "tags": [
+        "data-model",
+        "快照存储"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:mcp_server/archiving/snapshot_store.py:SnapshotStore",
+      "type": "class",
+      "name": "SnapshotStore",
+      "filePath": "mcp_server/archiving/snapshot_store.py",
+      "lineRange": [
+        231,
+        718
+      ],
+      "summary": "快照存储主体：落盘/读取快照、按 owner 隔离校验、维护分块上传缓冲并定期清理过期项。",
+      "tags": [
+        "快照存储",
+        "分块上传",
+        "持久化",
+        "core-logic"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:mcp_server/archiving/stage_orchestrator.py",
+      "type": "file",
+      "name": "stage_orchestrator.py",
+      "filePath": "mcp_server/archiving/stage_orchestrator.py",
+      "summary": "建档阶段编排器：以阶段状态为权威进度记录，驱动逐阶段执行、跳过已完成项并支持断点续跑。",
+      "tags": [
+        "阶段编排",
+        "断点续跑",
+        "状态机",
+        "archiving"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:mcp_server/archiving/stage_orchestrator.py:StageState",
+      "type": "class",
+      "name": "StageState",
+      "filePath": "mcp_server/archiving/stage_orchestrator.py",
+      "lineRange": [
+        27,
+        34
+      ],
+      "summary": "阶段状态枚举（待执行、执行中、成功、失败、跳过）。",
+      "tags": [
+        "枚举",
+        "状态机",
+        "阶段编排"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/stage_orchestrator.py:StageRecord",
+      "type": "class",
+      "name": "StageRecord",
+      "filePath": "mcp_server/archiving/stage_orchestrator.py",
+      "lineRange": [
+        37,
+        79
+      ],
+      "summary": "单个阶段的执行记录，保存状态、时间、结果与错误说明。",
+      "tags": [
+        "data-model",
+        "阶段编排"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/stage_orchestrator.py:StageOrchestrator",
+      "type": "class",
+      "name": "StageOrchestrator",
+      "filePath": "mcp_server/archiving/stage_orchestrator.py",
+      "lineRange": [
+        92,
+        252
+      ],
+      "summary": "编排各阶段顺序执行，依据阶段状态决定跳过或续跑并汇总整体进度。",
+      "tags": [
+        "阶段编排",
+        "断点续跑",
+        "core-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/archiving/task_report_store.py",
+      "type": "file",
+      "name": "task_report_store.py",
+      "filePath": "mcp_server/archiving/task_report_store.py",
+      "summary": "建档任务报告存储：按任务持久化脱敏后的执行报告，供召测回读与审计面板查询。",
+      "tags": [
+        "任务报告",
+        "持久化",
+        "日志审计",
+        "archiving"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:mcp_server/archiving/task_report_store.py:TaskReportError",
+      "type": "class",
+      "name": "TaskReportError",
+      "filePath": "mcp_server/archiving/task_report_store.py",
+      "lineRange": [
+        43,
+        44
+      ],
+      "summary": "任务报告读写失败的异常类型。",
+      "tags": [
+        "异常",
+        "任务报告"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/task_report_store.py:TaskReport",
+      "type": "class",
+      "name": "TaskReport",
+      "filePath": "mcp_server/archiving/task_report_store.py",
+      "lineRange": [
+        48,
+        91
+      ],
+      "summary": "任务报告模型，含任务标识、阶段结果、明细与时间戳。",
+      "tags": [
+        "data-model",
+        "任务报告"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/archiving/task_report_store.py:TaskReportStore",
+      "type": "class",
+      "name": "TaskReportStore",
+      "filePath": "mcp_server/archiving/task_report_store.py",
+      "lineRange": [
+        94,
+        267
+      ],
+      "summary": "报告存储实现：原子替换写入、按窗口读取、并发冲突重试与历史清理。",
+      "tags": [
+        "任务报告",
+        "持久化",
+        "原子写"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/edge_tools.py",
+      "type": "file",
+      "name": "edge_tools.py",
+      "filePath": "mcp_server/edge_tools.py",
+      "summary": "边缘联通 MCP 工具的注册与实现总入口：模板生成/上传/读取、建档计划、逐阶段执行、参数下发与召测在线判定全部在此装配。",
+      "tags": [
+        "边缘联通",
+        "mcp-tools",
+        "建档编排",
+        "下发召测",
+        "entry-point"
+      ],
+      "complexity": "complex",
+      "languageNotes": "register_edge_tools 是一个近 3000 行的闭包工厂，内部工具共享 session/task 上下文闭包，因此体积巨大但耦合度低。"
+    },
+    {
+      "id": "class:mcp_server/edge_tools.py:EdgeSession",
+      "type": "class",
+      "name": "EdgeSession",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        110,
+        178
+      ],
+      "summary": "边缘会话模型，承载 token、地址、归属与过期时间等上下文。",
+      "tags": [
+        "data-model",
+        "会话",
+        "边缘联通"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:mcp_server/edge_tools.py:EdgeSessionStore",
+      "type": "class",
+      "name": "EdgeSessionStore",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        181,
+        277
+      ],
+      "summary": "边缘会话存储，负责会话创建、取回、过期回收与归属隔离。",
+      "tags": [
+        "会话管理",
+        "边缘联通",
+        "存储"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_client_for",
+      "type": "function",
+      "name": "_client_for",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        309,
+        353
+      ],
+      "summary": "按会话构造或复用边缘 API 客户端，统一注入代理与超时配置。",
+      "tags": [
+        "factory",
+        "边缘客户端",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_validate_plan_guard",
+      "type": "function",
+      "name": "_validate_plan_guard",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        377,
+        404
+      ],
+      "summary": "写操作前置门禁：校验 plan_id、confirm 与节点动作匹配，不通过即拒绝执行。",
+      "tags": [
+        "安全门禁",
+        "写操作确认",
+        "校验"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_validate_plan_guard_qualify",
+      "type": "function",
+      "name": "_validate_plan_guard_qualify",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        407,
+        455
+      ],
+      "summary": "针对资格类动作的计划门禁校验，允许更宽的节点定位规则。",
+      "tags": [
+        "安全门禁",
+        "校验",
+        "计划守护"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_persist_report",
+      "type": "function",
+      "name": "_persist_report",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        547,
+        573
+      ],
+      "summary": "把任务执行过程中的报告脱敏后落盘，保证异常中途中断仍留有痕迹。",
+      "tags": [
+        "任务报告",
+        "持久化",
+        "脱敏"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_record_edge_action",
+      "type": "function",
+      "name": "_record_edge_action",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        592,
+        624
+      ],
+      "summary": "记录单次边缘动作的请求与结果到操作日志。",
+      "tags": [
+        "日志审计",
+        "边缘动作"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_tracked_action",
+      "type": "function",
+      "name": "_tracked_action",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        627,
+        804
+      ],
+      "summary": "生成统一的动作追踪装饰器，串联阶段状态、幂等去重与操作日志。",
+      "tags": [
+        "装饰器",
+        "幂等",
+        "日志审计"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_call_action",
+      "type": "function",
+      "name": "_call_action",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        807,
+        874
+      ],
+      "summary": "对边缘接口发起一次动作调用并归一化返回结果。",
+      "tags": [
+        "边缘调用",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_collect_descendants_leaf_first",
+      "type": "function",
+      "name": "_collect_descendants_leaf_first",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        890,
+        925
+      ],
+      "summary": "按叶子优先顺序收集目标节点的全部后代，保证子设备先于父设备处理。",
+      "tags": [
+        "拓扑",
+        "遍历",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_online_smart_event",
+      "type": "function",
+      "name": "_online_smart_event",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        928,
+        961
+      ],
+      "summary": "通过智能事件查询判定监测点在时间窗内是否上报过数据。",
+      "tags": [
+        "在线判定",
+        "边缘调用",
+        "事件"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_resolve_profile_and_type",
+      "type": "function",
+      "name": "_resolve_profile_and_type",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        964,
+        992
+      ],
+      "summary": "由节点键解析设备 Profile 与类型，决定后续字段组装路径。",
+      "tags": [
+        "profile",
+        "解析",
+        "路由"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:register_edge_tools",
+      "type": "function",
+      "name": "register_edge_tools",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        995,
+        3991
+      ],
+      "summary": "向 FastMCP 注册全套边缘工具的工厂函数，内部定义全部工具与共享状态。",
+      "tags": [
+        "entry-point",
+        "mcp-tools",
+        "工厂",
+        "边缘联通"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:generate_device_archive_template",
+      "type": "function",
+      "name": "generate_device_archive_template",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1024,
+        1087
+      ],
+      "summary": "生成设备建档模板工作簿并登记为快照，返回文件标识供下载。",
+      "tags": [
+        "mcp-tool",
+        "模板生成",
+        "建档"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:get_device_archive_template_download",
+      "type": "function",
+      "name": "get_device_archive_template_download",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1090,
+        1122
+      ],
+      "summary": "按文件标识取回建档模板的下载内容与文件名。",
+      "tags": [
+        "mcp-tool",
+        "下载",
+        "模板"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:upload_device_archive_template",
+      "type": "function",
+      "name": "upload_device_archive_template",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1125,
+        1229
+      ],
+      "summary": "接收 Base64 分块上传的建档工作簿，到齐后落为任务快照。",
+      "tags": [
+        "mcp-tool",
+        "分块上传",
+        "建档"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:migrate_device_archive_template",
+      "type": "function",
+      "name": "migrate_device_archive_template",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1232,
+        1295
+      ],
+      "summary": "对已上传的旧版本工作簿执行模板迁移并回存新簿。",
+      "tags": [
+        "mcp-tool",
+        "模板迁移",
+        "版本门禁"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:read_device_archive_template",
+      "type": "function",
+      "name": "read_device_archive_template",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1298,
+        1383
+      ],
+      "summary": "读取并校验上传的工作簿，产出模板对象与校验告警清单。",
+      "tags": [
+        "mcp-tool",
+        "模板读取",
+        "校验"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:plan_device_archive",
+      "type": "function",
+      "name": "plan_device_archive",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1386,
+        1484
+      ],
+      "summary": "依据任务快照生成建档干跑计划，返回阶段、批次与风险明细。",
+      "tags": [
+        "mcp-tool",
+        "计划生成",
+        "干跑"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_write_batched",
+      "type": "function",
+      "name": "_write_batched",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1496,
+        1551
+      ],
+      "summary": "把逐节点写操作按批次编排执行并汇总结果，统一处理批量与单点差异。",
+      "tags": [
+        "批量执行",
+        "utility",
+        "下发"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_upsert_one_core",
+      "type": "function",
+      "name": "_upsert_one_core",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1553,
+        1711
+      ],
+      "summary": "单节点建档写入核心：组装报文、调用边缘接口并回写阶段状态。",
+      "tags": [
+        "建档",
+        "核心逻辑",
+        "下发"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:edge_upsert_device",
+      "type": "function",
+      "name": "edge_upsert_device",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1719,
+        1748
+      ],
+      "summary": "MCP 工具：新增或更新设备档案，支持单节点与节点集合批量。",
+      "tags": [
+        "mcp-tool",
+        "建档",
+        "写操作"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_mount_one_core",
+      "type": "function",
+      "name": "_mount_one_core",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1750,
+        1846
+      ],
+      "summary": "把子设备挂载到指定父设备下的单节点执行核心。",
+      "tags": [
+        "挂载",
+        "核心逻辑",
+        "下发"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:edge_mount_device",
+      "type": "function",
+      "name": "edge_mount_device",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1853,
+        1884
+      ],
+      "summary": "MCP 工具：执行设备挂载（含子网关挂载），支持批量与确认门禁。",
+      "tags": [
+        "mcp-tool",
+        "挂载",
+        "写操作"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_save_one_core",
+      "type": "function",
+      "name": "_save_one_core",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1886,
+        1962
+      ],
+      "summary": "单节点设备参数保存核心，按 Profile 组装并推送参数报文。",
+      "tags": [
+        "参数保存",
+        "核心逻辑",
+        "下发"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:edge_save_device_parameters",
+      "type": "function",
+      "name": "edge_save_device_parameters",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        1969,
+        1997
+      ],
+      "summary": "MCP 工具：保存设备运行参数到边缘，支持节点集合批量下发。",
+      "tags": [
+        "mcp-tool",
+        "参数保存",
+        "写操作"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:edge_get_device_parameters",
+      "type": "function",
+      "name": "edge_get_device_parameters",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        2039,
+        2120
+      ],
+      "summary": "MCP 工具：按数据项读取设备当前参数，回读结果逐节点透传。",
+      "tags": [
+        "mcp-tool",
+        "参数读取",
+        "回读"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:edge_delete_device",
+      "type": "function",
+      "name": "edge_delete_device",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        2123,
+        2210
+      ],
+      "summary": "MCP 工具：删除边缘设备，要求显式 confirm 以避免误删。",
+      "tags": [
+        "mcp-tool",
+        "删除",
+        "写操作"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:edge_get_token",
+      "type": "function",
+      "name": "edge_get_token",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        2213,
+        2280
+      ],
+      "summary": "MCP 工具：以账号或手机号验证码换取边缘业务 Token。",
+      "tags": [
+        "mcp-tool",
+        "登录",
+        "凭据"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:edge_set_device_param",
+      "type": "function",
+      "name": "edge_set_device_param",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        2287,
+        2355
+      ],
+      "summary": "MCP 工具：向网关下挂电表下发参数，按档案回推内容并在必要时先做在线检查。",
+      "tags": [
+        "mcp-tool",
+        "参数下发",
+        "批量"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_deploy_without_template",
+      "type": "function",
+      "name": "_deploy_without_template",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        2357,
+        2535
+      ],
+      "summary": "免模板下发路径：以边缘当前档案与参数回推下发报文，缺省字段按平台默认补齐。",
+      "tags": [
+        "免模板下发",
+        "核心逻辑",
+        "回推"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_deploy_to_single_gateway",
+      "type": "function",
+      "name": "_deploy_to_single_gateway",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        2537,
+        2732
+      ],
+      "summary": "对单个网关执行参数下发编排，含在线检查、批次控制与 rtnCode 判定。",
+      "tags": [
+        "下发",
+        "网关",
+        "核心逻辑"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:edge_check_monitor_online",
+      "type": "function",
+      "name": "edge_check_monitor_online",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        2735,
+        2849
+      ],
+      "summary": "MCP 工具：判定监测点在线状态，按档案类型自动选择事件查询或时钟召测路径。",
+      "tags": [
+        "mcp-tool",
+        "在线判定",
+        "免模板"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:edge_call_clock",
+      "type": "function",
+      "name": "edge_call_clock",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        2878,
+        2989
+      ],
+      "summary": "MCP 工具：对设备发起时钟召测，用作可达性判据与校时手段。",
+      "tags": [
+        "mcp-tool",
+        "时钟召测",
+        "可达判定"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:edge_call_monitor_debug",
+      "type": "function",
+      "name": "edge_call_monitor_debug",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        2993,
+        3282
+      ],
+      "summary": "MCP 工具：调用监测点运维调试接口，覆盖召测、参数读写等多种调试动作。",
+      "tags": [
+        "mcp-tool",
+        "运维调试",
+        "召测"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:execute_archive_task",
+      "type": "function",
+      "name": "execute_archive_task",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        3285,
+        3341
+      ],
+      "summary": "MCP 工具：建档任务总执行入口，按阶段与预算驱动完整或独立工作流并返回游标。",
+      "tags": [
+        "mcp-tool",
+        "建档编排",
+        "断点续跑"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_execute_full_workflow",
+      "type": "function",
+      "name": "_execute_full_workflow",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        3343,
+        3549
+      ],
+      "summary": "有模板场景的全流程执行：逐单元建档、挂载、参数保存与下发，按游标可续跑。",
+      "tags": [
+        "工作流",
+        "建档编排",
+        "核心逻辑"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_archive_unit",
+      "type": "function",
+      "name": "_archive_unit",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        3380,
+        3421
+      ],
+      "summary": "执行单个建档单元（网关及其电表）的阶段动作。",
+      "tags": [
+        "建档",
+        "单元执行",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_execute_standalone_workflow",
+      "type": "function",
+      "name": "_execute_standalone_workflow",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        3551,
+        3702
+      ],
+      "summary": "免模板独立工作流：不依赖上传档案，直接按边缘现状组装并执行下发链路。",
+      "tags": [
+        "免模板",
+        "工作流",
+        "核心逻辑"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_aggregate_workflow_results",
+      "type": "function",
+      "name": "_aggregate_workflow_results",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        3715,
+        3759
+      ],
+      "summary": "汇总工作流各阶段结果为统一报告，标注部分完成与剩余游标。",
+      "tags": [
+        "结果汇总",
+        "报告",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_collect_meter_device_ids",
+      "type": "function",
+      "name": "_collect_meter_device_ids",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        3795,
+        3832
+      ],
+      "summary": "收集网关子树内电表的设备标识集合，供批量下发与回读使用。",
+      "tags": [
+        "拓扑",
+        "utility",
+        "批量"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_standalone_call_clock",
+      "type": "function",
+      "name": "_standalone_call_clock",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        3834,
+        3862
+      ],
+      "summary": "免模板路径下对网关执行时钟召测以确认联通性。",
+      "tags": [
+        "时钟召测",
+        "可达判定",
+        "免模板"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:edge_apply_compensation_plan",
+      "type": "function",
+      "name": "edge_apply_compensation_plan",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        3885,
+        3941
+      ],
+      "summary": "MCP 工具：执行补偿计划回滚失败的建档动作。",
+      "tags": [
+        "mcp-tool",
+        "补偿回滚",
+        "写操作"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_resolve_new_device_id",
+      "type": "function",
+      "name": "_resolve_new_device_id",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4063,
+        4107
+      ],
+      "summary": "建档写入后回查新设备的标识，避免依赖返回值层级导致的取值错误。",
+      "tags": [
+        "回读",
+        "设备标识",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_fix_agent_measured_num",
+      "type": "function",
+      "name": "_fix_agent_measured_num",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4110,
+        4134
+      ],
+      "summary": "修正采集器测量点编号，保证下发报文与页面口径一致。",
+      "tags": [
+        "参数修正",
+        "utility",
+        "下发"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_reapply_agent_num_after_mount",
+      "type": "function",
+      "name": "_reapply_agent_num_after_mount",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4137,
+        4179
+      ],
+      "summary": "挂载完成后重新写回采集器编号，防止父级关系变更冲掉配置。",
+      "tags": [
+        "挂载",
+        "参数回写",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_readback_verify_device",
+      "type": "function",
+      "name": "_readback_verify_device",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4182,
+        4233
+      ],
+      "summary": "逐节点回读校验建档结果，确认平台值与边缘实际一致。",
+      "tags": [
+        "回读校验",
+        "建档",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_save_meter_parameters",
+      "type": "function",
+      "name": "_save_meter_parameters",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4236,
+        4326
+      ],
+      "summary": "按解析后的字段结果为电表写入参数报文。",
+      "tags": [
+        "参数保存",
+        "电表",
+        "核心逻辑"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_save_gateway_parameters_auto",
+      "type": "function",
+      "name": "_save_gateway_parameters_auto",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4329,
+        4387
+      ],
+      "summary": "自动组装并保存网关参数，无需用户上传档案。",
+      "tags": [
+        "参数保存",
+        "网关",
+        "免模板"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_save_meter_parameters_auto",
+      "type": "function",
+      "name": "_save_meter_parameters_auto",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4390,
+        4419
+      ],
+      "summary": "自动组装并保存电表参数，字段取自边缘当前配置。",
+      "tags": [
+        "参数保存",
+        "电表",
+        "免模板"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_compare_archive_fields",
+      "type": "function",
+      "name": "_compare_archive_fields",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4443,
+        4467
+      ],
+      "summary": "比对档案基线、扩展与实际回读字段，产出差异清单。",
+      "tags": [
+        "字段比对",
+        "回读",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_read_deploy_param_body",
+      "type": "function",
+      "name": "_read_deploy_param_body",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4489,
+        4527
+      ],
+      "summary": "读取设备当前下发参数报文体，作为免模板回推的基础。",
+      "tags": [
+        "回读",
+        "参数报文",
+        "免模板"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_build_deploy_body_from_archive",
+      "type": "function",
+      "name": "_build_deploy_body_from_archive",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4530,
+        4589
+      ],
+      "summary": "由现有档案与参数组装完整下发报文，对齐页面恒含默认字段的行为。",
+      "tags": [
+        "报文组装",
+        "免模板下发",
+        "核心逻辑"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_collect_all_monitor_point_keys",
+      "type": "function",
+      "name": "_collect_all_monitor_point_keys",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4617,
+        4653
+      ],
+      "summary": "收集网关下全部监测点节点键，用于全量下发或召测。",
+      "tags": [
+        "拓扑",
+        "utility",
+        "批量"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_parse_smart_event_online",
+      "type": "function",
+      "name": "_parse_smart_event_online",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4656,
+        4683
+      ],
+      "summary": "解析智能事件响应判定设备在线，缺失字段时保守返回未知。",
+      "tags": [
+        "在线判定",
+        "解析",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/edge_tools.py:_build_monitor_point_item_body",
+      "type": "function",
+      "name": "_build_monitor_point_item_body",
+      "filePath": "mcp_server/edge_tools.py",
+      "lineRange": [
+        4686,
+        4753
+      ],
+      "summary": "组装监测点数据项报文体，供召测与参数读写复用。",
+      "tags": [
+        "报文组装",
+        "监测点",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/operation_log_store.py",
+      "type": "file",
+      "name": "operation_log_store.py",
+      "filePath": "mcp_server/operation_log_store.py",
+      "summary": "操作日志存储：按会话身份隔离落盘 JSONL 审计流水，提供窗口查询、聚合与脱敏读写。",
+      "tags": [
+        "日志审计",
+        "持久化",
+        "会话隔离",
+        "jsonl"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:mcp_server/operation_log_store.py:OperationLogEntry",
+      "type": "class",
+      "name": "OperationLogEntry",
+      "filePath": "mcp_server/operation_log_store.py",
+      "lineRange": [
+        90,
+        117
+      ],
+      "summary": "单条操作日志模型，含工具名、参数摘要、结果与时间戳。",
+      "tags": [
+        "data-model",
+        "日志审计"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/operation_log_store.py:OperationLogStore",
+      "type": "class",
+      "name": "OperationLogStore",
+      "filePath": "mcp_server/operation_log_store.py",
+      "lineRange": [
+        120,
+        334
+      ],
+      "summary": "日志存储主体：写入与滚动、按 owner 读取、聚合统计与过期清理，全部经脱敏处理。",
+      "tags": [
+        "日志审计",
+        "持久化",
+        "脱敏",
+        "core-logic"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:mcp_server/server.py",
+      "type": "file",
+      "name": "server.py",
+      "filePath": "mcp_server/server.py",
+      "summary": "MCP Server 主入口：装配 FastMCP 工具集、鉴权中间件与 ASGI 复合应用，并托管接入页、展示页与资源包下载端点。",
+      "tags": [
+        "entry-point",
+        "mcp-server",
+        "鉴权",
+        "asgi",
+        "服务装配"
+      ],
+      "complexity": "complex",
+      "languageNotes": "工具函数集中声明并用统一装饰器包装以注入权限校验与操作日志；CompositeApp 自行路由 /mcp 与静态页面。"
+    },
+    {
+      "id": "class:mcp_server/server.py:TokenManager",
+      "type": "class",
+      "name": "TokenManager",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        431,
+        620
+      ],
+      "summary": "MCP 接入 Token 管理器：本机 IP 授予系统级 Token，外部 IP 生成用户级只读 Token 并持久化登记。",
+      "tags": [
+        "鉴权",
+        "token",
+        "singleton",
+        "core-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:mcp_server/server.py:AuthMiddleware",
+      "type": "class",
+      "name": "AuthMiddleware",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        2623,
+        2684
+      ],
+      "summary": "ASGI 鉴权中间件，校验 Bearer Token 并把客户端 IP 与会话上下文注入到工具调用链。",
+      "tags": [
+        "middleware",
+        "鉴权",
+        "asgi"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:mcp_server/server.py:CompositeApp",
+      "type": "class",
+      "name": "CompositeApp",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        2690,
+        3068
+      ],
+      "summary": "复合 ASGI 应用：分流 MCP 协议端点、静态接入页、展示页与文档/下载 REST 端点。",
+      "tags": [
+        "asgi",
+        "路由",
+        "entry-point"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/server.py:_get_local_ips",
+      "type": "function",
+      "name": "_get_local_ips",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        104,
+        129
+      ],
+      "summary": "枚举本机网卡 IP，用于判定访问方是否具备系统级权限。",
+      "tags": [
+        "鉴权",
+        "utility",
+        "网络"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/server.py:_template_dict_source",
+      "type": "function",
+      "name": "_template_dict_source",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        652,
+        716
+      ],
+      "summary": "为模板生成提供系统字典来源，按需从平台或边缘拉取候选集。",
+      "tags": [
+        "模板生成",
+        "数据字典",
+        "adapter"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/server.py:_call_platform",
+      "type": "function",
+      "name": "_call_platform",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        791,
+        827
+      ],
+      "summary": "统一的后端 API 调用包装：注入会话 Token、归一化错误并写审计日志。",
+      "tags": [
+        "api-client",
+        "utility",
+        "日志审计"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/server.py:_get_server_ips",
+      "type": "function",
+      "name": "_get_server_ips",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        897,
+        935
+      ],
+      "summary": "汇总对外展示的服务器 IPv4 地址列表，绝不暴露 IPv6。",
+      "tags": [
+        "网络",
+        "utility",
+        "接入页"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/server.py:_load_server_version",
+      "type": "function",
+      "name": "_load_server_version",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        956,
+        990
+      ],
+      "summary": "读取 version.json 得到服务端版本，供能力探测与展示页使用。",
+      "tags": [
+        "版本管理",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/server.py:_skill_capabilities",
+      "type": "function",
+      "name": "_skill_capabilities",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        1112,
+        1165
+      ],
+      "summary": "解析资源包清单得到技能能力矩阵，用于展示与准入判定。",
+      "tags": [
+        "资源包",
+        "能力探测",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/server.py:_load_server_test_report",
+      "type": "function",
+      "name": "_load_server_test_report",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        1258,
+        1293
+      ],
+      "summary": "加载服务端自测报告并归一化为展示结构。",
+      "tags": [
+        "自测报告",
+        "展示页",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/server.py:_parse_server_test_xml",
+      "type": "function",
+      "name": "_parse_server_test_xml",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        1309,
+        1344
+      ],
+      "summary": "解析 pytest JUnit XML 输出，提取用例通过/失败统计。",
+      "tags": [
+        "解析",
+        "自测报告",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/server.py:_query_platform_stats",
+      "type": "function",
+      "name": "_query_platform_stats",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        1386,
+        1422
+      ],
+      "summary": "向平台查询统计指标（协议数、设备数等）供展示页动态渲染。",
+      "tags": [
+        "统计",
+        "api-client",
+        "展示页"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/server.py:_refresh_showcase_platform",
+      "type": "function",
+      "name": "_refresh_showcase_platform",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        1431,
+        1464
+      ],
+      "summary": "刷新展示页缓存的平台侧数据，控制并发与失败降级。",
+      "tags": [
+        "展示页",
+        "缓存",
+        "刷新"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/server.py:_build_showcase_data",
+      "type": "function",
+      "name": "_build_showcase_data",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        1482,
+        1521
+      ],
+      "summary": "组装展示页所需的完整数据快照（版本、能力、统计、自测结果）。",
+      "tags": [
+        "展示页",
+        "聚合",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/server.py:list_mcp_tools",
+      "type": "function",
+      "name": "list_mcp_tools",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        1528,
+        1637
+      ],
+      "summary": "MCP 工具：列出全部已注册工具并回显当前鉴权与权限级别，用作连通性探测。",
+      "tags": [
+        "mcp-tool",
+        "探测",
+        "鉴权"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/server.py:login",
+      "type": "function",
+      "name": "login",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        1655,
+        1710
+      ],
+      "summary": "MCP 工具：手机号加验证码登录平台，返回仅用于后端调用的业务 Token。",
+      "tags": [
+        "mcp-tool",
+        "登录",
+        "凭据"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/server.py:update_protocol",
+      "type": "function",
+      "name": "update_protocol",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        2062,
+        2087
+      ],
+      "summary": "MCP 工具：更新规约主数据（名称、类型、归属与协议文件）。",
+      "tags": [
+        "mcp-tool",
+        "规约管理",
+        "写操作"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/server.py:_classify_write_result",
+      "type": "function",
+      "name": "_classify_write_result",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        2519,
+        2545
+      ],
+      "summary": "归类写操作返回结果，区分成功、业务失败与鉴权失效。",
+      "tags": [
+        "写操作",
+        "结果归类",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/server.py:_wrap_logged_tool",
+      "type": "function",
+      "name": "_wrap_logged_tool",
+      "filePath": "mcp_server/server.py",
+      "lineRange": [
+        2572,
+        2597
+      ],
+      "summary": "统一包装工具函数以注入权限校验、审计日志与错误归一化。",
+      "tags": [
+        "装饰器",
+        "鉴权",
+        "日志审计"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:mcp_server/archiving/log_sanitizer.py",
+      "target": "function:mcp_server/archiving/log_sanitizer.py:sanitize_report",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotNotFoundError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotOwnerMismatchError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotExpiredError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotTamperError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:UploadIncompleteError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:UploadLimitError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:UploadExpiredError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/stage_orchestrator.py",
+      "target": "class:mcp_server/archiving/stage_orchestrator.py:StageState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/stage_orchestrator.py",
+      "target": "class:mcp_server/archiving/stage_orchestrator.py:StageRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/stage_orchestrator.py",
+      "target": "class:mcp_server/archiving/stage_orchestrator.py:StageOrchestrator",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "class:mcp_server/archiving/task_report_store.py:TaskReportError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "class:mcp_server/archiving/task_report_store.py:TaskReport",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "class:mcp_server/archiving/task_report_store.py:TaskReportStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "class:mcp_server/edge_tools.py:EdgeSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "class:mcp_server/edge_tools.py:EdgeSessionStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_client_for",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_validate_plan_guard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_validate_plan_guard_qualify",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_persist_report",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_record_edge_action",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_tracked_action",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_call_action",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_collect_descendants_leaf_first",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_online_smart_event",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_resolve_profile_and_type",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:register_edge_tools",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:generate_device_archive_template",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:get_device_archive_template_download",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:upload_device_archive_template",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:migrate_device_archive_template",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:read_device_archive_template",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:plan_device_archive",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_write_batched",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_upsert_one_core",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:edge_upsert_device",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_mount_one_core",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:edge_mount_device",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_save_one_core",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:edge_save_device_parameters",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:edge_get_device_parameters",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:edge_delete_device",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:edge_get_token",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:edge_set_device_param",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_deploy_without_template",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_deploy_to_single_gateway",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:edge_check_monitor_online",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:edge_call_clock",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:edge_call_monitor_debug",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:execute_archive_task",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_execute_full_workflow",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_archive_unit",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_execute_standalone_workflow",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_aggregate_workflow_results",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_collect_meter_device_ids",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_standalone_call_clock",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:edge_apply_compensation_plan",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_resolve_new_device_id",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_fix_agent_measured_num",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_reapply_agent_num_after_mount",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_readback_verify_device",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_save_meter_parameters",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_save_gateway_parameters_auto",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_save_meter_parameters_auto",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_compare_archive_fields",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_read_deploy_param_body",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_build_deploy_body_from_archive",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_collect_all_monitor_point_keys",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_parse_smart_event_online",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "function:mcp_server/edge_tools.py:_build_monitor_point_item_body",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/operation_log_store.py",
+      "target": "class:mcp_server/operation_log_store.py:OperationLogEntry",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/operation_log_store.py",
+      "target": "class:mcp_server/operation_log_store.py:OperationLogStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "class:mcp_server/server.py:TokenManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "class:mcp_server/server.py:AuthMiddleware",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "class:mcp_server/server.py:CompositeApp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_get_local_ips",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_template_dict_source",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_call_platform",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_get_server_ips",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_load_server_version",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_skill_capabilities",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_load_server_test_report",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_parse_server_test_xml",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_query_platform_stats",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_refresh_showcase_platform",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_build_showcase_data",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:list_mcp_tools",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:login",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:update_protocol",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_classify_write_result",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "function:mcp_server/server.py:_wrap_logged_tool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/task_report_store.py",
+      "target": "file:mcp_server/archiving/log_sanitizer.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/compensation.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/converter.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/engine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/excel_reader.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/log_sanitizer.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/profiles/base.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/profiles/registry.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/snapshot_store.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/stage_orchestrator.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/task_report_store.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/template_migrator.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/templates/generator.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/edge_client.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/operation_log_store.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/session.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/operation_log_store.py",
+      "target": "file:mcp_server/archiving/log_sanitizer.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/operation_log_store.py",
+      "target": "file:mcp_server/archiving/snapshot_store.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/tests/test_get_device_parameters.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/tests/test_online_check_free_template.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:mcp_server/operation_log_store.py",
+      "target": "file:mcp_server/tests/test_operation_log_store.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "file:mcp_server/tests/test_operation_log_store.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:mcp_server/archiving/snapshot_store.py",
+      "target": "file:mcp_server/tests/test_snapshot_store.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "file:mcp_server/tests/test_write_operation_logging.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/tests/test_write_operation_logging.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:mcp_server/operation_log_store.py",
+      "target": "file:mcp_server/tests/test_write_operation_logging.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:SnapshotNotFoundError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:SnapshotOwnerMismatchError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:SnapshotExpiredError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:SnapshotTamperError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:SnapshotError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:UploadIncompleteError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:UploadLimitError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:mcp_server/archiving/snapshot_store.py:UploadExpiredError",
+      "target": "class:mcp_server/archiving/snapshot_store.py:ChunkedUploadError",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "file:mcp_server/server.py",
+      "target": "file:mcp_server/edge_tools.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:mcp_server/edge_tools.py",
+      "target": "file:mcp_server/archiving/engine.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:mcp_server/server.py:CompositeApp",
+      "target": "class:mcp_server/server.py:AuthMiddleware",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

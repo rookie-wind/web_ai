@@ -1,0 +1,50 @@
+[
+  {
+    "path": "agent_assets/skills/protocol-conversion/scripts/gen_test_report.py",
+    "nodeBytes": 7317,
+    "realBytes": 3221,
+    "copyVerified": true
+  },
+  {
+    "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.c",
+    "nodeBytes": 29617,
+    "realBytes": 25521,
+    "copyVerified": true
+  },
+  {
+    "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.h",
+    "nodeBytes": 10343,
+    "realBytes": 6247,
+    "copyVerified": true
+  },
+  {
+    "path": "agent_assets/skills/protocol-conversion/scripts/protocol_converter.py",
+    "nodeBytes": 24846,
+    "realBytes": 20750,
+    "copyVerified": true
+  },
+  {
+    "path": "agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py",
+    "nodeBytes": 45837,
+    "realBytes": 41741,
+    "copyVerified": true
+  },
+  {
+    "path": "agent_assets/skills/xlpa/tools/mcp_client.py",
+    "nodeBytes": 10286,
+    "realBytes": 6190,
+    "copyVerified": true
+  },
+  {
+    "path": "mcp_server/mcp_client.py",
+    "nodeBytes": 4794,
+    "realBytes": 698,
+    "copyVerified": true
+  },
+  {
+    "path": "mcp_server/server.py",
+    "nodeBytes": 122640,
+    "realBytes": 118544,
+    "copyVerified": true
+  }
+]

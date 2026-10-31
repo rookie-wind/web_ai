@@ -1,0 +1,87 @@
+{
+  "nodes": [
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "项目总览：说明 PCA MCP Server 的目录结构、快速启动、测试方式与 Agent 资源包分发机制。",
+      "tags": [
+        "documentation",
+        "entry-point",
+        "概览"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:_verify_download_fix.ps1",
+      "type": "file",
+      "name": "_verify_download_fix.ps1",
+      "filePath": "_verify_download_fix.ps1",
+      "summary": "开发者本地的模板下载修复核验脚本，直接调用服务端端点确认下载行为可用。",
+      "tags": [
+        "script",
+        "验证",
+        "下载修复",
+        "development"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:_vm_list.txt",
+      "type": "document",
+      "name": "_vm_list.txt",
+      "filePath": "_vm_list.txt",
+      "summary": "现场虚拟机/环境清单草稿，记录待核对的目标环境信息。",
+      "tags": [
+        "documentation",
+        "现场环境",
+        "草稿"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:pytest.ini",
+      "type": "config",
+      "name": "pytest.ini",
+      "filePath": "pytest.ini",
+      "summary": "pytest 根配置，限定测试收集目录以保证离线回归只跑 mcp_server/tests。",
+      "tags": [
+        "configuration",
+        "test",
+        "pytest"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:README.md",
+      "target": "file:mcp_server/server.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:agent_assets/skills/package-manifest.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:pytest.ini",
+      "target": "file:mcp_server/tests/test_archiving_template.py",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:_verify_download_fix.ps1",
+      "target": "file:mcp_server/server.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

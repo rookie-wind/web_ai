@@ -1,0 +1,395 @@
+{
+  "projectRoot": "e:\\codeGIT\\pca-mcp-server",
+  "batchFiles": [
+    {
+      "path": "mcp_server/archiving/compensation.py",
+      "language": "python",
+      "sizeLines": 165,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/engine.py",
+      "language": "python",
+      "sizeLines": 822,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/excel_reader.py",
+      "language": "python",
+      "sizeLines": 750,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/field_contract.py",
+      "language": "python",
+      "sizeLines": 593,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/models.py",
+      "language": "python",
+      "sizeLines": 1002,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/template_migrator.py",
+      "language": "python",
+      "sizeLines": 207,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/templates/__init__.py",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/templates/generator.py",
+      "language": "python",
+      "sizeLines": 691,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_archiving_template.py",
+      "language": "python",
+      "sizeLines": 5478,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_field_contract.py",
+      "language": "python",
+      "sizeLines": 673,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_generator_v14.py",
+      "language": "python",
+      "sizeLines": 813,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_param_validation_and_resume.py",
+      "language": "python",
+      "sizeLines": 198,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_template_migrator.py",
+      "language": "python",
+      "sizeLines": 170,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/log_sanitizer.py",
+      "language": "python",
+      "sizeLines": 120,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/snapshot_store.py",
+      "language": "python",
+      "sizeLines": 718,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/stage_orchestrator.py",
+      "language": "python",
+      "sizeLines": 252,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/task_report_store.py",
+      "language": "python",
+      "sizeLines": 267,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/edge_tools.py",
+      "language": "python",
+      "sizeLines": 4753,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/operation_log_store.py",
+      "language": "python",
+      "sizeLines": 345,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/server.py",
+      "language": "python",
+      "sizeLines": 452,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/session.py",
+      "language": "python",
+      "sizeLines": 105,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_get_device_parameters.py",
+      "language": "python",
+      "sizeLines": 123,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_online_check_free_template.py",
+      "language": "python",
+      "sizeLines": 117,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_operation_log_store.py",
+      "language": "python",
+      "sizeLines": 154,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_snapshot_store.py",
+      "language": "python",
+      "sizeLines": 267,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_write_operation_logging.py",
+      "language": "python",
+      "sizeLines": 217,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/api_client.py",
+      "language": "python",
+      "sizeLines": 1323,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/reference_config.py",
+      "language": "python",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/reference_dict.py",
+      "language": "python",
+      "sizeLines": 552,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/reference_provider.py",
+      "language": "python",
+      "sizeLines": 272,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/edge_client.py",
+      "language": "python",
+      "sizeLines": 582,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/edge_proxy_config.py",
+      "language": "python",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/permissions.py",
+      "language": "python",
+      "sizeLines": 271,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_deploy_from_archive.py",
+      "language": "python",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_proxy_config.py",
+      "language": "python",
+      "sizeLines": 94,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_reference_dict.py",
+      "language": "python",
+      "sizeLines": 434,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_reference_provider.py",
+      "language": "python",
+      "sizeLines": 339,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/converter.py",
+      "language": "python",
+      "sizeLines": 96,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/__init__.py",
+      "language": "python",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/base.py",
+      "language": "python",
+      "sizeLines": 242,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/gateway_8163.py",
+      "language": "python",
+      "sizeLines": 112,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/meter_lighting.py",
+      "language": "python",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/meter_pdb.py",
+      "language": "python",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/meter_xlba.py",
+      "language": "python",
+      "sizeLines": 503,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/profiles/registry.py",
+      "language": "python",
+      "sizeLines": 209,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_brand_model_code.py",
+      "language": "python",
+      "sizeLines": 243,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/gen_test_report.py",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.c",
+      "language": "c",
+      "sizeLines": 107,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.h",
+      "language": "c",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/protocol_converter.py",
+      "language": "python",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py",
+      "language": "python",
+      "sizeLines": 150,
+      "fileCategory": "code"
+    },
+    {
+      "path": "agent_assets/skills/xlpa/tools/mcp_client.py",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/__init__.py",
+      "language": "python",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/ooxml_validator.py",
+      "language": "python",
+      "sizeLines": 133,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/templates/stage_zero_generate.py",
+      "language": "python",
+      "sizeLines": 250,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/time_validator.py",
+      "language": "python",
+      "sizeLines": 194,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/cleanup.py",
+      "language": "python",
+      "sizeLines": 135,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/mcp_client.py",
+      "language": "python",
+      "sizeLines": 4,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_auth_revamp.py",
+      "language": "python",
+      "sizeLines": 209,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_oplog_panel.py",
+      "language": "python",
+      "sizeLines": 116,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_portal_proxy.py",
+      "language": "python",
+      "sizeLines": 335,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_refactor.py",
+      "language": "python",
+      "sizeLines": 1662,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_session_permission.py",
+      "language": "python",
+      "sizeLines": 274,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/token_manager.py",
+      "language": "python",
+      "sizeLines": 245,
+      "fileCategory": "code"
+    }
+  ]
+}

@@ -33,6 +33,7 @@ import asyncio
 import base64
 import copy
 import functools
+import hashlib
 import io
 import json
 import os
@@ -60,17 +61,51 @@ from permissions import (
     extract_account_identity,
     is_auth_expired)
 from token_manager import SystemTokenManager
-from session import Session, SessionRegistry, mcp_token_var
+from session import Session, SessionRegistry, mcp_token_var, owner_ref_var
 from edge_tools import register_edge_tools
 from operation_log_store import default_store
 from archiving.snapshot_store import derive_owner_id
+from conversion.conversion_tools import (
+    register_conversion_tools,
+    conversion_engine_available,
+)
 
 # ── 配置 ──
 HOST = os.getenv("MCP_HOST", "0.0.0.0")
 PORT = int(os.getenv("MCP_PORT", "8765"))
 AUTH_TOKEN = os.getenv("MCP_AUTH_TOKEN", "")
+# webchat 专属凭据签发（mint）配置：独立于 MCP_AUTH_TOKEN，可单独轮换
+MINT_SECRET = os.getenv("WEBCHAT_MINT_SECRET", "")
+MINT_ALLOWED_IPS = {
+    ip.strip()
+    for ip in os.getenv("WEBCHAT_ALLOWED_IPS", "127.0.0.1,::1").split(",")
+    if ip.strip()
+}
+MINT_TTL_DEFAULT = int(os.getenv("WEBCHAT_TOKEN_TTL_DEFAULT", "7200"))
+MINT_TTL_CAP = int(os.getenv("WEBCHAT_TOKEN_TTL_CAP", "86400"))
+MINT_RATE_LIMIT = int(os.getenv("WEBCHAT_MINT_RATE_LIMIT", "60"))
+# mint 限流：内存滑动窗口（时间戳列表），单进程 asyncio 无需加锁
+_mint_attempt_times: list[float] = []
+_mint_audit: list[dict] = []
 # XLPA 公网入口 URL（配置后强制 HTTPS 检查；未配置则不限制）
 XLPA_PUBLIC_BASE_URL = os.getenv("XLPA_PUBLIC_BASE_URL", "")
+# ── 网络暴露模式（C7 公网门控，默认关闭 = 既有内网行为零变化）──
+# 开关仅由部署者显式配置启用，MUST NOT 因检测到非本机访问自动开启
+MCP_PUBLIC_MODE = os.getenv("MCP_PUBLIC_MODE", "0").strip().lower() in (
+    "1", "true", "on"
+)
+# 公网模式下展示类端点的额外放行来源（逗号分隔 IP）
+MCP_PUBLIC_ALLOWLIST = {
+    ip.strip()
+    for ip in os.getenv("MCP_PUBLIC_ALLOWLIST", "").split(",")
+    if ip.strip()
+}
+# 可信反向代理清单（逗号分隔 IP）：仅直连来源命中时才采信 XFF 最左值
+MCP_TRUSTED_PROXY = {
+    ip.strip()
+    for ip in os.getenv("MCP_TRUSTED_PROXY", "").split(",")
+    if ip.strip()
+}
 
 # ── 路径 ──
 SCRIPT_DIR = Path(__file__).parent.resolve()
@@ -81,7 +116,9 @@ PACKAGE_MANIFEST_PATH = SKILLS_DIR / "package-manifest.json"
 HTML_PATH = SCRIPT_DIR / "static" / "access.html"
 SHOWCASE_HTML_PATH = SCRIPT_DIR / "static" / "showcase.html"
 # Token Registry 持久化文件路径（本地敏感运行态文件，不得提交版本控制）
-TOKEN_REGISTRY_PATH = SCRIPT_DIR / ".token_registry.json"
+TOKEN_REGISTRY_PATH = Path(
+    os.getenv("MCP_TOKEN_REGISTRY_PATH", str(SCRIPT_DIR / ".token_registry.json"))
+)
 # MCP Server 版本配置事实源（由开发者维护，禁止在代码中硬编码版本）
 VERSION_CONFIG_PATH = SCRIPT_DIR / "version.json"
 # 本地超级账号配置路径（云端平台写权限事实源，可用环境变量覆盖）
@@ -289,6 +326,13 @@ TOOL_DEFINITIONS = [
     {"name": "edge_apply_compensation_plan", "type": "edge_write", "description": "按补偿清单确认式删除本次新建设备"},
     {"name": "edge_get_token", "type": "edge_util", "description": "独立登录边缘后端，返回 task_id 供后续 edge_* 工具使用"},
     {"name": "edge_delete_device", "type": "edge_write", "description": "删除设备（自动递归删除子设备，叶子优先）"},
+    # 转换执行（沙箱）
+    {"name": "validate_config_format", "type": "exec", "description": "校验转换配置 JSON 结构（MQTT/HTTP/Modbus 三契约，不执行）"},
+    {"name": "generate_test_data", "type": "exec", "description": "生成 normal/boundary/abnormal 三组测试输入"},
+    {"name": "execute_conversion_test", "type": "exec", "description": "沙箱执行转换测试并返回结构化报告（MQTT/HTTP）"},
+    {"name": "get_test_report", "type": "exec", "description": "按 test_run_id 查询测试报告（归属校验）"},
+    {"name": "save_conversion_config", "type": "exec", "description": "校验并保存转换配置 JSON（30 天 TTL）"},
+    {"name": "pack_bundle", "type": "exec", "description": "打包配置+文档+测试报告为 ZIP（测试门控）"},
 ]
 
 # 展示分组仅提供元数据，不作为工具存在与否的第二份清单。
@@ -425,81 +469,116 @@ session_registry = SessionRegistry()
 # ── Token 管理器 ──
 
 # Token Registry schema 版本；v2 为 user-only，不再承载 system 权限语义
-REGISTRY_SCHEMA_VERSION = 2
+REGISTRY_SCHEMA_VERSION = 3
 
 
 class TokenManager:
-    """管理 MCP 接入 Token 的生成、验证和 IP 关联。
+    """管理 MCP 接入 Token 的生成、验证与凭据族管理（v3，Token 主键）。
 
     - MCP 接入 Token 一律为 user 级接入凭据，不因 localhost / 本机 IP
       或管理员 Token 而授予云端平台写权限。
-    - localhost 且配置了 MCP_AUTH_TOKEN 时返回该稳定配置 Token（仍为 user 级）。
-    - 非本机 IP 按 IP 固定自动生成 Token，持久化到 .token_registry.json，
-      服务器重启后旧 Token 继续有效。
-    - Registry 采用 v2 user-only schema；启动时检测旧版并备份后迁移。
+    - v3 结构：entries 以 Token 为键，IP、凭据族别（family）、归属引用
+      （owner_ref）、有效期（expires_at）与撤销状态降为属性；同一 IP
+      允许多把未撤销凭据并存（webchat 族按会话签发，互不顶替）。
+    - IDE 族凭据保持"同 IP 复用未撤销 Token"语义；localhost 且配置了
+      MCP_AUTH_TOKEN 时返回该稳定配置 Token（仍为 user 级）。
+    - 启动时检测 v1/v2 旧版并备份后迁移；损坏时回退空表、绝不授特权。
     - Token Registry 为本地敏感运行态文件，不得打包分发或提交版本控制。
     """
 
     def __init__(self, admin_token: str = "", registry_path: Path = TOKEN_REGISTRY_PATH):
         self.admin_token = admin_token
         self.registry_path = Path(registry_path)
-        # ip -> {token, accessLevel, createdAt, lastSeenAt, revoked, legacyMigrated}
-        self.ip_tokens: dict[str, dict] = {}
-        # token -> ip 反向索引，用于鉴权时快速查找
-        self._token_to_ip: dict[str, str] = {}
+        # token -> entry（v3 主键）
+        self.tokens: dict[str, dict] = {}
+        # ip -> token：IDE 族复用索引（仅指向该 IP 最新未撤销 IDE Token）
+        self._ip_ide_token: dict[str, str] = {}
         self._load_registry()
 
     def _load_registry(self) -> None:
-        """加载 Token Registry；检测旧版并迁移为 v2 user-only。
+        """加载 Token Registry；检测 v1/v2 旧版并迁移为 v3。
 
-        - 文件不存在：创建空 v2 注册表。
-        - schema_version 非 2：备份旧文件后迁移，所有 Token 强制 user 级。
-        - 解析失败：备份损坏文件并创建空 v2 注册表，绝不授予 system。
+        - 文件不存在：创建空 v3 注册表。
+        - schema_version 非 3：备份旧文件后迁移（v2 逐条转 IDE 族）。
+        - 解析失败：备份损坏文件并创建空 v3 注册表，绝不授予 system。
         """
         if not self.registry_path.exists():
-            self.ip_tokens = {}
-            self._token_to_ip = {}
+            self.tokens = {}
+            self._ip_ide_token = {}
             return
         try:
             data = json.loads(self.registry_path.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
             self._backup_registry("corrupt")
-            self.ip_tokens = {}
-            self._token_to_ip = {}
+            self.tokens = {}
+            self._ip_ide_token = {}
             return
         if not isinstance(data, dict):
             self._backup_registry("corrupt")
-            self.ip_tokens = {}
-            self._token_to_ip = {}
+            self.tokens = {}
+            self._ip_ide_token = {}
             return
         entries = data.get("entries", {})
-        self.ip_tokens = {
-            ip: self._normalize_entry(entry)
-            for ip, entry in entries.items()
+        if not isinstance(entries, dict):
+            self._backup_registry("corrupt")
+            self.tokens = {}
+            self._ip_ide_token = {}
+            return
+        if data.get("schema_version") != REGISTRY_SCHEMA_VERSION:
+            # 旧版 registry：先备份，再迁移为 v3
+            self._backup_registry(f"v{data.get('schema_version', 'x')}")
+            migrated = self._migrate_entries(entries)
+            self.tokens = migrated
+            self._rebuild_ide_index()
+            self._save_registry()
+            return
+        self.tokens = {
+            token: self._normalize_entry(token, entry)
+            for token, entry in entries.items()
             if isinstance(entry, dict)
         }
-        self._token_to_ip = {
-            entry["token"]: ip
-            for ip, entry in self.ip_tokens.items()
-            if entry.get("token")
-        }
-        if data.get("schema_version") != REGISTRY_SCHEMA_VERSION:
-            # 旧版 registry：先备份，再迁移为 v2 user-only
-            self._backup_registry("v1")
-            for entry in self.ip_tokens.values():
-                entry["legacyMigrated"] = True
-            self._save_registry()
+        self._rebuild_ide_index()
 
     @staticmethod
-    def _normalize_entry(entry: dict) -> dict:
-        """将任意版本的 entry 归一化为 v2 user-only 结构。
+    def _migrate_entries(entries: dict) -> dict[str, dict]:
+        """将 v1/v2（IP 主键）entries 迁移为 v3（Token 主键）。
 
-        忽略并移除旧版可能携带的 system / admin 权限来源语义，
-        accessLevel 一律归一为 user。
+        全部既有凭据归入 IDE 族：长期有效、无 owner_ref。
         """
+        migrated: dict[str, dict] = {}
+        for ip, entry in entries.items():
+            if not isinstance(entry, dict):
+                continue
+            token = entry.get("token")
+            if not isinstance(token, str) or not token:
+                continue
+            if token in migrated:
+                continue
+            migrated[token] = {
+                "token": token,
+                "ip": ip,
+                "family": "ide",
+                "accessLevel": "user",
+                "owner_ref": None,
+                "expires_at": None,
+                "createdAt": entry.get("createdAt", 0),
+                "lastSeenAt": entry.get("lastSeenAt", 0),
+                "revoked": bool(entry.get("revoked", False)),
+                "legacyMigrated": True,
+                "source": entry.get("source", "auto"),
+            }
+        return migrated
+
+    @staticmethod
+    def _normalize_entry(token: str, entry: dict) -> dict:
+        """将 v3 entry 归一化（补齐缺失字段）。"""
         return {
-            "token": entry.get("token"),
+            "token": token,
+            "ip": entry.get("ip", ""),
+            "family": entry.get("family", "ide"),
             "accessLevel": "user",
+            "owner_ref": entry.get("owner_ref"),
+            "expires_at": entry.get("expires_at"),
             "createdAt": entry.get("createdAt", 0),
             "lastSeenAt": entry.get("lastSeenAt", 0),
             "revoked": bool(entry.get("revoked", False)),
@@ -507,11 +586,24 @@ class TokenManager:
             "source": entry.get("source", "auto"),
         }
 
+    def _rebuild_ide_index(self) -> None:
+        """重建 IP→IDE 族 Token 索引（取每 IP 最新未撤销 IDE Token）。"""
+        self._ip_ide_token = {}
+        for token, entry in self.tokens.items():
+            if entry.get("family") != "ide" or entry.get("revoked"):
+                continue
+            ip = entry.get("ip", "")
+            if not ip:
+                continue
+            current = self.tokens.get(self._ip_ide_token.get(ip, ""))
+            if current is None or entry.get("createdAt", 0) >= current.get("createdAt", 0):
+                self._ip_ide_token[ip] = token
+
     def _backup_registry(self, tag: str) -> None:
         """备份当前 registry 文件用于迁移或诊断；失败不阻塞启动。
 
         Args:
-            tag: 备份标记，如 ``v1`` 或 ``corrupt``。
+            tag: 备份标记，如 ``v2`` 或 ``corrupt``。
         """
         try:
             if self.registry_path.exists():
@@ -521,11 +613,11 @@ class TokenManager:
             pass
 
     def _save_registry(self) -> None:
-        """持久化 v2 user-only Token Registry 到磁盘。"""
+        """持久化 v3 Token Registry 到磁盘。"""
         try:
             payload = {
                 "schema_version": REGISTRY_SCHEMA_VERSION,
-                "entries": self.ip_tokens,
+                "entries": self.tokens,
             }
             tmp_path = self.registry_path.with_suffix(".tmp")
             tmp_path.write_text(
@@ -537,14 +629,15 @@ class TokenManager:
             pass
 
     def get_or_create_token(self, ip: str) -> str:
-        """为指定 IP 获取或创建 Token（任意 IP 含本机均持久化，重启后仍可用）。
+        """为指定 IP 获取或创建 IDE 族 Token（任意 IP 含本机均持久化）。
 
-        - 任意 IP：Registry 中已有（未撤销）则复用。
-        - 本机且无记录：返回管理员 Token（.env），并登记持久化（source=admin）。
-        - 其余：新建 ``metam_pat_<hex>`` 并持久化（source=auto）。
-        - 已撤销的 IP 会生成新 Token 并覆盖旧记录。
+        - IDE 族已有（未撤销）则复用（同 IP 复用语义不变）。
+        - 本机且无记录：返回管理员 Token（.env），并登记（source=admin）。
+        - 其余：新建 ``metam_pat_<hex>``（source=auto）。
+        - 已撤销的 IP 会生成新 Token 并替换旧记录。
         """
-        entry = self.ip_tokens.get(ip)
+        existing_token = self._ip_ide_token.get(ip)
+        entry = self.tokens.get(existing_token) if existing_token else None
         if entry and not entry.get("revoked"):
             entry["lastSeenAt"] = int(time.time())
             self._save_registry()
@@ -556,33 +649,89 @@ class TokenManager:
             new_token = "metam_pat_" + secrets.token_hex(16)
             source = "auto"
         now = int(time.time())
-        self.ip_tokens[ip] = {
+        self.tokens[new_token] = {
             "token": new_token,
+            "ip": ip,
+            "family": "ide",
             "accessLevel": "user",
+            "owner_ref": None,
+            "expires_at": None,
             "createdAt": now,
             "lastSeenAt": now,
             "revoked": False,
             "legacyMigrated": False,
             "source": source,
         }
-        self._token_to_ip[new_token] = ip
+        self._rebuild_ide_index()
+        self._save_registry()
+        return new_token
+
+    def mint_token(self, username: str, ttl_seconds: int, ip: str = "127.0.0.1") -> str:
+        """为 webchat 会话签发专属接入凭据（family=webchat）。
+
+        Args:
+            username: 已规范化（strip 首尾空白）的用户名。
+            ttl_seconds: 有效期（秒，由调用方按上限截断）。
+            ip: 签发来源（用于留痕，不参与复用语义）。
+
+        Returns:
+            新签发的 Token。
+        """
+        new_token = "metam_pat_" + secrets.token_hex(16)
+        now = int(time.time())
+        owner_ref = hashlib.sha256(
+            ("webchat:" + username).encode("utf-8")
+        ).hexdigest()
+        self.tokens[new_token] = {
+            "token": new_token,
+            "ip": ip,
+            "family": "webchat",
+            "accessLevel": "user",
+            "owner_ref": owner_ref,
+            "expires_at": now + ttl_seconds,
+            "createdAt": now,
+            "lastSeenAt": now,
+            "revoked": False,
+            "legacyMigrated": False,
+            "source": "mint",
+        }
         self._save_registry()
         return new_token
 
     def is_valid(self, token: str) -> bool:
         """验证 Token 是否有效。
 
-        - 管理员 Token 精确匹配
-        - Registry 中未撤销的 user Token 视为有效
+        - 管理员 Token 精确匹配。
+        - Registry 中未撤销且未过期（webchat 族）的 user Token 视为有效。
         """
         if self.admin_token and token == self.admin_token:
             return True
-        if token in self._token_to_ip:
-            ip = self._token_to_ip[token]
-            entry = self.ip_tokens.get(ip)
-            if entry and not entry.get("revoked") and entry.get("token") == token:
-                return True
-        return False
+        entry = self.tokens.get(token)
+        if entry is None or entry.get("revoked"):
+            return False
+        expires_at = entry.get("expires_at")
+        if isinstance(expires_at, int) and expires_at > 0:
+            if int(time.time()) >= expires_at:
+                return False
+        return entry.get("token") == token
+
+    def get_entry(self, token: str) -> dict | None:
+        """查询 Token 对应的 v3 entry（鉴权命中后供归属上下文使用）。
+
+        Args:
+            token: MCP 接入 Token。
+
+        Returns:
+            有效 entry；不存在/撤销/过期返回 None。
+        """
+        entry = self.tokens.get(token)
+        if entry is None or entry.get("revoked"):
+            return None
+        expires_at = entry.get("expires_at")
+        if isinstance(expires_at, int) and expires_at > 0:
+            if int(time.time()) >= expires_at:
+                return None
+        return entry
 
     def get_token_info(self, ip: str) -> dict:
         """获取 IP 对应的 Token 和接入信息（一律 user 级）。
@@ -599,25 +748,56 @@ class TokenManager:
         }
 
     def revoke_token(self, ip: str) -> bool:
-        """撤销指定 IP 的 Token（预留管理接口）。"""
-        entry = self.ip_tokens.get(ip)
-        if not entry:
+        """撤销指定 IP 的 IDE 族 Token（预留管理接口）。"""
+        token = self._ip_ide_token.get(ip)
+        entry = self.tokens.get(token) if token else None
+        if entry is None or entry.get("revoked"):
             return False
-        old_token = entry.get("token")
-        if old_token and self._token_to_ip.get(old_token) == ip:
-            self._token_to_ip.pop(old_token, None)
+        entry["revoked"] = True
+        entry["lastSeenAt"] = int(time.time())
+        self._rebuild_ide_index()
+        self._save_registry()
+        return True
+
+    def revoke_webchat_token(self, token: str) -> bool:
+        """撤销 webchat 族凭据；IDE 族凭据一律拒绝撤销。
+
+        Args:
+            token: 待撤销的接入 Token。
+
+        Returns:
+            True=撤销成功；False=不存在、已撤销或族别非 webchat。
+        """
+        entry = self.tokens.get(token)
+        if entry is None:
+            return False
+        if entry.get("family") != "webchat":
+            return False
+        if entry.get("revoked"):
+            return False
         entry["revoked"] = True
         entry["lastSeenAt"] = int(time.time())
         self._save_registry()
         return True
 
-    def touch_ip_last_seen(self, ip: str) -> None:
-        """更新已存在 IP 记录的 lastSeenAt（不改变 Token）。"""
-        entry = self.ip_tokens.get(ip)
+    def touch_token(self, token: str) -> None:
+        """更新 Token 记录的 lastSeenAt（按 Token 主键）。"""
+        entry = self.tokens.get(token)
         if not entry or entry.get("revoked"):
             return
         entry["lastSeenAt"] = int(time.time())
         self._save_registry()
+
+    def touch_ip_last_seen(self, ip: str) -> None:
+        """更新该 IP 全部未撤销凭据的 lastSeenAt（兼容入口）。"""
+        now = int(time.time())
+        touched = False
+        for entry in self.tokens.values():
+            if entry.get("ip") == ip and not entry.get("revoked"):
+                entry["lastSeenAt"] = now
+                touched = True
+        if touched:
+            self._save_registry()
 
 
 # ── 权限上下文 ──
@@ -717,6 +897,15 @@ async def _template_dict_source() -> dict:
 
 
 register_edge_tools(mcp, template_dict_source=_template_dict_source)
+
+# ── 注册转换执行（沙箱）工具 ──
+register_conversion_tools(mcp)
+if not conversion_engine_available():
+    print(
+        "[WARNING] 转换执行引擎缺失（agent_assets/skills/protocol-conversion/"
+        "scripts/protocol_converter.py），execute_conversion_test 等工具将返回"
+        "\"引擎不可用\"。"
+    )
 
 # ── 静态页面 ──
 try:
@@ -892,6 +1081,24 @@ _VIRTUAL_ADAPTER_PREFIXES = (
 def _is_virtual_adapter_ip(ip: str) -> bool:
     """判断 IP 是否属于已知虚拟网卡网段。"""
     return ip.startswith(_VIRTUAL_ADAPTER_PREFIXES)
+
+
+def _resolve_client_ip(scope) -> str:
+    """解析真实客户端 IP（服务端门控与展示共用的唯一口径）。
+
+    仅当直连来源命中 MCP_TRUSTED_PROXY 可信代理清单时，才采信
+    X-Forwarded-For 的最左值；未配置可信代理一律用直连地址，
+    伪造转发头不改变本机/远程判定。
+    """
+    direct_ip = _get_client_ip(scope)
+    if not MCP_TRUSTED_PROXY or direct_ip not in MCP_TRUSTED_PROXY:
+        return direct_ip
+    for name, value in scope.get("headers", []):
+        if name.decode().lower() == "x-forwarded-for":
+            first = value.decode().split(",")[0].strip()
+            if first:
+                return first
+    return direct_ip
 
 
 def _get_server_ips() -> list:
@@ -2512,7 +2719,14 @@ _CLOUD_WRITE_TOOL_NAMES = frozenset(
 
 
 def _current_owner_id_server() -> str:
-    """由当前 MCP 接入 Token 派生归属身份摘要。"""
+    """由归属引用或 MCP 接入 Token 派生归属身份摘要。
+
+    webchat 族优先 owner_ref（同一用户多会话审计归并到同分区）；
+    IDE 族 owner_ref 为空，回退 sha256(token)（现状不变）。
+    """
+    owner_ref = owner_ref_var.get("")
+    if owner_ref:
+        return owner_ref
     return derive_owner_id(mcp_token_var.get(""))
 
 
@@ -2655,6 +2869,10 @@ class AuthMiddleware:
         client_ip = _get_client_ip(scope)
         # 存储原始 MCP Token 供 SessionRegistry 查询
         mcp_token_var.set(token)
+        # v3：归属引用注入（webchat 族有 owner_ref，IDE 族为空回退）
+        entry = self.token_manager.get_entry(token)
+        owner_ref_var.set((entry or {}).get("owner_ref") or "")
+        self.token_manager.touch_token(token)
         self.token_manager.touch_ip_last_seen(client_ip)
         # 旧 contextvar 保留兼容，过渡后删除
         access_level_var.set("user")
@@ -2685,6 +2903,49 @@ class AuthMiddleware:
 
 
 # ── 复合路由 ──
+
+# 展示类端点（无鉴权）：公网模式下仅本机与 allowlist 来源放行
+_EXPOSURE_OPEN_LOCAL_ONLY_PATHS = {
+    "/", "/showcase", "/access", "/api/access-info", "/api/showcase/data",
+}
+_EXPOSURE_OPEN_LOCAL_ONLY_PREFIXES = ("/api/docs/export-skills",)
+# URL 携票据类端点：公网模式下非本机来源补充 Bearer 鉴权（handler 内裁决）
+_EXPOSURE_TICKET_PREFIXES = ("/api/archive/templates/",)
+# Bearer 既有类（/mcp、uploads、mint/revoke 等）：门控不介入，既有鉴权不变
+
+
+def _exposure_category(path: str) -> str:
+    """按路径归类暴露门控类别：open / ticket / pass。"""
+    if path in _EXPOSURE_OPEN_LOCAL_ONLY_PATHS:
+        return "open"
+    if path.startswith(_EXPOSURE_OPEN_LOCAL_ONLY_PREFIXES):
+        return "open"
+    if path.startswith(_EXPOSURE_TICKET_PREFIXES):
+        return "ticket"
+    return "pass"
+
+
+def _exposure_gate(path: str, client_ip: str) -> tuple[bool, str]:
+    """路由层单一门控入口：判定请求能否进入既有处理。
+
+    授权逻辑单点可审计：展示类在非本机且未命中 allowlist 时拒绝；
+    票据类由路由放行、handler 内补充鉴权；其余类别一律放行。
+    模式关闭（默认）时所有请求放行，与既有内网行为逐一致。
+
+    Args:
+        path: 请求路径。
+        client_ip: 经可信代理解析后的真实客户端 IP。
+
+    Returns:
+        (是否放行, 拒绝原因短语)；放行时原因为空串。
+    """
+    if not MCP_PUBLIC_MODE:
+        return True, ""
+    if _exposure_category(path) != "open":
+        return True, ""
+    if _is_local_ip(client_ip) or client_ip in MCP_PUBLIC_ALLOWLIST:
+        return True, ""
+    return False, "来源不在本机与 allowlist 范围"
 
 
 class CompositeApp:
@@ -2721,6 +2982,12 @@ class CompositeApp:
             return
 
         path = scope.get("path", "")
+
+        # 公网暴露门控（单一入口）：展示类仅本机/allowlist 放行
+        allowed, reason = _exposure_gate(path, _resolve_client_ip(scope))
+        if not allowed:
+            await self._send_json(send, 403, f"Forbidden: {reason}")
+            return
 
         # 静态页面：/ 与 /showcase 为价值展示页，/access 为接入工具页
         if path in ("/", "/showcase", "/access"):
@@ -2778,6 +3045,14 @@ class CompositeApp:
         # 本次操作日志回读（按接入 Token 定向，仅返回该身份自己的日志）
         if path == "/api/logs" or path.startswith("/api/logs?"):
             await self._handle_operation_logs(scope, send)
+            return
+
+        # webchat 专属接入凭据签发 / 撤销（双条件准入，见 mint spec）
+        if path == "/api/mcp-token/mint":
+            await self._handle_mint(scope, receive, send)
+            return
+        if path == "/api/mcp-token/revoke":
+            await self._handle_revoke(scope, receive, send)
             return
 
         # MCP 端点（需要鉴权）
@@ -2869,7 +3144,16 @@ class CompositeApp:
         auth = headers.get("authorization", "")
         if auth.startswith("Bearer "):
             token = auth[7:]
-        token = token or params.get("token", "")
+        # 公网模式下非本机来源不采信查询串 token（凭据不进 URL），仅接受 Bearer 头
+        if not token:
+            direct_ip = _get_client_ip(scope)
+            query_token_allowed = (
+                not MCP_PUBLIC_MODE
+                or _is_local_ip(direct_ip)
+                or _is_local_ip(_resolve_client_ip(scope))
+            )
+            if query_token_allowed:
+                token = params.get("token", "")
         cursor = params.get("cursor", "")
 
         owner_id = derive_owner_id(token) if token else ""
@@ -2886,6 +3170,125 @@ class CompositeApp:
             "logs": [entry.to_dict() for entry in entries],
         }
         await self._send_json(send, 200, data)
+
+    async def _handle_mint(self, scope, receive, send):
+        """webchat 专属接入凭据签发（双条件准入 + 限流 + 审计）。
+
+        校验顺序：secret（401）→ 来源白名单（403）→ 限流（429）→ 签发。
+        """
+        headers = {
+            name.decode().lower(): value.decode()
+            for name, value in scope.get("headers", [])
+        }
+        secret = headers.get("x-mint-secret", "")
+        if not MINT_SECRET or not secrets.compare_digest(secret, MINT_SECRET):
+            await self._send_json(send, 401, "Unauthorized")
+            return
+        client_ip = _get_client_ip(scope)
+        if client_ip not in MINT_ALLOWED_IPS:
+            await self._send_json(send, 403, "Forbidden source")
+            return
+        # 限流：窗口 60s 内最多 MINT_RATE_LIMIT 次尝试
+        now = time.time()
+        cutoff = now - 60
+        global _mint_attempt_times
+        _mint_attempt_times = [t for t in _mint_attempt_times if t > cutoff]
+        if len(_mint_attempt_times) >= MINT_RATE_LIMIT:
+            await self._send_json(send, 429, "Rate limited")
+            return
+        _mint_attempt_times.append(now)
+        body = b""
+        while True:
+            message = await receive()
+            if message["type"] != "http.request":
+                break
+            body += message.get("body", b"")
+            if len(body) > 64 * 1024:
+                await self._send_json(send, 413, "Body too large")
+                return
+            if not message.get("more_body", False):
+                break
+        try:
+            payload = json.loads(body.decode("utf-8")) if body else {}
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            await self._send_json(send, 400, "Invalid JSON body")
+            return
+        username = str(payload.get("username", "")).strip()
+        if not username:
+            await self._send_json(send, 400, "username required")
+            return
+        try:
+            ttl = int(payload.get("ttl_seconds", MINT_TTL_DEFAULT))
+        except (TypeError, ValueError):
+            await self._send_json(send, 400, "ttl_seconds must be integer")
+            return
+        ttl = max(1, min(ttl, MINT_TTL_CAP))
+        token = self.token_manager.mint_token(username, ttl, ip=client_ip)
+        entry = self.token_manager.get_entry(token)
+        global _mint_audit
+        _mint_audit.append(
+            {"at": int(now), "source": client_ip, "username": username,
+             "result": "issued", "ttl": ttl}
+        )
+        _op_store.record(
+            mcp_token=token,
+            tool="mcp_token_mint",
+            status="SUCCESS",
+            args={"username": username, "ttl": ttl, "source": client_ip},
+            result={"owner_ref": (entry or {}).get("owner_ref", "")},
+        )
+        await self._send_json(
+            send,
+            200,
+            {
+                "token": token,
+                "family": "webchat",
+                "accessLevel": "user",
+                "ttl": ttl,
+                "expires_at": int(now) + ttl,
+            },
+        )
+
+    async def _handle_revoke(self, scope, receive, send):
+        """撤销 webchat 族凭据；IDE 族一律 403。"""
+        headers = {
+            name.decode().lower(): value.decode()
+            for name, value in scope.get("headers", [])
+        }
+        secret = headers.get("x-mint-secret", "")
+        if not MINT_SECRET or not secrets.compare_digest(secret, MINT_SECRET):
+            await self._send_json(send, 401, "Unauthorized")
+            return
+        client_ip = _get_client_ip(scope)
+        if client_ip not in MINT_ALLOWED_IPS:
+            await self._send_json(send, 403, "Forbidden source")
+            return
+        body = b""
+        while True:
+            message = await receive()
+            if message["type"] != "http.request":
+                break
+            body += message.get("body", b"")
+            if len(body) > 16 * 1024:
+                await self._send_json(send, 413, "Body too large")
+                return
+            if not message.get("more_body", False):
+                break
+        try:
+            payload = json.loads(body.decode("utf-8")) if body else {}
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            await self._send_json(send, 400, "Invalid JSON body")
+            return
+        token = str(payload.get("token", ""))
+        entry = self.token_manager.get_entry(token)
+        if entry is None:
+            await self._send_json(send, 404, "Token not found")
+            return
+        if entry.get("family") != "webchat":
+            await self._send_json(send, 403, "Only webchat family revocable")
+            return
+        self.token_manager.revoke_webchat_token(token)
+        await self._send_json(send, 200, "revoked")
 
     async def _handle_export_package(self, scope, send):
         """打包并返回 Skills ZIP。服务器自动打包，无需手动压缩。"""
@@ -2943,7 +3346,8 @@ class CompositeApp:
         """空白模板下载（票据验证）。
 
         从 URL 路径提取 file_id，通过 SnapshotStore 验证归属与有效期，
-        返回模板字节。无需 Bearer Token，file_id 本身即为票据。
+        返回模板字节。本机来源无需 Bearer，file_id 本身即为票据；
+        公网模式下非本机来源额外要求 Bearer 且派生归属与 URL owner 一致。
         """
         path = scope.get("path", "")
         file_id = path.split("/")[-1].split("?")[0]
@@ -2959,6 +3363,21 @@ class CompositeApp:
                 send, 400, "缺少 owner 查询参数"
             )
             return
+        # 公网模式收紧：非本机来源要求 Bearer 且归属一致
+        # （无/无效 401；不一致 404 不泄漏存在性；本机行为不变）
+        if MCP_PUBLIC_MODE and not _is_local_ip(_resolve_client_ip(scope)):
+            headers = {
+                name.decode().lower(): value.decode()
+                for name, value in scope.get("headers", [])
+            }
+            auth = headers.get("authorization", "")
+            bearer = auth[7:] if auth.startswith("Bearer ") else ""
+            if not bearer:
+                await self._send_json(send, 401, "Unauthorized")
+                return
+            if derive_owner_id(bearer) != owner_id:
+                await self._send_json(send, 404, "模板不可用")
+                return
         try:
             from edge_tools import template_store
             tpl_bytes = template_store.read_template_bytes(

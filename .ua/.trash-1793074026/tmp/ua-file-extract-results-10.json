@@ -1,0 +1,4847 @@
+{
+  "scriptCompleted": true,
+  "extractorNote": "python/c via cpython; docx excluded (binary source, .md text twin retained)",
+  "filesAnalyzed": 22,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "results": [
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/原子标签定义.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1270,
+      "nonEmptyLines": 1200,
+      "sections": [
+        {
+          "heading": "原子标签定义（系统补充）",
+          "level": 5,
+          "line": 1
+        },
+        {
+          "heading": "故障码定义",
+          "level": 5,
+          "line": 721
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 155,
+      "nonEmptyLines": 104,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 161,
+      "nonEmptyLines": 130,
+      "sections": [
+        {
+          "heading": "协议转换包打包分发",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "适用场景",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "打包内容",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "ZIP 包目录结构",
+          "level": 3,
+          "line": 29
+        },
+        {
+          "heading": "manifest.json 格式",
+          "level": 3,
+          "line": 42
+        },
+        {
+          "heading": "README.md 模板",
+          "level": 3,
+          "line": 67
+        },
+        {
+          "heading": "操作流程",
+          "level": 2,
+          "line": 93
+        },
+        {
+          "heading": "Phase 1 — 打包前检查",
+          "level": 3,
+          "line": 95
+        },
+        {
+          "heading": "Phase 2 — 生成清单和文档",
+          "level": 3,
+          "line": 111
+        },
+        {
+          "heading": "Phase 3 — 打包为 ZIP",
+          "level": 3,
+          "line": 118
+        },
+        {
+          "heading": "Phase 4 — 安装到目标环境",
+          "level": 3,
+          "line": 131
+        },
+        {
+          "heading": "调用的 MCP 工具（MCP 就绪后）",
+          "level": 2,
+          "line": 142
+        },
+        {
+          "heading": "约束规则",
+          "level": 2,
+          "line": 152
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "agent_assets/skills/package-manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 66,
+      "nonEmptyLines": 66,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "packageRoot",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "updateMode",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "skills",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "requiredFiles",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "optionalDirectories",
+          "level": 1,
+          "line": 55
+        },
+        {
+          "heading": "validation",
+          "level": 1,
+          "line": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 460,
+      "nonEmptyLines": 347,
+      "sections": [
+        {
+          "heading": "共享协议映射核心",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "1. 引擎归属",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "2. 映射规则字段",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "3. 路径语法",
+          "level": 2,
+          "line": 58
+        },
+        {
+          "heading": "$item 省略写法",
+          "level": 3,
+          "line": 70
+        },
+        {
+          "heading": "4. 类型系统",
+          "level": 2,
+          "line": 81
+        },
+        {
+          "heading": "object + sub_mappings 递归构建",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "5. source_type 分类",
+          "level": 2,
+          "line": 112
+        },
+        {
+          "heading": "6. 数组遍历准则",
+          "level": 2,
+          "line": 126
+        },
+        {
+          "heading": "ensure_path 自动建路径",
+          "level": 3,
+          "line": 137
+        },
+        {
+          "heading": "边界场景：源无数组但目标要求数组",
+          "level": 3,
+          "line": 144
+        },
+        {
+          "heading": "item_type 模式",
+          "level": 3,
+          "line": 157
+        },
+        {
+          "heading": "多层嵌套 @ 锚点",
+          "level": 3,
+          "line": 166
+        },
+        {
+          "heading": "7. 模板变量替换（substitute）",
+          "level": 2,
+          "line": 170
+        },
+        {
+          "heading": "template_vars.def 已注册变量",
+          "level": 3,
+          "line": 185
+        },
+        {
+          "heading": "8. 生成器清单",
+          "level": 2,
+          "line": 196
+        },
+        {
+          "heading": "9. scale 缩放",
+          "level": 2,
+          "line": 214
+        },
+        {
+          "heading": "10. post_process 后处理",
+          "level": 2,
+          "line": 226
+        },
+        {
+          "heading": "字段级后处理",
+          "level": 3,
+          "line": 230
+        },
+        {
+          "heading": "全局后处理",
+          "level": 3,
+          "line": 236
+        },
+        {
+          "heading": "11. preprocess 预处理",
+          "level": 2,
+          "line": 250
+        },
+        {
+          "heading": "12. mapper_core.c 核心函数",
+          "level": 2,
+          "line": 266
+        },
+        {
+          "heading": "数据结构 (mapper_core.h)",
+          "level": 3,
+          "line": 280
+        },
+        {
+          "heading": "13. Python 测试镜像",
+          "level": 2,
+          "line": 301
+        },
+        {
+          "heading": "测试套件",
+          "level": 3,
+          "line": 315
+        },
+        {
+          "heading": "14. 结构确认报告模板",
+          "level": 2,
+          "line": 343
+        },
+        {
+          "heading": "确认清单（8 项）",
+          "level": 3,
+          "line": 347
+        },
+        {
+          "heading": "15. 参考文件机制",
+          "level": 2,
+          "line": 362
+        },
+        {
+          "heading": "默认内部协议",
+          "level": 3,
+          "line": 379
+        },
+        {
+          "heading": "16. 常见映射错误",
+          "level": 2,
+          "line": 411
+        },
+        {
+          "heading": "错误 1：引擎引用错误",
+          "level": 3,
+          "line": 413
+        },
+        {
+          "heading": "错误 2：看到数组就遍历，忽略目标类型",
+          "level": 3,
+          "line": 421
+        },
+        {
+          "heading": "错误 3：常量字段使用错误键名",
+          "level": 3,
+          "line": 430
+        },
+        {
+          "heading": "错误 4：substitute 配置错误",
+          "level": 3,
+          "line": 439
+        },
+        {
+          "heading": "错误 5：过度依赖 post_process",
+          "level": 3,
+          "line": 448
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 35
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 13,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "capabilities",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "author",
+          "level": 1,
+          "line": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/gen_test_report.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 80,
+      "functions": [],
+      "classes": [],
+      "exports": [],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "sys.path.insert",
+          "lineNumber": 10
+        },
+        {
+          "caller": "<module>",
+          "callee": "os.path.dirname",
+          "lineNumber": 10
+        },
+        {
+          "caller": "<module>",
+          "callee": "os.path.abspath",
+          "lineNumber": 10
+        },
+        {
+          "caller": "<module>",
+          "callee": "unittest.TestLoader",
+          "lineNumber": 13
+        },
+        {
+          "caller": "<module>",
+          "callee": "unittest.TestSuite",
+          "lineNumber": 16
+        },
+        {
+          "caller": "<module>",
+          "callee": "dir",
+          "lineNumber": 18
+        },
+        {
+          "caller": "<module>",
+          "callee": "getattr",
+          "lineNumber": 19
+        },
+        {
+          "caller": "<module>",
+          "callee": "isinstance",
+          "lineNumber": 20
+        },
+        {
+          "caller": "<module>",
+          "callee": "issubclass",
+          "lineNumber": 20
+        },
+        {
+          "caller": "<module>",
+          "callee": "suite.addTests",
+          "lineNumber": 22
+        },
+        {
+          "caller": "<module>",
+          "callee": "loader.loadTestsFromTestCase",
+          "lineNumber": 22
+        },
+        {
+          "caller": "<module>",
+          "callee": "test_class_names.append",
+          "lineNumber": 23
+        },
+        {
+          "caller": "<module>",
+          "callee": "io.StringIO",
+          "lineNumber": 26
+        },
+        {
+          "caller": "<module>",
+          "callee": "unittest.TextTestRunner",
+          "lineNumber": 27
+        },
+        {
+          "caller": "<module>",
+          "callee": "runner.run",
+          "lineNumber": 28
+        },
+        {
+          "caller": "<module>",
+          "callee": "stream.getvalue.split",
+          "lineNumber": 32
+        },
+        {
+          "caller": "<module>",
+          "callee": "stream.getvalue",
+          "lineNumber": 32
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 34
+        },
+        {
+          "caller": "<module>",
+          "callee": "re.match",
+          "lineNumber": 37
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 38
+        },
+        {
+          "caller": "<module>",
+          "callee": "m.group",
+          "lineNumber": 39
+        },
+        {
+          "caller": "<module>",
+          "callee": "re.search",
+          "lineNumber": 41
+        },
+        {
+          "caller": "<module>",
+          "callee": "status_m.group",
+          "lineNumber": 43
+        },
+        {
+          "caller": "<module>",
+          "callee": "full_class.split",
+          "lineNumber": 44
+        },
+        {
+          "caller": "<module>",
+          "callee": "re.match",
+          "lineNumber": 57
+        },
+        {
+          "caller": "<module>",
+          "callee": "m.group",
+          "lineNumber": 59
+        },
+        {
+          "caller": "<module>",
+          "callee": "m.group",
+          "lineNumber": 60
+        },
+        {
+          "caller": "<module>",
+          "callee": "full_class.split",
+          "lineNumber": 61
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 76
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 76
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 76
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 77
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 78
+        },
+        {
+          "caller": "<module>",
+          "callee": "len",
+          "lineNumber": 79
+        },
+        {
+          "caller": "<module>",
+          "callee": "result.wasSuccessful",
+          "lineNumber": 80
+        },
+        {
+          "caller": "<module>",
+          "callee": "os.path.join",
+          "lineNumber": 84
+        },
+        {
+          "caller": "<module>",
+          "callee": "os.path.dirname",
+          "lineNumber": 84
+        },
+        {
+          "caller": "<module>",
+          "callee": "os.path.abspath",
+          "lineNumber": 84
+        },
+        {
+          "caller": "<module>",
+          "callee": "open",
+          "lineNumber": 85
+        },
+        {
+          "caller": "<module>",
+          "callee": "json.dump",
+          "lineNumber": 86
+        },
+        {
+          "caller": "<module>",
+          "callee": "print",
+          "lineNumber": 88
+        },
+        {
+          "caller": "<module>",
+          "callee": "json.dumps",
+          "lineNumber": 88
+        }
+      ],
+      "metrics": {
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.c",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 740,
+      "nonEmptyLines": 651,
+      "functions": [
+        {
+          "name": "has_foreach_syntax",
+          "startLine": 27,
+          "endLine": 30,
+          "params": [
+            "const char* path"
+          ]
+        },
+        {
+          "name": "has_array_anchor",
+          "startLine": 31,
+          "endLine": 40,
+          "params": [
+            "const char* path"
+          ]
+        },
+        {
+          "name": "get_value_by_path",
+          "startLine": 41,
+          "endLine": 92,
+          "params": [
+            "cJSON* root",
+            "const char* path"
+          ]
+        },
+        {
+          "name": "get_string_by_path",
+          "startLine": 93,
+          "endLine": 115,
+          "params": [
+            "cJSON* root",
+            "const char* path"
+          ]
+        },
+        {
+          "name": "ensure_path",
+          "startLine": 116,
+          "endLine": 160,
+          "params": [
+            "cJSON* root",
+            "const char* path"
+          ]
+        },
+        {
+          "name": "get_flat_array_from_path",
+          "startLine": 161,
+          "endLine": 281,
+          "params": [
+            "cJSON* root",
+            "const char* path"
+          ]
+        },
+        {
+          "name": "template_substitute",
+          "startLine": 282,
+          "endLine": 740,
+          "params": [
+            "const char* template_str",
+            "MappingContext* ctx"
+          ]
+        }
+      ],
+      "classes": [],
+      "exports": [
+        {
+          "name": "has_foreach_syntax",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "has_array_anchor",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "get_value_by_path",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "get_string_by_path",
+          "line": 93,
+          "isDefault": false
+        },
+        {
+          "name": "ensure_path",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "get_flat_array_from_path",
+          "line": 161,
+          "isDefault": false
+        },
+        {
+          "name": "template_substitute",
+          "line": 282,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [],
+      "metrics": {
+        "exportCount": 7,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 167,
+      "nonEmptyLines": 141,
+      "functions": [],
+      "classes": [],
+      "exports": [
+        {
+          "name": "MappingRule",
+          "line": 36,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [],
+      "metrics": {
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/protocol_converter.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 602,
+      "nonEmptyLines": 497,
+      "functions": [],
+      "classes": [
+        {
+          "name": "MapperCore",
+          "startLine": 32,
+          "endLine": 601,
+          "methods": [
+            "get_value_by_path",
+            "get_string_by_path",
+            "ensure_path",
+            "get_flat_array_from_path",
+            "generate_value",
+            "template_substitute",
+            "replace_var",
+            "add_value_to_parent",
+            "process_rule",
+            "process_array_foreach",
+            "process_normal_field",
+            "transform_mqtt",
+            "transform_http"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "get_value_by_path",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "get_string_by_path",
+          "line": 107,
+          "isDefault": false
+        },
+        {
+          "name": "ensure_path",
+          "line": 121,
+          "isDefault": false
+        },
+        {
+          "name": "get_flat_array_from_path",
+          "line": 162,
+          "isDefault": false
+        },
+        {
+          "name": "generate_value",
+          "line": 207,
+          "isDefault": false
+        },
+        {
+          "name": "template_substitute",
+          "line": 241,
+          "isDefault": false
+        },
+        {
+          "name": "replace_var",
+          "line": 250,
+          "isDefault": false
+        },
+        {
+          "name": "add_value_to_parent",
+          "line": 270,
+          "isDefault": false
+        },
+        {
+          "name": "process_rule",
+          "line": 380,
+          "isDefault": false
+        },
+        {
+          "name": "process_array_foreach",
+          "line": 396,
+          "isDefault": false
+        },
+        {
+          "name": "process_normal_field",
+          "line": 481,
+          "isDefault": false
+        },
+        {
+          "name": "transform_mqtt",
+          "line": 570,
+          "isDefault": false
+        },
+        {
+          "name": "transform_http",
+          "line": 586,
+          "isDefault": false
+        },
+        {
+          "name": "MapperCore",
+          "line": 32,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "MapperCore",
+          "callee": "path.split",
+          "lineNumber": 64
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "re.match",
+          "lineNumber": 71
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "bracket_match.group",
+          "lineNumber": 73
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "bracket_match.group",
+          "lineNumber": 74
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 76
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "current.get",
+          "lineNumber": 77
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 84
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "int",
+          "lineNumber": 89
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "len",
+          "lineNumber": 90
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 99
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "current.get",
+          "lineNumber": 100
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 109
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 112
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 114
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 115
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 116
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "path.split",
+          "lineNumber": 131
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "re.match",
+          "lineNumber": 137
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "bracket_match.group",
+          "lineNumber": 139
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "bracket_match.group",
+          "lineNumber": 140
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 146
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "int",
+          "lineNumber": 150
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "len",
+          "lineNumber": 151
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "arr.append",
+          "lineNumber": 152
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 169
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 170
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "path.find",
+          "lineNumber": 175
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 181
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 182
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "remaining.startswith",
+          "lineNumber": 187
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "MapperCore.get_flat_array_from_path",
+          "lineNumber": 196
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 197
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "result.extend",
+          "lineNumber": 198
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "result.append",
+          "lineNumber": 200
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 215
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "uuid.uuid4",
+          "lineNumber": 215
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 217
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "int",
+          "lineNumber": 217
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "time.time",
+          "lineNumber": 217
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 219
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "int",
+          "lineNumber": 219
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "time.time",
+          "lineNumber": 219
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "time.strftime",
+          "lineNumber": 221
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "time.strftime",
+          "lineNumber": 223
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "uuid.uuid4",
+          "lineNumber": 225
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "hashlib.md5.hexdigest",
+          "lineNumber": 227
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "hashlib.md5",
+          "lineNumber": 227
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str.encode",
+          "lineNumber": 227
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 227
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "time.time",
+          "lineNumber": 227
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 229
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "uuid.uuid4",
+          "lineNumber": 229
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 232
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "ctx.get",
+          "lineNumber": 234
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 235
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "match.group",
+          "lineNumber": 251
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "match.group",
+          "lineNumber": 253
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "var_name.split",
+          "lineNumber": 256
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 259
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "current.get",
+          "lineNumber": 260
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "match.group",
+          "lineNumber": 262
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 263
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "match.group",
+          "lineNumber": 263
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "re.sub",
+          "lineNumber": 265
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 282
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "int",
+          "lineNumber": 284
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 288
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "int",
+          "lineNumber": 289
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 290
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "int",
+          "lineNumber": 292
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 299
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "float",
+          "lineNumber": 301
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 305
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 307
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "float",
+          "lineNumber": 309
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 316
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "int",
+          "lineNumber": 318
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 322
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "int",
+          "lineNumber": 323
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 324
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "int",
+          "lineNumber": 326
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 333
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str.lower",
+          "lineNumber": 334
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 334
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 336
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 338
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 340
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "source_val.lower",
+          "lineNumber": 341
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 346
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "json.loads",
+          "lineNumber": 347
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "json.dumps",
+          "lineNumber": 347
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 348
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 350
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "json.loads",
+          "lineNumber": 350
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "MapperCore.template_substitute",
+          "lineNumber": 359
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 359
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 365
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 367
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 369
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 371
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 372
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "len",
+          "lineNumber": 374
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 388
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 390
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.process_array_foreach",
+          "lineNumber": 391
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.process_normal_field",
+          "lineNumber": 393
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 407
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 408
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 409
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 415
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "src_path.count",
+          "lineNumber": 416
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.get_flat_array_from_path",
+          "lineNumber": 418
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.get_value_by_path",
+          "lineNumber": 420
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 422
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "len",
+          "lineNumber": 425
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "target_path.find",
+          "lineNumber": 430
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "parent_path.rfind",
+          "lineNumber": 439
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.ensure_path",
+          "lineNumber": 442
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "enumerate",
+          "lineNumber": 456
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "dict",
+          "lineNumber": 462
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "sub_rule_copy.get",
+          "lineNumber": 463
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "str",
+          "lineNumber": 464
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.process_rule",
+          "lineNumber": 469
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "target_array.append",
+          "lineNumber": 472
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "target_array.append",
+          "lineNumber": 475
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "target_path.rfind",
+          "lineNumber": 496
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.ensure_path",
+          "lineNumber": 500
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "isinstance",
+          "lineNumber": 505
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 508
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 509
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 512
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 517
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "src_path.split",
+          "lineNumber": 519
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "after_item.startswith",
+          "lineNumber": 520
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.get_value_by_path",
+          "lineNumber": 522
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.get_value_by_path",
+          "lineNumber": 524
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.process_rule",
+          "lineNumber": 527
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 537
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 539
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.generate_value",
+          "lineNumber": 541
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 541
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 543
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "src_path.split",
+          "lineNumber": 547
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "after_item.startswith",
+          "lineNumber": 548
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.get_value_by_path",
+          "lineNumber": 550
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.get_value_by_path",
+          "lineNumber": 552
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 556
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.get_value_by_path",
+          "lineNumber": 557
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 561
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "rule.get",
+          "lineNumber": 563
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.add_value_to_parent",
+          "lineNumber": 564
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "config.get",
+          "lineNumber": 580
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.process_rule",
+          "lineNumber": 581
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "config.get",
+          "lineNumber": 597
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "api.get",
+          "lineNumber": 598
+        },
+        {
+          "caller": "MapperCore",
+          "callee": "cls.process_rule",
+          "lineNumber": 599
+        }
+      ],
+      "metrics": {
+        "exportCount": 14,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1052,
+      "nonEmptyLines": 903,
+      "functions": [],
+      "classes": [
+        {
+          "name": "TestPathResolution",
+          "startLine": 27,
+          "endLine": 117,
+          "methods": [
+            "setUp",
+            "test_basic_path",
+            "test_nested_path",
+            "test_array_index",
+            "test_array_index_second",
+            "test_array_wildcard",
+            "test_dot_path",
+            "test_missing_path",
+            "test_out_of_range_index",
+            "test_get_string_by_path",
+            "test_flat_array_from_path_single",
+            "test_flat_array_from_path_nested",
+            "test_flat_array_no_foreach"
+          ],
+          "properties": [
+            "data"
+          ],
+          "exports": null,
+          "bases": [
+            "TestCase"
+          ]
+        },
+        {
+          "name": "TestEnsurePath",
+          "startLine": 120,
+          "endLine": 158,
+          "methods": [
+            "test_simple_path",
+            "test_nested_path",
+            "test_array_path",
+            "test_array_path_fill",
+            "test_empty_path"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "TestCase"
+          ]
+        },
+        {
+          "name": "TestTypeConversion",
+          "startLine": 161,
+          "endLine": 285,
+          "methods": [
+            "test_string_from_string",
+            "test_string_from_number",
+            "test_string_from_bool",
+            "test_string_empty_skipped",
+            "test_int_from_number",
+            "test_int_with_scale",
+            "test_int_from_string",
+            "test_int_constant",
+            "test_double_from_number",
+            "test_double_with_scale",
+            "test_double_from_string",
+            "test_long_from_number",
+            "test_bool_from_bool",
+            "test_bool_from_number",
+            "test_bool_from_string_true",
+            "test_bool_from_string_false",
+            "test_bool_constant",
+            "test_object_from_dict",
+            "test_object_from_constant_json",
+            "test_object_empty",
+            "test_substitute",
+            "test_substitute_nested"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "TestCase"
+          ]
+        },
+        {
+          "name": "TestGenerators",
+          "startLine": 288,
+          "endLine": 351,
+          "methods": [
+            "test_uuid",
+            "test_current_timestamp",
+            "test_current_timestamp_ms",
+            "test_timestamp_sec",
+            "test_timestamp_ms",
+            "test_datetime_compact",
+            "test_datetime_str",
+            "test_sequence_with_idx",
+            "test_sequence_with_ctx",
+            "test_md5_sign",
+            "test_batch_id",
+            "test_random_string"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "TestCase"
+          ]
+        },
+        {
+          "name": "TestTemplateSubstitute",
+          "startLine": 354,
+          "endLine": 381,
+          "methods": [
+            "test_simple_substitute",
+            "test_nested_substitute",
+            "test_multiple_substitute",
+            "test_no_match",
+            "test_no_var"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "TestCase"
+          ]
+        },
+        {
+          "name": "TestArrayForeach",
+          "startLine": 384,
+          "endLine": 498,
+          "methods": [
+            "setUp",
+            "test_simple_object_foreach",
+            "test_key_value_foreach",
+            "test_nested_foreach",
+            "test_dot_source_path",
+            "test_flat_array_nested_foreach"
+          ],
+          "properties": [
+            "source"
+          ],
+          "exports": null,
+          "bases": [
+            "TestCase"
+          ]
+        },
+        {
+          "name": "TestMQTTTransform",
+          "startLine": 501,
+          "endLine": 618,
+          "methods": [
+            "setUp",
+            "test_mqtt_transform_basic_fields",
+            "test_mqtt_transform_array_foreach",
+            "test_mqtt_substitute",
+            "test_mqtt_constant_int",
+            "test_mqtt_generated_uuid",
+            "test_mqtt_generated_timestamp"
+          ],
+          "properties": [
+            "source",
+            "config"
+          ],
+          "exports": null,
+          "bases": [
+            "TestCase"
+          ]
+        },
+        {
+          "name": "TestHTTPTransform",
+          "startLine": 621,
+          "endLine": 764,
+          "methods": [
+            "setUp",
+            "test_http_transform_constant_fields",
+            "test_http_transform_path_field",
+            "test_http_transform_nested_constant",
+            "test_http_transform_array_foreach_object",
+            "test_http_transform_array_foreach_key_value",
+            "test_http_context_source_type",
+            "test_http_dot_source_in_array_foreach"
+          ],
+          "properties": [
+            "source",
+            "config"
+          ],
+          "exports": null,
+          "bases": [
+            "TestCase"
+          ]
+        },
+        {
+          "name": "TestEngineDifferences",
+          "startLine": 767,
+          "endLine": 819,
+          "methods": [
+            "test_mqtt_does_not_support_context",
+            "test_http_does_not_support_substitute",
+            "test_http_supports_string_to_number",
+            "test_mqtt_supports_flat_array"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "TestCase"
+          ]
+        },
+        {
+          "name": "TestEdgeCases",
+          "startLine": 822,
+          "endLine": 887,
+          "methods": [
+            "test_empty_source_array",
+            "test_missing_source_array",
+            "test_missing_source_field",
+            "test_missing_source_field_int",
+            "test_scale_factor",
+            "test_deeply_nested_target",
+            "test_array_target_with_index"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "TestCase"
+          ]
+        },
+        {
+          "name": "TestRealConfigs",
+          "startLine": 890,
+          "endLine": 972,
+          "methods": [
+            "test_mqtt_real_config",
+            "test_http_real_config"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "TestCase"
+          ]
+        },
+        {
+          "name": "TestUnifiedCodeConsistency",
+          "startLine": 975,
+          "endLine": 1047,
+          "methods": [
+            "test_mqtt_and_http_share_same_process_rule",
+            "test_mqtt_and_http_share_same_path_resolution",
+            "test_mqtt_and_http_share_same_type_conversion",
+            "test_all_source_types_in_unified_engine"
+          ],
+          "properties": [],
+          "exports": null,
+          "bases": [
+            "TestCase"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "setUp",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "test_basic_path",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "test_nested_path",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "test_array_index",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "test_array_index_second",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "test_array_wildcard",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "test_dot_path",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "test_missing_path",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "test_out_of_range_index",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "test_get_string_by_path",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "test_flat_array_from_path_single",
+          "line": 93,
+          "isDefault": false
+        },
+        {
+          "name": "test_flat_array_from_path_nested",
+          "line": 103,
+          "isDefault": false
+        },
+        {
+          "name": "test_flat_array_no_foreach",
+          "line": 113,
+          "isDefault": false
+        },
+        {
+          "name": "TestPathResolution",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "test_simple_path",
+          "line": 123,
+          "isDefault": false
+        },
+        {
+          "name": "test_nested_path",
+          "line": 130,
+          "isDefault": false
+        },
+        {
+          "name": "test_array_path",
+          "line": 138,
+          "isDefault": false
+        },
+        {
+          "name": "test_array_path_fill",
+          "line": 148,
+          "isDefault": false
+        },
+        {
+          "name": "test_empty_path",
+          "line": 154,
+          "isDefault": false
+        },
+        {
+          "name": "TestEnsurePath",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "test_string_from_string",
+          "line": 164,
+          "isDefault": false
+        },
+        {
+          "name": "test_string_from_number",
+          "line": 169,
+          "isDefault": false
+        },
+        {
+          "name": "test_string_from_bool",
+          "line": 174,
+          "isDefault": false
+        },
+        {
+          "name": "test_string_empty_skipped",
+          "line": 179,
+          "isDefault": false
+        },
+        {
+          "name": "test_int_from_number",
+          "line": 185,
+          "isDefault": false
+        },
+        {
+          "name": "test_int_with_scale",
+          "line": 190,
+          "isDefault": false
+        },
+        {
+          "name": "test_int_from_string",
+          "line": 195,
+          "isDefault": false
+        },
+        {
+          "name": "test_int_constant",
+          "line": 201,
+          "isDefault": false
+        },
+        {
+          "name": "test_double_from_number",
+          "line": 206,
+          "isDefault": false
+        },
+        {
+          "name": "test_double_with_scale",
+          "line": 211,
+          "isDefault": false
+        },
+        {
+          "name": "test_double_from_string",
+          "line": 216,
+          "isDefault": false
+        },
+        {
+          "name": "test_long_from_number",
+          "line": 222,
+          "isDefault": false
+        },
+        {
+          "name": "test_bool_from_bool",
+          "line": 227,
+          "isDefault": false
+        },
+        {
+          "name": "test_bool_from_number",
+          "line": 232,
+          "isDefault": false
+        },
+        {
+          "name": "test_bool_from_string_true",
+          "line": 237,
+          "isDefault": false
+        },
+        {
+          "name": "test_bool_from_string_false",
+          "line": 242,
+          "isDefault": false
+        },
+        {
+          "name": "test_bool_constant",
+          "line": 247,
+          "isDefault": false
+        },
+        {
+          "name": "test_object_from_dict",
+          "line": 252,
+          "isDefault": false
+        },
+        {
+          "name": "test_object_from_constant_json",
+          "line": 261,
+          "isDefault": false
+        },
+        {
+          "name": "test_object_empty",
+          "line": 266,
+          "isDefault": false
+        },
+        {
+          "name": "test_substitute",
+          "line": 271,
+          "isDefault": false
+        },
+        {
+          "name": "test_substitute_nested",
+          "line": 279,
+          "isDefault": false
+        },
+        {
+          "name": "TestTypeConversion",
+          "line": 161,
+          "isDefault": false
+        },
+        {
+          "name": "test_uuid",
+          "line": 291,
+          "isDefault": false
+        },
+        {
+          "name": "test_current_timestamp",
+          "line": 296,
+          "isDefault": false
+        },
+        {
+          "name": "test_current_timestamp_ms",
+          "line": 301,
+          "isDefault": false
+        },
+        {
+          "name": "test_timestamp_sec",
+          "line": 306,
+          "isDefault": false
+        },
+        {
+          "name": "test_timestamp_ms",
+          "line": 312,
+          "isDefault": false
+        },
+        {
+          "name": "test_datetime_compact",
+          "line": 318,
+          "isDefault": false
+        },
+        {
+          "name": "test_datetime_str",
+          "line": 323,
+          "isDefault": false
+        },
+        {
+          "name": "test_sequence_with_idx",
+          "line": 329,
+          "isDefault": false
+        },
+        {
+          "name": "test_sequence_with_ctx",
+          "line": 333,
+          "isDefault": false
+        },
+        {
+          "name": "test_md5_sign",
+          "line": 340,
+          "isDefault": false
+        },
+        {
+          "name": "test_batch_id",
+          "line": 345,
+          "isDefault": false
+        },
+        {
+          "name": "test_random_string",
+          "line": 349,
+          "isDefault": false
+        },
+        {
+          "name": "TestGenerators",
+          "line": 288,
+          "isDefault": false
+        },
+        {
+          "name": "test_simple_substitute",
+          "line": 357,
+          "isDefault": false
+        },
+        {
+          "name": "test_nested_substitute",
+          "line": 361,
+          "isDefault": false
+        },
+        {
+          "name": "test_multiple_substitute",
+          "line": 368,
+          "isDefault": false
+        },
+        {
+          "name": "test_no_match",
+          "line": 375,
+          "isDefault": false
+        },
+        {
+          "name": "test_no_var",
+          "line": 379,
+          "isDefault": false
+        },
+        {
+          "name": "TestTemplateSubstitute",
+          "line": 354,
+          "isDefault": false
+        },
+        {
+          "name": "setUp",
+          "line": 387,
+          "isDefault": false
+        },
+        {
+          "name": "test_simple_object_foreach",
+          "line": 401,
+          "isDefault": false
+        },
+        {
+          "name": "test_key_value_foreach",
+          "line": 419,
+          "isDefault": false
+        },
+        {
+          "name": "test_nested_foreach",
+          "line": 437,
+          "isDefault": false
+        },
+        {
+          "name": "test_dot_source_path",
+          "line": 465,
+          "isDefault": false
+        },
+        {
+          "name": "test_flat_array_nested_foreach",
+          "line": 483,
+          "isDefault": false
+        },
+        {
+          "name": "TestArrayForeach",
+          "line": 384,
+          "isDefault": false
+        },
+        {
+          "name": "setUp",
+          "line": 504,
+          "isDefault": false
+        },
+        {
+          "name": "test_mqtt_transform_basic_fields",
+          "line": 565,
+          "isDefault": false
+        },
+        {
+          "name": "test_mqtt_transform_array_foreach",
+          "line": 575,
+          "isDefault": false
+        },
+        {
+          "name": "test_mqtt_substitute",
+          "line": 597,
+          "isDefault": false
+        },
+        {
+          "name": "test_mqtt_constant_int",
+          "line": 603,
+          "isDefault": false
+        },
+        {
+          "name": "test_mqtt_generated_uuid",
+          "line": 608,
+          "isDefault": false
+        },
+        {
+          "name": "test_mqtt_generated_timestamp",
+          "line": 614,
+          "isDefault": false
+        },
+        {
+          "name": "TestMQTTTransform",
+          "line": 501,
+          "isDefault": false
+        },
+        {
+          "name": "setUp",
+          "line": 624,
+          "isDefault": false
+        },
+        {
+          "name": "test_http_transform_constant_fields",
+          "line": 697,
+          "isDefault": false
+        },
+        {
+          "name": "test_http_transform_path_field",
+          "line": 704,
+          "isDefault": false
+        },
+        {
+          "name": "test_http_transform_nested_constant",
+          "line": 709,
+          "isDefault": false
+        },
+        {
+          "name": "test_http_transform_array_foreach_object",
+          "line": 714,
+          "isDefault": false
+        },
+        {
+          "name": "test_http_transform_array_foreach_key_value",
+          "line": 722,
+          "isDefault": false
+        },
+        {
+          "name": "test_http_context_source_type",
+          "line": 732,
+          "isDefault": false
+        },
+        {
+          "name": "test_http_dot_source_in_array_foreach",
+          "line": 747,
+          "isDefault": false
+        },
+        {
+          "name": "TestHTTPTransform",
+          "line": 621,
+          "isDefault": false
+        },
+        {
+          "name": "test_mqtt_does_not_support_context",
+          "line": 770,
+          "isDefault": false
+        },
+        {
+          "name": "test_http_does_not_support_substitute",
+          "line": 782,
+          "isDefault": false
+        },
+        {
+          "name": "test_http_supports_string_to_number",
+          "line": 798,
+          "isDefault": false
+        },
+        {
+          "name": "test_mqtt_supports_flat_array",
+          "line": 808,
+          "isDefault": false
+        },
+        {
+          "name": "TestEngineDifferences",
+          "line": 767,
+          "isDefault": false
+        },
+        {
+          "name": "test_empty_source_array",
+          "line": 825,
+          "isDefault": false
+        },
+        {
+          "name": "test_missing_source_array",
+          "line": 839,
+          "isDefault": false
+        },
+        {
+          "name": "test_missing_source_field",
+          "line": 853,
+          "isDefault": false
+        },
+        {
+          "name": "test_missing_source_field_int",
+          "line": 860,
+          "isDefault": false
+        },
+        {
+          "name": "test_scale_factor",
+          "line": 867,
+          "isDefault": false
+        },
+        {
+          "name": "test_deeply_nested_target",
+          "line": 874,
+          "isDefault": false
+        },
+        {
+          "name": "test_array_target_with_index",
+          "line": 881,
+          "isDefault": false
+        },
+        {
+          "name": "TestEdgeCases",
+          "line": 822,
+          "isDefault": false
+        },
+        {
+          "name": "test_mqtt_real_config",
+          "line": 893,
+          "isDefault": false
+        },
+        {
+          "name": "test_http_real_config",
+          "line": 936,
+          "isDefault": false
+        },
+        {
+          "name": "TestRealConfigs",
+          "line": 890,
+          "isDefault": false
+        },
+        {
+          "name": "test_mqtt_and_http_share_same_process_rule",
+          "line": 978,
+          "isDefault": false
+        },
+        {
+          "name": "test_mqtt_and_http_share_same_path_resolution",
+          "line": 990,
+          "isDefault": false
+        },
+        {
+          "name": "test_mqtt_and_http_share_same_type_conversion",
+          "line": 998,
+          "isDefault": false
+        },
+        {
+          "name": "test_all_source_types_in_unified_engine",
+          "line": 1006,
+          "isDefault": false
+        },
+        {
+          "name": "TestUnifiedCodeConsistency",
+          "line": 975,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "<module>",
+          "callee": "sys.path.insert",
+          "lineNumber": 23
+        },
+        {
+          "caller": "<module>",
+          "callee": "os.path.dirname",
+          "lineNumber": 23
+        },
+        {
+          "caller": "<module>",
+          "callee": "os.path.abspath",
+          "lineNumber": 23
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertEqual",
+          "lineNumber": 48
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 48
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertEqual",
+          "lineNumber": 49
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 49
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 53
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 54
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertIn",
+          "lineNumber": 55
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 59
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertEqual",
+          "lineNumber": 60
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 64
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertEqual",
+          "lineNumber": 65
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 69
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 70
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertEqual",
+          "lineNumber": 71
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "len",
+          "lineNumber": 71
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 75
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertIs",
+          "lineNumber": 76
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertIsNone",
+          "lineNumber": 80
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 80
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertIsNone",
+          "lineNumber": 81
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 81
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertIsNone",
+          "lineNumber": 85
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 85
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertEqual",
+          "lineNumber": 89
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_string_by_path",
+          "lineNumber": 89
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertEqual",
+          "lineNumber": 90
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_string_by_path",
+          "lineNumber": 90
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertIsNone",
+          "lineNumber": 91
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_string_by_path",
+          "lineNumber": 91
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_flat_array_from_path",
+          "lineNumber": 95
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 99
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertEqual",
+          "lineNumber": 100
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "len",
+          "lineNumber": 100
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertEqual",
+          "lineNumber": 101
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_flat_array_from_path",
+          "lineNumber": 105
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 109
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertEqual",
+          "lineNumber": 110
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "len",
+          "lineNumber": 110
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertEqual",
+          "lineNumber": 111
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "MapperCore.get_flat_array_from_path",
+          "lineNumber": 115
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 116
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "self.assertEqual",
+          "lineNumber": 117
+        },
+        {
+          "caller": "TestPathResolution",
+          "callee": "len",
+          "lineNumber": 117
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "MapperCore.ensure_path",
+          "lineNumber": 126
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "self.assertIn",
+          "lineNumber": 127
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 128
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "MapperCore.ensure_path",
+          "lineNumber": 133
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "self.assertIn",
+          "lineNumber": 134
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "self.assertIn",
+          "lineNumber": 135
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 136
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "MapperCore.ensure_path",
+          "lineNumber": 141
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "self.assertIn",
+          "lineNumber": 142
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "self.assertIn",
+          "lineNumber": 143
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 144
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "self.assertEqual",
+          "lineNumber": 145
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "len",
+          "lineNumber": 145
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 146
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "MapperCore.ensure_path",
+          "lineNumber": 151
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "self.assertEqual",
+          "lineNumber": 152
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "len",
+          "lineNumber": 152
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "MapperCore.ensure_path",
+          "lineNumber": 157
+        },
+        {
+          "caller": "TestEnsurePath",
+          "callee": "self.assertIs",
+          "lineNumber": 158
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 166
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 167
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 171
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 172
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 176
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 177
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 182
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertNotIn",
+          "lineNumber": 183
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 187
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 188
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 192
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 193
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 198
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 199
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 203
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 204
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 208
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertAlmostEqual",
+          "lineNumber": 209
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 213
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertAlmostEqual",
+          "lineNumber": 214
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 219
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 220
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 224
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 225
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 229
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertTrue",
+          "lineNumber": 230
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 234
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertTrue",
+          "lineNumber": 235
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 239
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertTrue",
+          "lineNumber": 240
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 244
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertFalse",
+          "lineNumber": 245
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 249
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertTrue",
+          "lineNumber": 250
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 255
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 256
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 259
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 263
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 264
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 268
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 269
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 275
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 277
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 283
+        },
+        {
+          "caller": "TestTypeConversion",
+          "callee": "self.assertEqual",
+          "lineNumber": 285
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 292
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 293
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertEqual",
+          "lineNumber": 294
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "len",
+          "lineNumber": 294
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 297
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 298
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertTrue",
+          "lineNumber": 299
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "val.isdigit",
+          "lineNumber": 299
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 302
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 303
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertTrue",
+          "lineNumber": 304
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "val.isdigit",
+          "lineNumber": 304
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 308
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 309
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertTrue",
+          "lineNumber": 310
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "val.isdigit",
+          "lineNumber": 310
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 314
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 315
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertTrue",
+          "lineNumber": 316
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "val.isdigit",
+          "lineNumber": 316
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 319
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 320
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertEqual",
+          "lineNumber": 321
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "len",
+          "lineNumber": 321
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 325
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 326
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertEqual",
+          "lineNumber": 327
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "len",
+          "lineNumber": 327
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 330
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertEqual",
+          "lineNumber": 331
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 335
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 336
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertEqual",
+          "lineNumber": 337
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertEqual",
+          "lineNumber": 338
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 341
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 342
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertEqual",
+          "lineNumber": 343
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "len",
+          "lineNumber": 343
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 346
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 347
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "MapperCore.generate_value",
+          "lineNumber": 350
+        },
+        {
+          "caller": "TestGenerators",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 351
+        },
+        {
+          "caller": "TestTemplateSubstitute",
+          "callee": "MapperCore.template_substitute",
+          "lineNumber": 358
+        },
+        {
+          "caller": "TestTemplateSubstitute",
+          "callee": "self.assertEqual",
+          "lineNumber": 359
+        },
+        {
+          "caller": "TestTemplateSubstitute",
+          "callee": "MapperCore.template_substitute",
+          "lineNumber": 362
+        },
+        {
+          "caller": "TestTemplateSubstitute",
+          "callee": "self.assertEqual",
+          "lineNumber": 366
+        },
+        {
+          "caller": "TestTemplateSubstitute",
+          "callee": "MapperCore.template_substitute",
+          "lineNumber": 369
+        },
+        {
+          "caller": "TestTemplateSubstitute",
+          "callee": "self.assertEqual",
+          "lineNumber": 373
+        },
+        {
+          "caller": "TestTemplateSubstitute",
+          "callee": "MapperCore.template_substitute",
+          "lineNumber": 376
+        },
+        {
+          "caller": "TestTemplateSubstitute",
+          "callee": "self.assertEqual",
+          "lineNumber": 377
+        },
+        {
+          "caller": "TestTemplateSubstitute",
+          "callee": "MapperCore.template_substitute",
+          "lineNumber": 380
+        },
+        {
+          "caller": "TestTemplateSubstitute",
+          "callee": "self.assertEqual",
+          "lineNumber": 381
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "MapperCore.process_array_foreach",
+          "lineNumber": 413
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertIn",
+          "lineNumber": 414
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertEqual",
+          "lineNumber": 415
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "len",
+          "lineNumber": 415
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertEqual",
+          "lineNumber": 416
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertAlmostEqual",
+          "lineNumber": 417
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "MapperCore.process_array_foreach",
+          "lineNumber": 433
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertIn",
+          "lineNumber": 434
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertEqual",
+          "lineNumber": 435
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "len",
+          "lineNumber": 435
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "MapperCore.process_array_foreach",
+          "lineNumber": 457
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertIn",
+          "lineNumber": 458
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertIn",
+          "lineNumber": 459
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertEqual",
+          "lineNumber": 460
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "len",
+          "lineNumber": 460
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertIn",
+          "lineNumber": 461
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertEqual",
+          "lineNumber": 462
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "len",
+          "lineNumber": 462
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertAlmostEqual",
+          "lineNumber": 463
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "MapperCore.process_array_foreach",
+          "lineNumber": 478
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertIn",
+          "lineNumber": 479
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertEqual",
+          "lineNumber": 480
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "len",
+          "lineNumber": 480
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertEqual",
+          "lineNumber": 481
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "MapperCore.process_array_foreach",
+          "lineNumber": 495
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertIn",
+          "lineNumber": 496
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertEqual",
+          "lineNumber": 497
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "len",
+          "lineNumber": 497
+        },
+        {
+          "caller": "TestArrayForeach",
+          "callee": "self.assertAlmostEqual",
+          "lineNumber": 498
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "MapperCore.transform_mqtt",
+          "lineNumber": 568
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 569
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 570
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 571
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertIn",
+          "lineNumber": 572
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertIn",
+          "lineNumber": 573
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "MapperCore.transform_mqtt",
+          "lineNumber": 578
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertIn",
+          "lineNumber": 579
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertIn",
+          "lineNumber": 580
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 581
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "len",
+          "lineNumber": 581
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertIn",
+          "lineNumber": 584
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 585
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "len",
+          "lineNumber": 585
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertIn",
+          "lineNumber": 588
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 589
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "len",
+          "lineNumber": 589
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertAlmostEqual",
+          "lineNumber": 592
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertAlmostEqual",
+          "lineNumber": 593
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertAlmostEqual",
+          "lineNumber": 594
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 595
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "MapperCore.transform_mqtt",
+          "lineNumber": 600
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 601
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "MapperCore.transform_mqtt",
+          "lineNumber": 605
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 606
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "MapperCore.transform_mqtt",
+          "lineNumber": 610
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertIn",
+          "lineNumber": 611
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 612
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "len",
+          "lineNumber": 612
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "MapperCore.transform_mqtt",
+          "lineNumber": 616
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertIn",
+          "lineNumber": 617
+        },
+        {
+          "caller": "TestMQTTTransform",
+          "callee": "self.assertTrue",
+          "lineNumber": 618
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "MapperCore.transform_http",
+          "lineNumber": 699
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 700
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 701
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 702
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "MapperCore.transform_http",
+          "lineNumber": 706
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 707
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "MapperCore.transform_http",
+          "lineNumber": 711
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 712
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "MapperCore.transform_http",
+          "lineNumber": 716
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 718
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "len",
+          "lineNumber": 718
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 719
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 720
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "MapperCore.transform_http",
+          "lineNumber": 724
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 728
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "len",
+          "lineNumber": 728
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 729
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 730
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "MapperCore.transform_http",
+          "lineNumber": 743
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 744
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 745
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "MapperCore.transform_http",
+          "lineNumber": 762
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 763
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "len",
+          "lineNumber": 763
+        },
+        {
+          "caller": "TestHTTPTransform",
+          "callee": "self.assertEqual",
+          "lineNumber": 764
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "MapperCore.transform_mqtt",
+          "lineNumber": 778
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "self.assertNotIn",
+          "lineNumber": 780
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "MapperCore.transform_http",
+          "lineNumber": 793
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "self.assertEqual",
+          "lineNumber": 796
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "result.get",
+          "lineNumber": 796
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 801
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "self.assertEqual",
+          "lineNumber": 802
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 805
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "self.assertAlmostEqual",
+          "lineNumber": 806
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "MapperCore.get_flat_array_from_path",
+          "lineNumber": 816
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "self.assertEqual",
+          "lineNumber": 817
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "len",
+          "lineNumber": 817
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "self.assertEqual",
+          "lineNumber": 818
+        },
+        {
+          "caller": "TestEngineDifferences",
+          "callee": "self.assertEqual",
+          "lineNumber": 819
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "MapperCore.process_array_foreach",
+          "lineNumber": 836
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "self.assertNotIn",
+          "lineNumber": 837
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "MapperCore.process_array_foreach",
+          "lineNumber": 850
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "self.assertNotIn",
+          "lineNumber": 851
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "MapperCore.process_normal_field",
+          "lineNumber": 857
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "self.assertNotIn",
+          "lineNumber": 858
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "MapperCore.process_normal_field",
+          "lineNumber": 864
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "self.assertEqual",
+          "lineNumber": 865
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "MapperCore.process_normal_field",
+          "lineNumber": 871
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "self.assertAlmostEqual",
+          "lineNumber": 872
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "MapperCore.process_normal_field",
+          "lineNumber": 878
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "self.assertEqual",
+          "lineNumber": 879
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "MapperCore.process_normal_field",
+          "lineNumber": 886
+        },
+        {
+          "caller": "TestEdgeCases",
+          "callee": "self.assertEqual",
+          "lineNumber": 887
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "os.path.join",
+          "lineNumber": 895
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "os.path.dirname",
+          "lineNumber": 896
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "os.path.dirname",
+          "lineNumber": 896
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "os.path.dirname",
+          "lineNumber": 896
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "os.path.normpath",
+          "lineNumber": 900
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "os.path.exists",
+          "lineNumber": 902
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "self.skipTest",
+          "lineNumber": 903
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "open",
+          "lineNumber": 905
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "json.load",
+          "lineNumber": 906
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "MapperCore.transform_mqtt",
+          "lineNumber": 927
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "self.assertEqual",
+          "lineNumber": 930
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "self.assertEqual",
+          "lineNumber": 931
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "self.assertEqual",
+          "lineNumber": 932
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "self.assertIn",
+          "lineNumber": 933
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "self.assertIn",
+          "lineNumber": 934
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "os.path.join",
+          "lineNumber": 938
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "os.path.dirname",
+          "lineNumber": 939
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "os.path.dirname",
+          "lineNumber": 939
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "os.path.dirname",
+          "lineNumber": 939
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "os.path.normpath",
+          "lineNumber": 943
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "os.path.exists",
+          "lineNumber": 945
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "self.skipTest",
+          "lineNumber": 946
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "open",
+          "lineNumber": 948
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "json.load",
+          "lineNumber": 949
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "MapperCore.transform_http",
+          "lineNumber": 965
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "self.assertEqual",
+          "lineNumber": 968
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "self.assertEqual",
+          "lineNumber": 969
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "self.assertEqual",
+          "lineNumber": 970
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "self.assertEqual",
+          "lineNumber": 971
+        },
+        {
+          "caller": "TestRealConfigs",
+          "callee": "self.assertEqual",
+          "lineNumber": 972
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "MapperCore.process_rule",
+          "lineNumber": 984
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "MapperCore.process_rule",
+          "lineNumber": 985
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "self.assertEqual",
+          "lineNumber": 987
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "self.assertEqual",
+          "lineNumber": 988
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "self.assertEqual",
+          "lineNumber": 994
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 994
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "self.assertIsInstance",
+          "lineNumber": 996
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "MapperCore.get_value_by_path",
+          "lineNumber": 996
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 1002
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "MapperCore.add_value_to_parent",
+          "lineNumber": 1003
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "self.assertEqual",
+          "lineNumber": 1004
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "MapperCore.process_normal_field",
+          "lineNumber": 1012
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "self.assertEqual",
+          "lineNumber": 1014
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "MapperCore.process_normal_field",
+          "lineNumber": 1018
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "self.assertEqual",
+          "lineNumber": 1020
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "MapperCore.process_normal_field",
+          "lineNumber": 1024
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "self.assertIn",
+          "lineNumber": 1026
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "MapperCore.process_normal_field",
+          "lineNumber": 1030
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "self.assertEqual",
+          "lineNumber": 1033
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "MapperCore.process_normal_field",
+          "lineNumber": 1037
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "self.assertEqual",
+          "lineNumber": 1041
+        },
+        {
+          "caller": "TestUnifiedCodeConsistency",
+          "callee": "MapperCore.process_array_foreach",
+          "lineNumber": 1045
+        },
+        {
+          "caller": "<module>",
+          "callee": "unittest.main",
+          "lineNumber": 1051
+        }
+      ],
+      "metrics": {
+        "exportCount": 107,
+        "functionCount": 0,
+        "classCount": 12
+      }
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/test_report.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 83,
+      "nonEmptyLines": 83,
+      "sections": [
+        {
+          "heading": "testTime",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "total",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "passed",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "failed",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "errors",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "skipped",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "status",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "testClasses",
+          "level": 1,
+          "line": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "agent_assets/skills/test-validation/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 204,
+      "nonEmptyLines": 168,
+      "sections": [
+        {
+          "heading": "协议转换配置测试验证",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "适用场景",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "测试策略矩阵",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "通用测试策略",
+          "level": 3,
+          "line": 32
+        },
+        {
+          "heading": "MQTT 专项测试",
+          "level": 3,
+          "line": 44
+        },
+        {
+          "heading": "HTTP 专项测试",
+          "level": 3,
+          "line": 54
+        },
+        {
+          "heading": "Modbus 专项测试",
+          "level": 3,
+          "line": 65
+        },
+        {
+          "heading": "操作流程",
+          "level": 2,
+          "line": 92
+        },
+        {
+          "heading": "Phase 1 — 配置格式校验",
+          "level": 3,
+          "line": 94
+        },
+        {
+          "heading": "Phase 2 — 构造测试数据",
+          "level": 3,
+          "line": 108
+        },
+        {
+          "heading": "Phase 3 — 执行模拟转换",
+          "level": 3,
+          "line": 120
+        },
+        {
+          "heading": "Phase 4 — 验证输出",
+          "level": 3,
+          "line": 134
+        },
+        {
+          "heading": "Phase 5 — 生成测试报告",
+          "level": 3,
+          "line": 148
+        },
+        {
+          "heading": "调用的 MCP 工具（MCP 就绪后）",
+          "level": 2,
+          "line": 185
+        },
+        {
+          "heading": "约束规则",
+          "level": 2,
+          "line": 195
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": "agent_assets/skills/test-validation/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/test-validation/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 284,
+      "nonEmptyLines": 240,
+      "sections": [
+        {
+          "heading": "/xlpa 自动建档 — 边缘设备批量建档编排",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "权限与凭据边界（必须先说明）",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "无模板直连：按 IP 查询/删除设备",
+          "level": 2,
+          "line": 43
+        },
+        {
+          "heading": "独立执行模式：已存在网关批量下发/时钟同步/运维召测",
+          "level": 2,
+          "line": 58
+        },
+        {
+          "heading": "使用场景",
+          "level": 3,
+          "line": 62
+        },
+        {
+          "heading": "工具选择",
+          "level": 3,
+          "line": 68
+        },
+        {
+          "heading": "编排流程",
+          "level": 3,
+          "line": 81
+        },
+        {
+          "heading": "与完整流程的区别",
+          "level": 3,
+          "line": 90
+        },
+        {
+          "heading": "注意事项",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "前置检查",
+          "level": 2,
+          "line": 105
+        },
+        {
+          "heading": "编排流程",
+          "level": 2,
+          "line": 117
+        },
+        {
+          "heading": "阶段零：生成最新模板（填表前置，推荐）",
+          "level": 3,
+          "line": 135
+        },
+        {
+          "heading": "阶段一：读取模板",
+          "level": 3,
+          "line": 150
+        },
+        {
+          "heading": "阶段二：生成 dry-run 计划",
+          "level": 3,
+          "line": 167
+        },
+        {
+          "heading": "阶段三：执行建档与挂载",
+          "level": 3,
+          "line": 182
+        },
+        {
+          "heading": "阶段四：可选下发与召测",
+          "level": 3,
+          "line": 199
+        },
+        {
+          "heading": "阶段五：报告与补偿清理",
+          "level": 3,
+          "line": 248
+        },
+        {
+          "heading": "产物与清理",
+          "level": 2,
+          "line": 260
+        },
+        {
+          "heading": "参考文档",
+          "level": 2,
+          "line": 266
+        },
+        {
+          "heading": "全局约束",
+          "level": 2,
+          "line": 274
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 20
+      }
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/agents/openai.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "interface",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "kind",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entry",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "protocolDirections",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "required",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "optional",
+          "level": 1,
+          "line": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "agent_assets/skills/xlpa/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 782,
+      "nonEmptyLines": 600,
+      "sections": [
+        {
+          "heading": "/xlpa — 协议智能体操作入口",
+          "level": 1,
+          "line": 20
+        },
+        {
+          "heading": "适用场景",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "整体架构",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "Agent 资源包安装验证（安装末尾步骤，必须完成才算安装成功）",
+          "level": 2,
+          "line": 97
+        },
+        {
+          "heading": "步骤一：确认 MCP 连接",
+          "level": 3,
+          "line": 102
+        },
+        {
+          "heading": "步骤二：探测鉴权与资源包状态（必须主动执行）",
+          "level": 3,
+          "line": 108
+        },
+        {
+          "heading": "场景 A：MCP 探测成功",
+          "level": 4,
+          "line": 112
+        },
+        {
+          "heading": "场景 B：原生 MCP 调用失败",
+          "level": 4,
+          "line": 125
+        },
+        {
+          "heading": "场景 C：Token 无效或未配置",
+          "level": 4,
+          "line": 133
+        },
+        {
+          "heading": "步骤三：显示安装结果",
+          "level": 3,
+          "line": 137
+        },
+        {
+          "heading": "前置状态检查（每次 /xlpa 入口必做）",
+          "level": 2,
+          "line": 151
+        },
+        {
+          "heading": "1. MCP 连接探测",
+          "level": 3,
+          "line": 155
+        },
+        {
+          "heading": "2. 本地后端业务 Token 检查",
+          "level": 3,
+          "line": 181
+        },
+        {
+          "heading": "3. Agent 资源包版本检查与更新入口",
+          "level": 3,
+          "line": 227
+        },
+        {
+          "heading": "4. 边缘建档任务状态检查",
+          "level": 3,
+          "line": 262
+        },
+        {
+          "heading": "5. 能力矩阵提示",
+          "level": 3,
+          "line": 273
+        },
+        {
+          "heading": "6. 下一步建议",
+          "level": 3,
+          "line": 318
+        },
+        {
+          "heading": "意图路由表",
+          "level": 2,
+          "line": 332
+        },
+        {
+          "heading": "执行流程",
+          "level": 2,
+          "line": 345
+        },
+        {
+          "heading": "全流程编排",
+          "level": 3,
+          "line": 357
+        },
+        {
+          "heading": "单步执行",
+          "level": 3,
+          "line": 384
+        },
+        {
+          "heading": "子技能清单",
+          "level": 2,
+          "line": 399
+        },
+        {
+          "heading": "Skill 互调关系",
+          "level": 2,
+          "line": 411
+        },
+        {
+          "heading": "数据流详解",
+          "level": 3,
+          "line": 442
+        },
+        {
+          "heading": "配置输出说明",
+          "level": 2,
+          "line": 489
+        },
+        {
+          "heading": "全局约束（必须遵守）",
+          "level": 2,
+          "line": 521
+        },
+        {
+          "heading": "约束规则",
+          "level": 2,
+          "line": 530
+        },
+        {
+          "heading": "错误恢复",
+          "level": 2,
+          "line": 541
+        },
+        {
+          "heading": "后续扩展",
+          "level": 2,
+          "line": 548
+        },
+        {
+          "heading": "附录：自动连接指引（AI 请自动执行）",
+          "level": 2,
+          "line": 570
+        },
+        {
+          "heading": "1. 连接 MCP 服务",
+          "level": 3,
+          "line": 574
+        },
+        {
+          "heading": "2. 鉴权检测（安装时执行，非业务调用时）",
+          "level": 3,
+          "line": 583
+        },
+        {
+          "heading": "3. 注册 /xlpa 快捷命令",
+          "level": 3,
+          "line": 597
+        },
+        {
+          "heading": "4. 各平台配置参考",
+          "level": 3,
+          "line": 604
+        },
+        {
+          "heading": "MCP 客户端工具（Agent 备用通道）",
+          "level": 2,
+          "line": 743
+        },
+        {
+          "heading": "位置与用法",
+          "level": 3,
+          "line": 747
+        },
+        {
+          "heading": "特性",
+          "level": 3,
+          "line": 766
+        },
+        {
+          "heading": "Agent 调用流程",
+          "level": 3,
+          "line": 775
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 38
+      }
+    }
+  ]
+}

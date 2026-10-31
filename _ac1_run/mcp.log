@@ -1,0 +1,129 @@
+HTTP Request: POST https://18091.chinadny.com/api/Auth/LoginByCode "HTTP/1.1 200 OK"
+INFO:     Started server process [23864]
+INFO:     Waiting for application startup.
+StreamableHTTP session manager started
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8772 (Press CTRL+C to quit)
+[INFO] Admin token authentication enabled.
+[INFO] 初始化 SystemTokenManager...
+[INFO] 系统 Token 获取成功。
+[INFO] Stats: scriptsGenerated=19
+[INFO] MCP Server starting on http://127.0.0.1:8772
+[INFO]   Showcase Page: http://localhost:8772/
+[INFO]   Access Page:  http://localhost:8772/access
+[INFO]   MCP Endpoint: http://127.0.0.1:8772/mcp
+[INFO]   Skills Download: http://127.0.0.1:8772/api/docs/export-skills-package
+[INFO]   Tools:         77 (read: 14, write: 32)
+[INFO]   Skills Dir:    E:\codeGIT\pca-mcp-server\agent_assets\skills
+[INFO]   Network IPs:   10.0.11.224:8772
+
+[INFO] Browser opened: http://localhost:8772/
+INFO:     127.0.0.1:56205 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56206 - "GET /favicon.ico HTTP/1.1" 401 Unauthorized
+HTTP Request: POST https://18091.chinadny.com/api/Protocol/GetSysClassifyList "HTTP/1.1 200 OK"
+HTTP Request: POST https://18091.chinadny.com/api/Protocol/GetProtocolDeviceTypeList "HTTP/1.1 200 OK"
+HTTP Request: POST https://18091.chinadny.com/api/Protocol/GetSysBrandList "HTTP/1.1 200 OK"
+HTTP Request: POST https://18091.chinadny.com/api/Protocol/GetProtocolInfos "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:56205 - "GET /api/showcase/data HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56549 - "POST /api/mcp-token/mint HTTP/1.1" 200 OK
+Created new transport with session ID: e169b5aac9e44afa8c2ece0529ec097f
+INFO:     127.0.0.1:56558 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56559 - "POST /mcp HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:56560 - "GET /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56563 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST https://18091.chinadny.com/api/Auth/LoginByCode "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:56569 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type ListToolsRequest
+Terminating session: e169b5aac9e44afa8c2ece0529ec097f
+INFO:     127.0.0.1:56572 - "DELETE /mcp HTTP/1.1" 200 OK
+Created new transport with session ID: 1e45055ef83c42cfaeef006e83528f0e
+INFO:     127.0.0.1:57034 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57034 - "POST /mcp HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:57034 - "GET /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57037 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type ListPromptsRequest
+INFO:     127.0.0.1:57037 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type ListToolsRequest
+INFO:     127.0.0.1:57037 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type ListResourcesRequest
+Created new transport with session ID: 8896c10063c64bdcadc650fe2115c4c8
+INFO:     127.0.0.1:57257 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57257 - "POST /mcp HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:57257 - "GET /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57258 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type ListPromptsRequest
+INFO:     127.0.0.1:57258 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type ListToolsRequest
+INFO:     127.0.0.1:57258 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type ListResourcesRequest
+INFO:     127.0.0.1:57258 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+INFO:     127.0.0.1:57258 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+Created new transport with session ID: 20cc81d691844128b4c03d16d4bc2dce
+[INFO] 服务端回归状态: PASSED, 用例数: 771
+INFO:     127.0.0.1:57509 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57509 - "POST /mcp HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:57509 - "GET /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type ListPromptsRequest
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type ListToolsRequest
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type ListResourcesRequest
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/authorityManageServer/manage/action/getRSAKey/v1 "HTTP/1.1 200 OK"
+HTTP Request: POST http://121.229.15.116:7500/authorityManageServer/manage/action/login/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceList/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceListByPId/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57510 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://121.229.15.116:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"

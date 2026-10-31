@@ -8,17 +8,21 @@ when_to_use: >
   转换配置生成完成后，需要验证配置正确性时使用。
   用户要求测试转换结果、检查映射是否正确时使用。
   打包发布前的质量门控验证。
-compatibility: "Requires xl-protocol-agent MCP server (待开发)"
+compatibility: "Requires xl-protocol-agent MCP server"
 metadata:
   tags: [test, validation, smoke-test]
   order: 4
   author: hub_port_test
-  version: "0.1.1"
+  version: "0.2.0"
 ---
 
 # 协议转换配置测试验证
 
 > **目标：** 对生成的 JSON 转换配置进行冒烟测试，验证字段映射正确性、数据类型转换、边界条件处理。
+
+> **目录只读约束**：技能目录为只读母本，作业中间产物写
+> `<会话工作区>/xlpa-tmp/`，最终产物写 `<会话工作区>/xlpa-output/`
+> （或用户指定目录），禁止向技能目录写入任何文件。
 
 ## 适用场景
 
@@ -100,14 +104,14 @@ MODBUS 验证必须分别报告静态契约检查、离线算例、真实引擎�
 **步骤：**
 
 1. 读取 config.json
-2. JSON 语法校验（确保可解析）
-3. 必填字段完整性检查
-4. 字段类型校验（int/float/string/bool/object/array）
-5. 输出格式校验报告
+2. 调用 `validate_config_format(conversion_type, config)` 做结构校验
+3. 输出校验报告（ok 与逐条错误：路径 + 原因）
+4. 校验失败则先修复，不进入后续执行
 
 ### Phase 2 — 构造测试数据
 
-根据源协议规格构造模拟输入数据：
+调用 `generate_test_data(conversion_type, config)` 生成 normal/boundary/abnormal
+三组测试输入；也可根据源协议规格手工补充测试用例（含 expected 预期输出）。
 
 | 数据类型 | 构造方式 |
 |---------|---------|
@@ -128,8 +132,9 @@ flowchart LR
     OUT --> CHECK["验证输出格式"]
 ```
 
-> **注意：** 当前无 C 引擎可执行，AI 根据映射配置手动模拟转换逻辑。
-> MCP 就绪后，调用 `execute_conversion_test` 工具在沙箱中执行。
+> **执行：** 调用 `execute_conversion_test(conversion_type, config, test_cases)`
+> 在沙箱中执行（MQTT→MQTT / HTTP→MQTT）；有 expected 则深度对比，无 expected
+> 仅返回实际输出。Modbus 方向不支持沙箱执行，维持静态契约校验 + 离线算例。
 
 ### Phase 4 — 验证输出
 
@@ -182,15 +187,15 @@ flowchart LR
 }
 ```
 
-## 调用的 MCP 工具（MCP 就绪后）
+## 调用的 MCP 工具（已就绪）
 
-| 工具 | 用途 | 当前替代方案 |
+| 工具 | 用途 | 说明 |
 |------|------|------------|
-| `validate_config_format` | 校验配置 JSON 格式和字段完整性 | AI 人工检查 |
-| `generate_test_data` | 根据协议规格生成模拟测试数据 | AI 手动构造 |
-| `execute_conversion_test` | 在沙箱中执行转换并返回结果 | AI 手动模拟转换 |
-| `get_test_report` | 获取测试报告 | AI 输出报告 |
-| `save_conversion_config` | 保存修正后的配置 | AI 输出 JSON |
+| `validate_config_format` | 校验配置 JSON 格式和字段完整性 | MQTT/HTTP/Modbus 三契约结构校验 |
+| `generate_test_data` | 根据映射结构生成模拟测试数据 | normal/boundary/abnormal 三组 |
+| `execute_conversion_test` | 在沙箱中执行转换并返回结果 | MQTT/HTTP 方向，Modbus 不支持 |
+| `get_test_report` | 获取测试报告 | 按 test_run_id 查询 |
+| `save_conversion_config` | 保存修正后的配置 | 校验通过才存，30 天 TTL |
 
 ## 约束规则
 
@@ -201,4 +206,4 @@ flowchart LR
 | 边界覆盖 | 必须包含空值/最大值/最小值/异常格式测试 |
 | 报告格式 | 测试报告必须包含通过/失败/跳过数量和每项详情 |
 | 修复重测 | 失败项修复后必须重测，不跳过 |
-| MCP 兼容 | MCP 未就绪时 AI 手动模拟，就绪后调用沙箱执行 |
+| MCP 兼容 | 通过 MCP 工具（validate / generate / execute / get_report / save）完成校验、测试与保存 |

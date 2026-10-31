@@ -1,0 +1,433 @@
+{
+  "nodes": [
+    {
+      "id": "file:mcp_server/archiving/templates/generator.py",
+      "type": "file",
+      "name": "generator.py",
+      "filePath": "mcp_server/archiving/templates/generator.py",
+      "summary": "设备建档模板骨架生成器：依据字段契约与系统字典快照写出多 sheet 工作簿，含下拉、命名区域与品牌型号级联校验。",
+      "tags": [
+        "模板生成",
+        "excel",
+        "字段契约",
+        "数据校验",
+        "archiving"
+      ],
+      "complexity": "complex",
+      "languageNotes": "通过 openpyxl 的数据校验与命名区域实现品牌→型号级联下拉，模板结构与字段契约严格一一对应。"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_system_connection",
+      "type": "function",
+      "name": "_write_system_connection",
+      "filePath": "mcp_server/archiving/templates/generator.py",
+      "lineRange": [
+        129,
+        167
+      ],
+      "summary": "写出系统连接与快照元数据 sheet，记录快照标识与取数时间。",
+      "tags": [
+        "模板生成",
+        "元数据",
+        "excel"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_dict_sheet",
+      "type": "function",
+      "name": "_write_dict_sheet",
+      "filePath": "mcp_server/archiving/templates/generator.py",
+      "lineRange": [
+        170,
+        248
+      ],
+      "summary": "写出系统字典 sheet，落盘设备类型、大类号、通讯方式、品牌与型号等候选。",
+      "tags": [
+        "模板生成",
+        "数据字典",
+        "excel"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_model_ranges",
+      "type": "function",
+      "name": "_write_model_ranges",
+      "filePath": "mcp_server/archiving/templates/generator.py",
+      "lineRange": [
+        251,
+        292
+      ],
+      "summary": "为每个品牌生成型号命名区域，支撑级联下拉校验。",
+      "tags": [
+        "模板生成",
+        "命名区域",
+        "级联下拉"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_topo",
+      "type": "function",
+      "name": "_write_topo",
+      "filePath": "mcp_server/archiving/templates/generator.py",
+      "lineRange": [
+        295,
+        318
+      ],
+      "summary": "写出拓扑 sheet 的表头与示例结构。",
+      "tags": [
+        "模板生成",
+        "拓扑",
+        "excel"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_meter_sheet",
+      "type": "function",
+      "name": "_write_meter_sheet",
+      "filePath": "mcp_server/archiving/templates/generator.py",
+      "lineRange": [
+        331,
+        447
+      ],
+      "summary": "按字段契约写出电表类监测点 sheet，装配各类下拉与校验规则。",
+      "tags": [
+        "模板生成",
+        "电表",
+        "数据校验"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:_write_mapping_sheet",
+      "type": "function",
+      "name": "_write_mapping_sheet",
+      "filePath": "mcp_server/archiving/templates/generator.py",
+      "lineRange": [
+        450,
+        527
+      ],
+      "summary": "写出品牌型号映射 sheet，供用户维护名称到编码的对应关系。",
+      "tags": [
+        "模板生成",
+        "名称映射",
+        "excel"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/archiving/templates/generator.py:generate_template",
+      "type": "function",
+      "name": "generate_template",
+      "filePath": "mcp_server/archiving/templates/generator.py",
+      "lineRange": [
+        530,
+        635
+      ],
+      "summary": "模板生成总入口：按快照与类型清单产出完整建档工作簿并写入磁盘。",
+      "tags": [
+        "entry-point",
+        "模板生成",
+        "excel"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:mcp_server/tests/test_archiving_template.py",
+      "type": "file",
+      "name": "test_archiving_template.py",
+      "filePath": "mcp_server/tests/test_archiving_template.py",
+      "summary": "建档链路的主回归测试集，覆盖模板读取契约、计划生成、阶段编排、边缘下发与断点续跑等 47 组场景。",
+      "tags": [
+        "test",
+        "回归测试",
+        "建档引擎",
+        "边缘下发"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:mcp_server/tests/test_field_contract.py",
+      "type": "file",
+      "name": "test_field_contract.py",
+      "filePath": "mcp_server/tests/test_field_contract.py",
+      "summary": "字段契约回归测试，验证契约查询、生成端与解析端消费一致性以及证据门禁与不回填默认值的纪律。",
+      "tags": [
+        "test",
+        "字段契约",
+        "证据门禁"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:mcp_server/tests/test_generator_v14.py",
+      "type": "file",
+      "name": "test_generator_v14.py",
+      "filePath": "mcp_server/tests/test_generator_v14.py",
+      "summary": "v14 模板骨架生成测试，校验 sheet 结构、系统连接、通讯端口下拉、串口命名区域与品牌型号级联。",
+      "tags": [
+        "test",
+        "模板生成",
+        "excel",
+        "级联下拉"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:mcp_server/tests/test_param_validation_and_resume.py",
+      "type": "file",
+      "name": "test_param_validation_and_resume.py",
+      "filePath": "mcp_server/tests/test_param_validation_and_resume.py",
+      "summary": "参数校验容错与断点续跑测试，验证结构可执行判定、阶段跳过与按类型的在线检查。",
+      "tags": [
+        "test",
+        "断点续跑",
+        "参数校验",
+        "在线判定"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/tests/test_template_migrator.py",
+      "type": "file",
+      "name": "test_template_migrator.py",
+      "filePath": "mcp_server/tests/test_template_migrator.py",
+      "summary": "模板版本迁移测试，覆盖成功迁移、缺表补建、多余行与版本戳处理。",
+      "tags": [
+        "test",
+        "模板迁移",
+        "版本门禁"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_system_connection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_dict_sheet",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_model_ranges",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_topo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_meter_sheet",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:_write_mapping_sheet",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "function:mcp_server/archiving/templates/generator.py:generate_template",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "file:mcp_server/archiving/field_contract.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_archiving_template.py",
+      "target": "file:mcp_server/archiving/engine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_archiving_template.py",
+      "target": "file:mcp_server/archiving/excel_reader.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_archiving_template.py",
+      "target": "file:mcp_server/archiving/templates/generator.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_archiving_template.py",
+      "target": "file:mcp_server/edge_tools.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_field_contract.py",
+      "target": "file:mcp_server/archiving/field_contract.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_field_contract.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_field_contract.py",
+      "target": "file:mcp_server/archiving/profiles/registry.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_generator_v14.py",
+      "target": "file:mcp_server/archiving/engine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_generator_v14.py",
+      "target": "file:mcp_server/archiving/excel_reader.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_generator_v14.py",
+      "target": "file:mcp_server/archiving/field_contract.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_generator_v14.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_generator_v14.py",
+      "target": "file:mcp_server/archiving/profiles/meter_xlba.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_generator_v14.py",
+      "target": "file:mcp_server/archiving/templates/__init__.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_generator_v14.py",
+      "target": "file:mcp_server/archiving/templates/generator.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_param_validation_and_resume.py",
+      "target": "file:mcp_server/archiving/engine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_param_validation_and_resume.py",
+      "target": "file:mcp_server/archiving/excel_reader.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_param_validation_and_resume.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_param_validation_and_resume.py",
+      "target": "file:mcp_server/archiving/profiles/registry.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_param_validation_and_resume.py",
+      "target": "file:mcp_server/edge_tools.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_template_migrator.py",
+      "target": "file:mcp_server/archiving/excel_reader.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_template_migrator.py",
+      "target": "file:mcp_server/archiving/template_migrator.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_template_migrator.py",
+      "target": "file:mcp_server/archiving/templates/generator.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "file:mcp_server/tests/test_archiving_template.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:mcp_server/archiving/templates/generator.py",
+      "target": "file:mcp_server/tests/test_generator_v14.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

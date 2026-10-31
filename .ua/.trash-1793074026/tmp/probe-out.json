@@ -1,0 +1,749 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 3,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "mcp_server/server.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 453,
+      "nonEmptyLines": 451,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "mcp_server/api_client.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1323,
+      "nonEmptyLines": 1119,
+      "classes": [
+        {
+          "name": "ProtocolApiClient",
+          "startLine": 35,
+          "endLine": 1323,
+          "methods": [
+            "__init__",
+            "_ensure_client",
+            "close",
+            "_success",
+            "_error",
+            "_request",
+            "_request_json_file",
+            "_request_blob",
+            "login",
+            "get_classify_list",
+            "add_classify",
+            "update_classify",
+            "del_classify",
+            "get_device_type_list",
+            "add_device_type",
+            "update_device_type",
+            "del_device_type",
+            "get_brand_list",
+            "add_brand",
+            "update_brand",
+            "del_brand",
+            "get_model_list",
+            "add_model",
+            "update_model",
+            "del_model",
+            "export_model_data",
+            "get_protocol_info_list",
+            "add_protocol_info",
+            "update_protocol",
+            "del_protocol_info",
+            "del_protocol_file",
+            "get_data_item_list",
+            "add_data_item",
+            "update_data_item",
+            "del_data_item",
+            "get_script_list",
+            "get_json_detail",
+            "export_data",
+            "get_coeff_list",
+            "add_coeff",
+            "update_coeff",
+            "del_coeff",
+            "get_sense_list",
+            "add_sense",
+            "update_sense",
+            "del_sense",
+            "get_protocol_type_list",
+            "save_protocol_type",
+            "del_protocol_type",
+            "get_function_type_list",
+            "save_function_item",
+            "del_function_item",
+            "upload_protocol_file",
+            "gen_script"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProtocolApiClient",
+          "line": 35,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_ensure_client",
+          "callee": "asyncio.get_running_loop",
+          "lineNumber": 59
+        },
+        {
+          "caller": "_ensure_client",
+          "callee": "self._client_loop.is_closed",
+          "lineNumber": 71
+        },
+        {
+          "caller": "_ensure_client",
+          "callee": "self._client.aclose",
+          "lineNumber": 73
+        },
+        {
+          "caller": "_ensure_client",
+          "callee": "httpx.AsyncClient",
+          "lineNumber": 74
+        },
+        {
+          "caller": "close",
+          "callee": "self._client.aclose",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 145
+        },
+        {
+          "caller": "_request",
+          "callee": "self._ensure_client",
+          "lineNumber": 155
+        },
+        {
+          "caller": "_request",
+          "callee": "client.post",
+          "lineNumber": 157
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 161
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 164
+        },
+        {
+          "caller": "_request",
+          "callee": "resp.json",
+          "lineNumber": 171
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 173
+        },
+        {
+          "caller": "_request",
+          "callee": "body.get",
+          "lineNumber": 179
+        },
+        {
+          "caller": "_request",
+          "callee": "body.get",
+          "lineNumber": 180
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 183
+        },
+        {
+          "caller": "_request",
+          "callee": "self._error",
+          "lineNumber": 185
+        },
+        {
+          "caller": "_request",
+          "callee": "body.get",
+          "lineNumber": 191
+        },
+        {
+          "caller": "_request",
+          "callee": "isinstance",
+          "lineNumber": 193
+        },
+        {
+          "caller": "_request",
+          "callee": "payload.get",
+          "lineNumber": 193
+        },
+        {
+          "caller": "_request",
+          "callee": "self._success",
+          "lineNumber": 194
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 217
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._ensure_client",
+          "lineNumber": 222
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "dict",
+          "lineNumber": 224
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "client.post",
+          "lineNumber": 226
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 232
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 234
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 237
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "resp.json",
+          "lineNumber": 244
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 246
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "body.get",
+          "lineNumber": 252
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "body.get",
+          "lineNumber": 253
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 256
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._error",
+          "lineNumber": 258
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "self._success",
+          "lineNumber": 264
+        },
+        {
+          "caller": "_request_json_file",
+          "callee": "body.get",
+          "lineNumber": 264
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._error",
+          "lineNumber": 278
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._ensure_client",
+          "lineNumber": 288
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "client.post",
+          "lineNumber": 290
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._error",
+          "lineNumber": 292
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._error",
+          "lineNumber": 294
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._error",
+          "lineNumber": 297
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "resp.headers.get",
+          "lineNumber": 303
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "content_type.lower",
+          "lineNumber": 304
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "resp.json",
+          "lineNumber": 307
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "body.get",
+          "lineNumber": 310
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._error",
+          "lineNumber": 312
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._error",
+          "lineNumber": 314
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "body.get",
+          "lineNumber": 316
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "base64.b64encode(resp.content).decode",
+          "lineNumber": 322
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "base64.b64encode",
+          "lineNumber": 322
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "self._success",
+          "lineNumber": 323
+        },
+        {
+          "caller": "_request_blob",
+          "callee": "len",
+          "lineNumber": 327
+        },
+        {
+          "caller": "login",
+          "callee": "self._ensure_client",
+          "lineNumber": 344
+        },
+        {
+          "caller": "login",
+          "callee": "client.post",
+          "lineNumber": 346
+        },
+        {
+          "caller": "login",
+          "callee": "self._error",
+          "lineNumber": 352
+        },
+        {
+          "caller": "login",
+          "callee": "self._error",
+          "lineNumber": 354
+        },
+        {
+          "caller": "login",
+          "callee": "self._error",
+          "lineNumber": 357
+        },
+        {
+          "caller": "login",
+          "callee": "resp.json",
+          "lineNumber": 364
+        },
+        {
+          "caller": "login",
+          "callee": "self._error",
+          "lineNumber": 366
+        },
+        {
+          "caller": "login",
+          "callee": "body.get",
+          "lineNumber": 372
+        },
+        {
+          "caller": "login",
+          "callee": "self._error",
+          "lineNumber": 374
+        },
+        {
+          "caller": "login",
+          "callee": "body.get",
+          "lineNumber": 376
+        },
+        {
+          "caller": "login",
+          "callee": "self._success",
+          "lineNumber": 380
+        },
+        {
+          "caller": "login",
+          "callee": "body.get",
+          "lineNumber": 380
+        },
+        {
+          "caller": "get_classify_list",
+          "callee": "self._request",
+          "lineNumber": 398
+        },
+        {
+          "caller": "add_classify",
+          "callee": "self._request",
+          "lineNumber": 414
+        },
+        {
+          "caller": "update_classify",
+          "callee": "self._request",
+          "lineNumber": 431
+        },
+        {
+          "caller": "del_classify",
+          "callee": "self._request",
+          "lineNumber": 448
+        },
+        {
+          "caller": "get_device_type_list",
+          "callee": "self._request",
+          "lineNumber": 479
+        },
+        {
+          "caller": "add_device_type",
+          "callee": "self._request",
+          "lineNumber": 505
+        },
+        {
+          "caller": "update_device_type",
+          "callee": "self._request",
+          "lineNumber": 530
+        },
+        {
+          "caller": "del_device_type",
+          "callee": "self._request",
+          "lineNumber": 551
+        },
+        {
+          "caller": "get_brand_list",
+          "callee": "self._request",
+          "lineNumber": 582
+        },
+        {
+          "caller": "add_brand",
+          "callee": "self._request",
+          "lineNumber": 610
+        },
+        {
+          "caller": "update_brand",
+          "callee": "self._request",
+          "lineNumber": 637
+        },
+        {
+          "caller": "del_brand",
+          "callee": "self._request",
+          "lineNumber": 661
+        },
+        {
+          "caller": "get_model_list",
+          "callee": "self._request",
+          "lineNumber": 689
+        },
+        {
+          "caller": "add_model",
+          "callee": "self._request",
+          "lineNumber": 711
+        },
+        {
+          "caller": "update_model",
+          "callee": "self._request",
+          "lineNumber": 729
+        },
+        {
+          "caller": "del_model",
+          "callee": "self._request",
+          "lineNumber": 745
+        },
+        {
+          "caller": "export_model_data",
+          "callee": "self._request_blob",
+          "lineNumber": 760
+        },
+        {
+          "caller": "get_protocol_info_list",
+          "callee": "self._request",
+          "lineNumber": 813
+        },
+        {
+          "caller": "add_protocol_info",
+          "callee": "self._request",
+          "lineNumber": 851
+        },
+        {
+          "caller": "update_protocol",
+          "callee": "self._request",
+          "lineNumber": 892
+        },
+        {
+          "caller": "del_protocol_info",
+          "callee": "self._request",
+          "lineNumber": 905
+        },
+        {
+          "caller": "del_protocol_file",
+          "callee": "self._request",
+          "lineNumber": 921
+        },
+        {
+          "caller": "get_data_item_list",
+          "callee": "self._request",
+          "lineNumber": 942
+        },
+        {
+          "caller": "add_data_item",
+          "callee": "self._request",
+          "lineNumber": 963
+        },
+        {
+          "caller": "update_data_item",
+          "callee": "self._request",
+          "lineNumber": 979
+        },
+        {
+          "caller": "del_data_item",
+          "callee": "self._request",
+          "lineNumber": 995
+        },
+        {
+          "caller": "get_script_list",
+          "callee": "self._request",
+          "lineNumber": 1012
+        },
+        {
+          "caller": "get_json_detail",
+          "callee": "self._request",
+          "lineNumber": 1028
+        },
+        {
+          "caller": "export_data",
+          "callee": "self._request_blob",
+          "lineNumber": 1040
+        },
+        {
+          "caller": "get_coeff_list",
+          "callee": "self._request",
+          "lineNumber": 1057
+        },
+        {
+          "caller": "add_coeff",
+          "callee": "self._request",
+          "lineNumber": 1073
+        },
+        {
+          "caller": "update_coeff",
+          "callee": "self._request",
+          "lineNumber": 1085
+        },
+        {
+          "caller": "del_coeff",
+          "callee": "self._request",
+          "lineNumber": 1097
+        },
+        {
+          "caller": "get_sense_list",
+          "callee": "self._request",
+          "lineNumber": 1109
+        },
+        {
+          "caller": "add_sense",
+          "callee": "self._request",
+          "lineNumber": 1121
+        },
+        {
+          "caller": "update_sense",
+          "callee": "self._request",
+          "lineNumber": 1133
+        },
+        {
+          "caller": "del_sense",
+          "callee": "self._request",
+          "lineNumber": 1145
+        },
+        {
+          "caller": "get_protocol_type_list",
+          "callee": "self._request",
+          "lineNumber": 1171
+        },
+        {
+          "caller": "save_protocol_type",
+          "callee": "self._request",
+          "lineNumber": 1199
+        },
+        {
+          "caller": "del_protocol_type",
+          "callee": "self._request",
+          "lineNumber": 1220
+        },
+        {
+          "caller": "get_function_type_list",
+          "callee": "self._request",
+          "lineNumber": 1249
+        },
+        {
+          "caller": "save_function_item",
+          "callee": "self._request",
+          "lineNumber": 1270
+        },
+        {
+          "caller": "del_function_item",
+          "callee": "self._request",
+          "lineNumber": 1282
+        },
+        {
+          "caller": "upload_protocol_file",
+          "callee": "self._request_json_file",
+          "lineNumber": 1303
+        },
+        {
+          "caller": "gen_script",
+          "callee": "self._request",
+          "lineNumber": 1323
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/session.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 105,
+      "nonEmptyLines": 81,
+      "classes": [
+        {
+          "name": "Session",
+          "startLine": 22,
+          "endLine": 37,
+          "methods": [],
+          "properties": [
+            "phone",
+            "role",
+            "fallback_token",
+            "login_at",
+            "trace_id"
+          ]
+        },
+        {
+          "name": "SessionRegistry",
+          "startLine": 40,
+          "endLine": 105,
+          "methods": [
+            "__init__",
+            "create",
+            "get",
+            "delete",
+            "clear",
+            "count"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Session",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "SessionRegistry",
+          "line": 40,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create",
+          "callee": "Session",
+          "lineNumber": 68
+        },
+        {
+          "caller": "get",
+          "callee": "self._sessions.get",
+          "lineNumber": 85
+        },
+        {
+          "caller": "delete",
+          "callee": "self._sessions.pop",
+          "lineNumber": 96
+        },
+        {
+          "caller": "clear",
+          "callee": "self._sessions.clear",
+          "lineNumber": 100
+        },
+        {
+          "caller": "count",
+          "callee": "len",
+          "lineNumber": 105
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "projectRoot": "e:\\codeGIT\\pca-mcp-server",
+  "batchFiles": [
+    {
+      "path": "mcp_server/archiving/compensation.py",
+      "language": "python",
+      "sizeLines": 165,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/engine.py",
+      "language": "python",
+      "sizeLines": 822,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/excel_reader.py",
+      "language": "python",
+      "sizeLines": 750,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/field_contract.py",
+      "language": "python",
+      "sizeLines": 593,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/models.py",
+      "language": "python",
+      "sizeLines": 1002,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/template_migrator.py",
+      "language": "python",
+      "sizeLines": 207,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/templates/__init__.py",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/archiving/templates/generator.py",
+      "language": "python",
+      "sizeLines": 691,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_archiving_template.py",
+      "language": "python",
+      "sizeLines": 5478,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_field_contract.py",
+      "language": "python",
+      "sizeLines": 673,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_generator_v14.py",
+      "language": "python",
+      "sizeLines": 813,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_param_validation_and_resume.py",
+      "language": "python",
+      "sizeLines": 198,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_template_migrator.py",
+      "language": "python",
+      "sizeLines": 170,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "mcp_server/archiving/compensation.py": [
+      "mcp_server/archiving/models.py"
+    ],
+    "mcp_server/archiving/engine.py": [
+      "mcp_server/archiving/excel_reader.py",
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/profiles/registry.py"
+    ],
+    "mcp_server/archiving/excel_reader.py": [
+      "mcp_server/archiving/field_contract.py",
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/templates/generator.py"
+    ],
+    "mcp_server/archiving/field_contract.py": [
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/profiles/base.py"
+    ],
+    "mcp_server/archiving/models.py": [],
+    "mcp_server/archiving/template_migrator.py": [
+      "mcp_server/archiving/templates/generator.py"
+    ],
+    "mcp_server/archiving/templates/__init__.py": [
+      "mcp_server/archiving/templates/generator.py"
+    ],
+    "mcp_server/archiving/templates/generator.py": [
+      "mcp_server/archiving/field_contract.py"
+    ],
+    "mcp_server/tests/test_archiving_template.py": [
+      "mcp_server/archiving/engine.py",
+      "mcp_server/archiving/excel_reader.py",
+      "mcp_server/archiving/templates/generator.py",
+      "mcp_server/edge_tools.py"
+    ],
+    "mcp_server/tests/test_field_contract.py": [
+      "mcp_server/archiving/field_contract.py",
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/profiles/registry.py"
+    ],
+    "mcp_server/tests/test_generator_v14.py": [
+      "mcp_server/archiving/engine.py",
+      "mcp_server/archiving/excel_reader.py",
+      "mcp_server/archiving/field_contract.py",
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/profiles/meter_xlba.py",
+      "mcp_server/archiving/templates/__init__.py",
+      "mcp_server/archiving/templates/generator.py"
+    ],
+    "mcp_server/tests/test_param_validation_and_resume.py": [
+      "mcp_server/archiving/engine.py",
+      "mcp_server/archiving/excel_reader.py",
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/profiles/registry.py",
+      "mcp_server/edge_tools.py"
+    ],
+    "mcp_server/tests/test_template_migrator.py": [
+      "mcp_server/archiving/excel_reader.py",
+      "mcp_server/archiving/template_migrator.py",
+      "mcp_server/archiving/templates/generator.py"
+    ]
+  }
+}

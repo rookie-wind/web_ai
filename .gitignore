@@ -18,6 +18,10 @@ dist/
 Thumbs.db
 
 # MCP Server 本地运行态敏感文件
+# .env：含环境变量与鉴权 Token，不得提交版本控制
+mcp_server/.env
+# Web 接入账号库（含密码哈希与平台绑定凭据），不得提交版本控制
+webchat/webchat_accounts.json
 # Token Registry：按 IP 持久化 user Token，不得提交版本控制
 mcp_server/.token_registry.json
 mcp_server/.token_registry.json.tmp
@@ -61,3 +65,6 @@ _run_action_list.py
 _run_action_main.py
 _inventory_baseline.json
 _inventory_baseline.txt
+
+# 验收演练本地凭据注入文件（仅脚本读取，不得提交）
+_ac_local.env

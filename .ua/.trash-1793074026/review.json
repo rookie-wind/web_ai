@@ -1,0 +1,33 @@
+{
+  "issues": [],
+  "warnings": [
+    "Node 'document:_vm_list.txt' has no edges (orphan)",
+    "Node 'file:docs/presentation/web-chat-agent-runtime-slides.html' has no edges (orphan)",
+    "Node 'file:mcp_server/tests/__init__.py' has no edges (orphan)"
+  ],
+  "stats": {
+    "totalNodes": 341,
+    "totalEdges": 459,
+    "totalLayers": 9,
+    "tourSteps": 16,
+    "nodeTypes": {
+      "file": 71,
+      "class": 84,
+      "function": 127,
+      "document": 31,
+      "config": 28
+    },
+    "edgeTypes": {
+      "contains": 211,
+      "imports": 98,
+      "tested_by": 43,
+      "depends_on": 31,
+      "related": 21,
+      "inherits": 13,
+      "documents": 31,
+      "configures": 5,
+      "similar_to": 4,
+      "serves": 2
+    }
+  }
+}

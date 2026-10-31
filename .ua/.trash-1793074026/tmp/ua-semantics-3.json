@@ -1,0 +1,110 @@
+{
+  "files": [
+    {
+      "path": "mcp_server/api_client.py",
+      "summary": "规约管理后端 API 客户端：封装登录、大类/设备类型/品牌/型号/规约/数据项/脚本/字典等全部平台读写接口。",
+      "tags": ["api-client", "平台后端", "规约管理", "service"],
+      "languageNotes": "54 个方法几乎一一对应后端 REST 接口，统一走 httpx 异步请求并返回业务码归一化结果。",
+      "complexity": "complex",
+      "subs": [
+        {"kind": "class", "name": "ProtocolApiClient", "summary": "平台 API 客户端类，持有 base_url 与业务 Token，提供规约主数据与字典的全套查询和写入方法。", "tags": ["api-client", "service", "规约管理", "core-logic"]}
+      ]
+    },
+    {
+      "path": "mcp_server/archiving/reference_config.py",
+      "summary": "参考字典来源配置：声明每个字典项走云端还是边缘、接口方法与分页参数，支持文件化加载。",
+      "tags": ["配置", "参考字典", "archiving"],
+      "subs": [
+        {"kind": "class", "name": "ReferenceConfigError", "summary": "参考字典配置加载或校验失败时抛出的异常。", "tags": ["异常", "配置"]},
+        {"kind": "class", "name": "ReferenceConfig", "summary": "参考字典配置模型，按作用域加载来源定义并提供默认回退。", "tags": ["配置", "参考字典", "data-model"]}
+      ]
+    },
+    {
+      "path": "mcp_server/archiving/reference_dict.py",
+      "summary": "参考字典采集器：从云端分页接口与边缘列表汇聚各类字典，做归一化、冲突检测与整体一致性判定。",
+      "tags": ["参考字典", "采集", "冲突检测", "archiving"],
+      "subs": [
+        {"kind": "class", "name": "DictConflict", "summary": "字典冲突描述模型，记录同名不同码或同码不同名的具体条目。", "tags": ["data-model", "冲突检测"]},
+        {"kind": "class", "name": "DictCollectionError", "summary": "字典采集失败异常，用于全有或全无的一致性门禁。", "tags": ["异常", "采集"]},
+        {"kind": "class", "name": "DictRecord", "summary": "单条字典记录，含名称、编码、作用域与取数时间。", "tags": ["data-model", "参考字典"]},
+        {"kind": "class", "name": "DictFetchReport", "summary": "一次字典取数的报告，记录来源、条数与告警。", "tags": ["data-model", "采集报告"]},
+        {"kind": "class", "name": "ReferenceDictSet", "summary": "参考字典集合，按作用域组织记录并输出模板可用的候选列表。", "tags": ["data-model", "参考字典", "聚合"]},
+        {"kind": "function", "name": "_normalize_edge_list", "summary": "把边缘返回的原始列表归一化为标准字典记录，统一名称与编码字段。", "tags": ["归一化", "参考字典", "utility"]},
+        {"kind": "function", "name": "_fetch_cloud_paged", "summary": "按分页循环拉取云端字典数据，带页数上限与部分失败检测。", "tags": ["分页拉取", "云端", "参考字典"]},
+        {"kind": "function", "name": "detect_conflicts", "summary": "在字典集合内检测名称/编码冲突，产出冲突清单供门禁判定。", "tags": ["冲突检测", "校验", "参考字典"]},
+        {"kind": "function", "name": "collect_reference_dictionaries", "summary": "参考字典采集总入口：汇聚云端与边缘来源、检测冲突并返回完整字典集。", "tags": ["entry-point", "采集", "参考字典"]}
+      ]
+    },
+    {
+      "path": "mcp_server/archiving/reference_provider.py",
+      "summary": "参考字典提供方：按配置在云端系统与边缘会话之间选择取数通道，并保证刷新时不切换来源。",
+      "tags": ["参考字典", "数据源路由", "archiving"],
+      "subs": [
+        {"kind": "class", "name": "ReferenceAuthError", "summary": "取数字段因凭据缺失或过期而失败时抛出的异常。", "tags": ["异常", "鉴权"]},
+        {"kind": "class", "name": "ReferenceDictError", "summary": "参考字典提供层的通用错误类型。", "tags": ["异常", "参考字典"]},
+        {"kind": "class", "name": "ReferenceDictProvider", "summary": "提供方实现：解析配置、选择云端/边缘通道、执行取数并缓存结果供模板生成消费。", "tags": ["参考字典", "service", "core-logic"]}
+      ]
+    },
+    {
+      "path": "mcp_server/edge_client.py",
+      "summary": "边缘平台 API 客户端：处理设备树查询、建档写入、参数读写、召测与在线判定等边缘侧调用，并承载联通状态。",
+      "tags": ["api-client", "边缘联通", "service", "召测"],
+      "subs": [
+        {"kind": "class", "name": "EdgeLinkState", "summary": "边缘联通状态枚举，区分未联通、成功与失败等结果。", "tags": ["枚举", "边缘联通"]},
+        {"kind": "class", "name": "EdgeStageState", "summary": "边缘阶段执行状态枚举，作为阶段编排的取值基础。", "tags": ["枚举", "阶段编排"]},
+        {"kind": "class", "name": "EdgeApiError", "summary": "边缘接口调用失败异常，携带返回码与原始响应片段。", "tags": ["异常", "边缘联通"]},
+        {"kind": "class", "name": "EdgeDeviceClient", "summary": "边缘设备客户端：登录取 Token、查询设备树、写档案与参数、发起召测，并统一处理代理与错误。", "tags": ["api-client", "边缘联通", "core-logic"], "complexity": "complex"}
+      ]
+    },
+    {
+      "path": "mcp_server/edge_proxy_config.py",
+      "summary": "边缘代理配置装载器：从 JSON 文件读取代理与端口映射，供边缘客户端决定直连或代理模式。",
+      "tags": ["配置", "代理", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "path": "mcp_server/permissions.py",
+      "summary": "权限与业务凭据管理：定义超级账号配置、权限矩阵判定与业务 Token 缓存及过期识别。",
+      "tags": ["鉴权", "权限矩阵", "凭据缓存", "安全"],
+      "subs": [
+        {"kind": "class", "name": "SuperAccountConfig", "summary": "超级账号配置模型，从文件加载并判定账号是否具备系统级写权限。", "tags": ["鉴权", "配置", "安全"]},
+        {"kind": "class", "name": "BusinessTokenCache", "summary": "业务 Token 缓存：按归属持久化 Token，读写复用并在过期时失效。", "tags": ["凭据缓存", "持久化", "鉴权"]},
+        {"kind": "function", "name": "extract_account_identity", "summary": "从业务 Token 中抽取账号身份，用于归属判定与日志隔离。", "tags": ["鉴权", "解析", "utility"]},
+        {"kind": "function", "name": "is_auth_expired", "summary": "判定返回结果是否表示业务凭据已过期，驱动重新登录提示。", "tags": ["鉴权", "过期判定", "utility"]}
+      ]
+    },
+    {
+      "path": "mcp_server/tests/test_deploy_from_archive.py",
+      "summary": "由档案回推下发报文的测试，验证免模板下发时字段补齐与报文组装正确性。",
+      "tags": ["test", "免模板下发", "报文组装"]
+    },
+    {
+      "path": "mcp_server/tests/test_proxy_config.py",
+      "summary": "代理配置加载与门户代理 API 地址改写的测试。",
+      "tags": ["test", "代理", "配置"]
+    },
+    {
+      "path": "mcp_server/tests/test_reference_dict.py",
+      "summary": "参考字典采集测试，覆盖完整采集、零编码处理、分页、作用域关联冲突与全有或全无语义。",
+      "tags": ["test", "参考字典", "冲突检测"]
+    },
+    {
+      "path": "mcp_server/tests/test_reference_provider.py",
+      "summary": "参考字典提供方测试，验证配置解析、云端仅用系统 Token、刷新不切换来源与边缘登录装配。",
+      "tags": ["test", "参考字典", "数据源路由"]
+    }
+  ],
+  "edges": [
+    {"source": "file:mcp_server/tests/test_deploy_from_archive.py", "target": "file:mcp_server/archiving/converter.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_deploy_from_archive.py", "target": "file:mcp_server/edge_client.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_proxy_config.py", "target": "file:mcp_server/edge_proxy_config.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_reference_dict.py", "target": "file:mcp_server/archiving/reference_dict.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_reference_dict.py", "target": "file:mcp_server/archiving/reference_config.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_reference_provider.py", "target": "file:mcp_server/archiving/reference_provider.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:mcp_server/tests/test_reference_provider.py", "target": "file:mcp_server/archiving/reference_config.py", "type": "tested_by", "weight": 0.5},
+    {"source": "class:mcp_server/archiving/reference_provider.py:ReferenceAuthError", "target": "class:mcp_server/archiving/reference_provider.py:ReferenceDictError", "type": "inherits", "weight": 0.9},
+    {"source": "class:mcp_server/archiving/reference_dict.py:DictCollectionError", "target": "class:mcp_server/edge_client.py:EdgeApiError", "type": "related", "weight": 0.5},
+    {"source": "file:mcp_server/archiving/reference_provider.py", "target": "file:mcp_server/api_client.py", "type": "depends_on", "weight": 0.6},
+    {"source": "file:mcp_server/archiving/reference_dict.py", "target": "file:mcp_server/archiving/reference_provider.py", "type": "depends_on", "weight": 0.6}
+  ]
+}

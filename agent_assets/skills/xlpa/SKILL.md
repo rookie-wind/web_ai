@@ -13,7 +13,7 @@ metadata:
   tags: [protocol, conversion, entry, router]
   order: 0
   author: song
-  version: "0.7.0"
+  version: "0.8.0"
 
 ---
 
@@ -23,6 +23,10 @@ metadata:
 
 > 本文件是协议智能体的完整 AI 操作手册。任何 LLM Agent 只需加载本文件，即可通过 MCP 操作协议智能体平台。
 > 获取最新版：`GET http://localhost:8765/api/docs/export-skills`
+
+> **目录只读约束**：技能目录为只读母本，作业中间产物写
+> `<会话工作区>/xlpa-tmp/`，最终产物写 `<会话工作区>/xlpa-output/`
+> （或用户指定目录），禁止向技能目录写入任何文件。
 
 ## 适用场景
 
@@ -282,6 +286,7 @@ MCP 端点：`http://localhost:8765/mcp`
 | 云端平台只读查询 | 是否可调用 `get_*` 工具（需要云端业务 Token） |
 | 本地 references 分析 | 是否可使用本地参考文档 |
 | 本地 JSON 生成 | 是否可生成 MODBUS/MQTT/HTTP 转换 JSON |
+| 沙箱测试 / 打包分发 | 是否可经 `validate_config_format`/`execute_conversion_test`/`pack_bundle` 等服务端执行工具完成测试与打包（Web 与 IDE 一致） |
 | 云端平台新增 | 是否可调用 `add_*` / `save_*` 等写入工具（需业务 Token + 超级账号命中 + 用户确认） |
 | 云端平台同步 | 是否可调用 `upload_protocol_file` / `gen_script` 等同步工具（同上） |
 | 边缘建档 dry-run | 是否可解析模板并生成计划（需边缘任务凭据） |

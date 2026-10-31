@@ -1,0 +1,175 @@
+{
+  "files": [
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/原子标签定义.md",
+      "summary": "原子标签定义资料（mqtt-conversion 副本），与 http/modbus 版本同源。",
+      "tags": ["documentation", "原子标签", "参考资料", "重复副本"],
+      "complexity": "complex"
+    },
+    {
+      "path": "agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.md",
+      "summary": "大类号说明资料（mqtt-conversion 副本），与 http-conversion 版本同源。",
+      "tags": ["documentation", "大类号", "参考资料", "重复副本"],
+      "complexity": "moderate"
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/SKILL.md",
+      "summary": "协议转换包打包分发技能：描述把配置、映射报告与测试报告打成 ZIP 并一键安装到目标环境的流程。",
+      "tags": ["documentation", "技能定义", "打包分发"],
+      "complexity": "moderate"
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/agents/openai.yaml",
+      "summary": "pack-distribution 技能的子代理声明文件。",
+      "tags": ["configuration", "技能资产", "agent"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/pack-distribution/manifest.json",
+      "summary": "pack-distribution 技能清单。",
+      "tags": ["configuration", "技能清单", "资源包"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/package-manifest.json",
+      "summary": "Agent 资源包总清单：声明技能包版本、必需文件与打包范围，是服务端自动打包的输入。",
+      "tags": ["configuration", "资源包", "清单", "打包"],
+      "complexity": "moderate"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/SKILL.md",
+      "summary": "共享协议映射核心技能：定义 MQTT 与 HTTP 转换共用的映射规则，被各转换技能引用而非直接面向用户。",
+      "tags": ["documentation", "技能定义", "映射规则", "协议转换"],
+      "complexity": "complex"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/agents/openai.yaml",
+      "summary": "protocol-conversion 技能的子代理声明，含映射核心调用参数。",
+      "tags": ["configuration", "技能资产", "agent"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/manifest.json",
+      "summary": "protocol-conversion 技能清单，声明脚本与参考资料等必需文件。",
+      "tags": ["configuration", "技能清单", "资源包"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/gen_test_report.py",
+      "summary": "转换配置测试报告生成小工具，汇总用例结果为 JSON 报告。",
+      "tags": ["script", "测试报告", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.c",
+      "summary": "C 语言映射引擎核心：实现 JSON 路径取值、路径构建、扁平数组抽取与模板替换，供协议转换引擎运行时调用。",
+      "tags": ["映射引擎", "c-language", "协议转换", "core-logic"],
+      "languageNotes": "基于 cJSON 实现路径式取值与模板替换，是 C 协议转换引擎（mapper_core）的可移植参考实现。",
+      "complexity": "complex",
+      "subs": [
+        {"kind": "function", "name": "get_value_by_path", "summary": "按点分路径从 cJSON 树中取值，支持数组下标与通配。", "tags": ["路径解析", "c-json", "映射引擎"]},
+        {"kind": "function", "name": "ensure_path", "summary": "在目标 cJSON 树中按需创建路径节点，保证写入结构存在。", "tags": ["路径构建", "c-json", "映射引擎"]},
+        {"kind": "function", "name": "get_flat_array_from_path", "summary": "把路径指向的对象/数组展平为一维数组，供 foreach 类映射使用。", "tags": ["数组展平", "c-json", "映射引擎"]},
+        {"kind": "function", "name": "template_substitute", "summary": "解析映射模板并逐项替换源值、生成器与类型转换，输出目标 JSON 片段。", "tags": ["模板替换", "映射引擎", "core-logic"], "complexity": "complex"}
+      ]
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/mapper_core.h",
+      "summary": "映射引擎头文件：声明上下文结构与对外接口，约束 C 引擎与调用方之间的数据布局。",
+      "tags": ["c-language", "头文件", "接口定义", "映射引擎"],
+      "complexity": "moderate"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/protocol_converter.py",
+      "summary": "Python 侧映射引擎封装：以 ctypes 调用 mapper_core 共享库，提供与 C 引擎一致的配置加载与转换能力。",
+      "tags": ["映射引擎", "ctypes", "协议转换", "python"],
+      "complexity": "complex",
+      "subs": [
+        {"kind": "class", "name": "MapperCore", "summary": "映射引擎封装类：加载 JSON 配置、执行路径映射与模板替换，并暴露转换入口。", "tags": ["映射引擎", "封装", "core-logic"]}
+      ]
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py",
+      "summary": "映射引擎自测用例集，覆盖路径解析、类型转换、生成器、数组遍历、MQTT/HTTP 转换与真实配置回归。",
+      "tags": ["test", "映射引擎", "协议转换", "回归测试"],
+      "complexity": "complex"
+    },
+    {
+      "path": "agent_assets/skills/protocol-conversion/scripts/test_report.json",
+      "summary": "映射引擎最近一次自测结果报告，记录用例通过情况供展示与追踪。",
+      "tags": ["configuration", "测试报告", "映射引擎"],
+      "complexity": "moderate"
+    },
+    {
+      "path": "agent_assets/skills/test-validation/SKILL.md",
+      "summary": "转换配置测试验证技能：定义对生成配置做冒烟测试、字段映射校验与错误恢复检查的流程。",
+      "tags": ["documentation", "技能定义", "测试验证"],
+      "complexity": "moderate"
+    },
+    {
+      "path": "agent_assets/skills/test-validation/agents/openai.yaml",
+      "summary": "test-validation 技能的子代理声明文件。",
+      "tags": ["configuration", "技能资产", "agent"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/test-validation/manifest.json",
+      "summary": "test-validation 技能清单。",
+      "tags": ["configuration", "技能清单", "资源包"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/SKILL.md",
+      "summary": "边缘设备建档技能：编排模板生成、填写校验、上传解析与建档下发的完整作业流程。",
+      "tags": ["documentation", "技能定义", "设备建档", "xlpa"],
+      "complexity": "complex"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/agents/openai.yaml",
+      "summary": "xlpa-device-archiving 技能的子代理声明文件。",
+      "tags": ["configuration", "技能资产", "agent"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/xlpa-device-archiving/manifest.json",
+      "summary": "xlpa-device-archiving 技能清单，声明参考文档集与版本信息。",
+      "tags": ["configuration", "技能清单", "资源包"],
+      "complexity": "simple"
+    },
+    {
+      "path": "agent_assets/skills/xlpa/SKILL.md",
+      "summary": "XLPA 总纲技能：串联联通检查、建档、参数下发、召测与调试能力，定义 Agent 使用 MCP 工具的作业顺序与判据。",
+      "tags": ["documentation", "技能定义", "xlpa", "作业编排"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {"source": "config:agent_assets/skills/package-manifest.json", "target": "config:agent_assets/skills/protocol-conversion/manifest.json", "type": "depends_on", "weight": 0.6},
+    {"source": "config:agent_assets/skills/package-manifest.json", "target": "config:agent_assets/skills/xlpa/manifest.json", "type": "depends_on", "weight": 0.6},
+    {"source": "config:agent_assets/skills/package-manifest.json", "target": "config:agent_assets/skills/xlpa-device-archiving/manifest.json", "type": "depends_on", "weight": 0.6},
+    {"source": "config:agent_assets/skills/package-manifest.json", "target": "config:agent_assets/skills/http-conversion/manifest.json", "type": "depends_on", "weight": 0.6},
+    {"source": "config:agent_assets/skills/package-manifest.json", "target": "config:agent_assets/skills/modbus-conversion/manifest.json", "type": "depends_on", "weight": 0.6},
+    {"source": "config:agent_assets/skills/package-manifest.json", "target": "config:agent_assets/skills/mqtt-conversion/manifest.json", "type": "depends_on", "weight": 0.6},
+    {"source": "config:agent_assets/skills/package-manifest.json", "target": "config:agent_assets/skills/pack-distribution/manifest.json", "type": "depends_on", "weight": 0.6},
+    {"source": "config:agent_assets/skills/package-manifest.json", "target": "config:agent_assets/skills/test-validation/manifest.json", "type": "depends_on", "weight": 0.6},
+    {"source": "config:agent_assets/skills/protocol-conversion/manifest.json", "target": "document:agent_assets/skills/protocol-conversion/SKILL.md", "type": "documents", "weight": 0.5},
+    {"source": "config:agent_assets/skills/test-validation/manifest.json", "target": "document:agent_assets/skills/test-validation/SKILL.md", "type": "documents", "weight": 0.5},
+    {"source": "config:agent_assets/skills/pack-distribution/manifest.json", "target": "document:agent_assets/skills/pack-distribution/SKILL.md", "type": "documents", "weight": 0.5},
+    {"source": "config:agent_assets/skills/xlpa-device-archiving/manifest.json", "target": "document:agent_assets/skills/xlpa-device-archiving/SKILL.md", "type": "documents", "weight": 0.5},
+    {"source": "document:agent_assets/skills/xlpa-device-archiving/SKILL.md", "target": "document:agent_assets/skills/xlpa-device-archiving/references/device-onboarding-playbook.md", "type": "depends_on", "weight": 0.6},
+    {"source": "document:agent_assets/skills/xlpa-device-archiving/SKILL.md", "target": "document:agent_assets/skills/xlpa-device-archiving/references/excel-template-schema.md", "type": "depends_on", "weight": 0.6},
+    {"source": "document:agent_assets/skills/xlpa/SKILL.md", "target": "document:agent_assets/skills/xlpa-device-archiving/SKILL.md", "type": "depends_on", "weight": 0.6},
+    {"source": "file:agent_assets/skills/protocol-conversion/scripts/protocol_converter.py", "target": "file:agent_assets/skills/protocol-conversion/scripts/mapper_core.c", "type": "depends_on", "weight": 0.6},
+    {"source": "file:agent_assets/skills/protocol-conversion/scripts/mapper_core.c", "target": "file:agent_assets/skills/protocol-conversion/scripts/mapper_core.h", "type": "depends_on", "weight": 0.6},
+    {"source": "file:agent_assets/skills/protocol-conversion/scripts/mapper_core.c", "target": "file:agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py", "type": "tested_by", "weight": 0.5},
+    {"source": "file:agent_assets/skills/protocol-conversion/scripts/protocol_converter.py", "target": "file:agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py", "type": "tested_by", "weight": 0.5},
+    {"source": "config:agent_assets/skills/protocol-conversion/scripts/test_report.json", "target": "file:agent_assets/skills/protocol-conversion/scripts/test_protocol_converter.py", "type": "related", "weight": 0.5},
+    {"source": "file:agent_assets/skills/protocol-conversion/scripts/gen_test_report.py", "target": "config:agent_assets/skills/protocol-conversion/scripts/test_report.json", "type": "related", "weight": 0.5},
+    {"source": "document:agent_assets/skills/mqtt-conversion/references/原子标签定义.md", "target": "document:agent_assets/skills/http-conversion/references/原子标签定义.md", "type": "similar_to", "weight": 0.5},
+    {"source": "document:agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.md", "target": "document:agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.md", "type": "similar_to", "weight": 0.5},
+    {"source": "config:agent_assets/skills/pack-distribution/agents/openai.yaml", "target": "config:agent_assets/skills/pack-distribution/manifest.json", "type": "related", "weight": 0.5},
+    {"source": "config:agent_assets/skills/test-validation/agents/openai.yaml", "target": "config:agent_assets/skills/test-validation/manifest.json", "type": "related", "weight": 0.5},
+    {"source": "config:agent_assets/skills/xlpa-device-archiving/agents/openai.yaml", "target": "config:agent_assets/skills/xlpa-device-archiving/manifest.json", "type": "related", "weight": 0.5},
+    {"source": "config:agent_assets/skills/protocol-conversion/agents/openai.yaml", "target": "config:agent_assets/skills/protocol-conversion/manifest.json", "type": "related", "weight": 0.5}
+  ]
+}

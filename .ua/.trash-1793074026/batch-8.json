@@ -1,0 +1,178 @@
+{
+  "nodes": [
+    {
+      "id": "config:mcp_server/.env",
+      "type": "config",
+      "name": ".env",
+      "filePath": "mcp_server/.env",
+      "summary": "服务端运行环境变量文件（不提交版本控制），承载端口、管理员 Token 与平台地址等启动配置。",
+      "tags": [
+        "configuration",
+        "环境变量",
+        "运行时",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:mcp_server/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "mcp_server/README.md",
+      "summary": "MCP 服务运维说明：描述安装、启动、鉴权模型、工具清单与常见故障排查步骤。",
+      "tags": [
+        "documentation",
+        "部署",
+        "运维指南",
+        "mcp-server"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/install.bat",
+      "type": "file",
+      "name": "install.bat",
+      "filePath": "mcp_server/install.bat",
+      "summary": "Windows 一键安装脚本：创建虚拟环境并按 requirements 安装依赖。",
+      "tags": [
+        "script",
+        "安装",
+        "windows",
+        "deployment"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:mcp_server/permissions.template.json",
+      "type": "config",
+      "name": "permissions.template.json",
+      "filePath": "mcp_server/permissions.template.json",
+      "summary": "权限配置模板：声明超级账号与工具权限矩阵的样例结构，供部署时复制为 permissions.json。",
+      "tags": [
+        "configuration",
+        "权限矩阵",
+        "模板",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:mcp_server/proxy_config.json",
+      "type": "config",
+      "name": "proxy_config.json",
+      "filePath": "mcp_server/proxy_config.json",
+      "summary": "边缘代理配置：定义访问边缘平台时使用的代理地址与端口映射。",
+      "tags": [
+        "configuration",
+        "代理",
+        "边缘联通"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:mcp_server/requirements.txt",
+      "type": "document",
+      "name": "requirements.txt",
+      "filePath": "mcp_server/requirements.txt",
+      "summary": "服务端 Python 依赖清单，约束 mcp、uvicorn 与 httpx 的版本区间。",
+      "tags": [
+        "documentation",
+        "依赖管理",
+        "python"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mcp_server/start.bat",
+      "type": "file",
+      "name": "start.bat",
+      "filePath": "mcp_server/start.bat",
+      "summary": "Windows 启动脚本：激活虚拟环境并运行 MCP Server 主进程。",
+      "tags": [
+        "script",
+        "启动",
+        "windows",
+        "deployment"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:mcp_server/version.json",
+      "type": "config",
+      "name": "version.json",
+      "filePath": "mcp_server/version.json",
+      "summary": "服务端版本声明文件，供版本探测、展示页与资源包一致性校验读取。",
+      "tags": [
+        "configuration",
+        "版本管理",
+        "展示页"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:mcp_server/.env",
+      "target": "file:mcp_server/server.py",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:mcp_server/permissions.template.json",
+      "target": "file:mcp_server/permissions.py",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:mcp_server/proxy_config.json",
+      "target": "file:mcp_server/edge_proxy_config.py",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:mcp_server/version.json",
+      "target": "file:mcp_server/server.py",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:mcp_server/install.bat",
+      "target": "document:mcp_server/requirements.txt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:mcp_server/start.bat",
+      "target": "file:mcp_server/server.py",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:mcp_server/README.md",
+      "target": "file:mcp_server/server.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:mcp_server/README.md",
+      "target": "file:mcp_server/token_manager.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:mcp_server/README.md",
+      "target": "file:mcp_server/mcp_client.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

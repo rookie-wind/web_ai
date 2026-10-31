@@ -1,0 +1,209 @@
+{
+  "nodes": [
+    {
+      "id": "file:mcp_server/session.py",
+      "type": "file",
+      "name": "session.py",
+      "filePath": "mcp_server/session.py",
+      "summary": "会话与身份上下文：定义会话模型、注册表以及贯穿工具调用的 MCP Token 上下文变量。",
+      "tags": [
+        "会话管理",
+        "上下文",
+        "鉴权",
+        "contextvar"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:mcp_server/session.py:Session",
+      "type": "class",
+      "name": "Session",
+      "filePath": "mcp_server/session.py",
+      "lineRange": [
+        22,
+        37
+      ],
+      "summary": "用户会话模型，绑定账号身份、业务 Token 与过期时间。",
+      "tags": [
+        "data-model",
+        "会话"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/session.py:SessionRegistry",
+      "type": "class",
+      "name": "SessionRegistry",
+      "filePath": "mcp_server/session.py",
+      "lineRange": [
+        40,
+        105
+      ],
+      "summary": "会话注册表：按 MCP Token 存取会话、判定归属并清理过期项。",
+      "tags": [
+        "会话管理",
+        "鉴权",
+        "存储"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/tests/test_get_device_parameters.py",
+      "type": "file",
+      "name": "test_get_device_parameters.py",
+      "filePath": "mcp_server/tests/test_get_device_parameters.py",
+      "summary": "设备参数读取工具测试，验证 itemBody 透传与逐节点回读行为。",
+      "tags": [
+        "test",
+        "参数读取",
+        "边缘联通"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/tests/test_online_check_free_template.py",
+      "type": "file",
+      "name": "test_online_check_free_template.py",
+      "filePath": "mcp_server/tests/test_online_check_free_template.py",
+      "summary": "在线检查与免模板下发测试，验证按档案类型自动选路及免模板回推行为。",
+      "tags": [
+        "test",
+        "在线判定",
+        "免模板下发"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/tests/test_operation_log_store.py",
+      "type": "file",
+      "name": "test_operation_log_store.py",
+      "filePath": "mcp_server/tests/test_operation_log_store.py",
+      "summary": "操作日志存储测试，覆盖身份隔离、脱敏、窗口查询与过期清理。",
+      "tags": [
+        "test",
+        "日志审计",
+        "会话隔离"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/tests/test_snapshot_store.py",
+      "type": "file",
+      "name": "test_snapshot_store.py",
+      "filePath": "mcp_server/tests/test_snapshot_store.py",
+      "summary": "快照存储测试，验证保存读取、内容校验、越权拒绝、代际语义与所有者清理。",
+      "tags": [
+        "test",
+        "快照存储",
+        "安全"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:mcp_server/tests/test_write_operation_logging.py",
+      "type": "file",
+      "name": "test_write_operation_logging.py",
+      "filePath": "mcp_server/tests/test_write_operation_logging.py",
+      "summary": "写操作日志链路测试，贯通服务端工具包装、边缘动作记录与展示面板的重启持久化。",
+      "tags": [
+        "test",
+        "日志审计",
+        "写操作"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:mcp_server/session.py",
+      "target": "class:mcp_server/session.py:Session",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/session.py",
+      "target": "class:mcp_server/session.py:SessionRegistry",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mcp_server/tests/test_get_device_parameters.py",
+      "target": "file:mcp_server/edge_tools.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_online_check_free_template.py",
+      "target": "file:mcp_server/edge_tools.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_operation_log_store.py",
+      "target": "file:mcp_server/archiving/snapshot_store.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_operation_log_store.py",
+      "target": "file:mcp_server/operation_log_store.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_snapshot_store.py",
+      "target": "file:mcp_server/archiving/models.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_snapshot_store.py",
+      "target": "file:mcp_server/archiving/snapshot_store.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_write_operation_logging.py",
+      "target": "file:mcp_server/archiving/snapshot_store.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_write_operation_logging.py",
+      "target": "file:mcp_server/edge_tools.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_write_operation_logging.py",
+      "target": "file:mcp_server/operation_log_store.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_write_operation_logging.py",
+      "target": "file:mcp_server/server.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mcp_server/tests/test_write_operation_logging.py",
+      "target": "file:mcp_server/session.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}
