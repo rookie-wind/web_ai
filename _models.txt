@@ -1,3 +1,0 @@
-﻿MODEL
-Qwen3.8-Flash
-DeepSeek-Flash
