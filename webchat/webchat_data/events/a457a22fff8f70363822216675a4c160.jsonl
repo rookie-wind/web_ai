@@ -1,0 +1,319 @@
+{"v": 1, "seq": 1, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332389.2693183, "type": "session_started", "payload": {"username": "admin"}}
+{"v": 1, "seq": 2, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332389.2831209, "type": "text_delta", "payload": {"role": "user", "text": "请调用云端只读查询工具，列出设备类型/大类清单里的前 5 个条目（编号和名称即可）。只做查询，绝对不要新建、修改或删除任何数据。"}}
+{"v": 1, "seq": 3, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332398.3816082, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 4, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332398.3823388, "type": "unknown", "payload": {"subtype": "artifacts_update"}}
+{"v": 1, "seq": 5, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332398.4514844, "type": "unknown", "payload": {"subtype": "hook_diagnostics"}}
+{"v": 1, "seq": 6, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332398.5350988, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 7, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332401.8545778, "type": "unknown", "payload": {"raw_kind": "message_start"}}
+{"v": 1, "seq": 8, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332401.8556879, "type": "unknown", "payload": {"raw_kind": "content_block_start"}}
+{"v": 1, "seq": 9, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2519913, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 10, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2566519, "type": "unknown", "payload": {"raw_kind": "content_block_start"}}
+{"v": 1, "seq": 11, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2574162, "type": "text_delta", "payload": {"text": "我先"}}
+{"v": 1, "seq": 12, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2580595, "type": "text_delta", "payload": {"text": "用"}}
+{"v": 1, "seq": 13, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2586875, "type": "text_delta", "payload": {"text": "只"}}
+{"v": 1, "seq": 14, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2593312, "type": "text_delta", "payload": {"text": "读"}}
+{"v": 1, "seq": 15, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.259926, "type": "text_delta", "payload": {"text": "接口"}}
+{"v": 1, "seq": 16, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2605336, "type": "text_delta", "payload": {"text": "查询"}}
+{"v": 1, "seq": 17, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.261242, "type": "text_delta", "payload": {"text": "大类"}}
+{"v": 1, "seq": 18, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2631197, "type": "text_delta", "payload": {"text": "与"}}
+{"v": 1, "seq": 19, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2641075, "type": "text_delta", "payload": {"text": "设备"}}
+{"v": 1, "seq": 20, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2648437, "type": "text_delta", "payload": {"text": "类型"}}
+{"v": 1, "seq": 21, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2654827, "type": "text_delta", "payload": {"text": "清单"}}
+{"v": 1, "seq": 22, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2660646, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 23, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2702653, "type": "text_delta", "payload": {"text": "各"}}
+{"v": 1, "seq": 24, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2740865, "type": "text_delta", "payload": {"text": "取"}}
+{"v": 1, "seq": 25, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2770536, "type": "text_delta", "payload": {"text": "前"}}
+{"v": 1, "seq": 26, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2786815, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 27, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.280246, "type": "text_delta", "payload": {"text": "5"}}
+{"v": 1, "seq": 28, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.281197, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 29, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2819648, "type": "text_delta", "payload": {"text": "条"}}
+{"v": 1, "seq": 30, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.2933674, "type": "text_delta", "payload": {"text": "。"}}
+{"v": 1, "seq": 31, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.3317122, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 32, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.3327546, "type": "unknown", "payload": {"raw_kind": "content_block_start"}}
+{"v": 1, "seq": 33, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.4692461, "type": "unknown", "payload": {"raw_kind": "content_block_start"}}
+{"v": 1, "seq": 34, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.718918, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 35, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.7278912, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 36, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332402.736526, "type": "unknown", "payload": {"raw_kind": "message_stop"}}
+{"v": 1, "seq": 37, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.0642781, "type": "unknown", "payload": {"raw_kind": "message_start"}}
+{"v": 1, "seq": 38, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.0656426, "type": "unknown", "payload": {"raw_kind": "content_block_start"}}
+{"v": 1, "seq": 39, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.1567786, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 40, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.1576822, "type": "unknown", "payload": {"raw_kind": "content_block_start"}}
+{"v": 1, "seq": 41, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.1583235, "type": "text_delta", "payload": {"text": "已完成"}}
+{"v": 1, "seq": 42, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.1589773, "type": "text_delta", "payload": {"text": "只"}}
+{"v": 1, "seq": 43, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.1710882, "type": "text_delta", "payload": {"text": "读"}}
+{"v": 1, "seq": 44, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.172189, "type": "text_delta", "payload": {"text": "查询"}}
+{"v": 1, "seq": 45, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.172875, "type": "text_delta", "payload": {"text": "（"}}
+{"v": 1, "seq": 46, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.1872466, "type": "text_delta", "payload": {"text": "未"}}
+{"v": 1, "seq": 47, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.1894472, "type": "text_delta", "payload": {"text": "做"}}
+{"v": 1, "seq": 48, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.1992915, "type": "text_delta", "payload": {"text": "任何"}}
+{"v": 1, "seq": 49, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.200488, "type": "text_delta", "payload": {"text": "新建"}}
+{"v": 1, "seq": 50, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.2012875, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 51, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.2019682, "type": "text_delta", "payload": {"text": "修改"}}
+{"v": 1, "seq": 52, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3134341, "type": "text_delta", "payload": {"text": "或"}}
+{"v": 1, "seq": 53, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.315243, "type": "text_delta", "payload": {"text": "删除"}}
+{"v": 1, "seq": 54, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3163154, "type": "text_delta", "payload": {"text": "）。\n\n"}}
+{"v": 1, "seq": 55, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3174112, "type": "text_delta", "payload": {"text": "**"}}
+{"v": 1, "seq": 56, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.31824, "type": "text_delta", "payload": {"text": "大类"}}
+{"v": 1, "seq": 57, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3219814, "type": "text_delta", "payload": {"text": "清单"}}
+{"v": 1, "seq": 58, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3232129, "type": "text_delta", "payload": {"text": "（"}}
+{"v": 1, "seq": 59, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.324037, "type": "text_delta", "payload": {"text": "共"}}
+{"v": 1, "seq": 60, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3249822, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 61, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3267498, "type": "text_delta", "payload": {"text": "30"}}
+{"v": 1, "seq": 62, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3275697, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 63, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3284404, "type": "text_delta", "payload": {"text": "条"}}
+{"v": 1, "seq": 64, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3292568, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 65, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3299775, "type": "text_delta", "payload": {"text": "前"}}
+{"v": 1, "seq": 66, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3311796, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 67, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3324769, "type": "text_delta", "payload": {"text": "5"}}
+{"v": 1, "seq": 68, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3335388, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 69, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3343678, "type": "text_delta", "payload": {"text": "条"}}
+{"v": 1, "seq": 70, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.335068, "type": "text_delta", "payload": {"text": "）"}}
+{"v": 1, "seq": 71, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3357463, "type": "text_delta", "payload": {"text": "**\n\n"}}
+{"v": 1, "seq": 72, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3363583, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 73, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3369253, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 74, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3376381, "type": "text_delta", "payload": {"text": "编号"}}
+{"v": 1, "seq": 75, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3385518, "type": "text_delta", "payload": {"text": "(id"}}
+{"v": 1, "seq": 76, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3392599, "type": "text_delta", "payload": {"text": ")"}}
+{"v": 1, "seq": 77, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3398733, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 78, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3404696, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 79, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3411474, "type": "text_delta", "payload": {"text": "名称"}}
+{"v": 1, "seq": 80, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3419216, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 81, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3428824, "type": "text_delta", "payload": {"text": "|---|---"}}
+{"v": 1, "seq": 82, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3436553, "type": "text_delta", "payload": {"text": "|\n"}}
+{"v": 1, "seq": 83, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3442922, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 84, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3449306, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 85, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3455486, "type": "text_delta", "payload": {"text": "2"}}
+{"v": 1, "seq": 86, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3461294, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 87, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3466995, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 88, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3475342, "type": "text_delta", "payload": {"text": "电"}}
+{"v": 1, "seq": 89, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3487494, "type": "text_delta", "payload": {"text": "表"}}
+{"v": 1, "seq": 90, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3496494, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 91, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3503292, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 92, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3509474, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 93, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3515368, "type": "text_delta", "payload": {"text": "3"}}
+{"v": 1, "seq": 94, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3521042, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 95, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3527691, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 96, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3535402, "type": "text_delta", "payload": {"text": "空调"}}
+{"v": 1, "seq": 97, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3544679, "type": "text_delta", "payload": {"text": "机组"}}
+{"v": 1, "seq": 98, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3552938, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 99, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.35607, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 100, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3569617, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 101, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.357643, "type": "text_delta", "payload": {"text": "4"}}
+{"v": 1, "seq": 102, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3582144, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 103, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.358794, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 104, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3593805, "type": "text_delta", "payload": {"text": "环境"}}
+{"v": 1, "seq": 105, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.359958, "type": "text_delta", "payload": {"text": "传感器"}}
+{"v": 1, "seq": 106, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3751047, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 107, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.376092, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 108, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3767045, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 109, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3772793, "type": "text_delta", "payload": {"text": "5"}}
+{"v": 1, "seq": 110, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3779495, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 111, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3786154, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 112, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3903809, "type": "text_delta", "payload": {"text": "空调"}}
+{"v": 1, "seq": 113, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3914764, "type": "text_delta", "payload": {"text": "多"}}
+{"v": 1, "seq": 114, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.392131, "type": "text_delta", "payload": {"text": "联"}}
+{"v": 1, "seq": 115, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.3927214, "type": "text_delta", "payload": {"text": "机"}}
+{"v": 1, "seq": 116, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.393287, "type": "text_delta", "payload": {"text": "控制器"}}
+{"v": 1, "seq": 117, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4001703, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 118, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4015095, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 119, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4024715, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 120, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4032085, "type": "text_delta", "payload": {"text": "7"}}
+{"v": 1, "seq": 121, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4037876, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 122, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4043899, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 123, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4050002, "type": "text_delta", "payload": {"text": "开关"}}
+{"v": 1, "seq": 124, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4125695, "type": "text_delta", "payload": {"text": "量"}}
+{"v": 1, "seq": 125, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4136143, "type": "text_delta", "payload": {"text": " |\n\n"}}
+{"v": 1, "seq": 126, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4152768, "type": "text_delta", "payload": {"text": "**"}}
+{"v": 1, "seq": 127, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.416515, "type": "text_delta", "payload": {"text": "设备"}}
+{"v": 1, "seq": 128, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4177368, "type": "text_delta", "payload": {"text": "类型"}}
+{"v": 1, "seq": 129, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.418663, "type": "text_delta", "payload": {"text": "清单"}}
+{"v": 1, "seq": 130, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4413724, "type": "text_delta", "payload": {"text": "（"}}
+{"v": 1, "seq": 131, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.442379, "type": "text_delta", "payload": {"text": "共"}}
+{"v": 1, "seq": 132, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4430685, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 133, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.443716, "type": "text_delta", "payload": {"text": "25"}}
+{"v": 1, "seq": 134, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.44434, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 135, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.44496, "type": "text_delta", "payload": {"text": "条"}}
+{"v": 1, "seq": 136, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4498994, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 137, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.479878, "type": "text_delta", "payload": {"text": "前"}}
+{"v": 1, "seq": 138, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4821424, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 139, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4834025, "type": "text_delta", "payload": {"text": "5"}}
+{"v": 1, "seq": 140, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4842641, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 141, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.485013, "type": "text_delta", "payload": {"text": "条"}}
+{"v": 1, "seq": 142, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4856138, "type": "text_delta", "payload": {"text": "）"}}
+{"v": 1, "seq": 143, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4863017, "type": "text_delta", "payload": {"text": "**\n\n"}}
+{"v": 1, "seq": 144, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4868555, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 145, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4873793, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 146, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4880097, "type": "text_delta", "payload": {"text": "编号"}}
+{"v": 1, "seq": 147, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4886422, "type": "text_delta", "payload": {"text": "(id"}}
+{"v": 1, "seq": 148, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.489363, "type": "text_delta", "payload": {"text": ")"}}
+{"v": 1, "seq": 149, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4900224, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 150, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4905767, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 151, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4912183, "type": "text_delta", "payload": {"text": "类型"}}
+{"v": 1, "seq": 152, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.491829, "type": "text_delta", "payload": {"text": "编码"}}
+{"v": 1, "seq": 153, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4924135, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 154, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4960687, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 155, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4970577, "type": "text_delta", "payload": {"text": "名称"}}
+{"v": 1, "seq": 156, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4988644, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 157, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.4997258, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 158, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5004754, "type": "text_delta", "payload": {"text": "所属"}}
+{"v": 1, "seq": 159, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.501089, "type": "text_delta", "payload": {"text": "大类"}}
+{"v": 1, "seq": 160, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.505833, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 161, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5068583, "type": "text_delta", "payload": {"text": "|---|---"}}
+{"v": 1, "seq": 162, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5076544, "type": "text_delta", "payload": {"text": "|---|---"}}
+{"v": 1, "seq": 163, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.508361, "type": "text_delta", "payload": {"text": "|\n"}}
+{"v": 1, "seq": 164, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5092452, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 165, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5100129, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 166, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5397053, "type": "text_delta", "payload": {"text": "3"}}
+{"v": 1, "seq": 167, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.540735, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 168, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5414755, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 169, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5421994, "type": "text_delta", "payload": {"text": "11"}}
+{"v": 1, "seq": 170, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5479972, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 171, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5493526, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 172, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.550444, "type": "text_delta", "payload": {"text": "电"}}
+{"v": 1, "seq": 173, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5517795, "type": "text_delta", "payload": {"text": "表"}}
+{"v": 1, "seq": 174, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5525067, "type": "text_delta", "payload": {"text": "类"}}
+{"v": 1, "seq": 175, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5670037, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 176, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5681317, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 177, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5692847, "type": "text_delta", "payload": {"text": "电"}}
+{"v": 1, "seq": 178, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5700202, "type": "text_delta", "payload": {"text": "表"}}
+{"v": 1, "seq": 179, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5706902, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 180, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.571536, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 181, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.572183, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 182, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.572978, "type": "text_delta", "payload": {"text": "4"}}
+{"v": 1, "seq": 183, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5738876, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 184, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5745704, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 185, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5751667, "type": "text_delta", "payload": {"text": "1"}}
+{"v": 1, "seq": 186, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5866857, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 187, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5878365, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 188, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5887125, "type": "text_delta", "payload": {"text": "水"}}
+{"v": 1, "seq": 189, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.589586, "type": "text_delta", "payload": {"text": "冷"}}
+{"v": 1, "seq": 190, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.5902574, "type": "text_delta", "payload": {"text": "机组"}}
+{"v": 1, "seq": 191, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6059408, "type": "text_delta", "payload": {"text": "及其"}}
+{"v": 1, "seq": 192, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.607005, "type": "text_delta", "payload": {"text": "网关"}}
+{"v": 1, "seq": 193, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.607747, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 194, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.608452, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 195, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.609087, "type": "text_delta", "payload": {"text": "空调"}}
+{"v": 1, "seq": 196, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6097307, "type": "text_delta", "payload": {"text": "机组"}}
+{"v": 1, "seq": 197, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6232555, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 198, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6243622, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 199, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.625192, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 200, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6258607, "type": "text_delta", "payload": {"text": "5"}}
+{"v": 1, "seq": 201, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6265903, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 202, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6272354, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 203, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.638599, "type": "text_delta", "payload": {"text": "9"}}
+{"v": 1, "seq": 204, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6397173, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 205, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.640544, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 206, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6411197, "type": "text_delta", "payload": {"text": "环境"}}
+{"v": 1, "seq": 207, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6417263, "type": "text_delta", "payload": {"text": "传感器"}}
+{"v": 1, "seq": 208, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6437662, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 209, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6493366, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 210, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6508076, "type": "text_delta", "payload": {"text": "环境"}}
+{"v": 1, "seq": 211, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6517138, "type": "text_delta", "payload": {"text": "传感器"}}
+{"v": 1, "seq": 212, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.652381, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 213, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.652983, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 214, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.653519, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 215, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6716108, "type": "text_delta", "payload": {"text": "6"}}
+{"v": 1, "seq": 216, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6725724, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 217, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6731954, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 218, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6737962, "type": "text_delta", "payload": {"text": "6"}}
+{"v": 1, "seq": 219, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6877382, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 220, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.688816, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 221, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6895976, "type": "text_delta", "payload": {"text": "多"}}
+{"v": 1, "seq": 222, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6902273, "type": "text_delta", "payload": {"text": "联"}}
+{"v": 1, "seq": 223, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6908252, "type": "text_delta", "payload": {"text": "机"}}
+{"v": 1, "seq": 224, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.6914911, "type": "text_delta", "payload": {"text": "空调"}}
+{"v": 1, "seq": 225, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7517598, "type": "text_delta", "payload": {"text": "控制器"}}
+{"v": 1, "seq": 226, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7525003, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 227, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7531588, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 228, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7537484, "type": "text_delta", "payload": {"text": "通讯"}}
+{"v": 1, "seq": 229, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7549253, "type": "text_delta", "payload": {"text": "网关"}}
+{"v": 1, "seq": 230, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7556572, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 231, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7562795, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 232, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7568998, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 233, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.75752, "type": "text_delta", "payload": {"text": "7"}}
+{"v": 1, "seq": 234, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7580838, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 235, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.783882, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 236, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.785021, "type": "text_delta", "payload": {"text": "15"}}
+{"v": 1, "seq": 237, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7857199, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 238, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.786347, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 239, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7869778, "type": "text_delta", "payload": {"text": "风"}}
+{"v": 1, "seq": 240, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7876549, "type": "text_delta", "payload": {"text": "冷"}}
+{"v": 1, "seq": 241, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.789614, "type": "text_delta", "payload": {"text": "热"}}
+{"v": 1, "seq": 242, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7907143, "type": "text_delta", "payload": {"text": "泵"}}
+{"v": 1, "seq": 243, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.7915418, "type": "text_delta", "payload": {"text": "及其"}}
+{"v": 1, "seq": 244, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.792203, "type": "text_delta", "payload": {"text": "网关"}}
+{"v": 1, "seq": 245, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.830327, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 246, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8317146, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 247, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8333633, "type": "text_delta", "payload": {"text": "空调"}}
+{"v": 1, "seq": 248, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8343155, "type": "text_delta", "payload": {"text": "模块"}}
+{"v": 1, "seq": 249, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8351502, "type": "text_delta", "payload": {"text": "机"}}
+{"v": 1, "seq": 250, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8364158, "type": "text_delta", "payload": {"text": " |\n\n"}}
+{"v": 1, "seq": 251, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.837225, "type": "text_delta", "payload": {"text": "补充"}}
+{"v": 1, "seq": 252, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8379729, "type": "text_delta", "payload": {"text": "说明"}}
+{"v": 1, "seq": 253, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8386567, "type": "text_delta", "payload": {"text": "："}}
+{"v": 1, "seq": 254, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8392682, "type": "text_delta", "payload": {"text": "两"}}
+{"v": 1, "seq": 255, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8399487, "type": "text_delta", "payload": {"text": "处"}}
+{"v": 1, "seq": 256, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8405988, "type": "text_delta", "payload": {"text": "“"}}
+{"v": 1, "seq": 257, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8412669, "type": "text_delta", "payload": {"text": "编号"}}
+{"v": 1, "seq": 258, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8418503, "type": "text_delta", "payload": {"text": "”"}}
+{"v": 1, "seq": 259, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8424106, "type": "text_delta", "payload": {"text": "含义"}}
+{"v": 1, "seq": 260, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8430007, "type": "text_delta", "payload": {"text": "不同"}}
+{"v": 1, "seq": 261, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8435585, "type": "text_delta", "payload": {"text": "——"}}
+{"v": 1, "seq": 262, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8508441, "type": "text_delta", "payload": {"text": "大"}}
+{"v": 1, "seq": 263, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8517563, "type": "text_delta", "payload": {"text": "类的"}}
+{"v": 1, "seq": 264, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8524334, "type": "text_delta", "payload": {"text": " id"}}
+{"v": 1, "seq": 265, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8710244, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 266, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8721235, "type": "text_delta", "payload": {"text": "即"}}
+{"v": 1, "seq": 267, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.872889, "type": "text_delta", "payload": {"text": "平台"}}
+{"v": 1, "seq": 268, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8871984, "type": "text_delta", "payload": {"text": "的大"}}
+{"v": 1, "seq": 269, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8881116, "type": "text_delta", "payload": {"text": "类"}}
+{"v": 1, "seq": 270, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8962405, "type": "text_delta", "payload": {"text": "编号"}}
+{"v": 1, "seq": 271, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.897258, "type": "text_delta", "payload": {"text": "（"}}
+{"v": 1, "seq": 272, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.8983166, "type": "text_delta", "payload": {"text": "class"}}
+{"v": 1, "seq": 273, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.911237, "type": "text_delta", "payload": {"text": "Num"}}
+{"v": 1, "seq": 274, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.9122643, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 275, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.9263282, "type": "text_delta", "payload": {"text": "来源"}}
+{"v": 1, "seq": 276, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.9275126, "type": "text_delta", "payload": {"text": "），"}}
+{"v": 1, "seq": 277, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.9281745, "type": "text_delta", "payload": {"text": "设备"}}
+{"v": 1, "seq": 278, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.9287481, "type": "text_delta", "payload": {"text": "类型的"}}
+{"v": 1, "seq": 279, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.92929, "type": "text_delta", "payload": {"text": " id"}}
+{"v": 1, "seq": 280, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.93915, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 281, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.9403315, "type": "text_delta", "payload": {"text": "是"}}
+{"v": 1, "seq": 282, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.941085, "type": "text_delta", "payload": {"text": "记录"}}
+{"v": 1, "seq": 283, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.9834106, "type": "text_delta", "payload": {"text": " ID"}}
+{"v": 1, "seq": 284, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.984586, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 285, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.9854484, "type": "text_delta", "payload": {"text": "而"}}
+{"v": 1, "seq": 286, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.9862592, "type": "text_delta", "payload": {"text": "“"}}
+{"v": 1, "seq": 287, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332404.986942, "type": "text_delta", "payload": {"text": "类型"}}
+{"v": 1, "seq": 288, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.003542, "type": "text_delta", "payload": {"text": "编码"}}
+{"v": 1, "seq": 289, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0210426, "type": "text_delta", "payload": {"text": "”（"}}
+{"v": 1, "seq": 290, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.021759, "type": "text_delta", "payload": {"text": "device"}}
+{"v": 1, "seq": 291, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0224197, "type": "text_delta", "payload": {"text": "Type"}}
+{"v": 1, "seq": 292, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.022979, "type": "text_delta", "payload": {"text": "Code"}}
+{"v": 1, "seq": 293, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0235834, "type": "text_delta", "payload": {"text": "）"}}
+{"v": 1, "seq": 294, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.024191, "type": "text_delta", "payload": {"text": "才是"}}
+{"v": 1, "seq": 295, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.024774, "type": "text_delta", "payload": {"text": " model"}}
+{"v": 1, "seq": 296, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0499177, "type": "text_delta", "payload": {"text": "Num"}}
+{"v": 1, "seq": 297, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0508642, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 298, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0517738, "type": "text_delta", "payload": {"text": "来源"}}
+{"v": 1, "seq": 299, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0524223, "type": "text_delta", "payload": {"text": "。"}}
+{"v": 1, "seq": 300, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0529861, "type": "text_delta", "payload": {"text": "如果你"}}
+{"v": 1, "seq": 301, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0610166, "type": "text_delta", "payload": {"text": "需要"}}
+{"v": 1, "seq": 302, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0627868, "type": "text_delta", "payload": {"text": "按"}}
+{"v": 1, "seq": 303, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0820308, "type": "text_delta", "payload": {"text": "类型"}}
+{"v": 1, "seq": 304, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0869842, "type": "text_delta", "payload": {"text": "编码"}}
+{"v": 1, "seq": 305, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.091248, "type": "text_delta", "payload": {"text": "排序"}}
+{"v": 1, "seq": 306, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.0966144, "type": "text_delta", "payload": {"text": "或"}}
+{"v": 1, "seq": 307, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.116996, "type": "text_delta", "payload": {"text": "按"}}
+{"v": 1, "seq": 308, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.1182268, "type": "text_delta", "payload": {"text": "某"}}
+{"v": 1, "seq": 309, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.1277509, "type": "text_delta", "payload": {"text": "大类"}}
+{"v": 1, "seq": 310, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.129494, "type": "text_delta", "payload": {"text": "过滤"}}
+{"v": 1, "seq": 311, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.1464732, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 312, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.1475005, "type": "text_delta", "payload": {"text": "我可以"}}
+{"v": 1, "seq": 313, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.1713283, "type": "text_delta", "payload": {"text": "再"}}
+{"v": 1, "seq": 314, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.1724713, "type": "text_delta", "payload": {"text": "查"}}
+{"v": 1, "seq": 315, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.173515, "type": "text_delta", "payload": {"text": "一次"}}
+{"v": 1, "seq": 316, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.174257, "type": "text_delta", "payload": {"text": "。"}}
+{"v": 1, "seq": 317, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.1782527, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 318, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332405.1792974, "type": "unknown", "payload": {"raw_kind": "message_stop"}}
+{"v": 1, "seq": 319, "session_id": "a457a22fff8f70363822216675a4c160", "ts": 1793332414.5714152, "type": "turn_done", "payload": {"turn": 1, "duration_ms": 25286}}

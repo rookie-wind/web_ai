@@ -1,0 +1,13 @@
+{"v": 1, "seq": 1, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666425.608779, "type": "session_started", "payload": {"username": "test"}}
+{"v": 1, "seq": 2, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666445.8922482, "type": "text_delta", "payload": {"role": "user", "text": "探测一下 20.2.96.2 上有哪些网关"}}
+{"v": 1, "seq": 3, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666460.6913939, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 4, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666460.6956186, "type": "unknown", "payload": {"subtype": "artifacts_update"}}
+{"v": 1, "seq": 5, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666460.7473419, "type": "unknown", "payload": {"subtype": "hook_diagnostics"}}
+{"v": 1, "seq": 6, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666460.8149986, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 7, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666461.1928604, "type": "turn_done", "payload": {"turn": 1, "duration_ms": 15295}}
+{"v": 1, "seq": 8, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666496.2022438, "type": "text_delta", "payload": {"role": "user", "text": "探测一下 20.2.96.2 上有哪些网关"}}
+{"v": 1, "seq": 9, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666496.2449625, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 10, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666496.3314824, "type": "turn_done", "payload": {"turn": 2, "duration_ms": 97}}
+{"v": 1, "seq": 11, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666518.768324, "type": "text_delta", "payload": {"role": "user", "text": "/xlpa 探测一下 20.2.96.2 上有哪些网关"}}
+{"v": 1, "seq": 12, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666518.794219, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 13, "session_id": "66faa10d0c77ad8774cac67b89c546d5", "ts": 1793666518.8447702, "type": "turn_done", "payload": {"turn": 3, "duration_ms": 71}}

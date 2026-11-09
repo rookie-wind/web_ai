@@ -1,0 +1,11 @@
+{
+  "accounts": [
+    {
+      "username": "example_user",
+      "password_hash": "pbkdf2_sha256$480000$<salt_b64url>$<hash_b64url>",
+      "phone": "13900000000",
+      "code": "0000",
+      "enabled": true
+    }
+  ]
+}

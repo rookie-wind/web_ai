@@ -1,0 +1,62 @@
+#!/bin/sh
+# 最小 TDD 强制 pre-commit 钩子（零依赖，纯 POSIX sh）。
+#
+# 两道闸门：
+#   1) 配对检查：本次若改动了 mcp_server/ 下的生产 .py，必须同时暂存
+#      mcp_server/tests/ 下的 test_*.py，否则阻断。
+#   2) 跑 pytest：只要有生产/测试 .py 改动就运行测试套件，失败即阻断。
+#
+# 逃生阀：确需跳过用 `git commit --no-verify`（应在评审/提交说明记录理由）。
+#
+# 安装：把本文件复制到 .git/hooks/pre-commit 并保证可执行、行尾为 LF。
+#   cp scripts/git-hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+
+set -u
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+cd "$REPO_ROOT" || exit 1
+
+# 解释器：优先项目虚拟环境，回退系统 python。
+PY=".venv/Scripts/python.exe"
+[ -x "$PY" ] || PY=".venv/bin/python"
+[ -x "$PY" ] || PY="python"
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACMR)
+
+# 生产代码：mcp_server/ 下 .py，排除测试目录与缓存。
+PROD=$(printf '%s\n' "$STAGED" \
+  | grep -E '^mcp_server/.*\.py$' \
+  | grep -vE '^mcp_server/tests/' \
+  | grep -v '__pycache__' \
+  | grep -v '\.pyc$' || true)
+
+# 测试改动：mcp_server/tests/ 下 test_*.py。
+TESTS=$(printf '%s\n' "$STAGED" \
+  | grep -E '^mcp_server/tests/.*test_.*\.py$' || true)
+
+prod_count=$(printf '%s\n' "$PROD" | grep -c . || true)
+test_count=$(printf '%s\n' "$TESTS" | grep -c . || true)
+
+# 闸门 1：改了生产代码却没带测试。
+if [ "$prod_count" -gt 0 ] && [ "$test_count" -eq 0 ]; then
+  echo "TDD 门禁：本次改了生产代码，但没有同步暂存测试文件。" >&2
+  echo "改动的生产文件：" >&2
+  printf '    %s\n' "$PROD" >&2
+  echo "请先补/改 mcp_server/tests 下对应 test_*.py 并 git add，再提交。" >&2
+  echo "确需跳过：git commit --no-verify（请在提交说明或评审中记录理由）。" >&2
+  exit 1
+fi
+
+echo "TDD 配对检查通过（生产改动 $prod_count 个 / 测试改动 $test_count 个）。"
+
+# 闸门 2：有 py 相关改动才跑测试，避免无谓全量。
+if [ "$prod_count" -gt 0 ] || [ "$test_count" -gt 0 ]; then
+  echo "运行 pytest ..."
+  if ! "$PY" -m pytest -q; then
+    echo "pytest 失败，已阻断提交。" >&2
+    exit 1
+  fi
+  echo "pytest 通过。"
+fi
+
+exit 0

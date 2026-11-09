@@ -47,7 +47,13 @@ archive_reports/
 *.tmp
 *.zip
 *.xlsx
+*.docx
 ~$*
+
+# --- 运行期会话/操作数据（非代码，2026-11-04 与用户确认剔除）---
+
+webchat/webchat_data/
+*.jsonl
 
 # --- 根目录临时探查脚本与草稿 ---
 

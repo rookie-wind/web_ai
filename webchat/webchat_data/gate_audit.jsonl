@@ -1,0 +1,522 @@
+{"ts": 1793266039.1714976, "session_id": "bc23ef546c8d729fe13434f8ae8855cd", "target": "add_brand", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793334679.8418062, "session_id": "c4f9d78dd5e8a3073665378731352743", "target": "add_classify", "tool_name": "add_classify", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793338957.9602876, "session_id": "e9a36163007dc22167be30353cbd57e9", "target": "add_classify", "tool_name": "add_classify", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793338960.8814564, "session_id": "e9a36163007dc22167be30353cbd57e9", "target": "add_classify", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793339127.4925086, "session_id": "20d93074f6a58683f5d63f8e4cf33da7", "target": "add_classify", "tool_name": "add_classify", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793339133.972608, "session_id": "20d93074f6a58683f5d63f8e4cf33da7", "target": "add_classify", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793339640.2617068, "session_id": "73befa19751318d73abae2bcfb18e678", "target": "add_classify", "tool_name": "add_classify", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793339641.1004646, "session_id": "73befa19751318d73abae2bcfb18e678", "target": "add_classify", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793339692.3512425, "session_id": "73befa19751318d73abae2bcfb18e678", "target": "add_classify", "tool_name": "add_classify", "decision": "allow", "reason": ""}
+{"ts": 1793340168.658967, "session_id": "73befa19751318d73abae2bcfb18e678", "target": "add_classify", "tool_name": "add_classify", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793340170.2653604, "session_id": "73befa19751318d73abae2bcfb18e678", "target": "add_classify", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793340641.6692097, "session_id": "73befa19751318d73abae2bcfb18e678", "target": "add_classify", "tool_name": "add_classify", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793340641.9401982, "session_id": "73befa19751318d73abae2bcfb18e678", "target": "add_classify", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793341110.5804713, "session_id": "73befa19751318d73abae2bcfb18e678", "target": "add_classify", "tool_name": "add_classify", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793341111.304803, "session_id": "73befa19751318d73abae2bcfb18e678", "target": "add_classify", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793341429.2556555, "session_id": "f9fcdd3256c0e21fa357fb8a74ec0327", "target": "add_classify", "tool_name": "add_classify", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793341430.308464, "session_id": "f9fcdd3256c0e21fa357fb8a74ec0327", "target": "add_classify", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793341476.6669576, "session_id": "f9fcdd3256c0e21fa357fb8a74ec0327", "target": "add_classify", "tool_name": "add_classify", "decision": "allow", "reason": ""}
+{"ts": 1793342715.6253078, "session_id": "8fb4e77ce6c82f624fab49f4b700c843", "target": "add_classify", "tool_name": "add_classify", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793342717.4923012, "session_id": "8fb4e77ce6c82f624fab49f4b700c843", "target": "add_classify", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793342765.1077473, "session_id": "8fb4e77ce6c82f624fab49f4b700c843", "target": "add_classify", "tool_name": "add_classify", "decision": "allow", "reason": ""}
+{"ts": 1793344756.7776265, "session_id": "32b37d45a4656b2e42bf80f2851878ff", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "webchat 会话已持凭据，禁用登录类工具"}
+{"ts": 1793344761.2456236, "session_id": "32b37d45a4656b2e42bf80f2851878ff", "target": "edge_get_token", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793346467.637753, "session_id": "aef792f90244b8e064415aa0dd04e851", "target": "xlpa_task_79f788fee89d68b7", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793346473.1481917, "session_id": "aef792f90244b8e064415aa0dd04e851", "target": "xlpa_task_79f788fee89d68b7", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793346473.9445074, "session_id": "aef792f90244b8e064415aa0dd04e851", "target": "xlpa_task_79f788fee89d68b7", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793346583.2535074, "session_id": "aef792f90244b8e064415aa0dd04e851", "target": "7ff9916695b3", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793346585.0504553, "session_id": "aef792f90244b8e064415aa0dd04e851", "target": "7ff9916695b3", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793346588.4991674, "session_id": "aef792f90244b8e064415aa0dd04e851", "target": "7ff9916695b3", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793346590.8201416, "session_id": "aef792f90244b8e064415aa0dd04e851", "target": "7ff9916695b3", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793346593.6470637, "session_id": "aef792f90244b8e064415aa0dd04e851", "target": "7ff9916695b3", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793346596.0548494, "session_id": "aef792f90244b8e064415aa0dd04e851", "target": "7ff9916695b3", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793346635.2819812, "session_id": "aef792f90244b8e064415aa0dd04e851", "target": "7ff9916695b3", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793346703.026214, "session_id": "a01616fdf63e0dbf898bc0fc18f2fb8d", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "webchat 会话已持凭据，禁用登录类工具"}
+{"ts": 1793346704.7457793, "session_id": "a01616fdf63e0dbf898bc0fc18f2fb8d", "target": "edge_get_token", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793346743.4512894, "session_id": "a01616fdf63e0dbf898bc0fc18f2fb8d", "target": "edge_get_token", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793346816.242033, "session_id": "a01616fdf63e0dbf898bc0fc18f2fb8d", "target": "edge_get_token", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793346855.674155, "session_id": "a01616fdf63e0dbf898bc0fc18f2fb8d", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "webchat 会话已持凭据，禁用登录类工具"}
+{"ts": 1793346857.4110727, "session_id": "a01616fdf63e0dbf898bc0fc18f2fb8d", "target": "edge_get_token", "tool_name": "", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793349135.7027075, "session_id": "bf0f8f631d541e9c3f1eb74354dd6f2c", "target": "login", "tool_name": "login", "decision": "deny", "reason": "webchat 会话已持凭据，禁用登录类工具"}
+{"ts": 1793349138.8285322, "session_id": "bf0f8f631d541e9c3f1eb74354dd6f2c", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793349140.6547768, "session_id": "bf0f8f631d541e9c3f1eb74354dd6f2c", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793349183.533227, "session_id": "bf0f8f631d541e9c3f1eb74354dd6f2c", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793349187.8479264, "session_id": "bf0f8f631d541e9c3f1eb74354dd6f2c", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793349191.108922, "session_id": "bf0f8f631d541e9c3f1eb74354dd6f2c", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793349200.0971503, "session_id": "bf0f8f631d541e9c3f1eb74354dd6f2c", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793349220.2593546, "session_id": "bf0f8f631d541e9c3f1eb74354dd6f2c", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793351067.5102067, "session_id": "1f1d793f4c99e7267a2793b715728804", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793351069.34337, "session_id": "1f1d793f4c99e7267a2793b715728804", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793351424.5168977, "session_id": "9347fbc7276d6b2068cacb543a11ef42", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793351424.5236003, "session_id": "9347fbc7276d6b2068cacb543a11ef42", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793351426.9963598, "session_id": "9347fbc7276d6b2068cacb543a11ef42", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793351437.8367698, "session_id": "9347fbc7276d6b2068cacb543a11ef42", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793351447.9712484, "session_id": "9347fbc7276d6b2068cacb543a11ef42", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793351460.3405392, "session_id": "9347fbc7276d6b2068cacb543a11ef42", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793412126.6562107, "session_id": "cc1b828b0c4976697fa5e057455901d0", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793412128.440818, "session_id": "cc1b828b0c4976697fa5e057455901d0", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793412131.0405595, "session_id": "cc1b828b0c4976697fa5e057455901d0", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793412132.814097, "session_id": "cc1b828b0c4976697fa5e057455901d0", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793412133.3661962, "session_id": "cc1b828b0c4976697fa5e057455901d0", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793412141.267861, "session_id": "cc1b828b0c4976697fa5e057455901d0", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793412233.6809893, "session_id": "cc1b828b0c4976697fa5e057455901d0", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793412760.5215437, "session_id": "0442370cd7bc00f389dd86f506b17916", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793412762.2105777, "session_id": "0442370cd7bc00f389dd86f506b17916", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793412768.2106502, "session_id": "0442370cd7bc00f389dd86f506b17916", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793412773.6379638, "session_id": "0442370cd7bc00f389dd86f506b17916", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793412809.5204592, "session_id": "0442370cd7bc00f389dd86f506b17916", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793413741.427232, "session_id": "ee305f37442022605a1c3e20bcbcfbf0", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793413743.607237, "session_id": "ee305f37442022605a1c3e20bcbcfbf0", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793413752.6101604, "session_id": "ee305f37442022605a1c3e20bcbcfbf0", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793414047.1484954, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793414049.904421, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793414077.418229, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793414085.0037832, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793414227.2375143, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "edge_token_f4038a7805b969cc", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793414227.263998, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "edge_token_f4038a7805b969cc", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793414245.564772, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "edge_token_f4038a7805b969cc", "tool_name": "edge_delete_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793414254.2380698, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "edge_token_f4038a7805b969cc", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793414269.3853116, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "edge_token_f4038a7805b969cc", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793414544.0945897, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "xlpa_task_379817ac3765a575", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793414548.0434725, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "xlpa_task_379817ac3765a575", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793414551.8606725, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "xlpa_task_379817ac3765a575", "tool_name": "execute_archive_task", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793414559.7904108, "session_id": "9feb0e77ab5b7742b55b6c90b6aac39d", "target": "xlpa_task_379817ac3765a575", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793419912.5141366, "session_id": "70f346a87dae3c6bf81324c8924d19eb", "target": "Write", "tool_name": "Write", "decision": "deny", "reason": "仅允许写入会话产物目录 xlpa-output/，当前路径越界"}
+{"ts": 1793419918.0855222, "session_id": "70f346a87dae3c6bf81324c8924d19eb", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793419923.3594456, "session_id": "70f346a87dae3c6bf81324c8924d19eb", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793419929.8509407, "session_id": "70f346a87dae3c6bf81324c8924d19eb", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793420459.6041436, "session_id": "06fd26af7fe548aad5149f716484ff5e", "target": "Write", "tool_name": "Write", "decision": "deny", "reason": "仅允许写入会话产物目录 xlpa-output/，当前路径越界"}
+{"ts": 1793420464.4677098, "session_id": "06fd26af7fe548aad5149f716484ff5e", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793420921.3115768, "session_id": "8248f583a954024508aafd9b6e3e1450", "target": "Write", "tool_name": "Write", "decision": "deny", "reason": "仅允许写入会话产物目录 xlpa-output/，当前路径越界"}
+{"ts": 1793420927.0132306, "session_id": "8248f583a954024508aafd9b6e3e1450", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793421017.4363456, "session_id": "8248f583a954024508aafd9b6e3e1450", "target": "Write", "tool_name": "Write", "decision": "deny", "reason": "仅允许生成文本类文档（md/txt/csv/json/html 等），当前扩展名不被支持"}
+{"ts": 1793421026.0966272, "session_id": "8248f583a954024508aafd9b6e3e1450", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793423498.6597102, "session_id": "8151cc7c11f210bdf9ee6b3645f0001f", "target": "Write", "tool_name": "Write", "decision": "deny", "reason": "仅允许写入会话产物目录 xlpa-output/，当前路径越界"}
+{"ts": 1793423502.0237305, "session_id": "8151cc7c11f210bdf9ee6b3645f0001f", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793423579.6778877, "session_id": "8151cc7c11f210bdf9ee6b3645f0001f", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793423611.2818537, "session_id": "8151cc7c11f210bdf9ee6b3645f0001f", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793423760.648715, "session_id": "8b9a74442346d002a7f769bb94529a1c", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793423763.0125573, "session_id": "8b9a74442346d002a7f769bb94529a1c", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793424474.8971612, "session_id": "a14c87bc8c0533d4fd31b25567dfb111", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793424509.4448054, "session_id": "a14c87bc8c0533d4fd31b25567dfb111", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793424525.926077, "session_id": "a14c87bc8c0533d4fd31b25567dfb111", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793425213.532069, "session_id": "4546366a8e257f353f076b377bb3449a", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793425216.2282429, "session_id": "4546366a8e257f353f076b377bb3449a", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793425242.2151058, "session_id": "4546366a8e257f353f076b377bb3449a", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793425250.1182058, "session_id": "4546366a8e257f353f076b377bb3449a", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793425253.212662, "session_id": "4546366a8e257f353f076b377bb3449a", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793425288.294482, "session_id": "4546366a8e257f353f076b377bb3449a", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793429986.9257128, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1793429986.9484618, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1793429992.3927755, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1793430141.7141714, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793430173.5499804, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793430180.6603205, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793430394.9083652, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_token_fe2842afdf23a3d5", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793430394.9409552, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_token_fe2842afdf23a3d5", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793430394.9493685, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_token_fe2842afdf23a3d5", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793430394.9606056, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_token_fe2842afdf23a3d5", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793430394.968038, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_token_fe2842afdf23a3d5", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793430404.8433697, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_token_fe2842afdf23a3d5", "tool_name": "edge_delete_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793430413.6199985, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_token_fe2842afdf23a3d5", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793430423.7506893, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_token_fe2842afdf23a3d5", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793430428.29994, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_token_fe2842afdf23a3d5", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793430443.897071, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_token_fe2842afdf23a3d5", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793430459.000011, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_token_fe2842afdf23a3d5", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793430505.5564, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "edge_token_fe2842afdf23a3d5", "tool_name": "edge_call_clock", "decision": "allow", "reason": ""}
+{"ts": 1793430756.0694258, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793430764.5567534, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793430775.5870469, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430785.0454564, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430788.3685908, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430789.4426763, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430790.7158504, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430794.358314, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430794.4745176, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430798.2950323, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430801.5461998, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430801.669346, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430807.8829467, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430808.030434, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430814.2815764, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430837.8933682, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430844.1409066, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430844.3049908, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430844.571724, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430852.7240803, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430860.1934884, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430860.3521707, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430860.4648745, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430860.5605626, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430869.6275525, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430869.8194988, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430869.9461482, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430870.073852, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430875.5697691, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430875.6906776, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430879.4335818, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430879.5606492, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430882.3866487, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430888.8914135, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430889.4517636, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430889.5694387, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430889.6852875, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430898.9111094, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430899.7418408, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430912.9201982, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430913.0815787, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430913.2036755, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430917.4654546, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430919.287906, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430919.4083292, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430919.513634, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430934.6423357, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430935.12802, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430935.2478304, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430947.8164983, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430947.9786994, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430948.1053298, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430948.2768905, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793430960.3055263, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1793430960.3078353, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1793430963.1108043, "session_id": "878fbcf0fc9825397c805021df6c5246", "target": "gen_script", "tool_name": "gen_script", "decision": "allow", "reason": ""}
+{"ts": 1793586888.3868604, "session_id": "f90f3931e7cb97e46aea1286e73dbd64", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1793586974.2144382, "session_id": "f90f3931e7cb97e46aea1286e73dbd64", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793586980.311261, "session_id": "f90f3931e7cb97e46aea1286e73dbd64", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793586996.231385, "session_id": "f90f3931e7cb97e46aea1286e73dbd64", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793587001.7879665, "session_id": "f90f3931e7cb97e46aea1286e73dbd64", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793590747.307283, "session_id": "3c750c2e8335b5c271d66c282df8d1b6", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793590747.324238, "session_id": "3c750c2e8335b5c271d66c282df8d1b6", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793590755.9055867, "session_id": "3c750c2e8335b5c271d66c282df8d1b6", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793590764.4383698, "session_id": "3c750c2e8335b5c271d66c282df8d1b6", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793590768.7384558, "session_id": "3c750c2e8335b5c271d66c282df8d1b6", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793590773.991727, "session_id": "3c750c2e8335b5c271d66c282df8d1b6", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793590779.626101, "session_id": "3c750c2e8335b5c271d66c282df8d1b6", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793590825.9961724, "session_id": "3c750c2e8335b5c271d66c282df8d1b6", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793591208.1076071, "session_id": "3c750c2e8335b5c271d66c282df8d1b6", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区与技能目录，当前路径越界"}
+{"ts": 1793591210.117125, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793591210.1211643, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793591225.2161531, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793591247.168686, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793591256.5035276, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793591314.857586, "session_id": "3c750c2e8335b5c271d66c282df8d1b6", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793596107.6914387, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区与技能目录，当前路径越界"}
+{"ts": 1793596120.6162097, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793596128.1434927, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区与技能目录，当前路径越界"}
+{"ts": 1793596128.1479275, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793596150.6825562, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793596178.6955347, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区与技能目录，当前路径越界"}
+{"ts": 1793596188.6303623, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "e19579d533dd", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793596234.9309723, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "xlpa_task_eba21d6ff58667be", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793596367.4460146, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "e19579d533dd", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793596370.3476112, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "xlpa_task_eba21d6ff58667be", "tool_name": "execute_archive_task", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793596377.2139702, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "xlpa_task_eba21d6ff58667be", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793596414.5559845, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "xlpa_task_eba21d6ff58667be", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793596722.4290857, "session_id": "5c8c28b0808036f51897181a75c9b1d9", "target": "xlpa_task_eba21d6ff58667be", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793596862.1955562, "session_id": "fed6f9bd340310ed5aad2a5a16ca2b0b", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793596871.2015312, "session_id": "fed6f9bd340310ed5aad2a5a16ca2b0b", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区与技能目录，当前路径越界"}
+{"ts": 1793596902.4852495, "session_id": "fed6f9bd340310ed5aad2a5a16ca2b0b", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区与技能目录，当前路径越界"}
+{"ts": 1793596915.881337, "session_id": "fed6f9bd340310ed5aad2a5a16ca2b0b", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793596927.3702474, "session_id": "3b654445389cee496d3db5b81c0598f2", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793596927.3743212, "session_id": "3b654445389cee496d3db5b81c0598f2", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793596989.6802204, "session_id": "fed6f9bd340310ed5aad2a5a16ca2b0b", "target": "xlpa_task_b8dc9ea2aeddeb60", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793596994.0252583, "session_id": "fed6f9bd340310ed5aad2a5a16ca2b0b", "target": "xlpa_task_b8dc9ea2aeddeb60", "tool_name": "execute_archive_task", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793596994.6579452, "session_id": "fed6f9bd340310ed5aad2a5a16ca2b0b", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区与技能目录，当前路径越界"}
+{"ts": 1793596996.9016304, "session_id": "fed6f9bd340310ed5aad2a5a16ca2b0b", "target": "xlpa_task_b8dc9ea2aeddeb60", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793597085.1752017, "session_id": "3b654445389cee496d3db5b81c0598f2", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793597307.4419956, "session_id": "fed6f9bd340310ed5aad2a5a16ca2b0b", "target": "xlpa_task_b8dc9ea2aeddeb60", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793597310.8038278, "session_id": "fed6f9bd340310ed5aad2a5a16ca2b0b", "target": "3489f1fca3e2", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793597716.6002166, "session_id": "fed6f9bd340310ed5aad2a5a16ca2b0b", "target": "xlpa_task_b8dc9ea2aeddeb60", "tool_name": "execute_archive_task", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793597718.1107771, "session_id": "fed6f9bd340310ed5aad2a5a16ca2b0b", "target": "3489f1fca3e2", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793598509.1561904, "session_id": "e088377e0daa72b1e2cff0d4996b7513", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793598509.2258563, "session_id": "e088377e0daa72b1e2cff0d4996b7513", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793598772.495165, "session_id": "e088377e0daa72b1e2cff0d4996b7513", "target": "login", "tool_name": "login", "decision": "deny", "reason": "webchat 会话已持凭据，禁用登录类工具"}
+{"ts": 1793598794.3473992, "session_id": "e088377e0daa72b1e2cff0d4996b7513", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区与技能目录，当前路径越界"}
+{"ts": 1793598903.1028965, "session_id": "e088377e0daa72b1e2cff0d4996b7513", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793599671.9497867, "session_id": "ddfe619cedc2f28a5945f184bb15c033", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793599672.0217457, "session_id": "ddfe619cedc2f28a5945f184bb15c033", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793599975.282197, "session_id": "ddfe619cedc2f28a5945f184bb15c033", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793600309.3818977, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793600309.4010093, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793600328.7472, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793600329.089262, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "edge_delete_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793600331.8709443, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "edge_delete_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793600336.4622324, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793600342.2385514, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793600409.5607557, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793600419.3884823, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793600436.996653, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793600458.1034756, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793600569.7088532, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793600668.986009, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区与技能目录，当前路径越界"}
+{"ts": 1793600668.9907477, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区与技能目录，当前路径越界"}
+{"ts": 1793600744.665308, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793600776.7821245, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "execute_archive_task", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793600824.0830467, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793601057.1105006, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "ae3a61bfb0a5", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793601091.3239796, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "51e2d0c53713", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793601110.1876128, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793601125.8634033, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "ae3a61bfb0a5", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793601151.1887486, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793601163.170668, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793601342.3773205, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "execute_archive_task", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793601348.3693113, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "51e2d0c53713", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793601349.1440017, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "ae3a61bfb0a5", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793601352.5526526, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793601923.1830952, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793601987.5803697, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793602019.1262841, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_4cf5caa59f76b1b3", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793602039.6578212, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "ae3a61bfb0a5", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793602083.4171534, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "83fb988b0cc6", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793602086.2143433, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "83fb988b0cc6", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793602106.051207, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_86d0c8e40b043d96", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793602107.7678447, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_86d0c8e40b043d96", "tool_name": "execute_archive_task", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793602186.8924239, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_86d0c8e40b043d96", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793602337.5354557, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "xlpa_task_86d0c8e40b043d96", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793621004.6015043, "session_id": "9eb195021c00e875520dee2dc1f30af7", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区与技能目录，当前路径越界"}
+{"ts": 1793668069.0812654, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668073.313395, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668077.386731, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793668080.6069043, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793668100.1773407, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793668105.8499398, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793668116.3334491, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668122.0297353, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Write", "tool_name": "Write", "decision": "deny", "reason": "仅允许写入会话产物目录 xlpa-output/，当前路径越界"}
+{"ts": 1793668127.6049426, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Write", "tool_name": "Write", "decision": "deny", "reason": "仅允许生成文本类文档（md/txt/csv/json/html 等），当前扩展名不被支持"}
+{"ts": 1793668130.9048884, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668137.7215238, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793668141.0700538, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668151.6684992, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793668424.1520236, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793668424.1807845, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793668424.1921592, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793668424.2011576, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793668424.2100928, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793668427.3848064, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793668430.2032826, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793668435.7395475, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793668436.7902987, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793668437.1190317, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793668437.4311454, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793668525.4834557, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793668545.8298573, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793668563.7660868, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793668565.0681458, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793668580.1308553, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "edge_token_431a535a8b476139", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793668627.471929, "session_id": "22ab5e55a70a4977066b94cdf3433e9b", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668627.4765537, "session_id": "22ab5e55a70a4977066b94cdf3433e9b", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668948.5754054, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668953.3985484, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668960.9059188, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668969.9894652, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668974.1728425, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668982.1355643, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668985.11628, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668989.7857437, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793668993.8881404, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793669001.0345554, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793669005.0104778, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793669012.9390988, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793669016.968351, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793669193.377204, "session_id": "22ab5e55a70a4977066b94cdf3433e9b", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793669333.1428347, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793669382.6964593, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793669388.5422602, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793669404.205604, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793669417.7078118, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793669506.2929509, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793669544.3704622, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793669597.9772334, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793669708.2665446, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793669724.4782124, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793670779.214132, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793670794.5481513, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793670848.6543348, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793670944.5637865, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793670955.06257, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793670975.0197268, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793671070.3210576, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793671261.583334, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793671271.4368114, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793671285.1609688, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793671361.2910378, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793671458.4328666, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793671662.357543, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793671674.9140465, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793672918.6169353, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793672936.2272146, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1793673066.5959368, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1793673149.8730102, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1793673157.977358, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1793673246.8357353, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793673264.4009871, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793673270.3404598, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793673345.669671, "session_id": "83969fbb121ffe48231f96e830c547f3", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1793673345.676028, "session_id": "83969fbb121ffe48231f96e830c547f3", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1793674377.9523563, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793674404.0384026, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793674410.726518, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793677377.8607142, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793677381.2522216, "session_id": "8280a1280e32bec8331a56b1a9dae553", "target": "140638b524d2", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793687950.7325778, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793687955.521096, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793687969.1957417, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需用户确认后重试"}
+{"ts": 1793687985.104657, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793688003.7756429, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793688378.3102062, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_token_deb53d08b3658cc7", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793688378.3450491, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_token_deb53d08b3658cc7", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793688378.3596501, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_token_deb53d08b3658cc7", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793688378.3731577, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_token_deb53d08b3658cc7", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793688378.3899465, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_token_deb53d08b3658cc7", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793688382.752019, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_token_deb53d08b3658cc7", "tool_name": "edge_delete_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793688399.8313053, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_token_deb53d08b3658cc7", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793688461.6483893, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_token_deb53d08b3658cc7", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793688487.1663773, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_token_deb53d08b3658cc7", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793688500.0872946, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_token_deb53d08b3658cc7", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793688519.1141515, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "edge_token_deb53d08b3658cc7", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793688691.9554536, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793688733.6939588, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793688737.8608556, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793688753.7212505, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793688791.6828265, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793688794.9414825, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793688848.2607498, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793688892.8208523, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793688966.9724684, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793689044.8286319, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793689128.6721482, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793689217.8629353, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793689279.5635746, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793689470.8035963, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793689877.8414614, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_mount_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793689944.5755527, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_mount_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793689960.8018222, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "4508fa7a9298", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793690022.8428571, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "0e864f802caa", "tool_name": "edge_mount_device", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793690026.2824225, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "0e864f802caa", "tool_name": "edge_mount_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793690087.4064462, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "0e864f802caa", "tool_name": "edge_mount_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793690107.7048633, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "0e864f802caa", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793690165.8445754, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "xlpa_task_109e9fc191ba6c3c", "tool_name": "execute_archive_task", "decision": "deny", "reason": "写入需用户确认后重试"}
+{"ts": 1793690173.1610432, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "xlpa_task_109e9fc191ba6c3c", "tool_name": "execute_archive_task", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793690295.7202039, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "xlpa_task_109e9fc191ba6c3c", "tool_name": "execute_archive_task", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793690309.9228387, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "xlpa_task_109e9fc191ba6c3c", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793690517.236661, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "xlpa_task_109e9fc191ba6c3c", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793690627.1312072, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "xlpa_task_109e9fc191ba6c3c", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793690737.790908, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "xlpa_task_109e9fc191ba6c3c", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793690847.3646207, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "xlpa_task_109e9fc191ba6c3c", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793691011.781734, "session_id": "f474708b05ff8ef82c2c29255aaa09f3", "target": "xlpa_task_109e9fc191ba6c3c", "tool_name": "execute_archive_task", "decision": "allow", "reason": ""}
+{"ts": 1793694240.678536, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需在确认卡片内填写凭据后重试"}
+{"ts": 1793694267.9349878, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793694270.9956408, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793694737.6281884, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "edge_token_9e573e335b15b83c", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1793694830.8599164, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "edge_token_9e573e335b15b83c", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1793694846.8646297, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "edge_token_9e573e335b15b83c", "tool_name": "edge_delete_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793694850.6634333, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "edge_token_9e573e335b15b83c", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793694874.9536748, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "edge_token_9e573e335b15b83c", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793694891.2260199, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "edge_token_9e573e335b15b83c", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793694969.2843106, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "edge_token_9e573e335b15b83c", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793694988.815061, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "edge_token_9e573e335b15b83c", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793695166.6175554, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695166.621959, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695171.5847733, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695171.5894625, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695177.211782, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695177.216018, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695181.660764, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695187.2418437, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695198.6860855, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695204.9213202, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695209.9620943, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695215.142018, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695223.360829, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695230.6493633, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695274.5381014, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "edge_token_9e573e335b15b83c", "tool_name": "edge_delete_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793695292.6659439, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793695315.9844956, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1793695418.3567903, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793695433.7469354, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793695509.4130907, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793695648.8874757, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1793695742.5217183, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793695803.6182382, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793695906.4053547, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1793695986.0222783, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793696090.016658, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793696293.455593, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1793696432.9925714, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793696522.904456, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793696658.7770338, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1793696696.7161524, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1793696819.2292252, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_save_device_parameters", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793696834.627147, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1793696882.0975857, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793696886.0948195, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793696919.1716475, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "0da4d5c393dd", "tool_name": "edge_save_device_parameters", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793696932.6537523, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "cc8dcd291fb2", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1793697009.1323433, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "cc8dcd291fb2", "tool_name": "edge_save_device_parameters", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793697033.9201639, "session_id": "5cf2ef36ad770eb08f8038252ac97cf4", "target": "cc8dcd291fb2", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1793760651.9063659, "session_id": "9b9976c45680116be098673683091093", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793760663.5938652, "session_id": "9b9976c45680116be098673683091093", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793760740.4863844, "session_id": "9b9976c45680116be098673683091093", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793763430.3292403, "session_id": "9b9976c45680116be098673683091093", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1793841030.8404775, "session_id": "af41396315907f416ce7615d637fbc33", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区、技能目录与配置的额外目录，当前路径越界"}
+{"ts": 1793841034.4949763, "session_id": "af41396315907f416ce7615d637fbc33", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793841054.697392, "session_id": "af41396315907f416ce7615d637fbc33", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793841064.624466, "session_id": "af41396315907f416ce7615d637fbc33", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793841080.8065286, "session_id": "af41396315907f416ce7615d637fbc33", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793841797.990284, "session_id": "af41396315907f416ce7615d637fbc33", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793841847.0487447, "session_id": "af41396315907f416ce7615d637fbc33", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793841850.8620858, "session_id": "af41396315907f416ce7615d637fbc33", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793841867.8155694, "session_id": "af41396315907f416ce7615d637fbc33", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793841876.9892466, "session_id": "af41396315907f416ce7615d637fbc33", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793842654.6486068, "session_id": "af41396315907f416ce7615d637fbc33", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793842669.8633144, "session_id": "af41396315907f416ce7615d637fbc33", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793863708.5616, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793863729.8375273, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793863729.8834984, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区、技能目录与配置的额外目录，当前路径越界"}
+{"ts": 1793863729.8883703, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793863743.1353393, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793865046.7001536, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "08ceab6f87c4", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1793865095.2094455, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "08ceab6f87c4", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793865107.2011595, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "08ceab6f87c4", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793865117.1555896, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "08ceab6f87c4", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793865133.4786217, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "09464c790f98", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1793865183.448991, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "09464c790f98", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793865189.228119, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "09464c790f98", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793865203.3755012, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793866081.3538864, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "4736070b6015", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1793866103.3597631, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "4736070b6015", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793866108.7377932, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "4736070b6015", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1793866118.5982826, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "4736070b6015", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1793866133.888298, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "4736070b6015", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1793866159.2867138, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793867964.709844, "session_id": "f856d009826ceec4d27463d91cea9094", "target": "4736070b6015", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793868363.826091, "session_id": "13f19cbb5e9d1a980dff03d5ca71068d", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793868367.8415103, "session_id": "13f19cbb5e9d1a980dff03d5ca71068d", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793868371.5550752, "session_id": "13f19cbb5e9d1a980dff03d5ca71068d", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需在确认卡片内填写凭据后重试"}
+{"ts": 1793868709.3146188, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793868713.924458, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区、技能目录与配置的额外目录，当前路径越界"}
+{"ts": 1793868713.9310603, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1793868717.388815, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需在确认卡片内填写凭据后重试"}
+{"ts": 1793868720.0579767, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需在确认卡片内填写凭据后重试"}
+{"ts": 1793868729.5186582, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793868732.0521965, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793868997.0635536, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1793868997.0801404, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1793869087.798659, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793869099.40513, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793869099.651975, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793869104.2678576, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793869104.4530916, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793869253.1146855, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793869259.5536394, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793869264.0558534, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793869287.6881115, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793869305.2834258, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793869324.6793587, "session_id": "3177a91f21f9e4dfd5caef4b9776bda7", "target": "edge_token_02471694a2e27a97", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793951267.4233687, "session_id": "bc8b1fb0e363703947ba8cafc5545e54", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需在确认卡片内填写凭据后重试"}
+{"ts": 1793951281.160669, "session_id": "bc8b1fb0e363703947ba8cafc5545e54", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793951285.411093, "session_id": "bc8b1fb0e363703947ba8cafc5545e54", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1793951424.0137641, "session_id": "bc8b1fb0e363703947ba8cafc5545e54", "target": "edge_token_a9e0cde399a17d8e", "tool_name": "edge_delete_device", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1793951498.6307635, "session_id": "bc8b1fb0e363703947ba8cafc5545e54", "target": "edge_token_a9e0cde399a17d8e", "tool_name": "edge_delete_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1793951502.756288, "session_id": "bc8b1fb0e363703947ba8cafc5545e54", "target": "edge_token_a9e0cde399a17d8e", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1793951608.0143523, "session_id": "bc8b1fb0e363703947ba8cafc5545e54", "target": "edge_token_a9e0cde399a17d8e", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}

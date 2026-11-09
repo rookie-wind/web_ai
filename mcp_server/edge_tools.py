@@ -238,6 +238,9 @@ class EdgeSession:
         self.pending_action: dict | None = None
         self.action_outcomes: dict[str, dict] = {}
         self.evidence_revision = 0
+        # 协作式中止代际：cancel 端点递增；执行工作流仅在代际变化时停止，
+        # 避免上一次已消费的中止请求影响下一次执行。
+        self.cancel_generation = 0
 
     def is_expired(self) -> bool:
         """判断会话是否已过期。"""
@@ -3640,7 +3643,15 @@ def register_edge_tools(mcp, template_dict_source=None) -> None:
         next_cursor = total_units
         stopped = False
         pending = False
+        cancelled = False
+        cancel_generation = session.cancel_generation
         while idx < total_units:
+            # 协作式中止：当前单元完成后不再进入下一单元
+            if session.cancel_generation != cancel_generation:
+                cancelled = True
+                next_cursor = idx
+                stopped = True
+                break
             kind, runner = units[idx]
             if kind == "deploy" and not auto_confirm:
                 pending = True
@@ -3672,11 +3683,12 @@ def register_edge_tools(mcp, template_dict_source=None) -> None:
                 "plan_id": plan_id, "stages_requested": stages,
                 "mode": "partial", "cursor": cursor_out,
                 "remaining": remaining, "details": details,
+                "cancelled": False,
             }
         return _aggregate_workflow_results(
             task_id, plan_id, results, details, session,
             stages_requested=stages, cursor=cursor_out, remaining=remaining,
-            partial=bool(cursor_out),
+            partial=bool(cursor_out), cancelled=cancelled,
         )
 
     def _execute_standalone_workflow(
@@ -3853,6 +3865,7 @@ def register_edge_tools(mcp, template_dict_source=None) -> None:
         cursor: str = "",
         remaining: int = 0,
         partial: bool = False,
+        cancelled: bool = False,
     ) -> dict:
         """汇总工作流执行结果（区分成功/跳过/失败，含分批游标）。"""
         total = len(details)
@@ -3871,11 +3884,12 @@ def register_edge_tools(mcp, template_dict_source=None) -> None:
                 }
 
         return {
-            "ok": failed == 0,
+            "ok": failed == 0 and not cancelled,
             "task_id": task_id,
             "plan_id": plan_id,
             "stages_requested": stages_requested,
-            "partial": partial,
+            "partial": partial or cancelled,
+            "cancelled": cancelled,
             "cursor": cursor,
             "remaining": remaining,
             "summary": {

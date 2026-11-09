@@ -19,6 +19,7 @@ import os
 import re
 import sys
 import tempfile
+import time
 from collections.abc import Iterator
 from datetime import datetime
 from decimal import Decimal
@@ -411,6 +412,72 @@ class TestTokenRegistryV3:
             assert entry["family"] == "webchat"
             assert entry["owner_ref"]
             assert entry["expires_at"] is not None
+        finally:
+            tmp.unlink(missing_ok=True)
+
+    def test_touch_token_slides_expiry_within_cap(self):
+        """webchat 族 touch_token 滑动续期：临近到期时刷回一个签发窗口。"""
+        import server as srv
+        from server import TokenManager
+
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as f:
+            tmp = Path(f.name)
+        try:
+            srv.MINT_TTL_CAP = 86400
+            mgr = TokenManager(admin_token="admin_tok", registry_path=tmp)
+            web_tok = mgr.mint_token("alice", 3600)
+            # 模拟长时间会话：把到期推到很近
+            mgr.tokens[web_tok]["expires_at"] = int(time.time()) + 1
+            assert mgr.is_valid(web_tok)
+            mgr.touch_token(web_tok)
+            # 滑动后应回到 now+3600 附近，且不越过绝对封顶
+            assert mgr.tokens[web_tok]["expires_at"] >= int(time.time()) + 3000
+            assert mgr.is_valid(web_tok)
+        finally:
+            tmp.unlink(missing_ok=True)
+
+    def test_touch_token_respects_absolute_cap(self):
+        """滑动续期不超过 createdAt + MINT_TTL_CAP：超寿命上限的凭据不可续命。"""
+        import server as srv
+        from server import TokenManager
+
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as f:
+            tmp = Path(f.name)
+        try:
+            srv.MINT_TTL_CAP = 86400
+            mgr = TokenManager(admin_token="admin_tok", registry_path=tmp)
+            web_tok = mgr.mint_token("bob", 7200)
+            # createdAt 早于 (now - cap)：封顶目标仍在过去，续期不得拉到未来
+            mgr.tokens[web_tok]["createdAt"] = int(time.time()) - 90000
+            mgr.tokens[web_tok]["expires_at"] = int(time.time()) - 1
+            mgr.touch_token(web_tok)
+            assert mgr.tokens[web_tok]["expires_at"] <= int(time.time())
+            assert not mgr.is_valid(web_tok)
+        finally:
+            tmp.unlink(missing_ok=True)
+
+    def test_ttl_seconds_survives_registry_reload(self):
+        """P1 回归：ttl_seconds 必须在 registry 写盘→重载归一化后保留。
+
+        服务重启用同一路径重建 TokenManager 会触发 _normalize_entry；
+        若签发窗口被丢弃，touch_token 退化为按 expires_at-createdAt 回推复利。
+        """
+        from server import TokenManager
+
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as f:
+            tmp = Path(f.name)
+        try:
+            mgr = TokenManager(admin_token="admin_tok", registry_path=tmp)
+            tok = mgr.mint_token("carol", 7200)
+            assert mgr.get_entry(tok)["ttl_seconds"] == 7200
+            # 模拟服务重启：用同一 registry 路径重建，触发加载/归一化
+            reloaded = TokenManager(admin_token="admin_tok", registry_path=tmp)
+            entry = reloaded.get_entry(tok)
+            assert entry.get("ttl_seconds") == 7200
+            # 临近到期后按原签发窗口滑动续期，不得退化为回推的小窗口
+            reloaded.tokens[tok]["expires_at"] = int(time.time()) + 1
+            reloaded.touch_token(tok)
+            assert reloaded.tokens[tok]["expires_at"] >= int(time.time()) + 7000
         finally:
             tmp.unlink(missing_ok=True)
 

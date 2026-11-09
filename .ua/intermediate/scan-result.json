@@ -1,31 +1,175 @@
 {
   "name": "pca-mcp-server",
-  "description": "协议转换平台 MCP Server：以 FastMCP/ASGI 网关对外暴露设备建档、协议转换配置生成、品牌型号管理与边缘联通召测等工具，并托管 Agent 技能资源包的打包与分发。",
+  "description": "协议转换平台 MCP Server，提供设备建档、协议转换、品牌型号管理等工具，通过 FastMCP ASGI 网关对外暴露；内含 webchat 会话前端与自动建档引擎。 Note: this project has over 100 source files; consider scoping analysis to a subdirectory for faster results.",
   "languages": [
     "batch",
     "c",
     "config",
-    "docx",
+    "css",
     "html",
+    "javascript",
     "json",
     "markdown",
     "powershell",
     "python",
     "txt",
+    "unknown",
     "yaml"
   ],
   "frameworks": [
     "FastMCP",
+    "FastAPI",
     "uvicorn",
     "httpx",
-    "pytest"
+    "pytest",
+    "python-multipart",
+    "PyMuPDF",
+    "rapidocr"
   ],
   "files": [
+    {
+      "path": "AMC_V3.10.md",
+      "language": "markdown",
+      "sizeLines": 2228,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "GLOSSARY.md",
+      "language": "markdown",
+      "sizeLines": 45,
+      "fileCategory": "docs"
+    },
     {
       "path": "README.md",
       "language": "markdown",
       "sizeLines": 65,
       "fileCategory": "docs"
+    },
+    {
+      "path": "_ac1_drill.py",
+      "language": "python",
+      "sizeLines": 568,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_ac1_probe.py",
+      "language": "python",
+      "sizeLines": 353,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_ac1_run/phaseA.json",
+      "language": "json",
+      "sizeLines": 1555,
+      "fileCategory": "config"
+    },
+    {
+      "path": "_ac1_run/phaseB.json",
+      "language": "json",
+      "sizeLines": 87,
+      "fileCategory": "config"
+    },
+    {
+      "path": "_ac1_serve.py",
+      "language": "python",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_e2e_webchat.py",
+      "language": "python",
+      "sizeLines": 133,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_edge_page_drill.py",
+      "language": "python",
+      "sizeLines": 156,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_pdf_to_md.py",
+      "language": "python",
+      "sizeLines": 157,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_probe_activate.py",
+      "language": "python",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_probe_credit.py",
+      "language": "python",
+      "sizeLines": 126,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_probe_mcp_login.py",
+      "language": "python",
+      "sizeLines": 64,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_restart_and_verify_webchat.py",
+      "language": "python",
+      "sizeLines": 150,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_scan_gate_pattern.py",
+      "language": "python",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_smoke_serve_mcp.py",
+      "language": "python",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_smoke_skills_v10.py",
+      "language": "python",
+      "sizeLines": 183,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_smoke_skills_v6.py",
+      "language": "python",
+      "sizeLines": 141,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_smoke_skills_v7.py",
+      "language": "python",
+      "sizeLines": 127,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_smoke_skills_v8.py",
+      "language": "python",
+      "sizeLines": 140,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_smoke_skills_v9.py",
+      "language": "python",
+      "sizeLines": 158,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_smoke_websearch.py",
+      "language": "python",
+      "sizeLines": 207,
+      "fileCategory": "code"
+    },
+    {
+      "path": "_smoke_websearch_v5.py",
+      "language": "python",
+      "sizeLines": 234,
+      "fileCategory": "code"
     },
     {
       "path": "_verify_download_fix.ps1",
@@ -34,15 +178,15 @@
       "fileCategory": "script"
     },
     {
-      "path": "_vm_list.txt",
-      "language": "txt",
-      "sizeLines": 27,
-      "fileCategory": "docs"
+      "path": "_verify_pdf_md.py",
+      "language": "python",
+      "sizeLines": 261,
+      "fileCategory": "code"
     },
     {
       "path": "agent_assets/skills/http-conversion/SKILL.md",
       "language": "markdown",
-      "sizeLines": 586,
+      "sizeLines": 590,
       "fileCategory": "docs"
     },
     {
@@ -70,22 +214,10 @@
       "fileCategory": "config"
     },
     {
-      "path": "agent_assets/skills/http-conversion/references/原子标签定义.docx",
-      "language": "docx",
-      "sizeLines": 515,
-      "fileCategory": "code"
-    },
-    {
       "path": "agent_assets/skills/http-conversion/references/原子标签定义.md",
       "language": "markdown",
       "sizeLines": 1270,
       "fileCategory": "docs"
-    },
-    {
-      "path": "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.docx",
-      "language": "docx",
-      "sizeLines": 83,
-      "fileCategory": "code"
     },
     {
       "path": "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.md",
@@ -94,15 +226,9 @@
       "fileCategory": "docs"
     },
     {
-      "path": "agent_assets/skills/http-conversion/references/数据采集通信协议.docx",
-      "language": "docx",
-      "sizeLines": 6101,
-      "fileCategory": "code"
-    },
-    {
       "path": "agent_assets/skills/modbus-conversion/SKILL.md",
       "language": "markdown",
-      "sizeLines": 1015,
+      "sizeLines": 1034,
       "fileCategory": "docs"
     },
     {
@@ -118,22 +244,10 @@
       "fileCategory": "config"
     },
     {
-      "path": "agent_assets/skills/modbus-conversion/references/原子标签定义.docx",
-      "language": "docx",
-      "sizeLines": 515,
-      "fileCategory": "code"
-    },
-    {
       "path": "agent_assets/skills/modbus-conversion/references/原子标签定义.md",
       "language": "markdown",
       "sizeLines": 1270,
       "fileCategory": "docs"
-    },
-    {
-      "path": "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.docx",
-      "language": "docx",
-      "sizeLines": 83,
-      "fileCategory": "code"
     },
     {
       "path": "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.md",
@@ -142,15 +256,9 @@
       "fileCategory": "docs"
     },
     {
-      "path": "agent_assets/skills/modbus-conversion/references/数据采集通信协议.docx",
-      "language": "docx",
-      "sizeLines": 6101,
-      "fileCategory": "code"
-    },
-    {
       "path": "agent_assets/skills/modbus-cq-adapt/SKILL.md",
       "language": "markdown",
-      "sizeLines": 196,
+      "sizeLines": 199,
       "fileCategory": "docs"
     },
     {
@@ -168,7 +276,7 @@
     {
       "path": "agent_assets/skills/mqtt-conversion/SKILL.md",
       "language": "markdown",
-      "sizeLines": 461,
+      "sizeLines": 465,
       "fileCategory": "docs"
     },
     {
@@ -190,22 +298,10 @@
       "fileCategory": "config"
     },
     {
-      "path": "agent_assets/skills/mqtt-conversion/references/原子标签定义.docx",
-      "language": "docx",
-      "sizeLines": 515,
-      "fileCategory": "code"
-    },
-    {
       "path": "agent_assets/skills/mqtt-conversion/references/原子标签定义.md",
       "language": "markdown",
       "sizeLines": 1270,
       "fileCategory": "docs"
-    },
-    {
-      "path": "agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.docx",
-      "language": "docx",
-      "sizeLines": 83,
-      "fileCategory": "code"
     },
     {
       "path": "agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.md",
@@ -214,15 +310,9 @@
       "fileCategory": "docs"
     },
     {
-      "path": "agent_assets/skills/mqtt-conversion/references/数据采集通信协议.docx",
-      "language": "docx",
-      "sizeLines": 6101,
-      "fileCategory": "code"
-    },
-    {
       "path": "agent_assets/skills/pack-distribution/SKILL.md",
       "language": "markdown",
-      "sizeLines": 161,
+      "sizeLines": 162,
       "fileCategory": "docs"
     },
     {
@@ -246,7 +336,7 @@
     {
       "path": "agent_assets/skills/protocol-conversion/SKILL.md",
       "language": "markdown",
-      "sizeLines": 460,
+      "sizeLines": 474,
       "fileCategory": "docs"
     },
     {
@@ -300,7 +390,7 @@
     {
       "path": "agent_assets/skills/test-validation/SKILL.md",
       "language": "markdown",
-      "sizeLines": 204,
+      "sizeLines": 209,
       "fileCategory": "docs"
     },
     {
@@ -318,7 +408,7 @@
     {
       "path": "agent_assets/skills/xlpa-device-archiving/SKILL.md",
       "language": "markdown",
-      "sizeLines": 284,
+      "sizeLines": 288,
       "fileCategory": "docs"
     },
     {
@@ -372,7 +462,7 @@
     {
       "path": "agent_assets/skills/xlpa/SKILL.md",
       "language": "markdown",
-      "sizeLines": 782,
+      "sizeLines": 790,
       "fileCategory": "docs"
     },
     {
@@ -394,6 +484,24 @@
       "fileCategory": "code"
     },
     {
+      "path": "docs/adr/0001-access-token-sliding-renewal.md",
+      "language": "markdown",
+      "sizeLines": 12,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/adr/0002-gate-grant-sliding-consumption.md",
+      "language": "markdown",
+      "sizeLines": 12,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/adr/0003-gate-card-trigger-narrowing.md",
+      "language": "markdown",
+      "sizeLines": 14,
+      "fileCategory": "docs"
+    },
+    {
       "path": "docs/architecture/project-structure.md",
       "language": "markdown",
       "sizeLines": 312,
@@ -409,6 +517,12 @@
       "path": "docs/deployment/mcp-server.md",
       "language": "markdown",
       "sizeLines": 704,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/deployment/public-access-checklist.md",
+      "language": "markdown",
+      "sizeLines": 298,
       "fileCategory": "docs"
     },
     {
@@ -436,15 +550,27 @@
       "fileCategory": "docs"
     },
     {
-      "path": "mcp_server/.env",
+      "path": "docs/reference/requirement-workflow.md",
+      "language": "markdown",
+      "sizeLines": 94,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/requirements/web-mobile-access-requirements.md",
+      "language": "markdown",
+      "sizeLines": 390,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "mcp_server/.env.example",
       "language": "config",
-      "sizeLines": 1,
+      "sizeLines": 24,
       "fileCategory": "config"
     },
     {
       "path": "mcp_server/README.md",
       "language": "markdown",
-      "sizeLines": 226,
+      "sizeLines": 232,
       "fileCategory": "docs"
     },
     {
@@ -600,7 +726,7 @@
     {
       "path": "mcp_server/archiving/templates/generator.py",
       "language": "python",
-      "sizeLines": 691,
+      "sizeLines": 744,
       "fileCategory": "code"
     },
     {
@@ -622,6 +748,54 @@
       "fileCategory": "code"
     },
     {
+      "path": "mcp_server/conversion/__init__.py",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/conversion/conversion_tools.py",
+      "language": "python",
+      "sizeLines": 381,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/conversion/executor.py",
+      "language": "python",
+      "sizeLines": 99,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/conversion/report_store.py",
+      "language": "python",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/conversion/sandbox_runner.py",
+      "language": "python",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/conversion/testdata.py",
+      "language": "python",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/conversion/validator.py",
+      "language": "python",
+      "sizeLines": 200,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/conversion_reports/1c41b244928f0a85eb648de814e6f0b7.json",
+      "language": "json",
+      "sizeLines": 0,
+      "fileCategory": "config"
+    },
+    {
       "path": "mcp_server/edge_client.py",
       "language": "python",
       "sizeLines": 582,
@@ -636,7 +810,7 @@
     {
       "path": "mcp_server/edge_tools.py",
       "language": "python",
-      "sizeLines": 4753,
+      "sizeLines": 4898,
       "fileCategory": "code"
     },
     {
@@ -684,13 +858,13 @@
     {
       "path": "mcp_server/server.py",
       "language": "python",
-      "sizeLines": 452,
+      "sizeLines": 3626,
       "fileCategory": "code"
     },
     {
       "path": "mcp_server/session.py",
       "language": "python",
-      "sizeLines": 105,
+      "sizeLines": 110,
       "fileCategory": "code"
     },
     {
@@ -718,6 +892,12 @@
       "fileCategory": "code"
     },
     {
+      "path": "mcp_server/tests/test_archive_cancel.py",
+      "language": "python",
+      "sizeLines": 61,
+      "fileCategory": "code"
+    },
+    {
       "path": "mcp_server/tests/test_archiving_template.py",
       "language": "python",
       "sizeLines": 5478,
@@ -736,9 +916,21 @@
       "fileCategory": "code"
     },
     {
+      "path": "mcp_server/tests/test_conversion_tools.py",
+      "language": "python",
+      "sizeLines": 331,
+      "fileCategory": "code"
+    },
+    {
       "path": "mcp_server/tests/test_deploy_from_archive.py",
       "language": "python",
       "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_edge_read_pagination.py",
+      "language": "python",
+      "sizeLines": 163,
       "fileCategory": "code"
     },
     {
@@ -757,6 +949,12 @@
       "path": "mcp_server/tests/test_get_device_parameters.py",
       "language": "python",
       "sizeLines": 123,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_server/tests/test_mcp_token_mint.py",
+      "language": "python",
+      "sizeLines": 195,
       "fileCategory": "code"
     },
     {
@@ -796,9 +994,15 @@
       "fileCategory": "code"
     },
     {
+      "path": "mcp_server/tests/test_public_exposure_gating.py",
+      "language": "python",
+      "sizeLines": 319,
+      "fileCategory": "code"
+    },
+    {
       "path": "mcp_server/tests/test_refactor.py",
       "language": "python",
-      "sizeLines": 1662,
+      "sizeLines": 1800,
       "fileCategory": "code"
     },
     {
@@ -854,33 +1058,444 @@
       "language": "config",
       "sizeLines": 4,
       "fileCategory": "config"
+    },
+    {
+      "path": "scripts/git-hooks/pre-commit",
+      "language": "unknown",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "skills-lock.json",
+      "language": "json",
+      "sizeLines": 167,
+      "fileCategory": "config"
+    },
+    {
+      "path": "webchat/README.md",
+      "language": "markdown",
+      "sizeLines": 186,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "webchat/pytest.ini",
+      "language": "config",
+      "sizeLines": 4,
+      "fileCategory": "config"
+    },
+    {
+      "path": "webchat/requirements-dev.txt",
+      "language": "txt",
+      "sizeLines": 8,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "webchat/requirements.txt",
+      "language": "txt",
+      "sizeLines": 14,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "webchat/tests/__init__.py",
+      "language": "python",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/conftest.py",
+      "language": "python",
+      "sizeLines": 150,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/fake_sdk_client.py",
+      "language": "python",
+      "sizeLines": 82,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_account_auth.py",
+      "language": "python",
+      "sizeLines": 349,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_artifact_config.py",
+      "language": "python",
+      "sizeLines": 113,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_artifacts_download.py",
+      "language": "python",
+      "sizeLines": 192,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_artifacts_upload.py",
+      "language": "python",
+      "sizeLines": 351,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_e2e_artifact_flow.py",
+      "language": "python",
+      "sizeLines": 127,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_event_stream.py",
+      "language": "python",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_gate_hook.py",
+      "language": "python",
+      "sizeLines": 250,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_grants.py",
+      "language": "python",
+      "sizeLines": 644,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_ocr.py",
+      "language": "python",
+      "sizeLines": 101,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_pdf_extract.py",
+      "language": "python",
+      "sizeLines": 154,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_public_hardening_backend.py",
+      "language": "python",
+      "sizeLines": 449,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_remote_artifacts.py",
+      "language": "python",
+      "sizeLines": 195,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_retention.py",
+      "language": "python",
+      "sizeLines": 118,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_runtime.py",
+      "language": "python",
+      "sizeLines": 385,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_sdk_runtime.py",
+      "language": "python",
+      "sizeLines": 256,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_sessions_api.py",
+      "language": "python",
+      "sizeLines": 340,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_skills.py",
+      "language": "python",
+      "sizeLines": 156,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tests/test_static_frontend.py",
+      "language": "python",
+      "sizeLines": 170,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tools/capture_mobile.py",
+      "language": "python",
+      "sizeLines": 110,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tools/dev_smoke_server.py",
+      "language": "python",
+      "sizeLines": 154,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/tools/load_sse.py",
+      "language": "python",
+      "sizeLines": 156,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/__init__.py",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/__main__.py",
+      "language": "python",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/accounts.py",
+      "language": "python",
+      "sizeLines": 143,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/api.py",
+      "language": "python",
+      "sizeLines": 286,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/artifacts.py",
+      "language": "python",
+      "sizeLines": 460,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/config.py",
+      "language": "python",
+      "sizeLines": 319,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/errors.py",
+      "language": "python",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/event_store.py",
+      "language": "python",
+      "sizeLines": 159,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/gate_audit.py",
+      "language": "python",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/grants.py",
+      "language": "python",
+      "sizeLines": 823,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/hash_password.py",
+      "language": "python",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/hashing.py",
+      "language": "python",
+      "sizeLines": 68,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/ocr.py",
+      "language": "python",
+      "sizeLines": 149,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/pdf_extract.py",
+      "language": "python",
+      "sizeLines": 157,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/platform_auth.py",
+      "language": "python",
+      "sizeLines": 164,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/ratelimit.py",
+      "language": "python",
+      "sizeLines": 89,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/retention.py",
+      "language": "python",
+      "sizeLines": 127,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/runtime.py",
+      "language": "python",
+      "sizeLines": 815,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/sdk_runtime/__init__.py",
+      "language": "python",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/sdk_runtime/adapter.py",
+      "language": "python",
+      "sizeLines": 628,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/sdk_runtime/events.py",
+      "language": "python",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/sdk_runtime/login_activation.py",
+      "language": "python",
+      "sizeLines": 105,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/sessions.py",
+      "language": "python",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/sessions_api.py",
+      "language": "python",
+      "sizeLines": 320,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/skills.py",
+      "language": "python",
+      "sizeLines": 142,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/static/app.css",
+      "language": "css",
+      "sizeLines": 392,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "webchat/webchat/static/index.html",
+      "language": "html",
+      "sizeLines": 71,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "webchat/webchat/static/js/api.js",
+      "language": "javascript",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/static/js/app.js",
+      "language": "javascript",
+      "sizeLines": 948,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat/static/js/sse.js",
+      "language": "javascript",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "webchat/webchat_accounts.template.json",
+      "language": "json",
+      "sizeLines": 11,
+      "fileCategory": "config"
     }
   ],
-  "totalFiles": 139,
-  "filteredByIgnore": 339,
-  "estimatedComplexity": "moderate",
+  "totalFiles": 233,
+  "filteredByIgnore": 4364,
+  "estimatedComplexity": "large",
   "importMap": {
+    "AMC_V3.10.md": [],
+    "GLOSSARY.md": [],
     "README.md": [],
+    "_ac1_drill.py": [
+      "_ac1_probe.py"
+    ],
+    "_ac1_probe.py": [],
+    "_ac1_run/phaseA.json": [],
+    "_ac1_run/phaseB.json": [],
+    "_ac1_serve.py": [
+      "_ac1_probe.py"
+    ],
+    "_e2e_webchat.py": [],
+    "_edge_page_drill.py": [
+      "_ac1_probe.py"
+    ],
+    "_pdf_to_md.py": [],
+    "_probe_activate.py": [],
+    "_probe_credit.py": [
+      "_ac1_probe.py"
+    ],
+    "_probe_mcp_login.py": [],
+    "_restart_and_verify_webchat.py": [
+      "_ac1_probe.py"
+    ],
+    "_scan_gate_pattern.py": [],
+    "_smoke_serve_mcp.py": [
+      "_ac1_probe.py"
+    ],
+    "_smoke_skills_v10.py": [
+      "_ac1_probe.py"
+    ],
+    "_smoke_skills_v6.py": [
+      "_ac1_probe.py"
+    ],
+    "_smoke_skills_v7.py": [
+      "_ac1_probe.py"
+    ],
+    "_smoke_skills_v8.py": [
+      "_ac1_probe.py"
+    ],
+    "_smoke_skills_v9.py": [
+      "_ac1_probe.py"
+    ],
+    "_smoke_websearch.py": [
+      "_ac1_probe.py"
+    ],
+    "_smoke_websearch_v5.py": [
+      "_ac1_probe.py"
+    ],
     "_verify_download_fix.ps1": [],
-    "_vm_list.txt": [],
+    "_verify_pdf_md.py": [
+      "_ac1_probe.py"
+    ],
     "agent_assets/skills/http-conversion/SKILL.md": [],
     "agent_assets/skills/http-conversion/agents/openai.yaml": [],
     "agent_assets/skills/http-conversion/manifest.json": [],
     "agent_assets/skills/http-conversion/references/examples/aimcover-http.json": [],
     "agent_assets/skills/http-conversion/references/examples/linktheall-http.json": [],
-    "agent_assets/skills/http-conversion/references/原子标签定义.docx": [],
     "agent_assets/skills/http-conversion/references/原子标签定义.md": [],
-    "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.docx": [],
     "agent_assets/skills/http-conversion/references/多类型设备集成系统大类号说明.md": [],
-    "agent_assets/skills/http-conversion/references/数据采集通信协议.docx": [],
     "agent_assets/skills/modbus-conversion/SKILL.md": [],
     "agent_assets/skills/modbus-conversion/agents/openai.yaml": [],
     "agent_assets/skills/modbus-conversion/manifest.json": [],
-    "agent_assets/skills/modbus-conversion/references/原子标签定义.docx": [],
     "agent_assets/skills/modbus-conversion/references/原子标签定义.md": [],
-    "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.docx": [],
     "agent_assets/skills/modbus-conversion/references/多类型设备集成系统大类号说明.md": [],
-    "agent_assets/skills/modbus-conversion/references/数据采集通信协议.docx": [],
     "agent_assets/skills/modbus-cq-adapt/SKILL.md": [],
     "agent_assets/skills/modbus-cq-adapt/agents/openai.yaml": [],
     "agent_assets/skills/modbus-cq-adapt/manifest.json": [],
@@ -888,11 +1503,8 @@
     "agent_assets/skills/mqtt-conversion/agents/openai.yaml": [],
     "agent_assets/skills/mqtt-conversion/manifest.json": [],
     "agent_assets/skills/mqtt-conversion/references/examples/vpp-mqtt.json": [],
-    "agent_assets/skills/mqtt-conversion/references/原子标签定义.docx": [],
     "agent_assets/skills/mqtt-conversion/references/原子标签定义.md": [],
-    "agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.docx": [],
     "agent_assets/skills/mqtt-conversion/references/多类型设备集成系统大类号说明.md": [],
-    "agent_assets/skills/mqtt-conversion/references/数据采集通信协议.docx": [],
     "agent_assets/skills/pack-distribution/SKILL.md": [],
     "agent_assets/skills/pack-distribution/agents/openai.yaml": [],
     "agent_assets/skills/pack-distribution/manifest.json": [],
@@ -922,14 +1534,20 @@
     "agent_assets/skills/xlpa/agents/openai.yaml": [],
     "agent_assets/skills/xlpa/manifest.json": [],
     "agent_assets/skills/xlpa/tools/mcp_client.py": [],
+    "docs/adr/0001-access-token-sliding-renewal.md": [],
+    "docs/adr/0002-gate-grant-sliding-consumption.md": [],
+    "docs/adr/0003-gate-card-trigger-narrowing.md": [],
     "docs/architecture/project-structure.md": [],
     "docs/architecture/web-chat-agent-runtime-solution.md": [],
     "docs/deployment/mcp-server.md": [],
+    "docs/deployment/public-access-checklist.md": [],
     "docs/presentation/web-chat-agent-runtime-slides.html": [],
     "docs/reference/edge-archive-fields.md": [],
     "docs/reference/mcp-service-design.md": [],
     "docs/reference/protocol-management-api.md": [],
-    "mcp_server/.env": [],
+    "docs/reference/requirement-workflow.md": [],
+    "docs/requirements/web-mobile-access-requirements.md": [],
+    "mcp_server/.env.example": [],
     "mcp_server/README.md": [],
     "mcp_server/api_client.py": [],
     "mcp_server/archiving/__init__.py": [],
@@ -1011,6 +1629,22 @@
     "mcp_server/archiving/templates/stage_zero_generate.py": [],
     "mcp_server/archiving/time_validator.py": [],
     "mcp_server/cleanup.py": [],
+    "mcp_server/conversion/__init__.py": [],
+    "mcp_server/conversion/conversion_tools.py": [
+      "mcp_server/archiving/models.py",
+      "mcp_server/archiving/snapshot_store.py",
+      "mcp_server/conversion/executor.py",
+      "mcp_server/conversion/report_store.py",
+      "mcp_server/conversion/testdata.py",
+      "mcp_server/conversion/validator.py",
+      "mcp_server/session.py"
+    ],
+    "mcp_server/conversion/executor.py": [],
+    "mcp_server/conversion/report_store.py": [],
+    "mcp_server/conversion/sandbox_runner.py": [],
+    "mcp_server/conversion/testdata.py": [],
+    "mcp_server/conversion/validator.py": [],
+    "mcp_server/conversion_reports/1c41b244928f0a85eb648de814e6f0b7.json": [],
     "mcp_server/edge_client.py": [
       "mcp_server/edge_proxy_config.py"
     ],
@@ -1043,12 +1677,26 @@
     "mcp_server/permissions.template.json": [],
     "mcp_server/proxy_config.json": [],
     "mcp_server/requirements.txt": [],
-    "mcp_server/server.py": [],
+    "mcp_server/server.py": [
+      "mcp_server/api_client.py",
+      "mcp_server/archiving/snapshot_store.py",
+      "mcp_server/conversion/conversion_tools.py",
+      "mcp_server/edge_tools.py",
+      "mcp_server/operation_log_store.py",
+      "mcp_server/permissions.py",
+      "mcp_server/session.py",
+      "mcp_server/token_manager.py"
+    ],
     "mcp_server/session.py": [],
     "mcp_server/start.bat": [],
     "mcp_server/static/access.html": [],
     "mcp_server/static/showcase.html": [],
     "mcp_server/tests/__init__.py": [],
+    "mcp_server/tests/test_archive_cancel.py": [
+      "mcp_server/archiving/snapshot_store.py",
+      "mcp_server/edge_tools.py",
+      "mcp_server/server.py"
+    ],
     "mcp_server/tests/test_archiving_template.py": [
       "mcp_server/archiving/engine.py",
       "mcp_server/archiving/excel_reader.py",
@@ -1061,9 +1709,21 @@
       "mcp_server/archiving/profiles/gateway_8163.py",
       "mcp_server/archiving/profiles/meter_xlba.py"
     ],
+    "mcp_server/tests/test_conversion_tools.py": [
+      "mcp_server/archiving/snapshot_store.py",
+      "mcp_server/conversion/conversion_tools.py",
+      "mcp_server/conversion/executor.py",
+      "mcp_server/conversion/report_store.py",
+      "mcp_server/conversion/testdata.py",
+      "mcp_server/conversion/validator.py",
+      "mcp_server/session.py"
+    ],
     "mcp_server/tests/test_deploy_from_archive.py": [
       "mcp_server/archiving/converter.py",
       "mcp_server/edge_client.py",
+      "mcp_server/edge_tools.py"
+    ],
+    "mcp_server/tests/test_edge_read_pagination.py": [
       "mcp_server/edge_tools.py"
     ],
     "mcp_server/tests/test_field_contract.py": [
@@ -1083,6 +1743,7 @@
     "mcp_server/tests/test_get_device_parameters.py": [
       "mcp_server/edge_tools.py"
     ],
+    "mcp_server/tests/test_mcp_token_mint.py": [],
     "mcp_server/tests/test_online_check_free_template.py": [
       "mcp_server/edge_tools.py"
     ],
@@ -1102,6 +1763,7 @@
     "mcp_server/tests/test_proxy_config.py": [
       "mcp_server/edge_proxy_config.py"
     ],
+    "mcp_server/tests/test_public_exposure_gating.py": [],
     "mcp_server/tests/test_refactor.py": [],
     "mcp_server/tests/test_reference_dict.py": [
       "mcp_server/archiving/reference_config.py",
@@ -1131,7 +1793,192 @@
     ],
     "mcp_server/token_manager.py": [],
     "mcp_server/version.json": [],
-    "pytest.ini": []
-  },
-  "contentDigest": "8f177a45e4365716fc0a64f69291605ea95b53f063d51944b79edb3b57fea9c8"
+    "pytest.ini": [],
+    "scripts/git-hooks/pre-commit": [],
+    "skills-lock.json": [],
+    "webchat/README.md": [],
+    "webchat/pytest.ini": [],
+    "webchat/requirements-dev.txt": [],
+    "webchat/requirements.txt": [],
+    "webchat/tests/__init__.py": [],
+    "webchat/tests/conftest.py": [
+      "webchat/webchat/api.py",
+      "webchat/webchat/config.py",
+      "webchat/webchat/hashing.py",
+      "webchat/webchat/runtime.py",
+      "webchat/webchat/sdk_runtime/__init__.py"
+    ],
+    "webchat/tests/fake_sdk_client.py": [],
+    "webchat/tests/test_account_auth.py": [
+      "webchat/webchat/accounts.py",
+      "webchat/webchat/api.py",
+      "webchat/webchat/config.py",
+      "webchat/webchat/hashing.py",
+      "webchat/webchat/platform_auth.py"
+    ],
+    "webchat/tests/test_artifact_config.py": [
+      "webchat/webchat/config.py"
+    ],
+    "webchat/tests/test_artifacts_download.py": [
+      "webchat/webchat/grants.py",
+      "webchat/webchat/sdk_runtime/__init__.py"
+    ],
+    "webchat/tests/test_artifacts_upload.py": [
+      "webchat/webchat/ocr.py"
+    ],
+    "webchat/tests/test_e2e_artifact_flow.py": [
+      "webchat/webchat/ocr.py",
+      "webchat/webchat/sdk_runtime/__init__.py"
+    ],
+    "webchat/tests/test_event_stream.py": [
+      "webchat/webchat/event_store.py"
+    ],
+    "webchat/tests/test_gate_hook.py": [
+      "webchat/webchat/grants.py",
+      "webchat/webchat/sdk_runtime/__init__.py"
+    ],
+    "webchat/tests/test_grants.py": [
+      "webchat/webchat/__init__.py",
+      "webchat/webchat/grants.py"
+    ],
+    "webchat/tests/test_ocr.py": [
+      "webchat/webchat/__init__.py",
+      "webchat/webchat/ocr.py"
+    ],
+    "webchat/tests/test_pdf_extract.py": [
+      "webchat/webchat/pdf_extract.py"
+    ],
+    "webchat/tests/test_public_hardening_backend.py": [
+      "webchat/webchat/event_store.py",
+      "webchat/webchat/grants.py",
+      "webchat/webchat/platform_auth.py",
+      "webchat/webchat/ratelimit.py",
+      "webchat/webchat/runtime.py",
+      "webchat/webchat/sdk_runtime/__init__.py"
+    ],
+    "webchat/tests/test_remote_artifacts.py": [
+      "webchat/webchat/artifacts.py",
+      "webchat/webchat/event_store.py",
+      "webchat/webchat/runtime.py",
+      "webchat/webchat/sdk_runtime/__init__.py"
+    ],
+    "webchat/tests/test_retention.py": [
+      "webchat/webchat/config.py",
+      "webchat/webchat/retention.py"
+    ],
+    "webchat/tests/test_runtime.py": [
+      "webchat/webchat/artifacts.py",
+      "webchat/webchat/event_store.py",
+      "webchat/webchat/runtime.py",
+      "webchat/webchat/sdk_runtime/__init__.py"
+    ],
+    "webchat/tests/test_sdk_runtime.py": [
+      "webchat/tests/fake_sdk_client.py",
+      "webchat/webchat/sdk_runtime/__init__.py"
+    ],
+    "webchat/tests/test_sessions_api.py": [
+      "webchat/webchat/api.py",
+      "webchat/webchat/config.py",
+      "webchat/webchat/hashing.py",
+      "webchat/webchat/runtime.py",
+      "webchat/webchat/sdk_runtime/__init__.py"
+    ],
+    "webchat/tests/test_skills.py": [
+      "webchat/webchat/event_store.py",
+      "webchat/webchat/runtime.py",
+      "webchat/webchat/sdk_runtime/__init__.py",
+      "webchat/webchat/skills.py"
+    ],
+    "webchat/tests/test_static_frontend.py": [
+      "webchat/webchat/api.py",
+      "webchat/webchat/config.py"
+    ],
+    "webchat/tools/capture_mobile.py": [],
+    "webchat/tools/dev_smoke_server.py": [
+      "webchat/webchat/api.py",
+      "webchat/webchat/config.py",
+      "webchat/webchat/hashing.py",
+      "webchat/webchat/runtime.py",
+      "webchat/webchat/sdk_runtime/__init__.py"
+    ],
+    "webchat/tools/load_sse.py": [],
+    "webchat/webchat/__init__.py": [],
+    "webchat/webchat/__main__.py": [
+      "webchat/webchat/api.py",
+      "webchat/webchat/config.py"
+    ],
+    "webchat/webchat/accounts.py": [],
+    "webchat/webchat/api.py": [
+      "webchat/webchat/accounts.py",
+      "webchat/webchat/artifacts.py",
+      "webchat/webchat/config.py",
+      "webchat/webchat/event_store.py",
+      "webchat/webchat/gate_audit.py",
+      "webchat/webchat/grants.py",
+      "webchat/webchat/hashing.py",
+      "webchat/webchat/ocr.py",
+      "webchat/webchat/platform_auth.py",
+      "webchat/webchat/ratelimit.py",
+      "webchat/webchat/retention.py",
+      "webchat/webchat/runtime.py",
+      "webchat/webchat/sessions.py",
+      "webchat/webchat/sessions_api.py",
+      "webchat/webchat/skills.py"
+    ],
+    "webchat/webchat/artifacts.py": [
+      "webchat/webchat/ocr.py",
+      "webchat/webchat/pdf_extract.py",
+      "webchat/webchat/sessions_api.py"
+    ],
+    "webchat/webchat/config.py": [],
+    "webchat/webchat/errors.py": [],
+    "webchat/webchat/event_store.py": [],
+    "webchat/webchat/gate_audit.py": [],
+    "webchat/webchat/grants.py": [],
+    "webchat/webchat/hash_password.py": [
+      "webchat/webchat/hashing.py"
+    ],
+    "webchat/webchat/hashing.py": [],
+    "webchat/webchat/ocr.py": [],
+    "webchat/webchat/pdf_extract.py": [],
+    "webchat/webchat/platform_auth.py": [],
+    "webchat/webchat/ratelimit.py": [],
+    "webchat/webchat/retention.py": [
+      "webchat/webchat/config.py"
+    ],
+    "webchat/webchat/runtime.py": [
+      "webchat/webchat/artifacts.py",
+      "webchat/webchat/errors.py",
+      "webchat/webchat/event_store.py",
+      "webchat/webchat/gate_audit.py",
+      "webchat/webchat/grants.py",
+      "webchat/webchat/sdk_runtime/__init__.py",
+      "webchat/webchat/skills.py"
+    ],
+    "webchat/webchat/sdk_runtime/__init__.py": [
+      "webchat/webchat/sdk_runtime/adapter.py",
+      "webchat/webchat/sdk_runtime/events.py",
+      "webchat/webchat/sdk_runtime/login_activation.py"
+    ],
+    "webchat/webchat/sdk_runtime/adapter.py": [
+      "webchat/webchat/grants.py",
+      "webchat/webchat/sdk_runtime/events.py"
+    ],
+    "webchat/webchat/sdk_runtime/events.py": [],
+    "webchat/webchat/sdk_runtime/login_activation.py": [],
+    "webchat/webchat/sessions.py": [],
+    "webchat/webchat/sessions_api.py": [
+      "webchat/webchat/errors.py"
+    ],
+    "webchat/webchat/skills.py": [],
+    "webchat/webchat/static/app.css": [],
+    "webchat/webchat/static/index.html": [],
+    "webchat/webchat/static/js/api.js": [],
+    "webchat/webchat/static/js/app.js": [
+      "webchat/webchat/static/js/api.js",
+      "webchat/webchat/static/js/sse.js"
+    ],
+    "webchat/webchat/static/js/sse.js": [],
+    "webchat/webchat_accounts.template.json": []
+  }
 }

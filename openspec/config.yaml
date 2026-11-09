@@ -1,32 +1,58 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+# 项目上下文：创建产物时展示给 AI
+context: |
+  Tech stack: Python 3.9+ / FastMCP / webchat（SDK 驱动，能力对等 IDE）
+  Domain: 规约管理 MCP —— 协议转换、设备建档全流程、平台数据查询
+  编码规则: .qoder/rules 的 pep8-coding-style / pep257-docstring /
+    pep484-type-hints（always-on，作为 code-review Standards 轴基准）
+  命名记号: ⟨opsx:*⟩ = OpenSpec 命令；⟨skill:grill-me/tdd/code-review⟩
+    = Matt 技能，二者分开调用，grill 结论喂给 opsx-propose
+  约定: 所有变更先探针/真实验证再下结论，拒绝凭猜测
+  铁律（TDD 强制，不可协商）: 无失败测试不得写实现；无转绿测试
+    不得将 task 勾为完成。唯一例外需用户明确批准并记录理由，不得默认跳过
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+# 按产物的声明式约束（只管“写没写”，不管“做没做”）
+rules:
+  proposal:
+    # 阶段1 对齐：动手前必须先 grill 追问
+    - 提交 proposal 前必须先用 ⟨skill:grill-me⟩ 逐分支追问，
+      直到设计树每个分支都有结论；对齐未确认不得进入 ⟨opsx:propose⟩
+    - grill 结论必须直接填充 spec 四要素：前置条件（含需验证事项）、
+      要做的事、通过标准（可执行判据）、执行顺序与依赖
+    - MODIFIED capability 必须点名说明改动了哪条既有 Requirement/Scenario
+  tasks:
+    - 每个 task 即一个 spec，必须写全四要素且含可执行判据
+    - 每个 task 的“通过标准”**必须是一个可运行的失败测试**；测试是
+      Gate 的唯一裁判，validate 仅校验 delta 结构，不能替代测试
+    - 硬红线：未将对应测试从红转绿，禁止把 task 勾选为完成；部分完成
+      或推迟不得作为勾完成的理由
+    - 拆分方案提交人工确认后再实施
+  spec:
+    - MODIFIED requirement 必须按原名保留既有 Scenario（丢失即 strict 失败）
 
-# Per-operation guidance (optional)
-# Add advisory guidance for how apply and archive work should be conducted.
-# This is separate from artifact rules above.
-# Example:
-#   operations:
-#     apply:
-#       guidance:
-#         - Keep test summaries concise
-#     archive:
-#       guidance:
-#         - Summarize the archive outcome before finishing
+# 按执行的建议性引导：apply / archive 如何做
+operations:
+  apply:
+    guidance:
+      # 阶段3 实现：TDD 强制（非建议），重构划给阶段4 code-review
+      - 强制 ⟨skill:tdd⟩ 红→绿循环，非可选建议、不得默认跳过。逐 task
+        先写命中“通过标准”的失败测试并确认它红，再写最小实现使其绿；一个
+        task 一个纵向切片，禁止先写完所有测试再写实现（横向切片）；新增
+        代码守 .qoder/rules PEP 规则。无红→绿测试证据不得把 task 勾选为
+        完成；若确实无法先写测试，必须停下向用户声明并等待批准，不得自行
+        判定“不适用”后继续。重构属于阶段4，不在本循环
+      - 遇怪问题按阈值切 ⟨skill:diagnosing-bugs⟩：同一假设连续 2 次修复失败，
+        或构造不出稳定复现的失败用例，即进入 reproduce→minimise→hypothesise
+        →instrument→fix→regression-test 循环，禁止反复试错
+      - 大需求并发时每个子代理只改本 spec 对应文件范围，tasks.md 勾选状态
+        由主会话单点更新，避免共享文件写冲突
+      - 提交前跑 ⟨skill:code-review⟩ 双轴：Standards 轴对照 .qoder/rules
+        pep8/257/484，Spec 轴核对是否忠实实现本 change 的 Requirement/Scenario；
+        两轴都过方可提交
+      - 顺手把新出现的领域黑话沉淀进 GLOSSARY.md，重大决策记 ADR
+  archive:
+    guidance:
+      # 归档：改行为的小类 C 档也要留 spec delta，防主 spec 与代码脱节
+      - 归档前确认行为变更已同步进主 spec；纯实现重构（行为不变）不改主 spec
+      - 归档时简述本次变更结果与受影响 capability

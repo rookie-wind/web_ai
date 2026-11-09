@@ -579,6 +579,8 @@ class TokenManager:
             "accessLevel": "user",
             "owner_ref": entry.get("owner_ref"),
             "expires_at": entry.get("expires_at"),
+            # 签发窗口需随归一化往返保留，否则重启后滑动续期退化为回推
+            "ttl_seconds": int(entry.get("ttl_seconds", 0) or 0),
             "createdAt": entry.get("createdAt", 0),
             "lastSeenAt": entry.get("lastSeenAt", 0),
             "revoked": bool(entry.get("revoked", False)),
@@ -689,6 +691,8 @@ class TokenManager:
             "accessLevel": "user",
             "owner_ref": owner_ref,
             "expires_at": now + ttl_seconds,
+            # 滑动续期窗口（秒）：touch_token 每次活动按此值顺延 expires_at
+            "ttl_seconds": ttl_seconds,
             "createdAt": now,
             "lastSeenAt": now,
             "revoked": False,
@@ -781,11 +785,34 @@ class TokenManager:
         return True
 
     def touch_token(self, token: str) -> None:
-        """更新 Token 记录的 lastSeenAt（按 Token 主键）。"""
+        """更新 Token 记录的 lastSeenAt；webchat 族同时滑动续期 expires_at。
+
+        接入凭据默认带绝对到期；若只刷 lastSeenAt，长时间建档会话会在跑到
+        一半时命中 ``-32001 Invalid token``（无任何换发路径）。改为滑动续期：
+        每次 /mcp 请求按签发窗口（``ttl_seconds``）顺延到期时间，但封顶于
+        ``createdAt + MINT_TTL_CAP``（避免票据无限存活）。IDE 族 ``expires_at``
+        为 None，不参与续期。
+
+        Args:
+            token: 待刷新访问时间的接入 Token。
+
+        Returns:
+            None。Token 不存在或已撤销时不改动。
+        """
         entry = self.tokens.get(token)
         if not entry or entry.get("revoked"):
             return
-        entry["lastSeenAt"] = int(time.time())
+        now = int(time.time())
+        entry["lastSeenAt"] = now
+        expires_at = entry.get("expires_at")
+        if isinstance(expires_at, int) and expires_at > 0:
+            created = int(entry.get("createdAt", now))
+            window = int(entry.get("ttl_seconds", 0) or 0)
+            if window <= 0:
+                # 旧 registry 无 ttl_seconds 字段，以签发时的原始窗口回推
+                window = max(0, expires_at - created)
+            if window > 0:
+                entry["expires_at"] = min(now + window, created + MINT_TTL_CAP)
         self._save_registry()
 
     def touch_ip_last_seen(self, ip: str) -> None:
@@ -3042,6 +3069,11 @@ class CompositeApp:
             await self._handle_archive_upload(scope, receive, send)
             return
 
+        # 中止服务端建档批次（Bearer Token 鉴权，协作式：当前单元完成后停止）
+        if path.startswith("/api/archive/tasks/") and path.endswith("/cancel"):
+            await self._handle_archive_task_cancel(scope, send)
+            return
+
         # 本次操作日志回读（按接入 Token 定向，仅返回该身份自己的日志）
         if path == "/api/logs" or path.startswith("/api/logs?"):
             await self._handle_operation_logs(scope, send)
@@ -3403,6 +3435,42 @@ class CompositeApp:
             }
         )
         await send({"type": "http.response.body", "body": tpl_bytes})
+
+    async def _handle_archive_task_cancel(self, scope, send) -> None:
+        """中止指定建档任务：递增取消代际，当前执行单元完成后停止。
+
+        请求：``POST /api/archive/tasks/{task_id}/cancel``，Bearer 接入 Token。
+        仅允许任务归属者；不执行回滚，已建设备与补偿清单保持可查。
+        """
+        headers = {}
+        for name, value in scope.get("headers", []):
+            headers[name.decode().lower()] = value.decode()
+        auth = headers.get("authorization", "")
+        if not auth.startswith("Bearer "):
+            await self._send_json(send, 401, "Bearer token required")
+            return
+        token = auth[7:]
+        if not self.token_manager.is_valid(token):
+            await self._send_json(send, 401, "Invalid token")
+            return
+        parts = scope.get("path", "").strip("/").split("/")
+        if len(parts) != 5 or parts[0] != "api" or parts[2] != "tasks":
+            await self._send_json(send, 400, "任务中止路径非法")
+            return
+        task_id = parts[3]
+        owner_id = derive_owner_id(token)
+        from edge_tools import edge_sessions
+        session = edge_sessions.get(task_id, owner_id=owner_id)
+        if session is None:
+            await self._send_json(send, 404, "任务不存在、已过期或不属于当前身份")
+            return
+        session.cancel_generation += 1
+        await self._send_json(send, 200, {
+            "ok": True,
+            "task_id": task_id,
+            "cancel_generation": session.cancel_generation,
+            "message": "已请求中止；当前执行单元完成后停止，不自动回滚",
+        })
 
     async def _handle_archive_upload(self, scope, receive, send):
         """已填 XLSX 上传（Bearer Token 鉴权）。

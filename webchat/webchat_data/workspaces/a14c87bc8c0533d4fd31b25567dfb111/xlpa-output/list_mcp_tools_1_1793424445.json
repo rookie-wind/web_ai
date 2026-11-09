@@ -1,0 +1,486 @@
+{
+  "server": "xl-protocol-agent",
+  "version": "0.33.0",
+  "resource_package": {
+    "name": "xlpa-agent-assets",
+    "version": "0.26.0",
+    "kind": "agent-assets-package",
+    "manifest_path": "skills/package-manifest.json",
+    "validation": {
+      "ok": true,
+      "missing": [],
+      "required_count": 34
+    }
+  },
+  "capabilities": [
+    "persistent_user_token",
+    "function_type_atomic_tag",
+    "capability_matrix_report",
+    "user_only_mcp_access",
+    "super_account_cloud_write",
+    "edge_device_archiving",
+    "edge_parameter_save_readback",
+    "edge_persistent_stage_report",
+    "edge_explicit_deploy_scope_guard",
+    "archive_chunked_upload",
+    "edge_batch_archive",
+    "edge_execute_batching"
+  ],
+  "capability_matrix": [
+    {
+      "capability": "mcp_access",
+      "status": "available",
+      "requires": "有效 MCP 接入 Token（一律 user 级）"
+    },
+    {
+      "capability": "cloud_read",
+      "status": "conditional",
+      "requires": "云端业务 Token（login 获取）"
+    },
+    {
+      "capability": "cloud_write",
+      "status": "conditional",
+      "requires": "云端业务 Token + 命中超级账号配置 + 用户逐项确认"
+    },
+    {
+      "capability": "edge_archive_dry_run",
+      "status": "conditional",
+      "requires": "自动建档 Excel 任务凭据"
+    },
+    {
+      "capability": "edge_archive_write",
+      "status": "conditional",
+      "requires": "边缘任务凭据 + 当前plan_id + 独立确认 + 写后回读"
+    },
+    {
+      "capability": "edge_gateway_clock",
+      "status": "conditional",
+      "requires": "当前plan_id + 档案/参数回读成功 + 独立确认；不校时"
+    },
+    {
+      "capability": "edge_param_deploy",
+      "status": "available",
+      "requires": "rtnCode=0表示下发成功"
+    },
+    {
+      "capability": "edge_monitor_debug",
+      "status": "available",
+      "requires": "rtnCode=0表示召测成功"
+    },
+    {
+      "capability": "edge_task_report",
+      "status": "conditional",
+      "requires": "所属MCP身份与有效期内持久报告；不依赖内存会话"
+    },
+    {
+      "capability": "archive_chunked_upload",
+      "status": "available",
+      "requires": "upload_device_archive_template 分块入参；单次上传保持向后兼容"
+    },
+    {
+      "capability": "edge_batch_archive",
+      "status": "available",
+      "requires": "建档/挂载/参数保存工具 node_keys 批量入参；单节点保持向后兼容"
+    },
+    {
+      "capability": "edge_execute_batching",
+      "status": "available",
+      "requires": "execute_archive_task 的 batch_size/budget/cursor 分批与断点续跑；缺省一次跑完向后兼容"
+    }
+  ],
+  "auth": {
+    "token_required": true,
+    "token_valid": true,
+    "access_level": "user",
+    "source": "localhost",
+    "cloud_write_source": "业务登录账号命中超级账号配置"
+  },
+  "total": 77,
+  "tools": [
+    {
+      "name": "list_mcp_tools",
+      "type": "probe",
+      "description": "列出所有工具与鉴权探测"
+    },
+    {
+      "name": "login",
+      "type": "login",
+      "description": "手机号+验证码登录，返回后端业务 Token"
+    },
+    {
+      "name": "get_classify_list",
+      "type": "read",
+      "description": "查询大类列表（大类编号 id、名称 sysName）"
+    },
+    {
+      "name": "add_classify",
+      "type": "write",
+      "description": "新增大类"
+    },
+    {
+      "name": "update_classify",
+      "type": "write",
+      "description": "更新大类"
+    },
+    {
+      "name": "del_classify",
+      "type": "write",
+      "description": "删除大类"
+    },
+    {
+      "name": "get_device_type_list",
+      "type": "read",
+      "description": "查询设备类型列表（deviceTypeCode 即 modelNum 来源）"
+    },
+    {
+      "name": "add_device_type",
+      "type": "write",
+      "description": "新增设备类型"
+    },
+    {
+      "name": "update_device_type",
+      "type": "write",
+      "description": "更新设备类型"
+    },
+    {
+      "name": "del_device_type",
+      "type": "write",
+      "description": "删除设备类型"
+    },
+    {
+      "name": "get_brand_list",
+      "type": "read",
+      "description": "查询品牌列表"
+    },
+    {
+      "name": "add_brand",
+      "type": "write",
+      "description": "新增品牌"
+    },
+    {
+      "name": "update_brand",
+      "type": "write",
+      "description": "更新品牌"
+    },
+    {
+      "name": "del_brand",
+      "type": "write",
+      "description": "删除品牌"
+    },
+    {
+      "name": "get_model_list",
+      "type": "read",
+      "description": "查询型号列表"
+    },
+    {
+      "name": "add_model",
+      "type": "write",
+      "description": "新增型号"
+    },
+    {
+      "name": "update_model",
+      "type": "write",
+      "description": "更新型号"
+    },
+    {
+      "name": "del_model",
+      "type": "write",
+      "description": "删除型号"
+    },
+    {
+      "name": "export_model_data",
+      "type": "read",
+      "description": "导出型号统计数据（文件流）"
+    },
+    {
+      "name": "get_protocol_info_list",
+      "type": "read",
+      "description": "查询规约列表"
+    },
+    {
+      "name": "add_protocol_info",
+      "type": "write",
+      "description": "新增规约"
+    },
+    {
+      "name": "update_protocol",
+      "type": "write",
+      "description": "更新规约"
+    },
+    {
+      "name": "del_protocol_info",
+      "type": "write",
+      "description": "删除规约"
+    },
+    {
+      "name": "del_protocol_file",
+      "type": "write",
+      "description": "删除规约文档文件"
+    },
+    {
+      "name": "get_data_item_list",
+      "type": "read",
+      "description": "查询协议数据项列表（按规约查询采集点位配置）"
+    },
+    {
+      "name": "add_data_item",
+      "type": "write",
+      "description": "新增数据项（首期仅基础信息）"
+    },
+    {
+      "name": "update_data_item",
+      "type": "write",
+      "description": "更新数据项"
+    },
+    {
+      "name": "del_data_item",
+      "type": "write",
+      "description": "删除数据项"
+    },
+    {
+      "name": "gen_script",
+      "type": "write",
+      "description": "生成脚本"
+    },
+    {
+      "name": "get_script_list",
+      "type": "read",
+      "description": "查询脚本列表"
+    },
+    {
+      "name": "get_json_detail",
+      "type": "read",
+      "description": "获取脚本 JSON 内容"
+    },
+    {
+      "name": "del_script",
+      "type": "write",
+      "description": "删除脚本"
+    },
+    {
+      "name": "export_data",
+      "type": "read",
+      "description": "导出协议数据项（文件流）"
+    },
+    {
+      "name": "get_coeff_list",
+      "type": "read",
+      "description": "查询数据项系数列表"
+    },
+    {
+      "name": "add_coeff",
+      "type": "write",
+      "description": "新增数据项系数"
+    },
+    {
+      "name": "update_coeff",
+      "type": "write",
+      "description": "更新数据项系数"
+    },
+    {
+      "name": "del_coeff",
+      "type": "write",
+      "description": "删除数据项系数"
+    },
+    {
+      "name": "get_sense_list",
+      "type": "read",
+      "description": "查询感知结构列表"
+    },
+    {
+      "name": "add_sense",
+      "type": "write",
+      "description": "新增感知结构"
+    },
+    {
+      "name": "update_sense",
+      "type": "write",
+      "description": "更新感知结构"
+    },
+    {
+      "name": "del_sense",
+      "type": "write",
+      "description": "删除感知结构"
+    },
+    {
+      "name": "get_protocol_type_list",
+      "type": "read",
+      "description": "查询规约类型字典列表"
+    },
+    {
+      "name": "save_protocol_type",
+      "type": "write",
+      "description": "保存规约类型字典项"
+    },
+    {
+      "name": "del_protocol_type",
+      "type": "write",
+      "description": "删除规约类型字典项"
+    },
+    {
+      "name": "get_function_type_list",
+      "type": "read",
+      "description": "查询功能项列表（原子标签查询入口，API-E10 GetProtocoFunctionTypeList）"
+    },
+    {
+      "name": "save_function_item",
+      "type": "write",
+      "description": "保存功能项"
+    },
+    {
+      "name": "del_function_item",
+      "type": "write",
+      "description": "删除功能项"
+    },
+    {
+      "name": "upload_protocol_file",
+      "type": "write",
+      "description": "上传规约文档文件"
+    },
+    {
+      "name": "convert_comm_address_tool",
+      "type": "edge_util",
+      "description": "条码转 12 位通讯地址（去第 1/2/7 位补 3 个 0）"
+    },
+    {
+      "name": "generate_device_archive_template",
+      "type": "edge_read",
+      "description": "生成建档模板，返回file_id与文件摘要"
+    },
+    {
+      "name": "get_device_archive_template_download",
+      "type": "edge_read",
+      "description": "取得指定file_id的模板下载信息"
+    },
+    {
+      "name": "migrate_device_archive_template",
+      "type": "edge_read",
+      "description": "将旧版本建档模板迁移为当前版本（服务端补表+保留数据）"
+    },
+    {
+      "name": "read_device_archive_template",
+      "type": "edge_read",
+      "description": "解析自动建档 Excel 模板并创建会话（脱敏返回）"
+    },
+    {
+      "name": "upload_device_archive_template",
+      "type": "edge_read",
+      "description": "上传已填建档模板（Base64），支持单次或分块（upload_id/seq/is_last），末片合并后返回等价 file_id"
+    },
+    {
+      "name": "plan_device_archive",
+      "type": "edge_plan",
+      "description": "基于现有设备树生成幂等 dry-run 计划"
+    },
+    {
+      "name": "edge_upsert_device",
+      "type": "edge_write",
+      "description": "建档或更新设备（modifyDevice）；支持 node_key 单节点或 node_keys 批量"
+    },
+    {
+      "name": "edge_mount_device",
+      "type": "edge_write",
+      "description": "挂载设备到父节点（updateDeviceParent）；支持 node_key 或 node_keys 批量"
+    },
+    {
+      "name": "edge_get_device_tree",
+      "type": "edge_read",
+      "description": "读取边缘完整设备树（getDeviceTree）"
+    },
+    {
+      "name": "edge_get_device_list",
+      "type": "edge_read",
+      "description": "读取设备档案/子树列表"
+    },
+    {
+      "name": "edge_get_device_parameters",
+      "type": "edge_read",
+      "description": "通用读设备当前参数项（getDeviceParam）；网关默认20100024、监测点默认20200002，可传 item_ids 读任意项；模板/免模板直连代理均支持"
+    },
+    {
+      "name": "edge_save_device_parameters",
+      "type": "edge_write",
+      "description": "当前plan独立确认后保存网关20100024或回读XLBA参数；支持 node_key 或 node_keys 批量"
+    },
+    {
+      "name": "edge_set_device_param",
+      "type": "edge_write",
+      "description": "批量/全量下发，不区分类型；模板会话按填报值、免模板直连会话逐台先读后端当前参数(20200002)，读不到则从设备档案(getDeviceList)组装 itemBody 后下发；仅 rtnCode=0 计成功"
+    },
+    {
+      "name": "edge_call_clock",
+      "type": "edge_write",
+      "description": "独立确认召测网关时钟，无建档前置；不校时"
+    },
+    {
+      "name": "edge_call_monitor_debug",
+      "type": "edge_write",
+      "description": "31800006监测点召测；rtnCode=0表示召测成功"
+    },
+    {
+      "name": "execute_archive_task",
+      "type": "edge_write",
+      "description": "一键执行建档任务（完整/独立）；task_id 模式支持 stages 子集与 batch_size/budget 分批推进，返回续跑游标 cursor/remaining；独立模式对已存在网关执行时钟/下发/召测"
+    },
+    {
+      "name": "get_device_archive_task_report",
+      "type": "edge_read",
+      "description": "按归属查询持久阶段报告，支持任务会话过期后查询"
+    },
+    {
+      "name": "edge_check_monitor_online",
+      "type": "edge_read",
+      "description": "按设备类型判监测点在线（照明/配电房走感知事件，XLBA 走运维召测；模板与免模板直连/代理均支持，不阻塞）"
+    },
+    {
+      "name": "edge_call_device_data",
+      "type": "edge_write",
+      "description": "旧召测兼容入口已阻断，不可替代31800006验收"
+    },
+    {
+      "name": "edge_apply_compensation_plan",
+      "type": "edge_write",
+      "description": "按补偿清单确认式删除本次新建设备"
+    },
+    {
+      "name": "edge_get_token",
+      "type": "edge_util",
+      "description": "独立登录边缘后端，返回 task_id 供后续 edge_* 工具使用"
+    },
+    {
+      "name": "edge_delete_device",
+      "type": "edge_write",
+      "description": "删除设备（自动递归删除子设备，叶子优先）"
+    },
+    {
+      "name": "validate_config_format",
+      "type": "exec",
+      "description": "校验转换配置 JSON 结构（MQTT/HTTP/Modbus 三契约，不执行）"
+    },
+    {
+      "name": "generate_test_data",
+      "type": "exec",
+      "description": "生成 normal/boundary/abnormal 三组测试输入"
+    },
+    {
+      "name": "execute_conversion_test",
+      "type": "exec",
+      "description": "沙箱执行转换测试并返回结构化报告（MQTT/HTTP）"
+    },
+    {
+      "name": "get_test_report",
+      "type": "exec",
+      "description": "按 test_run_id 查询测试报告（归属校验）"
+    },
+    {
+      "name": "save_conversion_config",
+      "type": "exec",
+      "description": "校验并保存转换配置 JSON（30 天 TTL）"
+    },
+    {
+      "name": "pack_bundle",
+      "type": "exec",
+      "description": "打包配置+文档+测试报告为 ZIP（测试门控）"
+    }
+  ]
+}

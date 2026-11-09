@@ -1,0 +1,2 @@
+{"v": 1, "seq": 1, "session_id": "765438e6dc16eb0ae955cb25dffd01d9", "ts": 1793863340.6171918, "type": "session_started", "payload": {"username": "test"}}
+{"v": 1, "seq": 2, "session_id": "765438e6dc16eb0ae955cb25dffd01d9", "ts": 1793863352.7632911, "type": "session_closed", "payload": {"username": "test"}}

@@ -140,7 +140,7 @@ def start_servers() -> tuple[subprocess.Popen, subprocess.Popen]:
         "WEBCHAT_MAX_SESSIONS_PER_USER": "8",
         "WEBCHAT_MAX_INSTANCES": "8",
         "WEBCHAT_AGENT_MODEL": os.environ.get("WEBCHAT_AGENT_MODEL",
-                                              "DeepSeek-Flash"),
+                                              "Qwen3.8-Flash"),
     })
     wc_log = (RUN_DIR / "webchat.log").open("w", encoding="utf-8", errors="replace")
     web = subprocess.Popen(

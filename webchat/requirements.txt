@@ -1,0 +1,14 @@
+fastapi>=0.115.0,<1.0.0
+uvicorn>=0.30.0
+httpx>=0.27.0
+qodercn-agent-sdk==1.0.17
+# 三通道上传（multipart 解析；新版导入名 python_multipart）
+python-multipart>=0.0.18,<1.0.0
+# 本地 OCR 可插拔 provider（默认 rapidocr + onnxruntime，CPU 离线）。
+# 注：rapidocr-onnxruntime 最高支持 Python <3.13，本项目 webchat venv 为
+# Python 3.14，故使用 rapidocr 3.x（默认后端即 onnxruntime）。
+rapidocr>=3.0.0,<4.0.0
+onnxruntime>=1.20
+# 文档通道 PDF 结构化抽取（纯 wheel，无需系统 poppler；
+# 失败时上传端点显式降级为 warning）
+PyMuPDF>=1.26,<2.0

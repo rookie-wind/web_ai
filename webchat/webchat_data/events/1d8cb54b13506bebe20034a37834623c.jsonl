@@ -1,0 +1,2 @@
+{"v": 1, "seq": 1, "session_id": "1d8cb54b13506bebe20034a37834623c", "ts": 1793590155.7048655, "type": "session_started", "payload": {"username": "admin"}}
+{"v": 1, "seq": 2, "session_id": "1d8cb54b13506bebe20034a37834623c", "ts": 1793590189.7754924, "type": "upload_text", "payload": {"name": "527 AMC系列智能电量采集监控装置安装使用说明书V3.10-20250220(1).pdf", "text_path": "xlpa-input/527 AMC系列智能电量采集监控装置安装使用说明书V3.10-20250220(1).pdf.md", "text_chars": 52863}}

@@ -1,0 +1,8 @@
+-r requirements.txt
+pytest>=8.0.0
+pytest-asyncio>=0.24.0
+
+# 验收取证（AC 演练 / 移端截图）专用，仅开发环境安装。
+# 不执行 playwright install：通过 PCA_TEST_BROWSER 指向本机已有浏览器，
+# 见 tools/capture_mobile.py（避免重复下载浏览器二进制）。
+playwright>=1.64.0

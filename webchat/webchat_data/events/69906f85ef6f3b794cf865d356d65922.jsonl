@@ -1,0 +1,264 @@
+{"v": 1, "seq": 1, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350656.4975314, "type": "session_started", "payload": {"username": "admin"}}
+{"v": 1, "seq": 2, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350662.1493158, "type": "text_delta", "payload": {"role": "user", "text": "今天是星期几"}}
+{"v": 1, "seq": 3, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350665.886039, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 4, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350665.8867755, "type": "unknown", "payload": {"subtype": "artifacts_update"}}
+{"v": 1, "seq": 5, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350665.953416, "type": "unknown", "payload": {"subtype": "hook_diagnostics"}}
+{"v": 1, "seq": 6, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350666.0467246, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 7, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350668.3913014, "type": "unknown", "payload": {"raw_kind": "message_start"}}
+{"v": 1, "seq": 8, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0298123, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 9, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.030972, "type": "text_delta", "payload": {"text": "今天是"}}
+{"v": 1, "seq": 10, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0317206, "type": "text_delta", "payload": {"text": " **"}}
+{"v": 1, "seq": 11, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.032635, "type": "text_delta", "payload": {"text": "202"}}
+{"v": 1, "seq": 12, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0336385, "type": "text_delta", "payload": {"text": "6"}}
+{"v": 1, "seq": 13, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0344508, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 14, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0352564, "type": "text_delta", "payload": {"text": "年"}}
+{"v": 1, "seq": 15, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0360465, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 16, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0375366, "type": "text_delta", "payload": {"text": "10"}}
+{"v": 1, "seq": 17, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0388696, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 18, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0397308, "type": "text_delta", "payload": {"text": "月"}}
+{"v": 1, "seq": 19, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0404341, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 20, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0410516, "type": "text_delta", "payload": {"text": "30"}}
+{"v": 1, "seq": 21, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0417714, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 22, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.042464, "type": "text_delta", "payload": {"text": "日"}}
+{"v": 1, "seq": 23, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0432215, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 24, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0440447, "type": "text_delta", "payload": {"text": "星期五"}}
+{"v": 1, "seq": 25, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.044815, "type": "text_delta", "payload": {"text": "**"}}
+{"v": 1, "seq": 26, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0456874, "type": "text_delta", "payload": {"text": "。"}}
+{"v": 1, "seq": 27, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.0466027, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 28, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350670.04731, "type": "unknown", "payload": {"raw_kind": "message_stop"}}
+{"v": 1, "seq": 29, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350679.6953878, "type": "turn_done", "payload": {"turn": 1, "duration_ms": 17544}}
+{"v": 1, "seq": 30, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350704.181287, "type": "text_delta", "payload": {"role": "user", "text": "LOL全球总决赛你觉得8强都有哪些队伍"}}
+{"v": 1, "seq": 31, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350707.331576, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 32, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350707.3327792, "type": "unknown", "payload": {"subtype": "artifacts_update"}}
+{"v": 1, "seq": 33, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350707.3854053, "type": "unknown", "payload": {"subtype": "hook_diagnostics"}}
+{"v": 1, "seq": 34, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350707.4538121, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 35, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350710.1553953, "type": "unknown", "payload": {"raw_kind": "message_start"}}
+{"v": 1, "seq": 36, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.2926922, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 37, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.2938304, "type": "text_delta", "payload": {"text": "我"}}
+{"v": 1, "seq": 38, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.2948577, "type": "text_delta", "payload": {"text": "这边"}}
+{"v": 1, "seq": 39, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.2957153, "type": "text_delta", "payload": {"text": "拿"}}
+{"v": 1, "seq": 40, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.296543, "type": "text_delta", "payload": {"text": "不到"}}
+{"v": 1, "seq": 41, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.297173, "type": "text_delta", "payload": {"text": "实时"}}
+{"v": 1, "seq": 42, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.3112133, "type": "text_delta", "payload": {"text": "赛"}}
+{"v": 1, "seq": 43, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.3121114, "type": "text_delta", "payload": {"text": "果"}}
+{"v": 1, "seq": 44, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.3141513, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 45, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.3160174, "type": "text_delta", "payload": {"text": "202"}}
+{"v": 1, "seq": 46, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.351017, "type": "text_delta", "payload": {"text": "6"}}
+{"v": 1, "seq": 47, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.3520348, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 48, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.352681, "type": "text_delta", "payload": {"text": "全球"}}
+{"v": 1, "seq": 49, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.353253, "type": "text_delta", "payload": {"text": "总决赛"}}
+{"v": 1, "seq": 50, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.3538291, "type": "text_delta", "payload": {"text": "（"}}
+{"v": 1, "seq": 51, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.3543808, "type": "text_delta", "payload": {"text": "今年"}}
+{"v": 1, "seq": 52, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.366326, "type": "text_delta", "payload": {"text": "大概"}}
+{"v": 1, "seq": 53, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.3672082, "type": "text_delta", "payload": {"text": "在"}}
+{"v": 1, "seq": 54, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.3829317, "type": "text_delta", "payload": {"text": "北美"}}
+{"v": 1, "seq": 55, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.3976288, "type": "text_delta", "payload": {"text": "？"}}
+{"v": 1, "seq": 56, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.4154577, "type": "text_delta", "payload": {"text": "具体"}}
+{"v": 1, "seq": 57, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.4288127, "type": "text_delta", "payload": {"text": "举办"}}
+{"v": 1, "seq": 58, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.4455607, "type": "text_delta", "payload": {"text": "地"}}
+{"v": 1, "seq": 59, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.446503, "type": "text_delta", "payload": {"text": "我"}}
+{"v": 1, "seq": 60, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.4627607, "type": "text_delta", "payload": {"text": "无法"}}
+{"v": 1, "seq": 61, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.4638016, "type": "text_delta", "payload": {"text": "确认"}}
+{"v": 1, "seq": 62, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.477717, "type": "text_delta", "payload": {"text": "）"}}
+{"v": 1, "seq": 63, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.4914036, "type": "text_delta", "payload": {"text": "的"}}
+{"v": 1, "seq": 64, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.5106359, "type": "text_delta", "payload": {"text": "八"}}
+{"v": 1, "seq": 65, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.5117283, "type": "text_delta", "payload": {"text": "强"}}
+{"v": 1, "seq": 66, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.5125244, "type": "text_delta", "payload": {"text": "名单"}}
+{"v": 1, "seq": 67, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.5131924, "type": "text_delta", "payload": {"text": "我"}}
+{"v": 1, "seq": 68, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.528124, "type": "text_delta", "payload": {"text": "无法"}}
+{"v": 1, "seq": 69, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.5290053, "type": "text_delta", "payload": {"text": "核实"}}
+{"v": 1, "seq": 70, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.5548205, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 71, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.5558827, "type": "text_delta", "payload": {"text": "硬"}}
+{"v": 1, "seq": 72, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.5565567, "type": "text_delta", "payload": {"text": "编"}}
+{"v": 1, "seq": 73, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.5598662, "type": "text_delta", "payload": {"text": "就是"}}
+{"v": 1, "seq": 74, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.562778, "type": "text_delta", "payload": {"text": "瞎"}}
+{"v": 1, "seq": 75, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.5750885, "type": "text_delta", "payload": {"text": "猜"}}
+{"v": 1, "seq": 76, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.5761006, "type": "text_delta", "payload": {"text": "了"}}
+{"v": 1, "seq": 77, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.6248503, "type": "text_delta", "payload": {"text": "。\n\n"}}
+{"v": 1, "seq": 78, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.6258707, "type": "text_delta", "payload": {"text": "只能"}}
+{"v": 1, "seq": 79, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.6265652, "type": "text_delta", "payload": {"text": "给"}}
+{"v": 1, "seq": 80, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.6803293, "type": "text_delta", "payload": {"text": "点"}}
+{"v": 1, "seq": 81, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.6813753, "type": "text_delta", "payload": {"text": "非"}}
+{"v": 1, "seq": 82, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.6820292, "type": "text_delta", "payload": {"text": "事实"}}
+{"v": 1, "seq": 83, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.682676, "type": "text_delta", "payload": {"text": "性的"}}
+{"v": 1, "seq": 84, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.6882703, "type": "text_delta", "payload": {"text": "看法"}}
+{"v": 1, "seq": 85, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.6918614, "type": "text_delta", "payload": {"text": "："}}
+{"v": 1, "seq": 86, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.6926494, "type": "text_delta", "payload": {"text": "按"}}
+{"v": 1, "seq": 87, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.7031834, "type": "text_delta", "payload": {"text": "近"}}
+{"v": 1, "seq": 88, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.7205806, "type": "text_delta", "payload": {"text": "两年"}}
+{"v": 1, "seq": 89, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.7214403, "type": "text_delta", "payload": {"text": "格局"}}
+{"v": 1, "seq": 90, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.7457333, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 91, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.7466297, "type": "text_delta", "payload": {"text": "LC"}}
+{"v": 1, "seq": 92, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.7528634, "type": "text_delta", "payload": {"text": "K"}}
+{"v": 1, "seq": 93, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.753878, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 94, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.7720203, "type": "text_delta", "payload": {"text": "的"}}
+{"v": 1, "seq": 95, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.772739, "type": "text_delta", "payload": {"text": " GEN"}}
+{"v": 1, "seq": 96, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.7873585, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 97, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.7904897, "type": "text_delta", "payload": {"text": "T"}}
+{"v": 1, "seq": 98, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.7913857, "type": "text_delta", "payload": {"text": "1"}}
+{"v": 1, "seq": 99, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.8079107, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 100, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.80912, "type": "text_delta", "payload": {"text": "H"}}
+{"v": 1, "seq": 101, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.810207, "type": "text_delta", "payload": {"text": "LE"}}
+{"v": 1, "seq": 102, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.8115585, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 103, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.8256512, "type": "text_delta", "payload": {"text": "L"}}
+{"v": 1, "seq": 104, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.826554, "type": "text_delta", "payload": {"text": "PL"}}
+{"v": 1, "seq": 105, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.8329163, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 106, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.833875, "type": "text_delta", "payload": {"text": "的"}}
+{"v": 1, "seq": 107, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.8345013, "type": "text_delta", "payload": {"text": " BL"}}
+{"v": 1, "seq": 108, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.8445423, "type": "text_delta", "payload": {"text": "G"}}
+{"v": 1, "seq": 109, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.84551, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 110, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.8462205, "type": "text_delta", "payload": {"text": "TES"}}
+{"v": 1, "seq": 111, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.8468843, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 112, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.8474183, "type": "text_delta", "payload": {"text": "JD"}}
+{"v": 1, "seq": 113, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.8641198, "type": "text_delta", "payload": {"text": "G"}}
+{"v": 1, "seq": 114, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.8651109, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 115, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.8660097, "type": "text_delta", "payload": {"text": "以及"}}
+{"v": 1, "seq": 116, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9205878, "type": "text_delta", "payload": {"text": " L"}}
+{"v": 1, "seq": 117, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9217358, "type": "text_delta", "payload": {"text": "EC"}}
+{"v": 1, "seq": 118, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9226427, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 119, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.923387, "type": "text_delta", "payload": {"text": "的"}}
+{"v": 1, "seq": 120, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9240987, "type": "text_delta", "payload": {"text": " G"}}
+{"v": 1, "seq": 121, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9248025, "type": "text_delta", "payload": {"text": "2"}}
+{"v": 1, "seq": 122, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9255424, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 123, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9264543, "type": "text_delta", "payload": {"text": "通常是"}}
+{"v": 1, "seq": 124, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9274724, "type": "text_delta", "payload": {"text": "淘汰"}}
+{"v": 1, "seq": 125, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9426107, "type": "text_delta", "payload": {"text": "赛"}}
+{"v": 1, "seq": 126, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9434931, "type": "text_delta", "payload": {"text": "常"}}
+{"v": 1, "seq": 127, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9539316, "type": "text_delta", "payload": {"text": "客"}}
+{"v": 1, "seq": 128, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9551475, "type": "text_delta", "payload": {"text": "；"}}
+{"v": 1, "seq": 129, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9558032, "type": "text_delta", "payload": {"text": "具体"}}
+{"v": 1, "seq": 130, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.973683, "type": "text_delta", "payload": {"text": "谁"}}
+{"v": 1, "seq": 131, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.987503, "type": "text_delta", "payload": {"text": "进"}}
+{"v": 1, "seq": 132, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350711.9889245, "type": "text_delta", "payload": {"text": "八"}}
+{"v": 1, "seq": 133, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.0039196, "type": "text_delta", "payload": {"text": "强"}}
+{"v": 1, "seq": 134, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.005171, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 135, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.0060887, "type": "text_delta", "payload": {"text": "赛"}}
+{"v": 1, "seq": 136, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.018688, "type": "text_delta", "payload": {"text": "制"}}
+{"v": 1, "seq": 137, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.019587, "type": "text_delta", "payload": {"text": "是"}}
+{"v": 1, "seq": 138, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.035138, "type": "text_delta", "payload": {"text": "瑞士"}}
+{"v": 1, "seq": 139, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.0499005, "type": "text_delta", "payload": {"text": "轮"}}
+{"v": 1, "seq": 140, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.0509152, "type": "text_delta", "payload": {"text": "还是"}}
+{"v": 1, "seq": 141, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.0515008, "type": "text_delta", "payload": {"text": "小组"}}
+{"v": 1, "seq": 142, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.069615, "type": "text_delta", "payload": {"text": "赛"}}
+{"v": 1, "seq": 143, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.0706415, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 144, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.071247, "type": "text_delta", "payload": {"text": "得"}}
+{"v": 1, "seq": 145, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.0824435, "type": "text_delta", "payload": {"text": "看"}}
+{"v": 1, "seq": 146, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.0988922, "type": "text_delta", "payload": {"text": "官方"}}
+{"v": 1, "seq": 147, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.1970117, "type": "text_delta", "payload": {"text": "赛"}}
+{"v": 1, "seq": 148, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.1990595, "type": "text_delta", "payload": {"text": "程"}}
+{"v": 1, "seq": 149, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.201066, "type": "text_delta", "payload": {"text": "和"}}
+{"v": 1, "seq": 150, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2027094, "type": "text_delta", "payload": {"text": "实时"}}
+{"v": 1, "seq": 151, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2043202, "type": "text_delta", "payload": {"text": "战绩"}}
+{"v": 1, "seq": 152, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2058563, "type": "text_delta", "payload": {"text": "。\n\n"}}
+{"v": 1, "seq": 153, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2073247, "type": "text_delta", "payload": {"text": "如果你"}}
+{"v": 1, "seq": 154, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2090316, "type": "text_delta", "payload": {"text": "把"}}
+{"v": 1, "seq": 155, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2107844, "type": "text_delta", "payload": {"text": "当前"}}
+{"v": 1, "seq": 156, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2183506, "type": "text_delta", "payload": {"text": "瑞士"}}
+{"v": 1, "seq": 157, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.22884, "type": "text_delta", "payload": {"text": "轮"}}
+{"v": 1, "seq": 158, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2306523, "type": "text_delta", "payload": {"text": "/"}}
+{"v": 1, "seq": 159, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2480187, "type": "text_delta", "payload": {"text": "小组"}}
+{"v": 1, "seq": 160, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.261137, "type": "text_delta", "payload": {"text": "赛"}}
+{"v": 1, "seq": 161, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2631347, "type": "text_delta", "payload": {"text": "的对"}}
+{"v": 1, "seq": 162, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2759168, "type": "text_delta", "payload": {"text": "阵"}}
+{"v": 1, "seq": 163, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2777421, "type": "text_delta", "payload": {"text": "和"}}
+{"v": 1, "seq": 164, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.2977095, "type": "text_delta", "payload": {"text": "战绩"}}
+{"v": 1, "seq": 165, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.3202183, "type": "text_delta", "payload": {"text": "贴"}}
+{"v": 1, "seq": 166, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.3217459, "type": "text_delta", "payload": {"text": "过来"}}
+{"v": 1, "seq": 167, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.33242, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 168, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.3337145, "type": "text_delta", "payload": {"text": "我可以"}}
+{"v": 1, "seq": 169, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.3347225, "type": "text_delta", "payload": {"text": "帮你"}}
+{"v": 1, "seq": 170, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.335502, "type": "text_delta", "payload": {"text": "算"}}
+{"v": 1, "seq": 171, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.3545303, "type": "text_delta", "payload": {"text": "晋级"}}
+{"v": 1, "seq": 172, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.3554199, "type": "text_delta", "payload": {"text": "形势"}}
+{"v": 1, "seq": 173, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.359698, "type": "text_delta", "payload": {"text": "。"}}
+{"v": 1, "seq": 174, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.3857515, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 175, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350712.387654, "type": "unknown", "payload": {"raw_kind": "message_stop"}}
+{"v": 1, "seq": 176, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350720.3984041, "type": "turn_done", "payload": {"turn": 2, "duration_ms": 16215}}
+{"v": 1, "seq": 177, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350737.460142, "type": "text_delta", "payload": {"role": "user", "text": "现在有哪些队伍晋级8强了"}}
+{"v": 1, "seq": 178, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350741.602122, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 179, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350741.6029115, "type": "unknown", "payload": {"subtype": "artifacts_update"}}
+{"v": 1, "seq": 180, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350741.6524754, "type": "unknown", "payload": {"subtype": "hook_diagnostics"}}
+{"v": 1, "seq": 181, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350742.1058235, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 182, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350744.687069, "type": "unknown", "payload": {"raw_kind": "message_start"}}
+{"v": 1, "seq": 183, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.2424066, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 184, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.2437563, "type": "text_delta", "payload": {"text": "我没有"}}
+{"v": 1, "seq": 185, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.24445, "type": "text_delta", "payload": {"text": "联网"}}
+{"v": 1, "seq": 186, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.2450554, "type": "text_delta", "payload": {"text": "查询"}}
+{"v": 1, "seq": 187, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.2520432, "type": "text_delta", "payload": {"text": "能力"}}
+{"v": 1, "seq": 188, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.2531657, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 189, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.2537704, "type": "text_delta", "payload": {"text": "这个"}}
+{"v": 1, "seq": 190, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.2758796, "type": "text_delta", "payload": {"text": "环境"}}
+{"v": 1, "seq": 191, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.2768588, "type": "text_delta", "payload": {"text": "里"}}
+{"v": 1, "seq": 192, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.2774298, "type": "text_delta", "payload": {"text": "也没有"}}
+{"v": 1, "seq": 193, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.2839222, "type": "text_delta", "payload": {"text": "可"}}
+{"v": 1, "seq": 194, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.2995076, "type": "text_delta", "payload": {"text": "用的"}}
+{"v": 1, "seq": 195, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3004673, "type": "text_delta", "payload": {"text": "搜索"}}
+{"v": 1, "seq": 196, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3128283, "type": "text_delta", "payload": {"text": "工具"}}
+{"v": 1, "seq": 197, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3138566, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 198, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3146026, "type": "text_delta", "payload": {"text": "所以"}}
+{"v": 1, "seq": 199, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3152049, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 200, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3427138, "type": "text_delta", "payload": {"text": "202"}}
+{"v": 1, "seq": 201, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3437362, "type": "text_delta", "payload": {"text": "6"}}
+{"v": 1, "seq": 202, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3443592, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 203, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.344901, "type": "text_delta", "payload": {"text": "全球"}}
+{"v": 1, "seq": 204, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3454669, "type": "text_delta", "payload": {"text": "总决赛"}}
+{"v": 1, "seq": 205, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3459945, "type": "text_delta", "payload": {"text": "目前的"}}
+{"v": 1, "seq": 206, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3596075, "type": "text_delta", "payload": {"text": "八"}}
+{"v": 1, "seq": 207, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.360547, "type": "text_delta", "payload": {"text": "强"}}
+{"v": 1, "seq": 208, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.380225, "type": "text_delta", "payload": {"text": "名单"}}
+{"v": 1, "seq": 209, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3813417, "type": "text_delta", "payload": {"text": "我"}}
+{"v": 1, "seq": 210, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3819413, "type": "text_delta", "payload": {"text": "查"}}
+{"v": 1, "seq": 211, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3920422, "type": "text_delta", "payload": {"text": "不到"}}
+{"v": 1, "seq": 212, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3931136, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 213, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3938177, "type": "text_delta", "payload": {"text": "也没"}}
+{"v": 1, "seq": 214, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.3944402, "type": "text_delta", "payload": {"text": "法"}}
+{"v": 1, "seq": 215, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.419107, "type": "text_delta", "payload": {"text": "核实"}}
+{"v": 1, "seq": 216, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.4285398, "type": "text_delta", "payload": {"text": "。"}}
+{"v": 1, "seq": 217, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.4390266, "type": "text_delta", "payload": {"text": "之前"}}
+{"v": 1, "seq": 218, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.4569583, "type": "text_delta", "payload": {"text": "说的"}}
+{"v": 1, "seq": 219, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.477477, "type": "text_delta", "payload": {"text": " GEN"}}
+{"v": 1, "seq": 220, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.4921813, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 221, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.4930608, "type": "text_delta", "payload": {"text": "T"}}
+{"v": 1, "seq": 222, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.5125437, "type": "text_delta", "payload": {"text": "1"}}
+{"v": 1, "seq": 223, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.5137055, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 224, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.5144181, "type": "text_delta", "payload": {"text": "BL"}}
+{"v": 1, "seq": 225, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.5150774, "type": "text_delta", "payload": {"text": "G"}}
+{"v": 1, "seq": 226, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.5156398, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 227, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.5256648, "type": "text_delta", "payload": {"text": "这些"}}
+{"v": 1, "seq": 228, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.526672, "type": "text_delta", "payload": {"text": "只是"}}
+{"v": 1, "seq": 229, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.5272715, "type": "text_delta", "payload": {"text": "基于"}}
+{"v": 1, "seq": 230, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.538323, "type": "text_delta", "payload": {"text": "往年"}}
+{"v": 1, "seq": 231, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.561315, "type": "text_delta", "payload": {"text": "格局"}}
+{"v": 1, "seq": 232, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.5622573, "type": "text_delta", "payload": {"text": "的"}}
+{"v": 1, "seq": 233, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.5824988, "type": "text_delta", "payload": {"text": "推测"}}
+{"v": 1, "seq": 234, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.5837762, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 235, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.5845988, "type": "text_delta", "payload": {"text": "不能"}}
+{"v": 1, "seq": 236, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6021817, "type": "text_delta", "payload": {"text": "当"}}
+{"v": 1, "seq": 237, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6180325, "type": "text_delta", "payload": {"text": "事实"}}
+{"v": 1, "seq": 238, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.619541, "type": "text_delta", "payload": {"text": "。\n\n"}}
+{"v": 1, "seq": 239, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6205459, "type": "text_delta", "payload": {"text": "你可以"}}
+{"v": 1, "seq": 240, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6243875, "type": "text_delta", "payload": {"text": "把"}}
+{"v": 1, "seq": 241, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6258976, "type": "text_delta", "payload": {"text": "当前的"}}
+{"v": 1, "seq": 242, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6354828, "type": "text_delta", "payload": {"text": "瑞士"}}
+{"v": 1, "seq": 243, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6370103, "type": "text_delta", "payload": {"text": "轮"}}
+{"v": 1, "seq": 244, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6488395, "type": "text_delta", "payload": {"text": "战绩"}}
+{"v": 1, "seq": 245, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6502576, "type": "text_delta", "payload": {"text": "或"}}
+{"v": 1, "seq": 246, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6866493, "type": "text_delta", "payload": {"text": "对阵"}}
+{"v": 1, "seq": 247, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6878731, "type": "text_delta", "payload": {"text": "表"}}
+{"v": 1, "seq": 248, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6886811, "type": "text_delta", "payload": {"text": "发"}}
+{"v": 1, "seq": 249, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6893287, "type": "text_delta", "payload": {"text": "我"}}
+{"v": 1, "seq": 250, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.689943, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 251, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.6905572, "type": "text_delta", "payload": {"text": "我"}}
+{"v": 1, "seq": 252, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.7795334, "type": "text_delta", "payload": {"text": "帮你"}}
+{"v": 1, "seq": 253, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.7810135, "type": "text_delta", "payload": {"text": "分析"}}
+{"v": 1, "seq": 254, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.7821524, "type": "text_delta", "payload": {"text": "谁能"}}
+{"v": 1, "seq": 255, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.782915, "type": "text_delta", "payload": {"text": "出"}}
+{"v": 1, "seq": 256, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.7838836, "type": "text_delta", "payload": {"text": "线"}}
+{"v": 1, "seq": 257, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.7844744, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 258, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.7852223, "type": "text_delta", "payload": {"text": "晋级"}}
+{"v": 1, "seq": 259, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.7859175, "type": "text_delta", "payload": {"text": "形势"}}
+{"v": 1, "seq": 260, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.7867136, "type": "text_delta", "payload": {"text": "如何"}}
+{"v": 1, "seq": 261, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.7875502, "type": "text_delta", "payload": {"text": "。"}}
+{"v": 1, "seq": 262, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.7885654, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 263, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350745.7904925, "type": "unknown", "payload": {"raw_kind": "message_stop"}}
+{"v": 1, "seq": 264, "session_id": "69906f85ef6f3b794cf865d356d65922", "ts": 1793350754.9560544, "type": "turn_done", "payload": {"turn": 3, "duration_ms": 17494}}

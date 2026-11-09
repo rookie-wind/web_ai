@@ -247,18 +247,25 @@ MUST 跳过回收。
 
 ### Requirement: 确认与凭据收集必须由前端卡片先行
 
-Web 会话 MUST 在 Agent 首次调用受门禁保护的工具（含 `edge_get_token`）时即渲染
-确认/参数卡片，供用户在当前卡片内填写凭据与确认，MUST NOT 要求用户先通过聊天
-文本提供凭据再触发卡片。系统 MUST 通过系统提示告知 Agent：需要确认或凭据时直接
-调用相应工具（缺失参数可留空）以触发表单，MUST NOT 在聊天中索要密码或验证码，
-MUST NOT 要求用户以聊天回复"确认"作为授权方式。卡片提交后，MUST 由既有 confirm
-端点铸票并自动携带所填参数续跑，无需用户再次输入。
+Web 会话 MUST 在 Agent 首次调用**登记了入参**的受门禁工具（如 `edge_get_token`
+需现场收凭据）时即渲染参数卡片，供用户在卡片内填写凭据与确认，MUST NOT 要求
+用户先通过聊天文本提供敏感凭据（密码/短信验证码）。
+
+对**无需补参、仅需确认**的写入，门禁 deny 后系统 MUST 通过系统提示告知 Agent：
+先在会话流播报将执行的操作与关键参数摘要，并请求用户回复口令 `/确认`，MUST NOT
+自行假定已授权、MUST NOT 以"调用一次即视为已确认"继续。会话一次 MUST 只挂一个
+待确认目标；`/确认` 仅认作用户消息**行首**，其它文本按普通消息处理，MUST NOT 误判
+为授权；用户不回 `/确认` 即视为不授权，写入 MUST NOT 发生。
+
+卡片提交与口令 `/确认` 都 MUST 经既有 confirm 端点铸票后由系统续跑，MUST NOT 由
+模型自铸票据。续跑若登记时本轮仍在执行（`turn_running`），系统 MUST 把续跑登记为
+待办并在本轮 `turn_done` 补发，MUST NOT 丢弃并指望模型自纠重试。
 
 #### Scenario: 请求边缘设备树时卡片先行
 
 - **WHEN** 用户请求读取某边缘后端设备树，而会话尚未提供该环境凭据
-- **THEN** Agent 直接调用 `edge_get_token`，前端立即出现确认/参数卡片，
-  用户可在卡片内填写账号、密码、验证码并提交，无需先在聊天中粘贴凭据
+- **THEN** Agent 直接调用 `edge_get_token`，前端立即出现参数卡片，用户可在
+  卡片内填写账号、密码、验证码并提交，无需先在聊天中粘贴凭据
 
 #### Scenario: 卡片提交自动铸票续跑
 
@@ -266,10 +273,26 @@ MUST NOT 要求用户以聊天回复"确认"作为授权方式。卡片提交后
 - **THEN** 后端铸造该目标的一次性窗口票据，并把所填参数随续跑消息发给 Agent，
   Agent 重试调用时在窗口内放行
 
+#### Scenario: 无参写入经会话口令请求确认
+
+- **WHEN** Agent 需要执行一项无需补参的写入而被门禁拦下
+- **THEN** Agent 在会话流播报操作与参数摘要并请求用户回复 `/确认`，MUST NOT
+  自行假定已授权；用户回复行首 `/确认` 后铸票续跑，用户不回复则写入不发生
+
+#### Scenario: 确认落在执行中轮次时于 turn_done 补发续跑
+
+- **WHEN** 用户在 `turn_running` 期间完成确认（卡片提交或口令）
+- **THEN** 续跑被登记为待办并在本轮 `turn_done` 自动补发，MUST NOT 因"本轮还在跑"
+  而丢弃续跑、指望模型自纠
+
 #### Scenario: Agent 不得引导聊天确认
 
-- **WHEN** Agent 需要用户授权某受门禁工具
-- **THEN** 其回复 MUST 引导用户使用确认卡片，MUST NOT 声称"回复确认"即可授权
+- **WHEN** 授权流程涉及密码/短信验证码等敏感凭据，或涉及 `login` 等绝对禁止
+  类工具
+- **THEN** Agent 的回复 MUST 引导用户经参数卡片操作，MUST NOT 声称在聊天中粘贴
+  凭据或回复"确认"即可授权此类操作；仅**无需补参、仅需确认**的写入方可走会话
+  口令 `/确认`，且敏感凭据 MUST NOT 借 `/确认` 口令索要，绝对禁止类 MUST NOT 因
+  任何口令被授权
 
 ### Requirement: 会话接入凭据必须完成平台授权激活
 
@@ -278,6 +301,11 @@ webchat 为会话签发的接入凭据 MUST 在会话对用户可用之前完成
 的凭据自动完成，MUST NOT 要求用户在页面输入手机号或短信验证码。激活失败
 MUST 使会话创建明确失败并向用户给出可辨识原因，MUST NOT 返回一个可对话、
 但任何云端操作都会被拒绝的会话。
+
+Agent MUST NOT 调用 `login` 工具，MUST NOT 在对话中索要平台手机号或短信
+验证码；`login` 门禁保持绝对禁止。系统提示与技能文档 MUST 与预激活事实
+一致；若云端工具返回认证失效，Agent MUST 如实告知用户并由服务端重新激活，
+MUST NOT 降级为 Agent 登录或向用户索取凭据。
 
 #### Scenario: 新建会话可直接执行云端只读
 
@@ -295,3 +323,240 @@ MUST 使会话创建明确失败并向用户给出可辨识原因，MUST NOT 返
 - **WHEN** 会话创建过程中的平台授权激活失败
 - **THEN** 创建请求返回失败且不产生可用会话，前端展示明确原因，
   不出现「会话已就绪但一查就报错」的状态
+
+#### Scenario: Agent 不调用 login
+
+- **WHEN** 用户请求云端只读数据
+- **THEN** Agent 直接调用 `get_*` 工具，不调用 `login`，也不要求用户提供
+  手机号或验证码；若遇认证失效则如实告知并由服务端重新激活
+
+### Requirement: 技能必须从 canonical 目录索引并按需注入
+
+Web 会话启动时 MUST 读取 `agent_assets/skills`（或 `WEBCHAT_SKILLS_ROOT`
+指定目录）下各 `SKILL.md` 的 name/description/when_to_use，形成索引写入
+系统提示，并 MUST 给出每个 SKILL.md 的真实路径。模型 MUST 能通过内置 Read
+按需读取全文。用户消息以 `/技能名` 开头时，该技能 SKILL.md 全文 MUST 在
+**当轮**注入；未匹配的前缀 MUST 按普通文本处理，不得误注入其他技能。
+技能来源 MUST NOT 使用仓库 `.qoder/skills` 等客户端副本。
+
+#### Scenario: 用户显式 /xlpa 提问
+
+- **WHEN** 用户发送 `/xlpa 帮我生成脚本`
+- **THEN** 本轮用户消息前包含 canonical `xlpa/SKILL.md` 全文，且系统提示含技能索引
+
+#### Scenario: 普通消息不注入
+
+- **WHEN** 用户发送不带技能前缀的普通消息
+- **THEN** 不注入任何技能全文，行为与存量会话一致
+
+#### Scenario: 技能目录缺失
+
+- **WHEN** 技能母本目录不存在或不可读
+- **THEN** 服务仍可启动，系统提示明确说明未发现技能目录，不得伪造技能内容
+
+### Requirement: 内置只读工具必须受根目录白名单约束
+
+系统 MUST 暴露内置 `Read`，且仅当路径经 `resolve()` 后位于会话工作区、
+canonical 技能目录或配置的额外白名单目录内时放行。额外白名单 MUST 默认
+包含 CLI 大结果落盘目录（`%TEMP%/qoder-mcp-outputs` 与
+`~/.qoder-cn/tmp`），并 MUST 支持 `WEBCHAT_READ_EXTRA_ROOTS` 追加
+（逗号或分号分隔）。越界路径、目录穿越、缺参或未配置可读根目录 MUST 一律
+拒绝，且 MUST NOT 经用户确认解除。事件库、其他会话工作区、仓库密钥与
+MCP 配置 MUST 保持在白名单之外。
+
+#### Scenario: 读取技能手册
+
+- **WHEN** Agent 调用 `Read` 读取 `agent_assets/skills/xlpa/SKILL.md`
+- **THEN** 放行并记审计
+
+#### Scenario: 读取仓库敏感文件
+
+- **WHEN** Agent 调用 `Read` 读取白名单之外的仓库文件（如 `.env`、
+  `permissions.json` 或事件库）
+- **THEN** 拒绝并产 `gate_blocked` 事件（`guard=read_path`、不可确认解除）
+
+#### Scenario: 读取 CLI 大结果落盘文件
+
+- **WHEN** MCP 工具结果过大，CLI 将其落盘到 `%TEMP%/qoder-mcp-outputs` 或
+  `~/.qoder-cn/tmp` 并让 Agent 读取
+- **THEN** 放行并返回文件内容，不再出现“操作被禁止: Read”红卡
+
+#### Scenario: 其他会话仍不可读
+
+- **WHEN** Agent 尝试读取另一个会话的工作区或事件库
+- **THEN** 拒绝并产 `gate_blocked` 事件，不得跨会话读取
+
+### Requirement: 同一会话的轮次必须串行
+
+同一会话在一个轮次执行期间 MUST NOT 接受新的用户消息；服务端 MUST 返回
+409 并提示「上一轮仍在执行，请稍候」，不得排队、不得拉起第二个 CLI 轮次。
+确认端点 MUST 在响应中给出当前会话是否仍有执行中轮次；前端在该轮仍在执行
+时 MUST NOT 自动发送续跑消息。
+
+#### Scenario: 执行中重复发送
+
+- **WHEN** 上一轮仍在执行时用户再次发送消息
+- **THEN** 返回 409，事件流不出现重复或缺失的轮次序号
+
+#### Scenario: 执行中确认写入
+
+- **WHEN** 轮次仍在执行时用户在确认卡片上确认
+- **THEN** 票据照常铸造，前端不自动续跑，提示助手将在当前轮重试
+
+### Requirement: 执行中的任务必须可中止
+
+Web 会话 MUST 支持中止当前任务：`POST /api/sessions/{id}/abort`（租约校验）
+MUST 取消当前轮次并调用 `QoderSDKClient.interrupt()`；本轮因中断产生的
+`error_during_execution` 结果 MUST 映射为 `turn_aborted` 事件，MUST NOT 记为
+普通错误。中止 MUST 复位 `turn_running`、清理本会话旧确认票据，并 MUST NOT
+断开客户端，以便同一会话继续下一轮。
+
+中止流程 MUST 先使用会话 MCP Token 请求服务端建档批次中止
+（`POST /api/archive/tasks/{task_id}/cancel`）；服务端 MUST 在当前工作单元
+完成后停止并返回 `cancelled=true`、`cursor`、`remaining` 与 `report_id`。
+中止 MUST NOT 自动回滚已完成的写入，补偿清单 MUST 保留可查。当 `interrupt()`
+失败或超时，流程 MUST 回退到取消轮次任务的兜底路径并产生说明原因的 `error`
+事件，MUST NOT 静默挂起。
+
+#### Scenario: 中止执行中的轮次
+
+- **WHEN** 轮次正在执行时用户点击「停止」
+- **THEN** 轮次被中断，事件流出现 `turn_aborted`，界面不再显示“执行中”
+- **THEN** 同一会话随后发送的新消息可正常执行
+
+#### Scenario: 中止服务端建档批次
+
+- **WHEN** 客户端超时但 MCP 服务端仍在执行建档批次
+- **THEN** 取消请求使服务端在当前单元后停止，返回 `cancelled=true` 与续跑游标，
+  已建设备与补偿清单保留
+
+#### Scenario: 中止后旧确认不生效
+
+- **WHEN** 中止完成后再调用此前已确认的写工具
+- **THEN** 旧票据已清理，需重新确认后才放行
+
+### Requirement: 外部检索与协议助手的路由必须可判定且前缀可选
+
+Web 会话 MUST 向模型暴露内置 `WebSearch` 工具（由门禁显式放行并记审计），使外部
+公开资料可被检索；MUST NOT 暴露 `WebFetch`、`Bash` 等可拉取任意 URL 或执行命令的
+工具。系统提示 MUST 声明路由边界：平台数据、设备、建档、参数下发、协议转换与边缘
+操作 MUST 走 xlpa MCP 工具；公开协议标准、厂商手册、行业信息与用户给定 URL 的公开
+内容 MUST 走 WebSearch；两者都需要的任务可先检索资料再用 MCP 落地。无法判定时
+MUST 默认按 xlpa 理解或向用户澄清，MUST NOT 静默把内部业务内容发往外部检索。
+
+路由 MUST 支持可选前缀 `/web` 与 `/xlpa`：仅对当前一条消息强制指定路由，执行前
+MUST 从任务文本中剥离；不带前缀时 MUST 自动判定。前缀 MUST NOT 改变会话模式、
+MUST NOT 要求用户每次输入都携带。系统提示 MUST 禁止把凭据（账号/密码/验证码/
+Token）、设备地址与内部协议文档原文送入 WebSearch；需要检索内部相关内容时 MUST
+先脱敏或征得用户确认。检索失败或不可用时，Agent MUST 如实告知用户，MUST NOT 以
+模型记忆冒充检索结果。
+
+#### Scenario: 外部协议标准问题走网页检索
+
+- **WHEN** 用户询问"Modbus TCP 默认端口是多少"或要求查阅公开协议标准
+- **THEN** Agent 调用 `WebSearch` 并基于检索结果回答（附来源），不调用 xlpa 写工具
+
+#### Scenario: 平台设备问题走 xlpa
+
+- **WHEN** 用户询问某边缘网关上存在哪些设备
+- **THEN** Agent 走 xlpa MCP 工具（必要时先经确认卡片获取凭据），不调用 WebSearch
+
+#### Scenario: 前缀强制路由
+
+- **WHEN** 用户发送 `/web <任务>` 或 `/xlpa <任务>`
+- **THEN** 本次消息按指定路由执行，前缀在任务文本中被剥离，后续消息恢复自动判定
+
+#### Scenario: 前缀边界
+
+- **WHEN** 用户发送 `/web`（无任务）、在消息中间出现 `/web`，或使用未约定的 `/xxx`
+- **THEN** 无任务时追问检索主题；非开头的 `/` 与其他 `/xxx` 均按普通文本处理，
+  不触发路由覆盖
+
+#### Scenario: 混合任务先检索后执行
+
+- **WHEN** 用户要求"先查某公开协议规范，再在平台上创建对应类型"
+- **THEN** Agent 先调用 WebSearch 获取公开资料，再用 xlpa MCP 工具执行平台操作
+
+#### Scenario: 内部信息不得外发
+
+- **WHEN** 用户要求检索的内容包含账号、密码、设备地址或内部协议文档原文
+- **THEN** Agent 先脱敏或向用户确认，MUST NOT 原样送入 WebSearch
+
+### Requirement: 会话运行时必须持有一个持久 SDK 客户端
+
+每个 Web 会话 MUST 绑定恰好一个持久的 `QoderSDKClient` 实例：会话创建时
+`connect()`，会话结束或空闲回收时 `disconnect()`；同一会话的多个轮次 MUST
+复用同一客户端，MUST NOT 每轮重新拉起 CLI 进程。客户端 MUST 在其 `connect()`
+所在的同一 asyncio 上下文内使用；MUST NOT 跨事件循环或跨任务组共享。客户端实例
+MUST 限于适配层内，MUST NOT 泄漏到事件契约或前端接口。
+
+#### Scenario: 多轮复用同一客户端
+
+- **WHEN** 同一会话连续执行两轮用户消息
+- **THEN** 两轮由同一客户端实例处理，第二轮的 `session_id` 与第一轮一致
+- **THEN** 不出现每轮新建 CLI 子进程的行为
+
+#### Scenario: 会话结束释放客户端
+
+- **WHEN** 用户结束会话或会话被空闲回收
+- **THEN** 该客户端 `disconnect()`，CLI 实例终止，接入凭据按既有契约撤销
+
+### Requirement: 每会话必须只有一个消息接收循环
+
+每个客户端 MUST 只启动一个常驻 `receive_messages()` 接收循环，跨轮持续接收；
+轮次逻辑 MUST NOT 自行新建第二个接收循环。接收循环 MUST 把消息按本轮归属归类后
+再归一化为事件契约 v1，MUST NOT 把上一轮尾部消息计入下一轮。接收循环异常退出
+MUST 产生 `error` 事件并使该会话进入明确的不可继续状态，MUST NOT 静默丢弃消息。
+
+#### Scenario: 单接收循环跨两轮
+
+- **WHEN** 同一会话依次发送两条消息
+- **THEN** 一个接收循环连续消费两轮消息，两轮各自的 `turn_done` 均按序产生
+- **THEN** 两轮事件归属无交叉、无丢失
+
+#### Scenario: 接收循环异常
+
+- **WHEN** 接收循环因 SDK 异常退出
+- **THEN** 事件流出现 `error` 事件说明接收中断，后续发送消息被明确拒绝而非挂起
+
+### Requirement: 中断后同一会话必须可继续
+
+`interrupt()` 成功结束当前轮后，同一会话 MUST 可继续发送下一轮消息，且模型
+MUST 能引用中断前已完成的对话上下文；`session_id` MUST 保持不变。空闲状态下
+调用中止 MUST 安全返回，MUST NOT 破坏会话。中断 MUST NOT 自动断开客户端。
+中断 MUST NOT 被假定为能停止已进入执行的 MCP 工具调用：中止流程 MUST 继续通过
+服务端批次取消契约止损，已完成的写入不回滚。
+
+#### Scenario: 中断后继续并保留上下文
+
+- **WHEN** 一轮执行中被告知中止，随后用户在同一会话发送新消息
+- **THEN** 新轮次正常返回，且能基于中断前的对话内容作答
+- **THEN** 会话 `session_id` 与中断前一致
+
+#### Scenario: 空闲置停
+
+- **WHEN** 会话空闲时收到中止请求
+- **THEN** 接口安全返回，随后发送消息仍可正常执行
+
+#### Scenario: 中断不停止已执行的 MCP 工具
+
+- **WHEN** 中断发生在某个 MCP 写工具已开始执行之后
+- **THEN** 轮次立即结束，但该工具可能仍完成；服务端取消契约为 MUST 保留项，
+  补偿清单可查
+
+### Requirement: 流式增量与完整文本必须去重
+
+启用流式 partial 消息时，事件层 MUST 对同一段文本只产出一次：存在增量时
+MUST 仅由增量产出 `text_delta`，随后到达的完整文本 MUST NOT 再次产出；无增量
+到达时 MUST 以完整文本兜底产出一条 `text_delta`。该规则 MUST 在长文本、多工具
+连续轮次下同样成立。
+
+#### Scenario: 短回复不重复
+
+- **WHEN** 一轮回复产生 1 个增量且随后到达内容相同的完整文本消息
+- **THEN** 前端只收到一条对应的 `text_delta`，不出现重复展示
+
+#### Scenario: 无增量时兜底
+
+- **WHEN** 本轮未产生任何增量（例如仅工具调用或极短回复）
+- **THEN** 完整文本仍以一条 `text_delta` 产出，文本不丢失

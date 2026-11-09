@@ -1,0 +1,14 @@
+{"v": 1, "seq": 1, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586611.1550918, "type": "session_started", "payload": {"username": "admin"}}
+{"v": 1, "seq": 2, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586611.1623833, "type": "text_delta", "payload": {"role": "user", "text": "只回复两个字：你好"}}
+{"v": 1, "seq": 3, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586615.9003353, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 4, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586615.9028668, "type": "unknown", "payload": {"subtype": "artifacts_update"}}
+{"v": 1, "seq": 5, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586615.9905446, "type": "unknown", "payload": {"subtype": "hook_diagnostics"}}
+{"v": 1, "seq": 6, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586616.1933193, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 7, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586621.6319826, "type": "unknown", "payload": {"raw_kind": "message_start"}}
+{"v": 1, "seq": 8, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586621.996699, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 9, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586621.9981148, "type": "text_delta", "payload": {"text": "你好"}}
+{"v": 1, "seq": 10, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586621.9995553, "type": "text_delta", "payload": {"text": "你好"}}
+{"v": 1, "seq": 11, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586622.0008492, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 12, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586622.0032127, "type": "unknown", "payload": {"raw_kind": "message_stop"}}
+{"v": 1, "seq": 13, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793586626.0582492, "type": "turn_done", "payload": {"turn": 1, "duration_ms": 14893}}
+{"v": 1, "seq": 14, "session_id": "163d48194c7e18c405a1fcaf584f5f3e", "ts": 1793588467.6496367, "type": "session_closed", "payload": {"username": "admin", "reason": "idle"}}

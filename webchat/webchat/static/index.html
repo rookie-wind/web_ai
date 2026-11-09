@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XLPA 协议转换助手</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+
+<!-- 登录视图（凭据仅存内存，不落 localStorage） -->
+<section id="view-login" class="view">
+  <form id="login-form" class="login-card" autocomplete="off">
+    <h1>XLPA 协议转换助手</h1>
+    <label>用户名
+      <input id="login-user" name="username" required autocomplete="username">
+    </label>
+    <label>密码
+      <input id="login-pass" name="password" type="password" required
+             autocomplete="current-password">
+    </label>
+    <button type="submit" id="login-btn">登 录</button>
+    <p id="login-error" class="error-text" role="alert"></p>
+  </form>
+</section>
+
+<!-- 主视图：会话列表 + 对话区 -->
+<section id="view-app" class="view hidden">
+  <header class="topbar">
+    <button id="btn-sessions" class="icon-btn" title="会话列表">☰</button>
+    <span class="topbar-title">XLPA 助手</span>
+    <span id="whoami" class="whoami"></span>
+    <button id="btn-logout" class="ghost-btn">退出</button>
+  </header>
+
+  <div class="layout">
+    <aside id="sidebar" class="sidebar">
+      <button id="btn-new-session" class="primary-btn">＋ 新建会话</button>
+      <p id="session-notice" class="error-text"></p>
+      <ul id="session-list" class="session-list"></ul>
+    </aside>
+
+    <main class="chat-pane">
+      <div id="messages" class="messages" aria-live="polite"></div>
+      <div id="pending-cards" class="pending-cards"></div>
+      <form id="compose-form" class="compose">
+        <div class="compose-row">
+          <select id="upload-channel" title="上传通道">
+            <option value="document">文档</option>
+            <option value="screenshot">截图(OCR)</option>
+            <option value="archive_table">建档表格</option>
+          </select>
+          <input id="upload-file" type="file">
+          <button type="button" id="btn-upload" class="ghost-btn">上传</button>
+        </div>
+        <div class="compose-row">
+          <textarea id="msg-input" rows="2"
+                    placeholder="输入消息，Enter 发送（无会话时请先新建）；可选前缀：/web 强制网页检索、/xlpa 强制协议助手（默认自动判断）"></textarea>
+          <button type="button" id="btn-abort" class="ghost-btn hidden"
+                  title="中止当前任务（已完成的写入不回滚）">停止</button>
+          <button type="submit" id="btn-send" class="primary-btn">发送</button>
+        </div>
+        <p id="compose-notice" class="notice-text"></p>
+      </form>
+    </main>
+  </div>
+</section>
+
+<script type="module" src="/static/js/app.js"></script>
+</body>
+</html>

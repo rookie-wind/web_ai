@@ -1,0 +1,248 @@
+{"v": 1, "seq": 1, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414362.2378638, "type": "session_started", "payload": {"username": "admin"}}
+{"v": 1, "seq": 2, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414372.8317435, "type": "text_delta", "payload": {"role": "user", "text": "给我一份最新的建档模版"}}
+{"v": 1, "seq": 3, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414376.1348312, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 4, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414376.1356251, "type": "unknown", "payload": {"subtype": "artifacts_update"}}
+{"v": 1, "seq": 5, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414376.1863596, "type": "unknown", "payload": {"subtype": "hook_diagnostics"}}
+{"v": 1, "seq": 6, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414376.2789154, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 7, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414379.6641986, "type": "unknown", "payload": {"raw_kind": "message_start"}}
+{"v": 1, "seq": 8, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414379.9300935, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 9, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414379.9312425, "type": "text_delta", "payload": {"text": "我先"}}
+{"v": 1, "seq": 10, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414379.9321618, "type": "text_delta", "payload": {"text": "为你"}}
+{"v": 1, "seq": 11, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414379.933099, "type": "text_delta", "payload": {"text": "生成"}}
+{"v": 1, "seq": 12, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414379.93381, "type": "text_delta", "payload": {"text": "一份"}}
+{"v": 1, "seq": 13, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414379.9350734, "type": "text_delta", "payload": {"text": "最新的"}}
+{"v": 1, "seq": 14, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414379.9359634, "type": "text_delta", "payload": {"text": "空白"}}
+{"v": 1, "seq": 15, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414379.9372349, "type": "text_delta", "payload": {"text": "自动"}}
+{"v": 1, "seq": 16, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414379.9381926, "type": "text_delta", "payload": {"text": "建档"}}
+{"v": 1, "seq": 17, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414379.938993, "type": "text_delta", "payload": {"text": "模板"}}
+{"v": 1, "seq": 18, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414379.939911, "type": "text_delta", "payload": {"text": "。"}}
+{"v": 1, "seq": 19, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414380.0223126, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 20, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414380.0241451, "type": "tool_call", "payload": {"id": "call_00_uWX9PZkwcUb5hTy9Zk0u6642", "name": "mcp__xlpa__generate_device_archive_template", "input": {}}}
+{"v": 1, "seq": 21, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414380.087757, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 22, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414380.0912879, "type": "unknown", "payload": {"raw_kind": "message_stop"}}
+{"v": 1, "seq": 23, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414382.1349726, "type": "unknown", "payload": {"raw_kind": "message_start"}}
+{"v": 1, "seq": 24, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414382.2976687, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 25, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414382.298736, "type": "tool_call", "payload": {"id": "call_00_LlTcYVds7KS9ItMulLNI1307", "name": "mcp__xlpa__get_device_archive_template_download", "input": {}}}
+{"v": 1, "seq": 26, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414382.4506621, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 27, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414382.4528213, "type": "unknown", "payload": {"raw_kind": "message_stop"}}
+{"v": 1, "seq": 28, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.788165, "type": "unknown", "payload": {"raw_kind": "message_start"}}
+{"v": 1, "seq": 29, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.7895434, "type": "text_delta", "payload": {"text": "最新"}}
+{"v": 1, "seq": 30, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.8060238, "type": "text_delta", "payload": {"text": "建档"}}
+{"v": 1, "seq": 31, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.8071685, "type": "text_delta", "payload": {"text": "模板"}}
+{"v": 1, "seq": 32, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.8078907, "type": "text_delta", "payload": {"text": "已"}}
+{"v": 1, "seq": 33, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.8085036, "type": "text_delta", "payload": {"text": "生成"}}
+{"v": 1, "seq": 34, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9179475, "type": "text_delta", "payload": {"text": "：\n\n"}}
+{"v": 1, "seq": 35, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9214766, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 36, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9228394, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 37, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.924128, "type": "text_delta", "payload": {"text": "项目"}}
+{"v": 1, "seq": 38, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9251094, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 39, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.925962, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 40, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9270768, "type": "text_delta", "payload": {"text": "内容"}}
+{"v": 1, "seq": 41, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.928054, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 42, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9287267, "type": "text_delta", "payload": {"text": "|---|---"}}
+{"v": 1, "seq": 43, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9294796, "type": "text_delta", "payload": {"text": "|\n"}}
+{"v": 1, "seq": 44, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.930205, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 45, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9312513, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 46, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9321165, "type": "text_delta", "payload": {"text": "文件名"}}
+{"v": 1, "seq": 47, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9328873, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 48, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.933604, "type": "text_delta", "payload": {"text": " `"}}
+{"v": 1, "seq": 49, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9343603, "type": "text_delta", "payload": {"text": "设备"}}
+{"v": 1, "seq": 50, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9350517, "type": "text_delta", "payload": {"text": "建档"}}
+{"v": 1, "seq": 51, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.935692, "type": "text_delta", "payload": {"text": "模板"}}
+{"v": 1, "seq": 52, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9363244, "type": "text_delta", "payload": {"text": "_"}}
+{"v": 1, "seq": 53, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.937014, "type": "text_delta", "payload": {"text": "202"}}
+{"v": 1, "seq": 54, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9376383, "type": "text_delta", "payload": {"text": "610"}}
+{"v": 1, "seq": 55, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.938215, "type": "text_delta", "payload": {"text": "310"}}
+{"v": 1, "seq": 56, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9391234, "type": "text_delta", "payload": {"text": "239"}}
+{"v": 1, "seq": 57, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9398746, "type": "text_delta", "payload": {"text": "40"}}
+{"v": 1, "seq": 58, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9406025, "type": "text_delta", "payload": {"text": ".x"}}
+{"v": 1, "seq": 59, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9413147, "type": "text_delta", "payload": {"text": "lsx"}}
+{"v": 1, "seq": 60, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9420133, "type": "text_delta", "payload": {"text": "`"}}
+{"v": 1, "seq": 61, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9427483, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 62, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9433722, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 63, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.943997, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 64, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9445786, "type": "text_delta", "payload": {"text": "大小"}}
+{"v": 1, "seq": 65, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9451518, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 66, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9458253, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 67, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9465938, "type": "text_delta", "payload": {"text": "119"}}
+{"v": 1, "seq": 68, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9473407, "type": "text_delta", "payload": {"text": ","}}
+{"v": 1, "seq": 69, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9479625, "type": "text_delta", "payload": {"text": "092"}}
+{"v": 1, "seq": 70, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9485245, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 71, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.949066, "type": "text_delta", "payload": {"text": "字节"}}
+{"v": 1, "seq": 72, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9496691, "type": "text_delta", "payload": {"text": "（"}}
+{"v": 1, "seq": 73, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9502144, "type": "text_delta", "payload": {"text": "约"}}
+{"v": 1, "seq": 74, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9507718, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 75, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9512951, "type": "text_delta", "payload": {"text": "116"}}
+{"v": 1, "seq": 76, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9693682, "type": "text_delta", "payload": {"text": " KB"}}
+{"v": 1, "seq": 77, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9710686, "type": "text_delta", "payload": {"text": "）"}}
+{"v": 1, "seq": 78, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9717684, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 79, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9728267, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 80, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9735394, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 81, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9741497, "type": "text_delta", "payload": {"text": "下载"}}
+{"v": 1, "seq": 82, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.974952, "type": "text_delta", "payload": {"text": "地址"}}
+{"v": 1, "seq": 83, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9950588, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 84, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414383.9961395, "type": "text_delta", "payload": {"text": " `/"}}
+{"v": 1, "seq": 85, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0129144, "type": "text_delta", "payload": {"text": "api"}}
+{"v": 1, "seq": 86, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0138733, "type": "text_delta", "payload": {"text": "/"}}
+{"v": 1, "seq": 87, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0147235, "type": "text_delta", "payload": {"text": "archive"}}
+{"v": 1, "seq": 88, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0156627, "type": "text_delta", "payload": {"text": "/t"}}
+{"v": 1, "seq": 89, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0167367, "type": "text_delta", "payload": {"text": "emplates"}}
+{"v": 1, "seq": 90, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.017474, "type": "text_delta", "payload": {"text": "/ad"}}
+{"v": 1, "seq": 91, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0182145, "type": "text_delta", "payload": {"text": "0"}}
+{"v": 1, "seq": 92, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.018925, "type": "text_delta", "payload": {"text": "b"}}
+{"v": 1, "seq": 93, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.019503, "type": "text_delta", "payload": {"text": "174"}}
+{"v": 1, "seq": 94, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.020184, "type": "text_delta", "payload": {"text": "2"}}
+{"v": 1, "seq": 95, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0207567, "type": "text_delta", "payload": {"text": "c"}}
+{"v": 1, "seq": 96, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0212939, "type": "text_delta", "payload": {"text": "9"}}
+{"v": 1, "seq": 97, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0337412, "type": "text_delta", "payload": {"text": "d"}}
+{"v": 1, "seq": 98, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0347533, "type": "text_delta", "payload": {"text": "527"}}
+{"v": 1, "seq": 99, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.035522, "type": "text_delta", "payload": {"text": "b"}}
+{"v": 1, "seq": 100, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.036163, "type": "text_delta", "payload": {"text": "775"}}
+{"v": 1, "seq": 101, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0367305, "type": "text_delta", "payload": {"text": "664"}}
+{"v": 1, "seq": 102, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0373564, "type": "text_delta", "payload": {"text": "f"}}
+{"v": 1, "seq": 103, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0475237, "type": "text_delta", "payload": {"text": "03"}}
+{"v": 1, "seq": 104, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.048446, "type": "text_delta", "payload": {"text": "b"}}
+{"v": 1, "seq": 105, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0492158, "type": "text_delta", "payload": {"text": "9"}}
+{"v": 1, "seq": 106, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0498445, "type": "text_delta", "payload": {"text": "bf"}}
+{"v": 1, "seq": 107, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0504453, "type": "text_delta", "payload": {"text": "a"}}
+{"v": 1, "seq": 108, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.051059, "type": "text_delta", "payload": {"text": "147"}}
+{"v": 1, "seq": 109, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.064569, "type": "text_delta", "payload": {"text": "?"}}
+{"v": 1, "seq": 110, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0657055, "type": "text_delta", "payload": {"text": "owner"}}
+{"v": 1, "seq": 111, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0664086, "type": "text_delta", "payload": {"text": "="}}
+{"v": 1, "seq": 112, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0670311, "type": "text_delta", "payload": {"text": "fa"}}
+{"v": 1, "seq": 113, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0676932, "type": "text_delta", "payload": {"text": "7"}}
+{"v": 1, "seq": 114, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0682783, "type": "text_delta", "payload": {"text": "e"}}
+{"v": 1, "seq": 115, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0932276, "type": "text_delta", "payload": {"text": "00"}}
+{"v": 1, "seq": 116, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0941546, "type": "text_delta", "payload": {"text": "ad"}}
+{"v": 1, "seq": 117, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0948703, "type": "text_delta", "payload": {"text": "4"}}
+{"v": 1, "seq": 118, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.095478, "type": "text_delta", "payload": {"text": "ae"}}
+{"v": 1, "seq": 119, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0961788, "type": "text_delta", "payload": {"text": "117"}}
+{"v": 1, "seq": 120, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.0970447, "type": "text_delta", "payload": {"text": "ab"}}
+{"v": 1, "seq": 121, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.109788, "type": "text_delta", "payload": {"text": "52"}}
+{"v": 1, "seq": 122, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.110715, "type": "text_delta", "payload": {"text": "ce"}}
+{"v": 1, "seq": 123, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1115406, "type": "text_delta", "payload": {"text": "861"}}
+{"v": 1, "seq": 124, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.112201, "type": "text_delta", "payload": {"text": "631"}}
+{"v": 1, "seq": 125, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1128385, "type": "text_delta", "payload": {"text": "dd"}}
+{"v": 1, "seq": 126, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1134942, "type": "text_delta", "payload": {"text": "328"}}
+{"v": 1, "seq": 127, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1165779, "type": "text_delta", "payload": {"text": "f"}}
+{"v": 1, "seq": 128, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1175203, "type": "text_delta", "payload": {"text": "1"}}
+{"v": 1, "seq": 129, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1182268, "type": "text_delta", "payload": {"text": "f"}}
+{"v": 1, "seq": 130, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1189198, "type": "text_delta", "payload": {"text": "37"}}
+{"v": 1, "seq": 131, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.119528, "type": "text_delta", "payload": {"text": "ef"}}
+{"v": 1, "seq": 132, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1317568, "type": "text_delta", "payload": {"text": "438"}}
+{"v": 1, "seq": 133, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.13283, "type": "text_delta", "payload": {"text": "323"}}
+{"v": 1, "seq": 134, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.133491, "type": "text_delta", "payload": {"text": "100"}}
+{"v": 1, "seq": 135, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1471817, "type": "text_delta", "payload": {"text": "d"}}
+{"v": 1, "seq": 136, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1484165, "type": "text_delta", "payload": {"text": "3"}}
+{"v": 1, "seq": 137, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1494324, "type": "text_delta", "payload": {"text": "a"}}
+{"v": 1, "seq": 138, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1501281, "type": "text_delta", "payload": {"text": "561"}}
+{"v": 1, "seq": 139, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1508467, "type": "text_delta", "payload": {"text": "65"}}
+{"v": 1, "seq": 140, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1515365, "type": "text_delta", "payload": {"text": "c"}}
+{"v": 1, "seq": 141, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1826355, "type": "text_delta", "payload": {"text": "9"}}
+{"v": 1, "seq": 142, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.183356, "type": "text_delta", "payload": {"text": "b"}}
+{"v": 1, "seq": 143, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1840334, "type": "text_delta", "payload": {"text": "3"}}
+{"v": 1, "seq": 144, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1848547, "type": "text_delta", "payload": {"text": "ca"}}
+{"v": 1, "seq": 145, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1856494, "type": "text_delta", "payload": {"text": "6"}}
+{"v": 1, "seq": 146, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.186492, "type": "text_delta", "payload": {"text": "e"}}
+{"v": 1, "seq": 147, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.18748, "type": "text_delta", "payload": {"text": "8"}}
+{"v": 1, "seq": 148, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.188179, "type": "text_delta", "payload": {"text": "`"}}
+{"v": 1, "seq": 149, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1893811, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 150, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1906054, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 151, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.1917129, "type": "text_delta", "payload": {"text": " SHA"}}
+{"v": 1, "seq": 152, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.192762, "type": "text_delta", "payload": {"text": "-"}}
+{"v": 1, "seq": 153, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2041624, "type": "text_delta", "payload": {"text": "256"}}
+{"v": 1, "seq": 154, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2051165, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 155, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2061207, "type": "text_delta", "payload": {"text": " `"}}
+{"v": 1, "seq": 156, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2070138, "type": "text_delta", "payload": {"text": "c"}}
+{"v": 1, "seq": 157, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2237027, "type": "text_delta", "payload": {"text": "665"}}
+{"v": 1, "seq": 158, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.225031, "type": "text_delta", "payload": {"text": "040"}}
+{"v": 1, "seq": 159, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2258196, "type": "text_delta", "payload": {"text": "a"}}
+{"v": 1, "seq": 160, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2264342, "type": "text_delta", "payload": {"text": "20"}}
+{"v": 1, "seq": 161, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2269568, "type": "text_delta", "payload": {"text": "cb"}}
+{"v": 1, "seq": 162, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2443464, "type": "text_delta", "payload": {"text": "2"}}
+{"v": 1, "seq": 163, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.245323, "type": "text_delta", "payload": {"text": "fb"}}
+{"v": 1, "seq": 164, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2461822, "type": "text_delta", "payload": {"text": "be"}}
+{"v": 1, "seq": 165, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2468894, "type": "text_delta", "payload": {"text": "a"}}
+{"v": 1, "seq": 166, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2476459, "type": "text_delta", "payload": {"text": "4"}}
+{"v": 1, "seq": 167, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2607553, "type": "text_delta", "payload": {"text": "a"}}
+{"v": 1, "seq": 168, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2616127, "type": "text_delta", "payload": {"text": "32"}}
+{"v": 1, "seq": 169, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2622771, "type": "text_delta", "payload": {"text": "c"}}
+{"v": 1, "seq": 170, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2756634, "type": "text_delta", "payload": {"text": "7"}}
+{"v": 1, "seq": 171, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.277497, "type": "text_delta", "payload": {"text": "cc"}}
+{"v": 1, "seq": 172, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2782485, "type": "text_delta", "payload": {"text": "71"}}
+{"v": 1, "seq": 173, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2790697, "type": "text_delta", "payload": {"text": "b"}}
+{"v": 1, "seq": 174, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.279781, "type": "text_delta", "payload": {"text": "141"}}
+{"v": 1, "seq": 175, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.280452, "type": "text_delta", "payload": {"text": "ed"}}
+{"v": 1, "seq": 176, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2904582, "type": "text_delta", "payload": {"text": "b"}}
+{"v": 1, "seq": 177, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2963572, "type": "text_delta", "payload": {"text": "275"}}
+{"v": 1, "seq": 178, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2976208, "type": "text_delta", "payload": {"text": "a"}}
+{"v": 1, "seq": 179, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2983172, "type": "text_delta", "payload": {"text": "44"}}
+{"v": 1, "seq": 180, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.2998605, "type": "text_delta", "payload": {"text": "b"}}
+{"v": 1, "seq": 181, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3057783, "type": "text_delta", "payload": {"text": "4"}}
+{"v": 1, "seq": 182, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3069746, "type": "text_delta", "payload": {"text": "b"}}
+{"v": 1, "seq": 183, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3079376, "type": "text_delta", "payload": {"text": "1"}}
+{"v": 1, "seq": 184, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3085635, "type": "text_delta", "payload": {"text": "e"}}
+{"v": 1, "seq": 185, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3092148, "type": "text_delta", "payload": {"text": "69"}}
+{"v": 1, "seq": 186, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.309788, "type": "text_delta", "payload": {"text": "bc"}}
+{"v": 1, "seq": 187, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3725348, "type": "text_delta", "payload": {"text": "313"}}
+{"v": 1, "seq": 188, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3830843, "type": "text_delta", "payload": {"text": "f"}}
+{"v": 1, "seq": 189, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3844116, "type": "text_delta", "payload": {"text": "9"}}
+{"v": 1, "seq": 190, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3855193, "type": "text_delta", "payload": {"text": "f"}}
+{"v": 1, "seq": 191, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.386387, "type": "text_delta", "payload": {"text": "96"}}
+{"v": 1, "seq": 192, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.387062, "type": "text_delta", "payload": {"text": "ecd"}}
+{"v": 1, "seq": 193, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3878424, "type": "text_delta", "payload": {"text": "1"}}
+{"v": 1, "seq": 194, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3885212, "type": "text_delta", "payload": {"text": "c"}}
+{"v": 1, "seq": 195, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3898878, "type": "text_delta", "payload": {"text": "6"}}
+{"v": 1, "seq": 196, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3907728, "type": "text_delta", "payload": {"text": "`"}}
+{"v": 1, "seq": 197, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.391457, "type": "text_delta", "payload": {"text": " |\n"}}
+{"v": 1, "seq": 198, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.392499, "type": "text_delta", "payload": {"text": "|"}}
+{"v": 1, "seq": 199, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3936598, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 200, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.395072, "type": "text_delta", "payload": {"text": "有效期"}}
+{"v": 1, "seq": 201, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3974085, "type": "text_delta", "payload": {"text": "至"}}
+{"v": 1, "seq": 202, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.3983529, "type": "text_delta", "payload": {"text": " |"}}
+{"v": 1, "seq": 203, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.399122, "type": "text_delta", "payload": {"text": " "}}
+{"v": 1, "seq": 204, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.399785, "type": "text_delta", "payload": {"text": "202"}}
+{"v": 1, "seq": 205, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4005268, "type": "text_delta", "payload": {"text": "6"}}
+{"v": 1, "seq": 206, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4011066, "type": "text_delta", "payload": {"text": "-"}}
+{"v": 1, "seq": 207, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4016702, "type": "text_delta", "payload": {"text": "11"}}
+{"v": 1, "seq": 208, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4023104, "type": "text_delta", "payload": {"text": "-"}}
+{"v": 1, "seq": 209, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4028852, "type": "text_delta", "payload": {"text": "30"}}
+{"v": 1, "seq": 210, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.403863, "type": "text_delta", "payload": {"text": " |\n\n"}}
+{"v": 1, "seq": 211, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4047778, "type": "text_delta", "payload": {"text": "模板"}}
+{"v": 1, "seq": 212, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.405393, "type": "text_delta", "payload": {"text": "已"}}
+{"v": 1, "seq": 213, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4062347, "type": "text_delta", "payload": {"text": "内置"}}
+{"v": 1, "seq": 214, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4182785, "type": "text_delta", "payload": {"text": "平台"}}
+{"v": 1, "seq": 215, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4192283, "type": "text_delta", "payload": {"text": "全"}}
+{"v": 1, "seq": 216, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4198198, "type": "text_delta", "payload": {"text": "量"}}
+{"v": 1, "seq": 217, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4291897, "type": "text_delta", "payload": {"text": "字典"}}
+{"v": 1, "seq": 218, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.430271, "type": "text_delta", "payload": {"text": "（"}}
+{"v": 1, "seq": 219, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4310255, "type": "text_delta", "payload": {"text": "设备"}}
+{"v": 1, "seq": 220, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4316587, "type": "text_delta", "payload": {"text": "类型"}}
+{"v": 1, "seq": 221, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.438627, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 222, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4398131, "type": "text_delta", "payload": {"text": "大类"}}
+{"v": 1, "seq": 223, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4406803, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 224, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4535441, "type": "text_delta", "payload": {"text": "品牌"}}
+{"v": 1, "seq": 225, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4544597, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 226, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4551256, "type": "text_delta", "payload": {"text": "型号"}}
+{"v": 1, "seq": 227, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4701028, "type": "text_delta", "payload": {"text": "、"}}
+{"v": 1, "seq": 228, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.471069, "type": "text_delta", "payload": {"text": "代理"}}
+{"v": 1, "seq": 229, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4719844, "type": "text_delta", "payload": {"text": "通信"}}
+{"v": 1, "seq": 230, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4864707, "type": "text_delta", "payload": {"text": "方式"}}
+{"v": 1, "seq": 231, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4874628, "type": "text_delta", "payload": {"text": "）。"}}
+{"v": 1, "seq": 232, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.4883096, "type": "text_delta", "payload": {"text": "填"}}
+{"v": 1, "seq": 233, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.491763, "type": "text_delta", "payload": {"text": "好"}}
+{"v": 1, "seq": 234, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.496854, "type": "text_delta", "payload": {"text": "后再"}}
+{"v": 1, "seq": 235, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.5029962, "type": "text_delta", "payload": {"text": "上传"}}
+{"v": 1, "seq": 236, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.5038173, "type": "text_delta", "payload": {"text": "给我"}}
+{"v": 1, "seq": 237, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.5191875, "type": "text_delta", "payload": {"text": "，"}}
+{"v": 1, "seq": 238, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.52029, "type": "text_delta", "payload": {"text": "我"}}
+{"v": 1, "seq": 239, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.5209637, "type": "text_delta", "payload": {"text": "就可以"}}
+{"v": 1, "seq": 240, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.536619, "type": "text_delta", "payload": {"text": "解析"}}
+{"v": 1, "seq": 241, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.5375757, "type": "text_delta", "payload": {"text": "并"}}
+{"v": 1, "seq": 242, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.551014, "type": "text_delta", "payload": {"text": "生成"}}
+{"v": 1, "seq": 243, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.5676017, "type": "text_delta", "payload": {"text": "建档"}}
+{"v": 1, "seq": 244, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.5684955, "type": "text_delta", "payload": {"text": "计划"}}
+{"v": 1, "seq": 245, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.5835795, "type": "text_delta", "payload": {"text": "。"}}
+{"v": 1, "seq": 246, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.5931983, "type": "unknown", "payload": {"raw_kind": "content_block_stop"}}
+{"v": 1, "seq": 247, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414384.5954163, "type": "unknown", "payload": {"raw_kind": "message_stop"}}
+{"v": 1, "seq": 248, "session_id": "d006809c372c4783b6a7206ac2c6d678", "ts": 1793414389.3543117, "type": "turn_done", "payload": {"turn": 1, "duration_ms": 16521}}

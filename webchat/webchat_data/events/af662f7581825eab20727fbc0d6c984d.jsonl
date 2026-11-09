@@ -1,0 +1,23 @@
+{"v": 1, "seq": 1, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584038.192885, "type": "session_started", "payload": {"username": "test"}}
+{"v": 1, "seq": 2, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584049.4598916, "type": "text_delta", "payload": {"role": "user", "text": "现在有哪些skill可以使用"}}
+{"v": 1, "seq": 3, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584056.6984012, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 4, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584056.6994572, "type": "unknown", "payload": {"subtype": "artifacts_update"}}
+{"v": 1, "seq": 5, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584056.8004947, "type": "unknown", "payload": {"subtype": "hook_diagnostics"}}
+{"v": 1, "seq": 6, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584057.0063734, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 7, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584058.6317918, "type": "text_delta", "payload": {"text": "You've reached your credit usage limit. Please upgrade your subscription plan to get more resources. Report Issue (input /feedback)"}}
+{"v": 1, "seq": 8, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584068.8659127, "type": "turn_done", "payload": {"turn": 1, "duration_ms": 19399}}
+{"v": 1, "seq": 9, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584182.9586015, "type": "text_delta", "payload": {"role": "user", "text": "已上传文件 xlpa-input/527 AMC系列智能电量采集监控装置安装使用说明书V3.10-20250220(1).pdf"}}
+{"v": 1, "seq": 10, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584190.3038228, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 11, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584190.406808, "type": "unknown", "payload": {"subtype": "artifacts_update"}}
+{"v": 1, "seq": 12, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584190.4717505, "type": "unknown", "payload": {"subtype": "hook_diagnostics"}}
+{"v": 1, "seq": 13, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584190.473107, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 14, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584192.0924444, "type": "text_delta", "payload": {"text": "You've reached your credit usage limit. Please upgrade your subscription plan to get more resources. Report Issue (input /feedback)"}}
+{"v": 1, "seq": 15, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584210.7621882, "type": "turn_done", "payload": {"turn": 2, "duration_ms": 27709}}
+{"v": 1, "seq": 16, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584213.8194118, "type": "text_delta", "payload": {"role": "user", "text": "帮我转换modbus协议"}}
+{"v": 1, "seq": 17, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584218.3178177, "type": "upload_text", "payload": {"name": "527 AMC系列智能电量采集监控装置安装使用说明书V3.10-20250220(1).pdf", "text_path": "xlpa-input/527 AMC系列智能电量采集监控装置安装使用说明书V3.10-20250220(1).pdf.txt", "text_chars": 39878}}
+{"v": 1, "seq": 18, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584218.903349, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 19, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584218.9043179, "type": "unknown", "payload": {"subtype": "artifacts_update"}}
+{"v": 1, "seq": 20, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584218.981289, "type": "unknown", "payload": {"subtype": "hook_diagnostics"}}
+{"v": 1, "seq": 21, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584219.1439512, "type": "session_started", "payload": {"subtype": "init"}}
+{"v": 1, "seq": 22, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584222.601085, "type": "text_delta", "payload": {"text": "You've reached your credit usage limit. Please upgrade your subscription plan to get more resources. Report Issue (input /feedback)"}}
+{"v": 1, "seq": 23, "session_id": "af662f7581825eab20727fbc0d6c984d", "ts": 1793584227.2383714, "type": "turn_done", "payload": {"turn": 3, "duration_ms": 13268}}
