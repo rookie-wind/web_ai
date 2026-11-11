@@ -168,8 +168,8 @@ def test_text_channel_rejected_and_unknown_channel_rejected(
     assert unknown.status_code == 400
 
 
-def test_screenshot_channel_ocr_success_writes_text(client_factory, bootstrap):
-    """截图通道：OCR 成功 → 文本落 xlpa-input，图片临时件删除。"""
+def test_screenshot_saves_original_and_ocr(client_factory, bootstrap):
+    """截图通道双落盘：原图按原扩展名保留 + .ocr.txt 兕底（design D3）。"""
     client = client_factory()
     headers, session_id, state = bootstrap(client)
     state.ocr_provider = _StubOcr(text="设备编号 12345")
@@ -178,10 +178,13 @@ def test_screenshot_channel_ocr_success_writes_text(client_factory, bootstrap):
     )
     assert resp.status_code == 200, resp.text
     body = resp.json()
+    assert body["path"] == "xlpa-input/screen.png"
+    assert body["ocr_path"] == "xlpa-input/screen.ocr.txt"
     assert body["text"] == "设备编号 12345"
-    assert body["path"] == "xlpa-input/screen.ocr.txt"
     assert state.ocr_provider.calls == 1
     workspace = state.runtime.get(session_id).workspace
+    # 原图字节与上传一致；OCR 文本兜底同目录
+    assert (workspace / "xlpa-input" / "screen.png").read_bytes() == b"png-bytes"
     assert (workspace / "xlpa-input" / "screen.ocr.txt").read_text(
         encoding="utf-8"
     ) == "设备编号 12345"
@@ -189,28 +192,55 @@ def test_screenshot_channel_ocr_success_writes_text(client_factory, bootstrap):
 
 
 @pytest.mark.parametrize(
-    "provider,fail_mode,status",
+    "provider,fail_mode",
     [
-        (_StubOcr(fail=True), "structure", 422),
-        (_StubOcr(fail="unavailable"), "unavailable", 503),
-        (None, "disabled", 503),
+        (_StubOcr(fail=True), "structure"),
+        (_StubOcr(fail="unavailable"), "unavailable"),
+        (None, "disabled"),
     ],
 )
-def test_screenshot_channel_explicit_failure(
-    client_factory, bootstrap, provider, fail_mode, status
+def test_screenshot_ocr_failure_degrades_to_original(
+    client_factory, bootstrap, provider, fail_mode
 ):
-    """识别失败/行列无法保留/OCR 不可用 → 显式 4xx/503，不静默继续。"""
+    """OCR 失败/依赖缺失 → 200 + 原图保留 + ocr_error 显式告警，不生成 OCR 文件。"""
     client = client_factory()
     headers, session_id, state = bootstrap(client)
     state.ocr_provider = provider
     resp = _upload(
         client, headers, session_id, "screenshot", "screen.png", b"png", "image/png"
     )
-    assert resp.status_code == status, resp.text
-    assert resp.json()["detail"]
-    # 失败路径不落任何 OCR 文本
+    assert resp.status_code == 200, resp.text
+    body = resp.json()
+    assert body["path"] == "xlpa-input/screen.png"
+    assert body.get("ocr_error"), body
+    assert "ocr_path" not in body
     workspace = state.runtime.get(session_id).workspace
-    assert list((workspace / "xlpa-input").iterdir()) == []
+    assert (workspace / "xlpa-input" / "screen.png").read_bytes() == b"png"
+    names = [p.name for p in (workspace / "xlpa-input").iterdir()]
+    assert names == ["screen.png"]  # 不生成 OCR 文本文件
+
+
+def test_screenshot_same_name_not_overwritten(client_factory, bootstrap):
+    """同名图片两次上传：追加序号后缀，两份原图与各自 OCR 均保留。"""
+    client = client_factory()
+    headers, session_id, state = bootstrap(client)
+    state.ocr_provider = _StubOcr(text="第一张")
+    r1 = _upload(
+        client, headers, session_id, "screenshot", "pic.jpg", b"one", "image/jpeg"
+    )
+    state.ocr_provider = _StubOcr(text="第二张")
+    r2 = _upload(
+        client, headers, session_id, "screenshot", "pic.jpg", b"two", "image/jpeg"
+    )
+    assert r1.json()["path"] == "xlpa-input/pic.jpg"
+    assert r2.json()["path"] == "xlpa-input/pic_1.jpg"
+    assert r2.json()["ocr_path"] == "xlpa-input/pic_1.ocr.txt"
+    workspace = state.runtime.get(session_id).workspace
+    inp = workspace / "xlpa-input"
+    assert (inp / "pic.jpg").read_bytes() == b"one"
+    assert (inp / "pic_1.jpg").read_bytes() == b"two"
+    assert (inp / "pic.ocr.txt").read_text(encoding="utf-8") == "第一张"
+    assert (inp / "pic_1.ocr.txt").read_text(encoding="utf-8") == "第二张"
 
 
 def test_cross_user_upload_and_delete_denied(client_factory, bootstrap):

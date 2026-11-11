@@ -97,6 +97,17 @@ class _CaptureHandle:
         self.gate = gate
         _CaptureHandle.last = self
 
+    async def list_models(self) -> list[dict]:
+        """返回测试用模型清单。"""
+        return [
+            {"value": "m1", "display_name": "Model 1", "is_enabled": True,
+             "is_free": True, "price_factor": 1.0},
+        ]
+
+    async def set_model(self, model: str) -> None:
+        """切换模型（测试桩，无操作）。"""
+        pass
+
     async def close(self):
         pass
 

@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import json
 import sys
 import tempfile
@@ -38,11 +39,26 @@ class EchoHandle:
         self.config = config
         self.gate = gate
         self.closed = False
+        self.model = None
+
+    async def list_models(self) -> list[dict]:
+        """返回冒烟用模型清单。"""
+        return [
+            {"value": "smoke-model", "display_name": "Smoke Model",
+             "is_enabled": True, "is_free": True, "price_factor": 1.0},
+        ]
+
+    async def set_model(self, model: str) -> None:
+        """记录冒烟模型切换。"""
+        self.model = model
 
     async def close(self):
         self.closed = True
 
     async def run_turn(self, prompt, **kwargs):
+        # 慢轮次：命中「慢」停留 30 秒，供冒烟观察发送/停止切换态与重载恢复
+        if "慢" in prompt:
+            await asyncio.sleep(30)
         # 确认卡片：命中「写入」先经 gate 裁决产 gate_blocked（含 arg_summary）
         if "写入" in prompt and self.gate is not None:
             self.gate.decide(

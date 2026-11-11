@@ -274,6 +274,8 @@ def build_artifacts_router(state: "AppState") -> APIRouter:
         session = _owned_session(request, session_id)
         if session.closed:
             raise HTTPException(status_code=409, detail="会话已结束")
+        if session.status != "ready":
+            raise HTTPException(status_code=409, detail="会话初始化中，请稍候")
         runtime.touch(session)
 
         name = _safe_filename(file.filename)
@@ -381,50 +383,46 @@ def build_artifacts_router(state: "AppState") -> APIRouter:
             return body
 
         if channel == "screenshot":
+            # 双落盘（design D3）：原图按原扩展名落 xlpa-input/（Agent 可直接
+            # Read），OCR 文本作兜底；OCR 失败/依赖缺失降级为仅原图 + 显式
+            # ocr_error，不整体拒绝、不静默以猜测内容继续。
             limit = settings.upload_max_image_bytes
-            provider = state.ocr_provider
-            if provider is None:
-                # 依赖缺失/关闭：截图通道明确降级，不影响其他通道与主服务
-                raise HTTPException(
-                    status_code=503, detail="OCR 不可用，请改用文本或表格上传"
-                )
-            staging = (
-                session.workspace
-                / "xlpa-tmp"
-                / f"screenshot-{secrets.token_hex(8)}.png"
-            )
+            dest = unique_path(session.workspace / "xlpa-input", name)
             try:
-                size = await _stream_to(file, staging, limit)
+                size = await _stream_to(file, dest, limit)
             except _TooLarge as exc:
                 raise HTTPException(
                     status_code=413,
                     detail=f"图片超过上限 {limit} 字节",
                 ) from exc
-            try:
-                try:
-                    result = provider.recognize(staging.read_bytes())
-                except OcrUnavailable as exc:
-                    raise HTTPException(
-                        status_code=503,
-                        detail="OCR 不可用，请改用文本或表格上传",
-                    ) from exc
-                except OcrFailed as exc:
-                    # 显式失败，绝不静默以猜测内容继续
-                    raise HTTPException(status_code=422, detail=str(exc)) from exc
-            finally:
-                staging.unlink(missing_ok=True)
-            text_name = f"{Path(name).stem}.ocr.txt"
-            dest = unique_path(session.workspace / "xlpa-input", text_name)
-            dest.write_text(result.text, encoding="utf-8")
-            return {
+            body = {
                 "channel": "screenshot",
                 "name": dest.name,
                 "path": f"xlpa-input/{dest.name}",
-                "size": dest.stat().st_size,
+                "size": size,
                 "category": "input",
-                "text": result.text,
-                "confidence": result.confidence,
             }
+            provider = state.ocr_provider
+            if provider is None:
+                body["ocr_error"] = "OCR 不可用，已保留原图；助手可直接查看原图"
+                return body
+            try:
+                result = provider.recognize(dest.read_bytes())
+            except OcrUnavailable as exc:
+                body["ocr_error"] = f"OCR 不可用，已保留原图；助手可直接查看原图（{exc}）"
+                return body
+            except OcrFailed as exc:
+                # 显式失败降级：绝不静默以猜测内容继续，原图保留
+                body["ocr_error"] = f"OCR 识别失败，已保留原图；助手可直接查看原图（{exc}）"
+                return body
+            text_dest = unique_path(
+                session.workspace / "xlpa-input", f"{dest.stem}.ocr.txt"
+            )
+            text_dest.write_text(result.text, encoding="utf-8")
+            body["ocr_path"] = f"xlpa-input/{text_dest.name}"
+            body["text"] = result.text
+            body["confidence"] = result.confidence
+            return body
 
         raise HTTPException(status_code=400, detail=f"未知上传通道: {channel}")
 

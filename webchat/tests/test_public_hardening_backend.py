@@ -13,8 +13,11 @@ from __future__ import annotations
 
 import asyncio
 import json
+import time
 from pathlib import Path
 from typing import AsyncIterator
+
+import pytest
 
 from starlette.requests import Request
 
@@ -35,6 +38,17 @@ class GateRecordingHandle:
         self.config = config
         self.gate = gate
         self.closed = False
+
+    async def list_models(self) -> list[dict]:
+        """返回测试用模型清单。"""
+        return [
+            {"value": "m1", "display_name": "Model 1", "is_enabled": True,
+             "is_free": True, "price_factor": 1.0},
+        ]
+
+    async def set_model(self, model: str) -> None:
+        """切换模型（测试桩，无操作）。"""
+        pass
 
     async def close(self):
         self.closed = True
@@ -64,6 +78,17 @@ class PlanFlowHandle:
         self.config = config
         self.gate = gate
         self.closed = False
+
+    async def list_models(self) -> list[dict]:
+        """返回测试用模型清单。"""
+        return [
+            {"value": "m1", "display_name": "Model 1", "is_enabled": True,
+             "is_free": True, "price_factor": 1.0},
+        ]
+
+    async def set_model(self, model: str) -> None:
+        """切换模型（测试桩，无操作）。"""
+        pass
 
     async def close(self):
         self.closed = True
@@ -280,21 +305,37 @@ def test_activation_called_once_with_account_creds(client_factory, login_as, mon
     assert token == session.mcp_token
 
 
-def test_activation_failure_yields_502_and_no_session(client_factory, login_as, monkeypatch, tmp_path):
-    """激活失败 → 502 可辨识原因；不产生会话记录、回滚工作区。"""
+def test_activation_failure_marks_session_failed(client_factory, login_as, monkeypatch, tmp_path):
+    """激活失败 → 会话转 failed（原因可辨识）、记录保留、工作区清理。"""
     async def failing_activate(mcp_url, token, phone, code):
         raise ActivationError("平台拒绝：凭据无效")
 
-    monkeypatch.setattr("webchat.runtime.call_login_tool", failing_activate)
     client = client_factory()
     headers = login_as(client, "alice")
+    # 实例级替换：绕开 __init__ 时的引用绑定（保证失败路径触发）
+    runtime = client.app.state.auth.runtime
+    monkeypatch.setattr(runtime, "_activate", failing_activate)
     created = client.post("/api/sessions", headers=headers)
-    assert created.status_code == 502
-    assert "激活失败" in created.json()["detail"]
+    assert created.status_code == 200, created.text
+    sid = created.json()["session_id"]
+    deadline = time.time() + 3
+    meta = None
+    while time.time() < deadline:
+        items = client.get("/api/sessions", headers=headers).json()["sessions"]
+        found = [x for x in items if x["session_id"] == sid]
+        if found and found[0]["status"] == "failed":
+            meta = found[0]
+            break
+        time.sleep(0.05)
+    assert meta and "激活失败" in (meta.get("status_error") or "")
     listed = client.get("/api/sessions", headers=headers)
-    assert listed.json()["sessions"] == []
+    assert len(listed.json()["sessions"]) == 1  # 失败记录保留供查看与删除
     workspaces = tmp_path / "workspaces"
     assert not any(workspaces.iterdir()), "失败会话的工作区必须回滚清理"
+    events = client.get(
+        f"/api/sessions/{sid}/history", headers=headers
+    ).json()["events"]
+    assert any(e["type"] == "session_failed" for e in events)
 
 
 def test_runtime_rolls_back_slot_after_activation_failure(client_factory, login_as, monkeypatch):
@@ -307,12 +348,35 @@ def test_runtime_rolls_back_slot_after_activation_failure(client_factory, login_
             raise ActivationError("瞬时故障")
         return {"ok": True}
 
-    monkeypatch.setattr("webchat.runtime.call_login_tool", flaky_activate)
     client = client_factory(settings_kwargs={"max_instances": 1})
     headers = login_as(client, "alice")
-    assert client.post("/api/sessions", headers=headers).status_code == 502
-    # 槽位已回滚：第二次创建（max_instances=1）应成功而非 409
-    assert client.post("/api/sessions", headers=headers).status_code == 200
+    runtime = client.app.state.auth.runtime
+    monkeypatch.setattr(runtime, "_activate", flaky_activate)
+    first = client.post("/api/sessions", headers=headers)
+    assert first.status_code == 200, first.text
+    sid1 = first.json()["session_id"]
+    deadline = time.time() + 3
+    while time.time() < deadline:
+        items = client.get("/api/sessions", headers=headers).json()["sessions"]
+        meta = [x for x in items if x["session_id"] == sid1]
+        if meta and meta[0]["status"] == "failed":
+            break
+        time.sleep(0.05)
+    else:
+        pytest.fail("first session not failed")
+    # 槽位已回滚：第二次创建（max_instances=1）应成功且就绪而非 409
+    second = client.post("/api/sessions", headers=headers)
+    assert second.status_code == 200, second.text
+    sid2 = second.json()["session_id"]
+    deadline = time.time() + 3
+    while time.time() < deadline:
+        items = client.get("/api/sessions", headers=headers).json()["sessions"]
+        meta = [x for x in items if x["session_id"] == sid2]
+        if meta and meta[0]["status"] == "ready":
+            break
+        time.sleep(0.05)
+    else:
+        pytest.fail("second session not ready")
 
 
 def test_no_activation_without_account(tmp_path, monkeypatch):
@@ -327,6 +391,8 @@ def test_no_activation_without_account(tmp_path, monkeypatch):
         return f"tok-{username}"
 
     monkeypatch.setattr(SessionRuntime, "_mint", fake_mint)
+    # 本测试只验激活跳过，不测 SDK 层：fake 句柄隔离 eager 连接
+    monkeypatch.setattr("webchat.runtime.AgentHandle", GateRecordingHandle)
     runtime = SessionRuntime(
         mint_url="http://mint.test",
         mint_secret="s",

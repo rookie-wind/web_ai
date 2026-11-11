@@ -26,6 +26,10 @@ const state = {
   guardNotices: {},    // 弱提示行（内置写护栏/pdf 越界/绝对禁止），按 key 聚合计数
   pendingConfirmations: {},  // session_id -> 唯一会话口令待确认（无参写，供行首 /确认 铸票）
   pendingContinuations: {},  // session_id -> 本轮仍忙时登记的续跑待办（turn_done 补发）
+  pendingAttachments: [],    // 当前 composer 待发送附件 {name, file, ref?}（chip 呈现，可删除）
+  uploading: false,          // 附件上传中（防 submit 重入与 chip 删除竞态）
+  initLock: false,           // 会话初始化中/失败（design D2：写路径锁定）
+  lastCreate: null,          // 最近一次创建 {session_id, account_source, pat, remember}（失败回弹）
   turn: newTurnState(),
   replaying: false,
   turnActive: false,   // 当前是否有执行中的轮次（控制“停止”按钮）
@@ -51,13 +55,14 @@ function holderId() {
   return h;
 }
 
-function notify(msg, isError = false) {
+function notify(msg, isError = false, sticky = false) {
   const el = $("#compose-notice");
   el.textContent = msg;
   el.classList.toggle("error-text", isError);
   el.classList.toggle("notice-text", !isError);
   clearTimeout(notify._t);
-  notify._t = setTimeout(() => { el.textContent = ""; }, 6000);
+  // sticky：上传期间忙碌提示常驻，直至被结果提示替换
+  if (!sticky) { notify._t = setTimeout(() => { el.textContent = ""; }, 6000); }
 }
 
 function autoscroll() {
@@ -95,11 +100,29 @@ function hideBusy() {
 
 function setTurnActive(active) {
   state.turnActive = !!active;
-  const btn = $("#btn-abort");
+  const btn = $("#btn-send");
   if (!btn) { return; }
-  btn.classList.toggle("hidden", !state.turnActive);
-  btn.disabled = false;
-  btn.textContent = "停止";
+  btn.classList.toggle("is-stop", state.turnActive);
+  // 初始化锁优先于轮次状态（creating/failed 会话不可发送，design D2）
+  btn.disabled = state.initLock;
+  btn.textContent = state.turnActive && !state.initLock ? "⏹ 停止" : "发送";
+  btn.title = state.turnActive && !state.initLock
+    ? "中止当前任务（已完成的写入不回滚）"
+    : "发送";
+}
+
+// 会话初始化状态：creating 锁写路径并提示进度；ready 解锁；failed 锁定待删
+function setSessionInit(status) {
+  state.initLock = status === "creating" || status === "failed";
+  $("#msg-input").disabled = state.initLock;
+  $("#btn-attach").disabled = state.initLock;
+  $("#model-select").disabled = state.initLock;
+  setTurnActive(state.turnActive);
+  if (status === "creating") {
+    notify("正在初始化（连接平台/加载模型）…", false, true);
+  } else if (status !== "failed") {
+    notify(""); // 就绪：清掉 sticky 初始化提示，恢复正常提示流
+  }
 }
 
 // 本轮所有工具调用/结果折叠进一个可展开容器，避免大任务刷屏
@@ -152,12 +175,22 @@ async function doLogout(callApi) {
   state.appliedSeq = {};
   $("#view-app").classList.add("hidden");
   $("#view-login").classList.remove("hidden");
+  // 回登录页复位文档滚动并失焦（键盘收起残留兜底，spec MUST）
+  window.scrollTo(0, 0);
+  if (document.activeElement instanceof HTMLElement) {
+    document.activeElement.blur();
+  }
 }
 
 function enterAppView() {
   $("#view-login").classList.add("hidden");
   $("#view-app").classList.remove("hidden");
   $("#whoami").textContent = state.username;
+  // iOS 键盘收起后残留的文档滚动偏移会顶出顶栏：切视图统一复位并失焦
+  window.scrollTo(0, 0);
+  if (document.activeElement instanceof HTMLElement) {
+    document.activeElement.blur();
+  }
   refreshSessions();
 }
 
@@ -183,7 +216,11 @@ function renderSessionList() {
   for (const s of state.sessions) {
     const li = el("li", "session-item" + (s.session_id === state.activeId ? " active" : "") + (s.closed ? " session-closed" : ""));
     li.dataset.id = s.session_id;
-    li.appendChild(el("div", "", s.closed ? `会话 ${short(s.session_id)}（已结束）` : `会话 ${short(s.session_id)}`));
+    let label = `会话 ${short(s.session_id)}`;
+    if (s.status === "creating") { label = `会话 ${short(s.session_id)}（初始化中…）`; }
+    else if (s.status === "failed") { label = `会话 ${short(s.session_id)}（创建失败）`; }
+    else if (s.closed) { label = `会话 ${short(s.session_id)}（已结束）`; }
+    li.appendChild(el("div", "", label));
     li.appendChild(el("div", "sid", s.session_id));
     const row = el("div", "row");
     const mk = (label, fn, cls = "ghost-btn") => {
@@ -192,8 +229,10 @@ function renderSessionList() {
       b.addEventListener("click", fn);
       row.appendChild(b);
     };
-    mk("打开", () => openSession(s.session_id));
-    if (!s.closed) { mk("结束", async () => { try { await api(`/api/sessions/${s.session_id}/close`, { method: "POST" }); await refreshSessions(); } catch (err) { handleErr(err); } }); }
+    if (s.status !== "failed") {
+      mk("打开", () => openSession(s.session_id));
+      if (!s.closed) { mk("结束", async () => { try { await api(`/api/sessions/${s.session_id}/close`, { method: "POST" }); await refreshSessions(); } catch (err) { handleErr(err); } }); }
+    }
     mk("删除", async () => {
       try {
         await api(`/api/sessions/${s.session_id}`, { method: "DELETE" });
@@ -219,17 +258,81 @@ function isChatConfirmCommand(text) {
   return CHAT_CONFIRM_RE.test(String(text || "").trim());
 }
 
-$("#btn-new-session").addEventListener("click", async () => {
-  const notice = $("#session-notice");
-  notice.textContent = "";
+// 打开新建会话对话框；errorText/prefill 用于失败回弹回填（design D2）
+function openNewSessionDialog(errorText, prefill) {
+  $("#new-session-error").textContent = errorText || "";
+  const source = prefill ? prefill.account_source : "default";
+  $("#byo-pat").value = prefill ? prefill.pat : "";
+  $("#remember-pat").checked = prefill ? prefill.remember : false;
+  document.querySelector(
+    `input[name="account-source"][value="${source}"]`
+  ).checked = true;
+  syncAccountSource();
+  $("#new-session-dialog").classList.remove("hidden");
+}
+
+$("#btn-new-session").addEventListener("click", () => {
+  openNewSessionDialog();
+});
+
+function syncAccountSource() {
+  const byo = document.querySelector('input[name="account-source"]:checked').value === "byo";
+  $("#byo-pat-label").classList.toggle("hidden", !byo);
+  $("#remember-pat-label").classList.toggle("hidden", !byo);
+  if (byo) { prefillRememberedPat(); } else { $("#btn-clear-pat").classList.add("hidden"); }
+}
+
+async function prefillRememberedPat() {
   try {
-    const r = await api("/api/sessions", { method: "POST" });
+    const r = await api("/api/account/qoder-pat");
+    if (r.pat && !$("#byo-pat").value) {
+      $("#byo-pat").value = r.pat;
+      $("#remember-pat").checked = true;
+    }
+    $("#btn-clear-pat").classList.toggle("hidden", !r.pat);
+  } catch (_) { /* 预填失败不阻塞新建会话 */ }
+}
+
+$("#btn-clear-pat").addEventListener("click", async () => {
+  try {
+    await api("/api/account/qoder-pat", { method: "DELETE" });
+    $("#byo-pat").value = "";
+    $("#remember-pat").checked = false;
+    $("#btn-clear-pat").classList.add("hidden");
+  } catch (err) { handleErr(err); }
+});
+document.querySelectorAll('input[name="account-source"]').forEach((el) => {
+  el.addEventListener("change", syncAccountSource);
+});
+
+$("#btn-new-session-cancel").addEventListener("click", () => {
+  $("#new-session-dialog").classList.add("hidden");
+});
+
+$("#new-session-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const notice = $("#new-session-error");
+  notice.textContent = "";
+  const account_source = document.querySelector('input[name="account-source"]:checked').value;
+  const pat = account_source === "byo" ? $("#byo-pat").value.trim() : "";
+  const remember = account_source === "byo" && $("#remember-pat").checked;
+  const btn = $("#btn-new-session-ok");
+  btn.disabled = true;
+  try {
+    const r = await api("/api/sessions", {
+      method: "POST", body: { account_source, pat, remember },
+    });
+    // 记录本次创建上下文：session_failed 命中时回弹弹窗（自带 PAT 回填）
+    state.lastCreate = { session_id: r.session_id, account_source, pat, remember };
+    $("#new-session-dialog").classList.add("hidden");
+    $("#byo-pat").value = "";
     await refreshSessions();
     await openSession(r.session_id);
   } catch (err) {
     if (err.status === 401) { handleErr(err); return; }
-    // 配额 409 等明确报错文案（服务端 detail 已是人话）
     notice.textContent = err.message || "创建会话失败";
+  } finally {
+    btn.disabled = false;
   }
 });
 
@@ -240,6 +343,8 @@ async function openSession(id) {
   state.turn = newTurnState();
   state.gateCards = {}; // 切换会话重置待确认卡去重注册表
   state.guardNotices = {}; // 切换会话重置路径护栏弱提示
+  state.pendingAttachments = []; // 切会话清暂存附件，避免串到新会话上传
+  renderAttachments();
   delete state.appliedSeq[id]; // 重新回放，避免历史事件被去重丢弃
   $("#messages").innerHTML = "";
   $("#sidebar").classList.remove("open");
@@ -252,13 +357,57 @@ async function openSession(id) {
     state.replaying = false;
   } catch (err) { handleErr(err); return; }
   await ensureLease(id);
+  await loadModels(id);
   const meta = state.sessions.find((s) => s.session_id === id);
+  // 按列表 meta.status 设初始态（刷新后同样适用，design D2）
+  setSessionInit(meta ? meta.status : "creating");
   setTurnActive(!!(meta && meta.turn_running && !meta.closed));
   state.stream = openEventStream(id, {
     lastSeq: last,
     onEvent: (ev) => applyEvent(ev),
   });
 }
+
+// ── 模型选择：清单随账号，消息级切换 ──
+
+async function loadModels(id) {
+  const sel = $("#model-select");
+  sel.innerHTML = "";
+  // 占位 option：加载中/清单为空/请求失败时下拉不得仅余空箭头（spec MUST）
+  const ph = document.createElement("option");
+  ph.value = "";
+  ph.disabled = true;
+  ph.selected = true;
+  ph.textContent = "模型加载中…";
+  sel.appendChild(ph);
+  try {
+    const r = await api(`/api/sessions/${id}/models`);
+    if ((r.models || []).length) { sel.innerHTML = ""; }
+    for (const m of r.models || []) {
+      const opt = document.createElement("option");
+      opt.value = m.value;
+      // 成本标记：price_factor 优先（平台 is_free 与系数可能矛盾，实测确认）
+      const cost = m.price_factor != null ? `×${m.price_factor}`
+        : (m.is_free ? "免费" : "");
+      opt.textContent = cost ? `${m.display_name}（${cost}）` : m.display_name;
+      sel.appendChild(opt);
+    }
+    if (r.current_model) { sel.value = r.current_model; }
+  } catch (err) { handleErr(err); }
+}
+
+$("#model-select").addEventListener("change", async () => {
+  if (!state.activeId) { return; }
+  const model = $("#model-select").value;
+  try {
+    await withLease(() => api(`/api/sessions/${state.activeId}/model`, {
+      method: "POST", body: { model }, headers: { "x-holder-id": holderId() },
+    }));
+  } catch (err) {
+    handleErr(err);
+    await loadModels(state.activeId); // 拒绝时回退到服务端当前值
+  }
+});
 
 // ── 写租约：先取后发；丢失自动重取，不当作业务失败 ──
 
@@ -322,10 +471,10 @@ async function sendMessage(text) {
   }
 }
 
-$("#btn-abort").addEventListener("click", async () => {
+async function abortTurn() {
   if (!state.activeId || !state.turnActive) { return; }
   if (!window.confirm("确定中止当前任务？已完成的建档不会回滚。")) { return; }
-  const btn = $("#btn-abort");
+  const btn = $("#btn-send");
   btn.disabled = true;
   btn.textContent = "中止中…";
   try {
@@ -335,6 +484,7 @@ $("#btn-abort").addEventListener("click", async () => {
     }));
     if (r.aborted || (r.tasks_cancelled || []).length) {
       notify("正在中止任务；已完成的写入不会回滚");
+      setTurnActive(false); // 复位按钮，不依赖 SSE 事件送达
     } else {
       notify("当前没有执行中的任务");
       setTurnActive(false);
@@ -345,19 +495,30 @@ $("#btn-abort").addEventListener("click", async () => {
     } else {
       handleErr(err);
     }
-    btn.disabled = false;
-    btn.textContent = "停止";
+    setTurnActive(state.turnActive);
   }
-});
+}
 
 $("#compose-form").addEventListener("submit", async (e) => {
   e.preventDefault();
+  if (state.turnActive) { await abortTurn(); return; }
+  if (state.uploading) { return; } // 上传中防重入（避免重复上传同一批附件）
   const input = $("#msg-input");
   const text = input.value.trim();
-  if (!text) { return; }
-  // 行首 /确认 优先尝试会话口令铸票；否则按普通文本发送。
-  if (await handleChatConfirm(text)) { input.value = ""; return; }
-  if (await sendMessage(text)) { input.value = ""; }
+  const hasAttachments = state.pendingAttachments.length > 0;
+  if (!text && !hasAttachments) { return; }
+  // 行首 /确认 优先尝试会话口令铸票（无附件时）；否则按普通文本发送。
+  if (!hasAttachments && await handleChatConfirm(text)) { input.value = ""; return; }
+  if (hasAttachments) { await uploadStagedAttachments(); }
+  const refs = state.pendingAttachments.filter((a) => a.ref).map((a) => a.ref);
+  const full = [text, ...refs].filter(Boolean).join("\n");
+  if (!full) { return; }
+  if (await sendMessage(full)) {
+    input.value = "";
+    // 只清已上传并随消息送出的 chip；上传失败（无 ref）保留以便重试或移除
+    state.pendingAttachments = state.pendingAttachments.filter((a) => !a.ref);
+    renderAttachments();
+  }
 });
 
 $("#msg-input").addEventListener("keydown", (e) => {
@@ -365,6 +526,12 @@ $("#msg-input").addEventListener("keydown", (e) => {
     e.preventDefault();
     $("#compose-form").requestSubmit();
   }
+});
+
+$("#msg-input").addEventListener("input", () => {
+  const ta = $("#msg-input");
+  ta.style.height = "auto";
+  ta.style.height = Math.min(ta.scrollHeight, 160) + "px";
 });
 
 // 上传通道按扩展名自动匹配：选错通道会把 PDF 当建档表格代理，得到上游 400。
@@ -380,46 +547,83 @@ function channelForFile(name) {
   return UPLOAD_CHANNEL_BY_EXT[ext] || "document";
 }
 
-$("#upload-file").addEventListener("change", () => {
-  const picked = $("#upload-file").files[0];
-  if (picked) { $("#upload-channel").value = channelForFile(picked.name); }
+$("#btn-attach").addEventListener("click", () => {
+  if (!state.activeId) { notify("请先新建或打开一个会话", true); return; }
+  $("#upload-file").click();
 });
 
-$("#btn-upload").addEventListener("click", async () => {
+$("#upload-file").addEventListener("change", () => {
   const fileEl = $("#upload-file");
-  const btn = $("#btn-upload");
-  if (!state.activeId) { notify("请先新建或打开一个会话", true); return; }
-  if (!fileEl.files.length) { notify("请先选择文件", true); return; }
-  if (btn.disabled) { return; } // 防重复提交：上传期间按钮禁用
-  const file = fileEl.files[0];
-  const channel = $("#upload-channel").value;
-  btn.disabled = true;
-  btn.textContent = "上传中…";
-  notify(`正在上传 ${file.name}…`);
-  try {
-    const res = await uploadFile(`/api/sessions/${state.activeId}/artifacts/upload`, channel, file);
-    let ref = res.file_id ? `建档表格已上传 file_id=${res.file_id}` : `已上传文件 ${res.path}`;
-    if (res.text_status === "pending") {
-      // 明确告知助手读取自动抽取的 .pdf.md，而不是二进制 PDF
-      ref = `已上传文件 ${res.path}（PDF 内容自动结构化提取到 ${res.path.replace(/\.pdf$/, ".pdf.md")}，读取内容请用后者）`;
-      // 上传已返回，PDF 解析在后台继续；完成/失败经 upload_text 事件提示
-      notify(`上传成功：${ref}；PDF 文本提取在后台进行，完成后会提示`);
-    } else if (res.warning) {
-      // PDF 提取失败/无文本：显式提示，不假装已成功转文本
-      notify(`上传成功：${ref}；${res.warning}`, true);
-    } else {
-      notify(`上传成功：${ref}${res.text_path ? `；已提取文本 ${res.text_path}` : ""}`);
-    }
-    const input = $("#msg-input");
-    input.value = input.value ? `${input.value}\n${ref}` : ref; // 引用进消息
-    input.focus();
-    fileEl.value = "";
-  } catch (err) { handleErr(err); }
-  finally {
-    btn.disabled = false;
-    btn.textContent = "上传";
+  const files = Array.from(fileEl.files || []);
+  fileEl.value = "";
+  if (!files.length || !state.activeId) { return; }
+  // 先暂存（不上传/不解析），发送时才上传；✕ 可在上传前移除
+  for (const file of files) {
+    state.pendingAttachments.push({ name: file.name, file });
   }
+  renderAttachments();
 });
+
+function renderAttachments() {
+  const wrap = $("#attachment-chips");
+  wrap.innerHTML = "";
+  state.pendingAttachments.forEach((att, i) => {
+    const chip = el("span", "attachment-chip", "");
+    chip.appendChild(el("span", "chip-name", att.name));
+    const del = el("button", "chip-delete", "✕");
+    del.type = "button";
+    del.title = "移除附件";
+    del.addEventListener("click", () => removeAttachment(i));
+    chip.appendChild(del);
+    wrap.appendChild(chip);
+  });
+}
+
+function removeAttachment(i) {
+  if (state.uploading) { return; } // 上传中禁删，避免迭代竞态
+  state.pendingAttachments.splice(i, 1);
+  renderAttachments();
+}
+
+async function uploadStagedAttachments() {
+  // 发送时上传暂存附件；成功标记 ref（chip 保留至发送成功），失败保留 file 以便重试
+  const btn = $("#btn-attach");
+  btn.disabled = true;
+  state.uploading = true; // 防 submit 重入与 chip 删除竞态
+  for (const att of state.pendingAttachments) {
+    if (att.ref) { continue; } // 已上传，复用 ref（发送失败重试不重复上传）
+    const channel = channelForFile(att.name); // 通道按扩展名自动匹配
+    notify(`上传中… ${att.name}`, false, true);
+    try {
+      const res = await uploadFile(`/api/sessions/${state.activeId}/artifacts/upload`, channel, att.file);
+      // 引用文案按通道语义：图片双落盘（原图 + OCR 兜底）；OCR 失败显式说明
+      let ref;
+      if (res.file_id) {
+        ref = `建档表格已上传 file_id=${res.file_id}`;
+      } else if (res.ocr_error) {
+        ref = `已上传图片 ${res.path}（助手可直接查看）；OCR 识别失败：${res.ocr_error}`;
+      } else if (res.ocr_path) {
+        ref = `已上传图片 ${res.path}（助手可直接查看）；OCR 文本 ${res.ocr_path}（读不了图时用）`;
+      } else {
+        ref = `已上传文件 ${res.path}`;
+      }
+      if (res.text_status === "pending") {
+        ref = `已上传文件 ${res.path}（PDF 内容自动结构化提取到 ${res.path.replace(/\.pdf$/, ".pdf.md")}，读取内容请用后者）`;
+        notify(`上传成功：${att.name}；PDF 文本提取在后台进行，完成后会提示`);
+      } else if (res.warning) {
+        notify(`上传成功：${att.name}；${res.warning}`, true);
+      } else {
+        notify(`上传成功：${att.name}${res.text_path ? `；已提取文本 ${res.text_path}` : ""}`);
+      }
+      att.ref = ref;
+    } catch (err) {
+      handleErr(err); // 失败保留 file（无 ref），下次重试
+    }
+  }
+  btn.disabled = false;
+  state.uploading = false;
+  renderAttachments();
+}
 
 // ── 事件渲染 ──
 
@@ -433,6 +637,29 @@ function applyEvent(ev) {
     case "session_started":
       if (ev.payload.username) { push(el("div", "sys-line", "会话已开始")); }
       break;
+    case "session_ready":
+      // 初始化完成：解锁输入区并加载模型清单（重放路径同样生效）
+      setSessionInit("ready");
+      notify("会话已就绪");
+      loadModels(ev.session_id);
+      break;
+    case "session_failed": {
+      const p = ev.payload || {};
+      hideBusy();
+      push(el("div", "banner-error",
+        `会话初始化失败：${p.message || "未知原因"}`));
+      if (state.lastCreate
+          && state.lastCreate.session_id === ev.session_id
+          && state.lastCreate.account_source === "byo") {
+        // 自带 PAT 失败：重开创建对话框回填原因与输入（不丢已输内容）
+        openNewSessionDialog(p.message || "创建失败", state.lastCreate);
+      } else {
+        notify("会话创建失败，可在会话列表删除后重试", true);
+      }
+      state.lastCreate = null;
+      refreshSessions();
+      break;
+    }
     case "text_delta": {
       const text = ev.payload.text || "";
       if (!text) { break; }

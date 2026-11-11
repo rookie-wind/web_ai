@@ -50,6 +50,8 @@ async def _make_runtime(tmp_path, monkeypatch) -> SessionRuntime:
 
     monkeypatch.setattr(SessionRuntime, "_mint", fake_mint)
     monkeypatch.setattr(SessionRuntime, "_revoke", fake_revoke)
+    # 本文件只测产物回源，不测 SDK 层：fake 句柄隔离 eager 连接
+    monkeypatch.setattr("webchat.runtime.AgentHandle", _ToolResultHandle)
     return SessionRuntime(
         mint_url="http://mcp.test",
         mint_secret="x",
@@ -162,6 +164,17 @@ class _ToolResultHandle:
     def __init__(self, config, pat_env=None, gate=None):
         self.config = config
         self.gate = gate
+
+    async def list_models(self) -> list[dict]:
+        """返回测试用模型清单。"""
+        return [
+            {"value": "m1", "display_name": "Model 1", "is_enabled": True,
+             "is_free": True, "price_factor": 1.0},
+        ]
+
+    async def set_model(self, model: str) -> None:
+        """切换模型（测试桩，无操作）。"""
+        pass
 
     async def close(self):
         return None

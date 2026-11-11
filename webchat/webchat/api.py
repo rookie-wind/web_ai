@@ -172,6 +172,7 @@ def create_app(
         artifacts=artifacts,
         agent_model=settings.agent_model,
         max_concurrent_turns=settings.max_concurrent_turns,
+        init_timeout=settings.init_timeout,
         skill_catalog=skill_catalog,
         read_extra_roots=settings.read_extra_roots,
     )
@@ -275,6 +276,26 @@ def create_app(
             "is_super": session.is_super,
             "phone_tail": _mask_phone(session.business_phone or ""),
         }
+
+    @app.get("/api/account/qoder-pat")
+    async def get_qoder_pat(authorization: str = Header(default="")) -> dict:
+        """返回当前用户记住的自带 Qoder PAT（供新建会话预填）。"""
+        token = _bearer_token(authorization)
+        session = state.sessions.get(token) if token else None
+        if session is None:
+            raise HTTPException(status_code=401, detail="会话无效或已过期")
+        account = state.accounts.find(session.username)
+        return {"pat": account.qoder_pat if account else ""}
+
+    @app.delete("/api/account/qoder-pat")
+    async def delete_qoder_pat(authorization: str = Header(default="")) -> dict:
+        """清除当前用户记住的自带 Qoder PAT（下次需重新输入）。"""
+        token = _bearer_token(authorization)
+        session = state.sessions.get(token) if token else None
+        if session is None:
+            raise HTTPException(status_code=401, detail="会话无效或已过期")
+        state.accounts.clear_qoder_pat(session.username)
+        return {"ok": True}
 
     return app
 

@@ -384,3 +384,30 @@ D5 事件契约与 D9 产物交付也不受影响；需要重写的是运行时�
 
 未开始任何代码改动。建议顺序：先做 tasks 第 0 组（基线与技能目录治理），再过第 1 组验证闸门，
 再按第 2 组起实现。
+
+---
+
+## 12. 变更记录
+
+### 2026-11-11 会话创建异步化与截图双落盘（change：fix-webchat-triage-issues）
+
+真机实测暴露三个体验缺陷后的行为变更（spec 已同步，见
+`openspec/specs/agent-runtime-session`、`web-artifact-delivery`、`web-chat-ui`）：
+
+1. **会话创建异步化**：`POST /api/sessions` 拆快慢两路（快路 ≤1s 返回；激活 ∥
+   CLI 连接后台并行，总超时 `WEBCHAT_INIT_TIMEOUT` 默认 60s），新增会话状态机
+   `creating → ready / failed` 与事件 `session_ready`/`session_failed`；非
+   `ready` 写路径 409。旧语义"激活失败 → 创建请求 502 + 无会话记录"变更为
+   "失败会话转 `failed` 并保留记录（供查看原因后删除）"，自动回滚（撤销凭据、
+   删工作区、槽位/配额单点释放）语义不变。
+2. **截图通道双落盘**：旧"图片 → OCR → 原图丢弃（仅 `.ocr.txt`，失败 422/503）"
+   变更为"原图按原扩展名落 `xlpa-input/` + `.ocr.txt` 兕底；OCR 失败降级为仅
+   原图 + `ocr_error` 显式告警”；动机：Agent 具备读图能力时可直接读原图，
+   弱模型仍可用 OCR 兜底。
+3. **移动端沉浸布局**：主视图由文档流 `100dvh` 改为 `position:fixed; inset:0`
+   （文档无滚动余量，iOS 键盘滚动偏移不再把顶栏推出视口）。
+4. **模型成本标记口径**：`price_factor` 优先显示（平台 `is_free` 与价格系数
+   可能矛盾，实测 Qwen3.8-Flash 同时下发 `is_free=true` 与 `×0.1`）。
+
+实现与验收证据：`openspec/changes/archive/`（归档后）；探针脚本
+`_probe_session_timing.py`（创建耗时冷 10.4s/热 6.6s → 快路 <1s + 后台就绪）。

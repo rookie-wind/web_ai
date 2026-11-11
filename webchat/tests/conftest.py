@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import json
+import time
 
 import pytest
 from fastapi.testclient import TestClient
@@ -28,8 +29,20 @@ class NoopHandle:
 
     def __init__(self, config, pat_env=None, gate=None):
         self.config = config
+        self.pat_env = pat_env
         self.gate = gate
         self.closed = False
+
+    async def list_models(self) -> list[dict]:
+        """返回测试用模型清单。"""
+        return [
+            {"value": "m1", "display_name": "Model 1", "is_enabled": True,
+             "is_free": True, "price_factor": 1.0},
+        ]
+
+    async def set_model(self, model: str) -> None:
+        """切换模型（测试桩，无操作）。"""
+        pass
 
     async def close(self):
         self.closed = True
@@ -139,6 +152,18 @@ def bootstrap(login_as):
         created = client.post("/api/sessions", headers=headers)
         assert created.status_code == 200, created.text
         session_id = created.json()["session_id"]
+        # 等待后台慢路就绪（写路径要求 ready，design D2）
+        deadline = time.time() + 5
+        while time.time() < deadline:
+            items = client.get("/api/sessions", headers=headers).json()[
+                "sessions"
+            ]
+            meta = [x for x in items if x["session_id"] == session_id]
+            if meta and meta[0].get("status") == "ready":
+                break
+            time.sleep(0.05)
+        else:
+            raise AssertionError("session not ready within 5s")
         leased = client.post(
             f"/api/sessions/{session_id}/lease",
             headers=headers,

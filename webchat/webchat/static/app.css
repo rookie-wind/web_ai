@@ -10,6 +10,26 @@
   --danger: #d33;
   --ok: #1a7f4b;
   --radius: 10px;
+  /* spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  /* type scale */
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-lg: 16px;
+  --text-xl: 20px;
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  /* shadow scale */
+  --shadow-1: 0 1px 3px rgba(20, 40, 80, 0.08);
+  --shadow-2: 0 8px 24px rgba(20, 40, 80, 0.12);
 }
 
 * { box-sizing: border-box; }
@@ -125,7 +145,7 @@ button { cursor: pointer; }
 
 .sidebar {
   width: 250px;
-  shrink: 0;
+  flex-shrink: 0;
   border-right: 1px solid var(--line);
   background: var(--panel);
   padding: 12px;
@@ -357,21 +377,99 @@ details.tool-group .tool-group-body details.tool { margin: 4px 0; }
 .compose {
   border-top: 1px solid var(--line);
   background: var(--panel);
-  padding: 10px 14px;
+  padding: var(--space-3) var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
-.compose-row { display: flex; gap: 8px; align-items: center; }
-.compose-row textarea { flex: 1; resize: vertical; }
-.compose-row select { border: 1px solid var(--line); border-radius: 6px; padding: 7px; }
-.compose-row input[type="file"] { flex: 1; font-size: 12px; min-width: 0; }
+.compose textarea {
+  resize: none;
+  overflow-y: auto;
+  max-height: 160px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-base);
+  line-height: 1.5;
+}
+
+.attachment-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.attachment-chips:empty { display: none; }
+.attachment-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background: #eef4ff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+  max-width: 220px;
+}
+.chip-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.chip-delete {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  padding: 0 2px;
+}
+.chip-delete:hover { color: var(--danger); }
+
+.compose-toolbar { display: flex; gap: var(--space-2); align-items: center; }
+.compose-toolbar select {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 6px 8px;
+  font-size: var(--text-sm);
+  max-width: 180px;
+}
+.attach-btn {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: var(--radius-sm);
+  width: 34px;
+  height: 34px;
+  font-size: var(--text-lg);
+  line-height: 1;
+  color: var(--muted);
+}
+.attach-btn:hover { border-color: var(--primary); color: var(--primary); }
+.attach-btn:disabled { opacity: 0.55; cursor: default; }
+.compose-toolbar #btn-send { margin-left: auto; }
+.compose-toolbar #btn-send.is-stop { background: var(--danger); }
+
+/* 全视口沉浸（全平台 app-like，safe-area 适配）：
+   fixed 脱离文档流，文档无滚动余量，iOS 键盘滚动偏移不会把顶栏推出视口 */
+#view-app { position: fixed; inset: 0; }
+.topbar { padding-top: calc(10px + env(safe-area-inset-top)); }
+.compose { padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom)); }
+
+/* 焦点可见性（键盘导航，WCAG AA） */
+button:focus-visible, select:focus-visible, textarea:focus-visible,
+input:focus-visible, a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
 
 /* ── 移动端（375px 起可用）── */
 
 @media (max-width: 640px) {
   .icon-btn { display: block; }
+
+  /* iOS Safari 对 <16px 表单控件聚焦自动放大；提到 16px 根治（保无障碍缩放） */
+  .compose textarea, .compose-toolbar select,
+  .card-gate input, .card-ask input { font-size: 16px; }
+  .compose-toolbar select { min-width: 96px; }
 
   .sidebar {
     position: absolute;
@@ -390,3 +488,22 @@ details.tool-group .tool-group-body details.tool { margin: 4px 0; }
   .layout { position: relative; }
   .bubble, details.tool, .card-gate, .card-ask, .artifact-row, .banner-error { max-width: 100%; }
 }
+
+/* 新建会话对话框（Qoder 云账号选择） */
+.modal {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+}
+.modal-card {
+  background: #fff; color: #222;
+  border-radius: 10px; padding: 20px; width: min(420px, 92vw);
+  display: flex; flex-direction: column; gap: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+.modal-card h2 { margin: 0; font-size: 18px; }
+.modal-card fieldset { border: 1px solid #ccc; border-radius: 6px; margin: 0; }
+.modal-card label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.modal-card fieldset label { flex-direction: row; align-items: center; gap: 6px; }
+.modal-card input[type="password"] { padding: 6px 8px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; }

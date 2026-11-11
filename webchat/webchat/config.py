@@ -124,6 +124,8 @@ class Settings:
     # 会话模型名（传入 CLI --model）；默认 Qwen3.8-Flash，可经
     # WEBCHAT_AGENT_MODEL 覆盖（置空则回落 CLI 默认）
     agent_model: str = "Qwen3.8-Flash"
+    # 慢路初始化总超时秒数（design D2，超时转 failed）
+    init_timeout: int = 60
     # ── 容量与生命周期（默认值保证既有构造点无需改动）──
     session_idle_ttl: int = 1800
     idle_sweep_interval: int = 60
@@ -258,6 +260,9 @@ def load_settings(environ: dict[str, str] | None = None) -> Settings:
         ip.strip() for ip in trusted_raw.split(",") if ip.strip()
     )
     agent_model = env.get("WEBCHAT_AGENT_MODEL", "Qwen3.8-Flash").strip()
+    init_timeout = _parse_int(
+        "WEBCHAT_INIT_TIMEOUT", env.get("WEBCHAT_INIT_TIMEOUT", "60")
+    )
     session_idle_ttl = _parse_int(
         "WEBCHAT_SESSION_IDLE_TTL", env.get("WEBCHAT_SESSION_IDLE_TTL", "1800")
     )
@@ -311,6 +316,7 @@ def load_settings(environ: dict[str, str] | None = None) -> Settings:
         rate_source_max_failures=rate_source_max,
         trusted_proxies=trusted_proxies,
         agent_model=agent_model,
+        init_timeout=init_timeout,
         session_idle_ttl=session_idle_ttl,
         idle_sweep_interval=idle_sweep_interval,
         max_concurrent_turns=max_concurrent_turns,

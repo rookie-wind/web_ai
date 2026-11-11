@@ -55,6 +55,7 @@ cd webchat
 | WEBCHAT_SKILLS_ROOT | agent_assets/skills | 技能母本目录（索引进系统提示；内置 Read 白名单根之一） |
 | WEBCHAT_READ_EXTRA_ROOTS | `%TEMP%/qoder-mcp-outputs` + `~/.qoder-cn/tmp` | Read 额外白名单目录（逗号/分号分隔，默认已含 CLI 大结果落盘目录） |
 | WEBCHAT_AGENT_MODEL | Qwen3.8-Flash | 会话模型名（传入 CLI `--model`；置空回落 CLI 默认） |
+| WEBCHAT_INIT_TIMEOUT | 60 | 会话后台初始化（激活/连接/清单）总超时秒数，超时转 failed |
 
 ## 端点
 
@@ -132,15 +133,38 @@ cd webchat
   中止时清理本会话旧确认票据，避免后续误放行。
 - 中止后发 `turn_aborted` 事件，前端收起“任务进行中”状态。
 
+## 会话创建异步化
+
+- `POST /api/sessions` 只做快路（配额检查 + 凭据铸造 + 工作区 + 注册），
+  约 1 秒内返回 `session_id`；平台授权激活、CLI 连接与模型清单在后台慢路
+  执行（激活 ∥ 连接并行，总超时 `WEBCHAT_INIT_TIMEOUT` 默认 60 秒）。
+- 会话状态机 `creating → ready / failed`：就绪写入 `session_ready` 事件、
+  失败写入 `session_failed`（含原因，不含凭据）；`GET /api/sessions` 携带
+  `status`/`status_error`。
+- 非 `ready` 会话的发消息/上传/切模型返回 409「会话初始化中，请稍候」；
+  前端输入区同步禁用并显示初始化进度，就绪后解锁并加载模型下拉。
+- 初始化失败自动回滚：撤销凭据、删除工作区、槽位与配额恰好释放一次；失败
+  记录保留（列表呈“创建失败”，仅可删除）。自带 PAT 失败时前端自动重开创建
+  对话框并回填原因与输入；“记住 PAT”仅在就绪后持久化。
+- 空闲回收跳过 `creating` 会话；初始化中删除/关闭会话会先取消慢路任务。
+
+## 截图通道双落盘
+
+- 图片（截图/照片）按原扩展名落 `xlpa-input/`（Agent 可直接 `Read` 原图），
+  同时生成 `<stem>.ocr.txt` 兜底文本；上传响应与消息引用同时给出两路径。
+- OCR 识别失败或依赖缺失不再整体拒绝（旧 422/503）：返回 200 + 原图保留 +
+  `ocr_error` 显式告警，不生成 OCR 文本文件、不静默以猜测内容继续。
+
 ## 平台登录与预激活
 
 - 用户账密登录（`/api/auth/login`）只完成 Web 准入并取得平台业务身份；
-- 创建会话时，服务端用账号库内置的 `phone`/`code` 对该会话的 MCP 凭据调用
-  一次 `login` 完成授权激活（`runtime.create` → `call_login_tool`），MCP
-  接入 Token 因此已绑定业务 Token；
+- 创建会话后，服务端用账号库内置的 `phone`/`code` 对该会话的 MCP 凭据调用
+  一次 `login` 完成授权激活（后台初始化 `initialize_session` →
+  `call_login_tool`），MCP 接入 Token 因此已绑定业务 Token；
 - 因此 Agent **不应调用 `login`，也不应索要手机号/验证码**，直接调用
   `get_*` 云端工具；`login` 在门禁中仍属绝对禁止，防止 Agent 使用任意账号；
-- 激活失败会使会话创建返回 502，不会出现“会话可用但云端一查就报未登录”；
+- 激活失败会使会话转 `failed`（`session_failed` 事件含可辨识原因，失败记录
+  保留供删除），写路径拒绝直至重建，不会出现“会话可用但云端一查就报未登录”；
   若账号库未配置 `phone`/`code`，则不会激活，云端查询不可用，需要运维补配置。
 
 ## PDF 文档转结构化文本

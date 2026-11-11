@@ -12,13 +12,11 @@ import json
 import logging
 import shutil
 import time
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
-
-from .errors import SessionActivationFailed
 
 if TYPE_CHECKING:
     from .api import AppState
@@ -35,6 +33,20 @@ class MessageRequest(BaseModel):
     """发送消息请求体。"""
 
     text: str
+
+
+class CreateSessionRequest(BaseModel):
+    """创建会话请求体（Qoder 云账号选择；缺省默认账号）。"""
+
+    account_source: Literal["default", "byo"] = "default"
+    pat: str = ""
+    remember: bool = False
+
+
+class ModelRequest(BaseModel):
+    """模型切换请求体（消息级）。"""
+
+    model: str
 
 
 class LeaseRequest(BaseModel):
@@ -75,18 +87,38 @@ def build_sessions_router(state: "AppState") -> APIRouter:
     runtime = state.runtime
 
     @router.post("")
-    async def create_session(request: Request) -> dict:
-        """创建会话（mint 凭据 + 平台授权激活 + 实例槽位 + 工作区）。"""
+    async def create_session(
+        request: Request, body: CreateSessionRequest | None = None
+    ) -> dict:
+        """创建会话：快路秒回；慢路（激活/连接/清单）后台执行（design D2）。
+
+        慢路由 finalize_session 包装：失败/超时转 failed 并保留会话记录
+        （经 session_failed 事件与列表 status 呈现）；"记住 PAT" 仅在就绪
+        后持久化。初始化期间写路径返回 409（会话初始化中）。
+        """
         username, _ = _require_user(state, request)
         account = state.accounts.find(username)
         creds = {"phone": account.phone, "code": account.code} if account else None
+        source = body.account_source if body else "default"
+        pat = body.pat if body else ""
+        remember = bool(body.remember) if body else False
         try:
-            session = await runtime.create(username, account=creds)
-        except SessionActivationFailed as exc:
-            # 上游凭据问题：可辨识原因，不当作配额拒绝
-            raise HTTPException(status_code=502, detail=str(exc))
-        except Exception as exc:  # noqa: BLE001 - 配额异常统一 409
+            session = await runtime.create(username)
+        except Exception as exc:  # noqa: BLE001 - 配额/凭据快路失败统一 409
             raise HTTPException(status_code=409, detail=str(exc))
+
+        async def _finalize() -> None:
+            await runtime.finalize_session(
+                session, account=creds, account_source=source, qoder_pat=pat
+            )
+            # 记住自带 PAT：仅 byo 且勾选且就绪时明文落账号库（ADR-0004）
+            if session.status == "ready" and remember and source == "byo" and pat:
+                try:
+                    state.accounts.set_qoder_pat(username, pat)
+                except Exception:  # noqa: BLE001 - 持久化失败不影响已就绪会话
+                    logger.warning("记住 PAT 落盘失败", exc_info=True)
+
+        session.init_task = asyncio.create_task(_finalize())
         return {"session_id": session.id, "username": username}
 
     @router.get("")
@@ -100,10 +132,47 @@ def build_sessions_router(state: "AppState") -> APIRouter:
                 "created_at": s.created_at,
                 "turn_running": s.turn_running,
                 "last_seq": state.events.last_seq(s.id),
+                "status": s.status,
+                "status_error": s.status_error,
             }
             for s in runtime.list_for(username)
         ]
         return {"sessions": items}
+
+    @router.get("/{session_id}/models")
+    async def session_models(request: Request, session_id: str) -> dict:
+        """当前会话账号的可用模型清单（只列启用）与当前选中模型。"""
+        username, _ = _require_user(state, request)
+        session = runtime.get(session_id)
+        if session is None or session.username != username:
+            raise HTTPException(status_code=404, detail="会话不存在")
+        return {
+            "models": session.models,
+            "current_model": session.current_model,
+        }
+
+    @router.post("/{session_id}/model")
+    async def set_model(
+        request: Request, session_id: str, body: ModelRequest
+    ) -> dict:
+        """消息级切换模型（需租约）：清单内放行，越清单/执行中拒绝。"""
+        username, _ = _require_user(state, request)
+        session = runtime.get(session_id)
+        if session is None or session.username != username:
+            raise HTTPException(status_code=404, detail="会话不存在")
+        if session.closed:
+            raise HTTPException(status_code=409, detail="会话已结束")
+        if session.status != "ready":
+            raise HTTPException(status_code=409, detail="会话初始化中，请稍候")
+        holder_id = request.headers.get("x-holder-id", "")
+        if not holder_id or not session.has_lease(holder_id):
+            raise HTTPException(status_code=409, detail="当前连接不持有写租约")
+        try:
+            current = await runtime.set_model(session, body.model.strip())
+        except ValueError as exc:
+            raise HTTPException(status_code=409, detail=str(exc))
+        runtime.touch(session)
+        return {"ok": True, "current_model": current}
 
     @router.get("/{session_id}/events")
     async def stream_events(request: Request, session_id: str) -> StreamingResponse:
@@ -168,6 +237,8 @@ def build_sessions_router(state: "AppState") -> APIRouter:
             raise HTTPException(status_code=404, detail="会话不存在")
         if session.closed:
             raise HTTPException(status_code=409, detail="会话已结束")
+        if session.status != "ready":
+            raise HTTPException(status_code=409, detail="会话初始化中，请稍候")
         holder_id = request.headers.get("x-holder-id", "")
         if not holder_id or not session.has_lease(holder_id):
             raise HTTPException(status_code=409, detail="当前连接不持有写租约")

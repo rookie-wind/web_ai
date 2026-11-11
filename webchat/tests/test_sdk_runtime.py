@@ -176,6 +176,38 @@ async def test_two_turns_reuse_one_client_and_receiver(tmp_path, monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_set_model_switches_without_rebuild(tmp_path, monkeypatch) -> None:
+    """消息级切模型经 set_model，复用同一客户端，不重建、session_id 不变。"""
+    clients = install(monkeypatch, [[_result()], [_result()]])
+    handle = AgentHandle(_config(tmp_path))
+    async for _e in handle.run_turn("第一轮", elapsed_ms=0):
+        pass
+    await handle.set_model("model-B")
+    async for _e in handle.run_turn("第二轮", elapsed_ms=0):
+        pass
+    assert len(clients) == 1  # 未重建客户端
+    assert clients[0].set_model_calls == ["model-B"]
+    assert handle.session_id == "sid-1"
+    await handle.close()
+
+
+@pytest.mark.asyncio
+async def test_pat_never_in_log_or_cmdline(tmp_path, monkeypatch, caplog) -> None:
+    """PAT 仅经 env 注入子进程，不出现在日志（护栏，ADR-0004）。"""
+    import logging
+
+    caplog.set_level(logging.DEBUG)
+    clients = install(monkeypatch, [[_result()]])
+    handle = AgentHandle(_config(tmp_path), pat_env="secret-pat-xyz")
+    async for _e in handle.run_turn("hi", elapsed_ms=0):
+        pass
+    opts = clients[0].options
+    assert opts.env.get(q.DEFAULT_ACCESS_TOKEN_ENV_VAR) == "secret-pat-xyz"
+    assert "secret-pat-xyz" not in caplog.text
+    await handle.close()
+
+
+@pytest.mark.asyncio
 async def test_interrupt_raises_turn_aborted_and_can_continue(
     tmp_path, monkeypatch
 ):

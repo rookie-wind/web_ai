@@ -153,6 +153,31 @@ class AgentHandle:
         """当前 SDK 会话 ID（首轮结束后可用）。"""
         return self._session_id
 
+    async def list_models(self) -> list[dict]:
+        """连接客户端并取账号级模型清单，归一化为契约 dict。
+
+        建会话时用于校验 PAT 有效性并填充模型下拉（design D3）；SDK 的
+        ModelInfo 字段名在此转为 snake_case，不外泄到契约层。
+        """
+        client = await self._ensure_client()
+        raw = await client.get_available_models()
+        models: list[dict] = []
+        for item in raw or []:
+            value = str(item.get("value", "") or "")
+            models.append({
+                "value": value,
+                "display_name": str(item.get("displayName", "") or value),
+                "is_enabled": bool(item.get("isEnabled", False)),
+                "is_free": bool(item.get("isFree", False)),
+                "price_factor": item.get("priceFactor"),
+            })
+        return models
+
+    async def set_model(self, model: str) -> None:
+        """消息级切换模型：复用持久客户端调 SDK set_model，不重建句柄。"""
+        client = await self._ensure_client()
+        await client.set_model(model)
+
     async def close(self) -> None:
         """终止实例：中断在途轮次、停止接收循环、断开持久客户端。"""
         if self._closed:
@@ -195,10 +220,17 @@ class AgentHandle:
         client = q.QoderSDKClient(options)
         try:
             await client.connect()
-        except Exception as exc:  # noqa: BLE001 - 连接失败归一为适配层异常
-            raise AdapterError(
-                f"SDK 连接失败: {type(exc).__name__}: {exc}"
-            ) from exc
+        except BaseException as exc:
+            # 连接失败/取消（如初始化超时）都要回收已拉起的 CLI 进程
+            try:
+                await asyncio.wait_for(client.disconnect(), timeout=5)
+            except BaseException:  # noqa: BLE001 - 补偿失败不掩盖原异常
+                pass
+            if isinstance(exc, Exception):
+                raise AdapterError(
+                    f"SDK 连接失败: {type(exc).__name__}: {exc}"
+                ) from exc
+            raise
         self._client = client
         self._session_id = client.session_id or self._session_id
         self._receiver_task = asyncio.create_task(self._receive_loop(client))

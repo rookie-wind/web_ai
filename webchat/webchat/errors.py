@@ -7,7 +7,12 @@
 
 from __future__ import annotations
 
-__all__ = ["QuotaExceeded", "SessionActivationFailed"]
+__all__ = [
+    "QuotaExceeded",
+    "SessionActivationFailed",
+    "InvalidQoderPat",
+    "DefaultAccountUnavailable",
+]
 
 
 class QuotaExceeded(Exception):
@@ -16,3 +21,11 @@ class QuotaExceeded(Exception):
 
 class SessionActivationFailed(Exception):
     """会话平台授权激活失败（上游/凭据问题，非配额）。"""
+
+
+class InvalidQoderPat(Exception):
+    """用户自带 Qoder PAT 无效/过期/品牌不一致（用户输入错误）。"""
+
+
+class DefaultAccountUnavailable(Exception):
+    """默认 Qoder 账号不可用（无服务端 PAT 且无本机登录态），需自带。"""

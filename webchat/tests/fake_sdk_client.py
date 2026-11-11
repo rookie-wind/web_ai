@@ -19,6 +19,7 @@ class FakeSDKClient:
         self.options = options
         self.turns: list[list] = []
         self.queries: list[str] = []
+        self.set_model_calls: list = []
         self.interrupted = 0
         self.connected = False
         self.disconnected = False
@@ -45,6 +46,10 @@ class FakeSDKClient:
             if message is _STOP:
                 return
             yield message
+
+    async def set_model(self, model: str | None = None) -> None:
+        """记录模型切换调用。"""
+        self.set_model_calls.append(model)
 
     async def interrupt(self):
         self.interrupted += 1

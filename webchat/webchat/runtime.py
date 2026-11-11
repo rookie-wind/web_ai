@@ -18,7 +18,12 @@ from typing import Awaitable, Callable
 import httpx
 
 from .artifacts import ArtifactRegistry, scan_outputs, unique_path
-from .errors import QuotaExceeded, SessionActivationFailed
+from .errors import (
+    DefaultAccountUnavailable,
+    InvalidQoderPat,
+    QuotaExceeded,
+    SessionActivationFailed,
+)
 from .event_store import EventStore
 from .gate_audit import GateAuditLog
 from .grants import GrantStore, TaskScope, WriteGate, bare_tool_name, classify_tool
@@ -26,6 +31,7 @@ from .skills import SkillCatalog
 from .sdk_runtime import (
     ActivationError,
     AdapterConfig,
+    AdapterError,
     AgentHandle,
     TurnAborted,
     call_login_tool,
@@ -96,6 +102,20 @@ class WebSession:
     run_task: asyncio.Task | None = None
     # 本会话出现过的建档 task_id（供中止服务端批次）
     archive_task_ids: set[str] = field(default_factory=set)
+    # Qoder 云账号（第五层凭据）：来源 default/byo，会话级固定
+    account_source: str = "default"
+    # 本会话绑定的 Qoder PAT（仅内存；记住持久化归账号库）
+    qoder_pat: str = ""
+    # 当前账号的可用模型清单（归一化 dict，建会话时校验取得）
+    models: list[dict] = field(default_factory=list)
+    # 当前选中模型（消息级切换；空时回落配置默认）
+    current_model: str = ""
+    # 初始化状态机：creating（快路完成）→ ready / failed（慢路结论）
+    status: str = "creating"
+    # 慢路失败原因（failed 时供 session_failed 事件与列表展示，不含凭据）
+    status_error: str = ""
+    # 慢路后台任务（API 层调度；close/delete 先取消再回收，design D2）
+    init_task: asyncio.Task | None = None
 
     def hold_lease(self, holder_id: str, ttl: float) -> bool:
         """尝试获取或续期写租约（持有者一致或租约过期才允许）。"""
@@ -143,6 +163,7 @@ class SessionRuntime:
         max_concurrent_turns: int = 16,
         skill_catalog: SkillCatalog | None = None,
         read_extra_roots: tuple[Path, ...] | None = None,
+        init_timeout: float = 60.0,
     ):
         """初始化运行时。
 
@@ -168,6 +189,7 @@ class SessionRuntime:
                 ``/技能名`` 前缀当轮注入，Read 白名单含该目录。
             read_extra_roots: Read 白名单的额外目录（CLI 大结果落盘目录等）；
                 默认取配置 `WEBCHAT_READ_EXTRA_ROOTS` + CLI 默认目录。
+            init_timeout: 慢路初始化总超时秒数（design D2，超时转 failed）。
         """
         self._mint_url = mint_url
         self._mint_secret = mint_secret
@@ -193,6 +215,7 @@ class SessionRuntime:
         self._skill_index = skill_catalog.render_index() if skill_catalog else ""
         self._skill_texts = dict(skill_catalog.texts) if skill_catalog else {}
         self._read_extra_roots = tuple(read_extra_roots or ())
+        self._init_timeout = init_timeout
         # tool_use_id -> 裸工具名（跨轮保留，计划摘要反查用）
         self._tool_names: dict[str, str] = {}
         self._sessions: dict[str, WebSession] = {}
@@ -201,13 +224,21 @@ class SessionRuntime:
 
     # ── 配额 ──
 
-    async def create(self, username: str, *, account: dict | None = None) -> WebSession:
-        """创建会话：配额检查 → mint 凭据 → 授权激活 → 工作区 → 事件落位。
+    async def create(self, username: str) -> WebSession:
+        """快路创建会话：配额检查 → mint 凭据 → 工作区 → 注册（design D2）。
 
-        account 提供 ``{phone, code}`` 时，mint 成功后、会话对用户可用
-        之前用该接入凭据对 /mcp 调一次 login 完成平台登录绑定（design D9）；
-        激活失败必须使创建失败并回滚槽位/凭据，不得留下可用但一查即错的
-        会话。未提供 account 时不激活（存量测试/无预设凭据场景）。
+        只做秒级快路，不等待任何外网调用；平台授权激活与 CLI 连接/模型
+        清单由 ``initialize_session`` 在慢路完成（生产由 API 层调度为后台
+        任务，测试可显式 await）。快路的配额拒绝语义与既有同步创建一致。
+
+        Args:
+            username: 创建者账号名。
+
+        Returns:
+            status 为 ``"creating"`` 的会话（handle/models 尚未就绪）。
+
+        Raises:
+            QuotaExceeded: 全局/每用户配额超限或实例槽位繁忙。
         """
         active = sum(1 for s in self._sessions.values() if not s.closed)
         if active >= self._max_instances:
@@ -228,31 +259,174 @@ class SessionRuntime:
         (workspace / "xlpa-tmp").mkdir(parents=True, exist_ok=True)
         (workspace / "xlpa-input").mkdir(parents=True, exist_ok=True)
         (workspace / "xlpa-output").mkdir(parents=True, exist_ok=True)
-        token = await self._mint(username, session_id)
+        try:
+            token = await self._mint(username, session_id)
+        except Exception:
+            # mint 失败：会话未注册，局部回滚槽位与工作区（配额不泄漏）
+            self._instance_slots.release()
+            shutil.rmtree(workspace, ignore_errors=True)
+            raise
         session = WebSession(
             id=session_id,
             username=username,
             workspace=workspace,
             mcp_token=token,
         )
-        phone = str((account or {}).get("phone", "") or "")
-        code = str((account or {}).get("code", "") or "")
-        if phone and code:
-            try:
-                await self._activate(
-                    f"{self._mcp_url}/mcp", token, phone, code
-                )
-            except ActivationError as exc:
-                await self._revoke(token)
-                shutil.rmtree(workspace, ignore_errors=True)
-                self._instance_slots.release()
-                raise SessionActivationFailed(
-                    f"平台授权激活失败，会话未创建: {exc}"
-                ) from exc
         self._sessions[session_id] = session
         self._user_counts[username] = self._user_counts.get(username, 0) + 1
         self._events.append(session_id, "session_started", {"username": username})
         return session
+
+    async def initialize_session(
+        self,
+        session: WebSession,
+        *,
+        account: dict | None = None,
+        account_source: str = "default",
+        qoder_pat: str = "",
+    ) -> None:
+        """慢路初始化：授权激活 → 云账号绑定 → 模型清单就绪（design D2/D3）。
+
+        account 提供 ``{phone, code}`` 时用接入凭据对 /mcp 调一次 login
+        完成平台登录绑定（design D9）；激活或账号校验失败时抛出可辨识
+        异常，会话不得保持可用（凭据/工作区/槽位的回收由 finalize_session
+        统一执行）。成功后置 ``status="ready"``；就绪/失败事件与后台调度
+        由上层负责（design D2）。
+
+        Args:
+            session: 快路创建的会话（status 为 ``"creating"``）。
+            account: 平台预设凭据 ``{phone, code}``（提供时执行授权激活）。
+            account_source: Qoder 云账号来源（default/byo）。
+            qoder_pat: 自带 PAT（仅 byo 生效）。
+
+        Raises:
+            InvalidQoderPat: 自带 PAT 为空或校验失败。
+            SessionActivationFailed: 平台授权激活失败。
+            DefaultAccountUnavailable: 默认账号不可用。
+        """
+        if account_source == "byo" and not qoder_pat.strip():
+            # 失败统一上抛：由 finalize_session 转 failed 并回收（design D2）
+            raise InvalidQoderPat("自带 Qoder PAT 不能为空")
+        phone = str((account or {}).get("phone", "") or "")
+        code = str((account or {}).get("code", "") or "")
+        # Qoder 云账号绑定（eager，design D3）：选 PAT → 建句柄连接 →
+        # 调 list_models 校验 PAT 并取得账号级模型清单；失败回滚拒绝初始化。
+        pat = qoder_pat if account_source == "byo" else self._pat
+        handle = self._build_handle(session, pat)
+        # 提前挂到会话：超时/中断路径统一由 close() 关闭，防 CLI 进程泄漏
+        session.handle = handle
+
+        async def _activate_step() -> None:
+            """平台授权激活（design D9）；未预设凭据时为空操作。"""
+            if phone and code:
+                await self._activate(
+                    f"{self._mcp_url}/mcp", session.mcp_token, phone, code
+                )
+
+        async def _connect_step() -> tuple[list[dict], str]:
+            """CLI 连接 + 模型清单校验 + 预选模型（design D3）。"""
+            models = await handle.list_models()
+            enabled = [m for m in models if m.get("is_enabled")]
+            if not enabled:
+                raise AdapterError("该账号无可用模型")
+            current_model = self._preselect_model(enabled)
+            if current_model:
+                await handle.set_model(current_model)
+            return enabled, current_model
+
+        # 并行推进两条互不依赖的链路：平台激活 ∥ CLI 连接+清单（design D2）。
+        # return_exceptions 下各自失败按来源分别映射，不互相掩埋根因。
+        if phone and code:
+            act_results = await asyncio.gather(
+                _activate_step(),
+                _connect_step(),
+                return_exceptions=True,
+            )
+        else:
+            act_results = [None]
+            try:
+                act_results.append(await _connect_step())
+            except Exception as exc:  # noqa: BLE001 - 统一走失败映射
+                act_results.append(exc)
+        activation_exc, conn_result = act_results[0], act_results[1]
+
+        if activation_exc is not None:
+            # 失败统一上抛：由 finalize_session 转 failed 并回收（design D2）
+            raise SessionActivationFailed(
+                f"平台授权激活失败，会话未创建: {activation_exc}"
+            ) from activation_exc
+        if isinstance(conn_result, BaseException):
+            if account_source == "byo":
+                raise InvalidQoderPat(
+                    f"自带 Qoder PAT 无效或过期（需国内版 PAT）: {conn_result}"
+                ) from conn_result
+            raise DefaultAccountUnavailable(
+                f"默认 Qoder 账号不可用（无服务端 PAT 或本机登录态），"
+                f"请自带 PAT: {conn_result}"
+            ) from conn_result
+        enabled, current_model = conn_result
+        # 慢路守卫：会话在初始化期间被关闭/删除时不落状态、不写事件
+        if session.closed or self._sessions.get(session.id) is not session:
+            await handle.close()
+            return
+        session.account_source = account_source
+        session.qoder_pat = pat
+        session.models = enabled
+        session.current_model = current_model
+        session.status = "ready"
+        self._events.append(
+            session.id,
+            "session_ready",
+            {"account_source": account_source, "model": current_model},
+        )
+
+    async def finalize_session(
+        self,
+        session: WebSession,
+        *,
+        account: dict | None = None,
+        account_source: str = "default",
+        qoder_pat: str = "",
+        timeout: float | None = None,
+    ) -> None:
+        """后台慢路包装：总超时兜底 + 失败转 failed 并保留记录（design D2）。
+
+        与直接调用 ``initialize_session`` 的差异：失败/超时不再向调用方
+        抛错，而是置 ``status="failed"``、写入 ``session_failed`` 事件并以
+        close 语义回收（失败会话记录保留供用户查看原因后删除）。
+
+        Args:
+            session: 快路创建的会话。
+            account: 平台预设凭据（透传 ``initialize_session``）。
+            account_source: Qoder 云账号来源（透传）。
+            qoder_pat: 自带 PAT（透传）。
+            timeout: 慢路总超时秒数；缺省用运行时配置 ``init_timeout``。
+        """
+        effective = self._init_timeout if timeout is None else timeout
+        try:
+            await asyncio.wait_for(
+                self.initialize_session(
+                    session,
+                    account=account,
+                    account_source=account_source,
+                    qoder_pat=qoder_pat,
+                ),
+                timeout=effective,
+            )
+            return
+        except asyncio.CancelledError:
+            # 调用方 close/delete 已取消慢路并完成回收：不写事件、不重复回滚
+            raise
+        except asyncio.TimeoutError:
+            message = f"会话初始化超时（{effective:g}s）"
+        except Exception as exc:  # noqa: BLE001 - 失败统一转 failed 记录
+            message = str(exc)[:300] or type(exc).__name__
+        session.status = "failed"
+        session.status_error = message
+        self._events.append(session.id, "session_failed", {"message": message})
+        await self.close(session, reason="init_failed")
+        # 初始化失败的会话不留工作区（区别于 close 的按保留期留存）
+        shutil.rmtree(session.workspace, ignore_errors=True)
 
     async def _mint(self, username: str, session_id: str) -> str:
         """调 MCP Server mint 端点签发凭据。"""
@@ -454,7 +628,8 @@ class SessionRuntime:
         cutoff = (now if now is not None else time.time()) - idle_ttl
         closed = 0
         for session in self.all_sessions():
-            if session.closed or session.turn_running:
+            if session.closed or session.turn_running or session.status == "creating":
+                # 执行中轮次与初始化中的会话（design D2）不参与回收
                 continue
             if session.last_activity >= cutoff:
                 continue
@@ -464,6 +639,56 @@ class SessionRuntime:
 
     # ── 消息执行 ──
 
+    def _preselect_model(self, models: list[dict]) -> str:
+        """预选模型：配置默认在清单则优先，否则取首个启用模型。"""
+        values = [str(m.get("value", "")) for m in models]
+        if self._agent_model and self._agent_model in values:
+            return self._agent_model
+        return values[0] if values else ""
+
+    async def set_model(self, session: WebSession, model: str) -> str:
+        """消息级切换模型：须属当前账号清单；复用句柄热切，不重建。"""
+        if session.turn_running:
+            raise ValueError("上一轮仍在执行，请稍候再切换模型")
+        values = [str(m.get("value", "")) for m in session.models]
+        if model not in values:
+            raise ValueError("模型不在当前账号可用清单内")
+        if session.handle is not None:
+            await session.handle.set_model(model)
+        session.current_model = model
+        return model
+
+    def _build_handle(self, session: WebSession, pat: str) -> AgentHandle:
+        """按会话构造 agent 句柄（配置 + 写门禁），PAT 仅经 env 注入。"""
+        config = AdapterConfig(
+            cwd=session.workspace,
+            mcp_url=f"{self._mcp_url}/mcp",
+            mcp_token=session.mcp_token,
+            max_turns=self._max_turns,
+            skills=["xlpa"],
+            model=self._agent_model or None,
+            skill_index=self._skill_index,
+            skill_texts=self._skill_texts,
+        )
+        read_roots = [session.workspace]
+        if self._skill_catalog is not None:
+            read_roots.append(self._skill_catalog.root)
+        # CLI 大结果落盘目录（qoder-mcp-outputs / .qoder-cn/tmp）等额外白名单
+        read_roots.extend(self._read_extra_roots)
+        gate = WriteGate(
+            session.id,
+            self._grants,
+            event_writer=lambda t, p: self._events.append(session.id, t, p),
+            audit_writer=self._audit.append if self._audit is not None else None,
+            summary_lookup=lambda target: dict(
+                session.plan_summaries.get(target) or {}
+            ),
+            workspace_dir=session.workspace,
+            read_roots=read_roots,
+            task_scope=self._task_scope,
+        )
+        return AgentHandle(config, pat_env=pat or None, gate=gate)
+
     async def run_message(
         self, session: WebSession, prompt: str, *, holder_id: str
     ) -> None:
@@ -471,35 +696,8 @@ class SessionRuntime:
         if not session.has_lease(holder_id):
             raise PermissionError("当前连接不持有写租约")
         if session.handle is None:
-            config = AdapterConfig(
-                cwd=session.workspace,
-                mcp_url=f"{self._mcp_url}/mcp",
-                mcp_token=session.mcp_token,
-                max_turns=self._max_turns,
-                skills=["xlpa"],
-                model=self._agent_model or None,
-                skill_index=self._skill_index,
-                skill_texts=self._skill_texts,
-            )
-            read_roots = [session.workspace]
-            if self._skill_catalog is not None:
-                read_roots.append(self._skill_catalog.root)
-            # CLI 大结果落盘目录（qoder-mcp-outputs / .qoder-cn/tmp）等额外白名单
-            read_roots.extend(self._read_extra_roots)
-            gate = WriteGate(
-                session.id,
-                self._grants,
-                event_writer=lambda t, p: self._events.append(session.id, t, p),
-                audit_writer=self._audit.append if self._audit is not None else None,
-                summary_lookup=lambda target: dict(
-                    session.plan_summaries.get(target) or {}
-                ),
-                workspace_dir=session.workspace,
-                read_roots=read_roots,
-                task_scope=self._task_scope,
-            )
-            session.handle = AgentHandle(
-                config, pat_env=self._pat or None, gate=gate
+            session.handle = self._build_handle(
+                session, session.qoder_pat or self._pat
             )
         turn_started = time.time()
         session.turn_count += 1
@@ -750,6 +948,21 @@ class SessionRuntime:
             return
         session.closed = True
         session.lease_holder = ""
+        # 先取消慢路任务再回收（防其继续写事件/占资源，design D2）；
+        # close 由慢路自身（finalize 失败分支）调用时跳过自取消。
+        task = session.init_task
+        if (
+            task is not None
+            and not task.done()
+            and task is not asyncio.current_task()
+        ):
+            task.cancel()
+            try:
+                await task
+            except asyncio.CancelledError:
+                pass
+            except Exception:  # noqa: BLE001 - 任务内异常不影响回收
+                pass
         if session.mcp_token:
             await self._revoke(session.mcp_token)
         if session.handle is not None:

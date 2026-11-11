@@ -8,13 +8,14 @@ import time
 import pytest
 
 from webchat.artifacts import ArtifactRegistry
+from webchat.errors import InvalidQoderPat, SessionActivationFailed
 from webchat.event_store import EventStore
 from webchat.runtime import (
     QuotaExceeded,
     SessionRuntime,
     WebSession,
 )
-from webchat.sdk_runtime import TurnAborted, WEvent
+from webchat.sdk_runtime import ActivationError, TurnAborted, WEvent
 
 
 class FakeHandle:
@@ -22,9 +23,21 @@ class FakeHandle:
 
     def __init__(self, config, pat_env=None, gate=None):
         self.config = config
+        self.pat_env = pat_env
         self.gate = gate
         self.closed = False
         self.stop = asyncio.Event()
+
+    async def list_models(self) -> list[dict]:
+        """返回测试用模型清单。"""
+        return [
+            {"value": "m1", "display_name": "Model 1", "is_enabled": True,
+             "is_free": True, "price_factor": 1.0},
+        ]
+
+    async def set_model(self, model: str) -> None:
+        """切换模型（测试桩，无操作）。"""
+        pass
 
     async def close(self):
         self.closed = True
@@ -69,6 +82,170 @@ def runtime(tmp_path, monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_create_returns_fast_creating(runtime):
+    """快路只做注册：create 返回时 creating、无句柄、清单未就绪。"""
+    s = await runtime.create("alice")
+    assert s.status == "creating"
+    assert s.handle is None
+    assert s.models == []
+    assert [e["type"] for e in runtime._events.replay(s.id)] == ["session_started"]
+
+
+@pytest.mark.asyncio
+async def test_initialize_session_ready(runtime):
+    """显式慢路：激活+连接+清单完成后 ready 并填充模型。"""
+    s = await runtime.create("alice")
+    # 不传 account：不执行平台激活（存量测试/无预设凭据场景）
+    await runtime.initialize_session(
+        s, account_source="byo", qoder_pat="p"
+    )
+    assert s.status == "ready"
+    assert s.handle is not None
+    assert s.current_model == "m1"
+    assert s.account_source == "byo"
+
+
+@pytest.mark.asyncio
+async def test_initialize_emits_ready_event(runtime):
+    """慢路就绪写入 session_ready 事件（payload 无凭据）。"""
+    s = await runtime.create("alice")
+    await runtime.initialize_session(s, account_source="byo", qoder_pat="p")
+    events = runtime._events.replay(s.id)
+    ready = [e for e in events if e["type"] == "session_ready"]
+    assert len(ready) == 1
+    assert "pat" not in str(ready[0]["payload"]).lower()
+
+
+@pytest.mark.asyncio
+async def test_initialize_activation_failure_emits_failed(runtime, monkeypatch):
+    """慢路激活失败：写 session_failed（含原因）且回滚无残留。"""
+
+    async def fail_activate(mcp_url, token, phone, code):
+        raise ActivationError("boom")
+
+    # _activate 是实例属性（init 时绑定），直接替换实例引用
+    monkeypatch.setattr(runtime, "_activate", fail_activate)
+    s = await runtime.create("alice")
+    # 走生产路径 finalize：失败统一转 failed 并回收（design D2）
+    await runtime.finalize_session(
+        s, account={"phone": "13900000000", "code": "9413"}, timeout=5
+    )
+    assert s.status == "failed"
+    events = runtime._events.replay(s.id)
+    failed = [e for e in events if e["type"] == "session_failed"]
+    assert len(failed) == 1
+    assert "boom" in failed[0]["payload"]["message"]
+    # 失败记录保留（closed 供列表呈现与删除，design D2）
+    assert len(runtime.list_for("alice")) == 1
+    assert runtime.list_for("alice")[0].closed is True
+
+
+@pytest.mark.asyncio
+async def test_failed_session_releases_once(runtime, monkeypatch):
+    """慢路失败：槽位/每用户配额恰好释放一次，工作区删除。"""
+
+    async def fail_activate(mcp_url, token, phone, code):
+        raise ActivationError("boom")
+
+    monkeypatch.setattr(runtime, "_activate", fail_activate)
+    s = await runtime.create("alice")
+    ws = s.workspace
+    await runtime.finalize_session(
+        s, account={"phone": "13900000000", "code": "9413"}, timeout=5
+    )
+    assert s.status == "failed"
+    assert runtime._user_counts.get("alice", 0) == 0
+    assert not ws.exists()
+    # 信号量恰好释放一次：再创建不被槽位繁忙阻塞（2 上限）
+    s2 = await runtime.create("bob")
+    b2 = await runtime.create("bob")
+    assert s2.id != b2.id
+
+
+@pytest.mark.asyncio
+async def test_failed_then_recreate_succeeds(runtime):
+    """失败回滚后立即再创建成功（无槽位/配额泄漏）。"""
+
+    async def fail_activate(mcp_url, token, phone, code):
+        raise ActivationError("boom")
+
+    runtime._activate = fail_activate
+    s = await runtime.create("alice")
+    await runtime.finalize_session(
+        s, account={"phone": "13900000000", "code": "9413"}, timeout=5
+    )
+    s2 = await runtime.create("alice")
+    await runtime.initialize_session(s2)
+    assert s2.status == "ready"
+
+
+@pytest.mark.asyncio
+async def test_failed_byo_empty_pat_rolls_back(runtime):
+    """自带 PAT 为空：失败事件可辨识且回滚无残留。"""
+    s = await runtime.create("alice")
+    await runtime.finalize_session(
+        s, account_source="byo", qoder_pat="", timeout=5
+    )
+    assert len(runtime.list_for("alice")) == 1
+    failed = [
+        e for e in runtime._events.replay(s.id)
+        if e["type"] == "session_failed"
+    ]
+    assert failed and "PAT" in failed[0]["payload"]["message"]
+
+
+@pytest.mark.asyncio
+async def test_delete_during_init_no_stray_events(runtime, monkeypatch):
+    """初始化中关闭会话：慢路被取消，不再写失败事件，资源由 close 回收。"""
+    started = asyncio.Event()
+
+    async def slow_activate(mcp_url, token, phone, code):
+        started.set()
+        await asyncio.sleep(5)
+        raise ActivationError("late")
+
+    monkeypatch.setattr(runtime, "_activate", slow_activate)
+    s = await runtime.create("alice")
+    task = asyncio.create_task(
+        runtime.finalize_session(
+            s, account={"phone": "13900000000", "code": "9413"}, timeout=30
+        )
+    )
+    s.init_task = task
+    await asyncio.wait_for(started.wait(), timeout=2)
+    await runtime.close(s)
+    assert task.done() and task.cancelled()
+    types = [e["type"] for e in runtime._events.replay(s.id)]
+    assert "session_failed" not in types
+    assert "session_closed" in types
+    assert s.closed is True
+
+
+@pytest.mark.asyncio
+async def test_initialize_timeout_fails(runtime, monkeypatch):
+    """慢路超时：转 failed、保留记录、写 session_failed 与 session_closed。"""
+
+    async def slow_activate(mcp_url, token, phone, code):
+        await asyncio.sleep(3)
+        raise ActivationError("late")
+
+    monkeypatch.setattr(runtime, "_activate", slow_activate)
+    s = await runtime.create("alice")
+    await runtime.finalize_session(
+        s, account={"phone": "13900000000", "code": "9413"}, timeout=0.1
+    )
+    assert s.status == "failed"
+    assert "超时" in s.status_error
+    assert s.closed is True
+    types = [e["type"] for e in runtime._events.replay(s.id)]
+    assert "session_failed" in types
+    assert "session_closed" in types
+    # 配额已释放：可再创建
+    s2 = await runtime.create("alice")
+    assert s2.id != s.id
+
+
+@pytest.mark.asyncio
 async def test_1to1_binding(runtime):
     """两会话（不同用户）：凭据/工作区互不相同。"""
     a = await runtime.create("alice")
@@ -80,6 +257,100 @@ async def test_1to1_binding(runtime):
     # 事件流互不串扰：各自 session_started 落在各自分区
     assert runtime._events.replay(a.id)[0]["session_id"] == a.id
     assert runtime._events.replay(b.id)[0]["session_id"] == b.id
+
+
+@pytest.mark.asyncio
+async def test_create_session_default_account_uses_global_pat(runtime) -> None:
+    """不带账号选择 → 默认账号，沿用全局 PAT 与配置默认模型（向后兼容）。"""
+    runtime._pat = "global-pat"
+    runtime._agent_model = "Qwen3.8-Flash"
+    s = await runtime.create("alice")
+    await runtime.initialize_session(s)
+    assert s.account_source == "default"
+    assert s.qoder_pat == "global-pat"
+    assert s.handle is not None
+    assert s.handle.pat_env == "global-pat"
+    assert s.handle.config.model == "Qwen3.8-Flash"
+
+
+@pytest.mark.asyncio
+async def test_account_bound_at_build_not_switched(runtime) -> None:
+    """账号会话级固定：跨轮复用同一句柄，pat_env 与账号来源不变。"""
+    s = await runtime.create("alice")
+    await runtime.initialize_session(
+        s, account_source="byo", qoder_pat="byo-pat"
+    )
+    s.hold_lease("h1", 45)
+    handle = s.handle
+    assert handle is not None
+    await runtime.run_message(s, "第一轮", holder_id="h1")
+    await runtime.run_message(s, "第二轮", holder_id="h1")
+    assert s.handle is handle  # 同一句柄，未重建
+    assert s.handle.pat_env == "byo-pat"
+    assert s.account_source == "byo"
+    assert s.qoder_pat == "byo-pat"
+
+
+@pytest.mark.asyncio
+async def test_default_model_preselect_rule(runtime) -> None:
+    """预选：配置默认在清单则优先，否则取清单首个启用模型。"""
+    # FakeHandle.list_models 返回 canned [m1]
+    runtime._agent_model = "m1"
+    s = await runtime.create("alice")
+    await runtime.initialize_session(
+        s, account_source="byo", qoder_pat="p"
+    )
+    assert s.current_model == "m1"  # 配置默认在清单 → 优先
+    runtime._agent_model = "not-in-list"
+    s2 = await runtime.create("bob")
+    await runtime.initialize_session(
+        s2, account_source="byo", qoder_pat="p"
+    )
+    assert s2.current_model == "m1"  # 配置默认不在清单 → 首个启用
+
+
+@pytest.mark.asyncio
+async def test_switch_model_outside_list_rejected(runtime) -> None:
+    """切换到账号清单外的模型被拒绝，current_model 不变。"""
+    s = await runtime.create("alice")
+    await runtime.initialize_session(
+        s, account_source="byo", qoder_pat="p"
+    )
+    with pytest.raises(ValueError):
+        await runtime.set_model(s, "not-in-list")
+    assert s.current_model == "m1"
+
+
+@pytest.mark.asyncio
+async def test_switch_model_during_turn_rejected(runtime) -> None:
+    """执行中轮次拒绝切换模型（沿用串行约束）。"""
+    s = await runtime.create("alice")
+    await runtime.initialize_session(
+        s, account_source="byo", qoder_pat="p"
+    )
+    s.turn_running = True
+    with pytest.raises(ValueError):
+        await runtime.set_model(s, "m1")
+
+
+@pytest.mark.asyncio
+async def test_set_model_keeps_state_on_sdk_failure(runtime) -> None:
+    """SDK 切模型失败时 current_model 不变（先调 SDK 成功再改状态）。"""
+    s = await runtime.create("alice")
+    await runtime.initialize_session(
+        s, account_source="byo", qoder_pat="p"
+    )
+
+    class FailSwitch:
+        async def set_model(self, model: str) -> None:
+            """模拟模型切换失败。"""
+            raise RuntimeError("sdk fail")
+
+    s.handle = FailSwitch()
+    s.models.append({"value": "m2", "display_name": "M2", "is_enabled": True})
+    with pytest.raises(RuntimeError):
+        await runtime.set_model(s, "m2")
+    assert s.current_model == "m1"
 
 
 @pytest.mark.asyncio
@@ -162,9 +433,20 @@ async def test_confirm_grant_mints_and_close_clears(runtime):
 
 
 @pytest.mark.asyncio
+async def test_sweep_skips_creating_session(runtime):
+    """初始化中的会话不被空闲回收（design D2）。"""
+    s = await runtime.create("alice")
+    s.last_activity = time.time() - 2000
+    closed = await runtime.sweep_idle(1800)
+    assert closed == 0 and s.closed is False
+    assert s.status == "creating"
+
+
+@pytest.mark.asyncio
 async def test_idle_sweep_closes_and_keeps_workspace(runtime):
     """空闲超阈值 → close（释放槽位、留产物）；执行中/近期活跃不回收。"""
     s = await runtime.create("alice")
+    await runtime.initialize_session(s)  # ready 后才受空闲回收约束
     s.last_activity = time.time() - 2000
     closed = await runtime.sweep_idle(1800)
     assert closed == 1 and s.closed is True
@@ -174,10 +456,13 @@ async def test_idle_sweep_closes_and_keeps_workspace(runtime):
     ]
     assert closed_events and closed_events[-1]["payload"]["reason"] == "idle"
     # 槽位已释放，可再建
-    assert (await runtime.create("alice")).closed is False
+    again = await runtime.create("alice")
+    await runtime.initialize_session(again)
+    assert again.closed is False
 
     # 执行中的轮次不回收
     running = await runtime.create("alice")
+    await runtime.initialize_session(running)
     running.last_activity = time.time() - 2000
     running.turn_running = True
     assert await runtime.sweep_idle(1800) == 0
@@ -335,6 +620,17 @@ class _LargeResultHandle:
     def __init__(self, config, pat_env=None, gate=None):
         self.config = config
         self.gate = gate
+
+    async def list_models(self) -> list[dict]:
+        """返回测试用模型清单。"""
+        return [
+            {"value": "m1", "display_name": "Model 1", "is_enabled": True,
+             "is_free": True, "price_factor": 1.0},
+        ]
+
+    async def set_model(self, model: str) -> None:
+        """切换模型（测试桩，无操作）。"""
+        pass
 
     async def close(self):
         return None

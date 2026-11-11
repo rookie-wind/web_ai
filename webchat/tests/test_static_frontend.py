@@ -89,13 +89,13 @@ def test_guard_notice_rendering_marker(ui_client):
 
 
 def test_upload_channel_auto_detect_and_default_document(ui_client):
-    """默认通道为文档；选文件后按扩展名自动切换（PDF 不再误走建档表格）。"""
+    """通道按扩展名自动匹配（channelForFile），默认文档；无手动通道下拉。"""
     app_js = ui_client.get("/static/js/app.js").text
     assert "function channelForFile" in app_js
     assert '".xlsx": "archive_table"' in app_js
     body = ui_client.get("/").text
-    assert '<option value="document">文档</option>' in body
-    assert body.index('value="document"') < body.index('value="archive_table"')
+    assert 'id="upload-channel"' not in body
+    assert 'id="btn-attach"' in body
 
 
 def test_frontend_turn_serial_and_pdf_warning_markers(ui_client):
@@ -116,7 +116,7 @@ def test_frontend_turn_serial_and_pdf_warning_markers(ui_client):
     assert "请助手改读同名 .pdf.md" in app_js
     assert ".pdf.txt" not in app_js
     # 中止当前任务：停止按钮 + /abort + turn_aborted 渲染
-    assert 'id="btn-abort"' in ui_client.get("/").text
+    assert 'id="btn-send"' in ui_client.get("/").text
     assert "function setTurnActive" in app_js
     assert "/abort" in app_js
     assert 'case "turn_aborted"' in app_js
@@ -168,3 +168,282 @@ def test_pending_continuation_captured_and_flushed(ui_client):
     assert "delete state.pendingContinuations[ev.session_id]" in app_js
     # 旧「直接丢弃续跑、仅提示在当前轮重试」的行为已移除
     assert "助手将在当前轮重试" not in app_js
+
+
+def test_new_session_dialog_account_choice(ui_client) -> None:
+    """新建会话对话框：默认/自带账号单选 + PAT 掩码框 + 记住勾选。"""
+    body = ui_client.get("/").text
+    assert 'id="new-session-dialog"' in body
+    assert 'name="account-source"' in body
+    assert 'value="byo"' in body
+    assert 'id="byo-pat"' in body
+    assert 'id="remember-pat"' in body
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "account_source" in app_js
+    assert "new-session-dialog" in app_js
+
+
+def test_compose_model_dropdown(ui_client) -> None:
+    """输入区模型下拉：取自账号清单、含成本标记、消息级切换。"""
+    body = ui_client.get("/").text
+    assert 'id="model-select"' in body
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "/models" in app_js
+    assert "model-select" in app_js
+    assert "price_factor" in app_js
+
+
+def test_byo_pat_error_no_plaintext(ui_client) -> None:
+    """校验失败有提示位、PAT 掩码、凭据经 POST body 不进 URL。"""
+    body = ui_client.get("/").text
+    assert 'id="new-session-error"' in body
+    assert 'type="password"' in body
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "new-session-error" in app_js
+    assert "body: { account_source, pat, remember }" in app_js
+    assert "?token=" not in app_js
+
+
+def test_remembered_pat_prefill_and_clear_ui(ui_client) -> None:
+    """自带 PAT 预填（取记账号库）与清除入口。"""
+    body = ui_client.get("/").text
+    assert 'id="btn-clear-pat"' in body
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "/api/account/qoder-pat" in app_js
+    assert "btn-clear-pat" in app_js
+
+
+def test_brand_xlpa_zhiti(ui_client) -> None:
+    """品牌统一为 XLPA 智体（title/登录/topbar），旧称移除。"""
+    body = ui_client.get("/").text
+    assert "XLPA 智体" in body
+    assert "XLPA 助手" not in body
+    assert "XLPA 协议转换助手" not in body
+
+
+def test_design_tokens(ui_client) -> None:
+    """形式化设计 token：spacing/type/radius/shadow scale。"""
+    css = ui_client.get("/static/app.css").text
+    assert "--space-" in css
+    assert "--text-" in css
+    assert "--radius-" in css
+    assert "--shadow-" in css
+
+
+def test_composer_card_structure(ui_client) -> None:
+    """一体化 composer：附件 chip 行 + 工具栏（＋/模型/中止/发送），无手动通道下拉。"""
+    body = ui_client.get("/").text
+    assert 'id="attachment-chips"' in body
+    assert 'class="compose-toolbar"' in body
+    assert 'id="btn-attach"' in body
+    assert 'id="upload-channel"' not in body
+    assert 'id="btn-upload"' not in body
+
+
+def test_attach_button_auto_channel(ui_client) -> None:
+    """［＋］触发选文件并按扩展名自动定通道，无手动通道读取。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "btn-attach" in app_js
+    assert "channelForFile" in app_js
+    assert "upload-channel" not in app_js
+
+
+def test_attachment_chip_delete(ui_client) -> None:
+    """附件以 chip 呈现，pending 列表可逐个删除。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "pendingAttachments" in app_js
+    assert "renderAttachments" in app_js
+    assert "removeAttachment" in app_js
+
+
+def test_send_merges_attachments(ui_client) -> None:
+    """发送时上传暂存附件并合并文本与引用。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "uploadStagedAttachments" in app_js
+    assert "[text, ...refs]" in app_js
+
+
+def test_mobile_full_viewport(ui_client) -> None:
+    """移动端全视口 app-like 布局：fixed 沉浸 + safe-area 适配。"""
+    css = ui_client.get("/static/app.css").text
+    assert "position: fixed" in css
+    assert "inset: 0" in css
+    assert "safe-area-inset" in css
+
+
+def test_component_states_focus(ui_client) -> None:
+    """组件焦点可见性与禁用态覆盖（WCAG AA）。"""
+    css = ui_client.get("/static/app.css").text
+    assert "focus-visible" in css
+    assert ":disabled" in css
+
+
+def test_textarea_auto_grow(ui_client) -> None:
+    """文本输入自适应增高（D1）。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert 'ta.style.height = "auto"' in app_js
+
+
+def test_view_app_fixed_immersive(ui_client) -> None:
+    """主视图 fixed 沉浸：脱离文档流，顶栏不可被文档滚动推出（iOS 键盘残留）。"""
+    css = ui_client.get("/static/app.css").text
+    block = css.split("/* 全视口沉浸", 1)[1].split("}", 1)[0]
+    assert "position: fixed" in block
+    assert "inset: 0" in block
+    # 文档流高度手段移除（100vh/100dvh 不再用于主视图布局）
+    assert "100vh" not in css
+    assert "100dvh" not in css
+
+
+def test_view_switch_resets_scroll(ui_client) -> None:
+    """切视图复位文档滚动并失焦（iOS 键盘收起残留兜底）。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    enter_block = app_js.split("function enterAppView", 1)[1].split(
+        "function handleErr", 1
+    )[0]
+    assert "window.scrollTo(0, 0)" in enter_block
+    assert "blur()" in enter_block
+    logout_block = app_js.split("async function doLogout", 1)[1].split(
+        "function enterAppView", 1
+    )[0]
+    assert "window.scrollTo(0, 0)" in logout_block
+    assert "blur()" in logout_block
+
+
+def test_session_ready_unlocks_composer(ui_client) -> None:
+    """session_ready 事件：解锁输入区并重拉模型清单。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert 'case "session_ready"' in app_js
+    assert "loadModels(ev.session_id)" in app_js
+
+
+def test_session_failed_shows_banner(ui_client) -> None:
+    """session_failed 事件：错误横幅展示原因并刷新列表。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert 'case "session_failed"' in app_js
+    assert "初始化失败" in app_js
+    # 失败后刷新会话列表（呈失败态）
+    block = app_js.split('case "session_failed"', 1)[1].split("break;", 1)[0]
+    assert "refreshSessions()" in block
+
+
+def test_creating_state_locks_composer(ui_client) -> None:
+    """初始化中：输入区禁用 + sticky 提示；openSession 按列表 status 设态。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "function setSessionInit" in app_js
+    assert "正在初始化" in app_js
+    # openSession 依据列表 meta.status 设初始态
+    assert "setSessionInit(meta ? meta.status : " in app_js
+    # 会话列表呈现初始化中/创建失败
+    assert "初始化中…" in app_js
+    assert "创建失败" in app_js
+
+
+def test_failed_byo_reopens_dialog(ui_client) -> None:
+    """自带 PAT 失败：自动重开创建弹窗并回填原因与输入（不丢已输内容）。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "function openNewSessionDialog" in app_js
+    assert "state.lastCreate" in app_js
+    # 回填账号来源/PAT/记住勾选（模板串拼接源值）
+    assert 'input[name="account-source"][value="${source}"]' in app_js
+    # 创建成功即记录本次创建上下文（session_id/来源/PAT/记住勾选）
+    assert (
+        "state.lastCreate = { session_id: r.session_id, "
+        "account_source, pat, remember }"
+    ) in app_js
+
+
+def test_failed_session_row_delete_only(ui_client) -> None:
+    """失败会话列表行：仅保留删除入口（打开/结束不渲染）。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert 's.status !== "failed"' in app_js
+    assert "创建失败" in app_js
+
+
+def test_model_cost_price_factor_first(ui_client) -> None:
+    """模型成本标记：price_factor 优先显示 ×N，is_free 仅兜底。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "m.price_factor != null ? `×${m.price_factor}`" in app_js
+    assert 'm.is_free ? "免费" : ""' in app_js
+    # 旧口径（is_free 直接渲染「免费」）已移除
+    assert 'm.is_free ? "免费" : (m.price_factor != null' not in app_js
+
+
+def test_upload_ref_mentions_original_and_ocr(ui_client) -> None:
+    """图片上传引用文案：原图路径 + OCR 兜底路径（或 OCR 失败说明）。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "已上传图片 ${res.path}（助手可直接查看）" in app_js
+    assert "OCR 文本 ${res.ocr_path}（读不了图时用）" in app_js
+    assert "OCR 识别失败" in app_js
+
+
+def test_no_auto_fullscreen(ui_client) -> None:
+    """移除登录自动全屏（文件 picker 会退出全屏）。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "requestFullscreen" not in app_js
+    assert "tryImmersiveFullscreen" not in app_js
+
+
+def test_stage_before_upload(ui_client) -> None:
+    """附件先暂存（不立即上传），发送时才上传。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "uploadStagedAttachments" in app_js
+    assert "{ name: file.name, file }" in app_js
+    # change 处理器内不得出现 uploadFile（选文件仅暂存）
+    change_block = app_js.split('$("#upload-file").addEventListener("change"', 1)[1]
+    change_block = change_block.split("function renderAttachments", 1)[0]
+    assert "uploadFile" not in change_block
+
+
+def test_chip_delete_visible(ui_client) -> None:
+    """chip 文件名独立 span 截断，✕ flex-shrink:0 始终可见。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    css = ui_client.get("/static/app.css").text
+    assert 'el("span", "chip-name", att.name)' in app_js
+    name_block = css.split(".chip-name {", 1)[1].split("}", 1)[0]
+    assert "flex: 1" in name_block
+    assert "min-width: 0" in name_block
+    assert "text-overflow: ellipsis" in name_block
+    delete_block = css.split(".chip-delete {", 1)[1].split("}", 1)[0]
+    assert "flex-shrink: 0" in delete_block
+
+
+def test_send_uploads_staged(ui_client) -> None:
+    """发送时上传暂存附件并合并引用。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "await uploadStagedAttachments()" in app_js
+
+
+def test_send_keeps_failed_upload_chips(ui_client) -> None:
+    """发送成功只清已送出 chip；上传失败（无 ref）保留以便重试或移除。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    marker = "state.pendingAttachments = state.pendingAttachments.filter((a) => !a.ref)"
+    assert marker in app_js
+
+
+def test_upload_busy_notice_sticky(ui_client) -> None:
+    """上传期间忙碌提示常驻（不自清），上传结束由结果提示替换。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    assert "function notify(msg, isError = false, sticky = false)" in app_js
+    assert "notify(`上传中… ${att.name}`, false, true)" in app_js
+
+
+def test_send_stop_toggle(ui_client) -> None:
+    """发送/停止合一为切换按钮（无独立 btn-abort）。"""
+    body = ui_client.get("/").text
+    app_js = ui_client.get("/static/js/app.js").text
+    assert 'id="btn-abort"' not in body
+    assert "abortTurn" in app_js
+    assert "is-stop" in app_js
+
+
+def test_mobile_16px_antizoom(ui_client) -> None:
+    """移动端媒体查询内表单控件 16px；不以 maximum-scale 禁用缩放；select 占位。"""
+    css = ui_client.get("/static/app.css").text
+    body = ui_client.get("/").text
+    media = css.split("@media (max-width: 640px) {", 1)[1]
+    assert ".compose textarea" in media
+    assert ".compose-toolbar select" in media
+    assert "font-size: 16px" in media
+    assert "maximum-scale" not in body
+    assert 'value="" disabled' in body

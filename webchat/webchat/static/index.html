@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>XLPA 协议转换助手</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>XLPA 智体</title>
 <link rel="stylesheet" href="/static/app.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
 <!-- 登录视图（凭据仅存内存，不落 localStorage） -->
 <section id="view-login" class="view">
   <form id="login-form" class="login-card" autocomplete="off">
-    <h1>XLPA 协议转换助手</h1>
+    <h1>XLPA 智体</h1>
     <label>用户名
       <input id="login-user" name="username" required autocomplete="username">
     </label>
@@ -28,7 +28,7 @@
 <section id="view-app" class="view hidden">
   <header class="topbar">
     <button id="btn-sessions" class="icon-btn" title="会话列表">☰</button>
-    <span class="topbar-title">XLPA 助手</span>
+    <span class="topbar-title">XLPA 智体</span>
     <span id="whoami" class="whoami"></span>
     <button id="btn-logout" class="ghost-btn">退出</button>
   </header>
@@ -44,27 +44,45 @@
       <div id="messages" class="messages" aria-live="polite"></div>
       <div id="pending-cards" class="pending-cards"></div>
       <form id="compose-form" class="compose">
-        <div class="compose-row">
-          <select id="upload-channel" title="上传通道">
-            <option value="document">文档</option>
-            <option value="screenshot">截图(OCR)</option>
-            <option value="archive_table">建档表格</option>
-          </select>
-          <input id="upload-file" type="file">
-          <button type="button" id="btn-upload" class="ghost-btn">上传</button>
-        </div>
-        <div class="compose-row">
-          <textarea id="msg-input" rows="2"
-                    placeholder="输入消息，Enter 发送（无会话时请先新建）；可选前缀：/web 强制网页检索、/xlpa 强制协议助手（默认自动判断）"></textarea>
-          <button type="button" id="btn-abort" class="ghost-btn hidden"
-                  title="中止当前任务（已完成的写入不回滚）">停止</button>
-          <button type="submit" id="btn-send" class="primary-btn">发送</button>
+        <div id="attachment-chips" class="attachment-chips"></div>
+        <textarea id="msg-input" rows="2"
+                  placeholder="输入消息，Enter 发送（无会话时请先新建）；可选前缀：/web 强制网页检索、/xlpa 强制协议助手（默认自动判断）"></textarea>
+        <div class="compose-toolbar">
+          <button type="button" id="btn-attach" class="attach-btn" title="添加文件">＋</button>
+          <input id="upload-file" type="file" class="hidden" multiple>
+          <select id="model-select" title="模型（消息级切换，清单随账号）"><option value="" disabled selected>模型</option></select>
+          <button type="submit" id="btn-send" class="primary-btn" title="发送">发送</button>
         </div>
         <p id="compose-notice" class="notice-text"></p>
       </form>
     </main>
   </div>
 </section>
+
+<!-- 新建会话对话框：选择 Qoder 云账号（默认 / 自带 PAT） -->
+<div id="new-session-dialog" class="modal hidden" role="dialog" aria-modal="true">
+  <form id="new-session-form" class="modal-card" autocomplete="off">
+    <h2>新建会话</h2>
+    <fieldset class="account-source">
+      <legend>Qoder 云账号</legend>
+      <label><input type="radio" name="account-source" value="default" checked> 默认账号</label>
+      <label><input type="radio" name="account-source" value="byo"> 自带 PAT</label>
+    </fieldset>
+    <label id="byo-pat-label" class="hidden">PAT
+      <input id="byo-pat" type="password" autocomplete="off"
+             placeholder="国内版 Qoder 个人访问令牌">
+    </label>
+    <label id="remember-pat-label" class="hidden">
+      <input id="remember-pat" type="checkbox"> 记住此 PAT（明文存于本机账号库）
+    </label>
+    <button type="button" id="btn-clear-pat" class="ghost-btn hidden">清除已记住的 PAT</button>
+    <p id="new-session-error" class="error-text" role="alert"></p>
+    <div class="modal-actions">
+      <button type="button" id="btn-new-session-cancel" class="ghost-btn">取消</button>
+      <button type="submit" id="btn-new-session-ok" class="primary-btn">创建</button>
+    </div>
+  </form>
+</div>
 
 <script type="module" src="/static/js/app.js"></script>
 </body>

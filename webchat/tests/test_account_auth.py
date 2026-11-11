@@ -347,3 +347,36 @@ def test_business_token_never_in_responses(tmp_path) -> None:
         headers={"Authorization": f"Bearer {login_body['session_token']}"},
     ).json()
     assert "biz-token-1" not in json.dumps(me_body, ensure_ascii=False)
+
+
+# ── 自带 Qoder PAT 记住/清除（ADR-0004 明文存储） ──
+
+
+def test_remember_pat_persists_plaintext(tmp_path) -> None:
+    """记住自带 PAT：明文落盘 per-user，重载后可查。"""
+    path = tmp_path / "accounts.json"
+    path.write_text(
+        json.dumps({"accounts": [_account()]}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    store = AccountsStore(path)
+    store.set_qoder_pat("alice", "my-pat-123")
+    data = json.loads(path.read_text(encoding="utf-8"))
+    assert data["accounts"][0]["qoder_pat"] == "my-pat-123"
+    reloaded = AccountsStore(path)
+    assert reloaded.find("alice").qoder_pat == "my-pat-123"
+
+
+def test_clear_remembered_pat(tmp_path) -> None:
+    """清除已记住 PAT：内存与磁盘均置空，下次需重新输入。"""
+    path = tmp_path / "accounts.json"
+    path.write_text(
+        json.dumps({"accounts": [_account()]}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    store = AccountsStore(path)
+    store.set_qoder_pat("alice", "my-pat")
+    store.clear_qoder_pat("alice")
+    assert store.find("alice").qoder_pat == ""
+    data = json.loads(path.read_text(encoding="utf-8"))
+    assert data["accounts"][0]["qoder_pat"] == ""

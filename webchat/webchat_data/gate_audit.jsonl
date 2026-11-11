@@ -520,3 +520,44 @@
 {"ts": 1793951498.6307635, "session_id": "bc8b1fb0e363703947ba8cafc5545e54", "target": "edge_token_a9e0cde399a17d8e", "tool_name": "edge_delete_device", "decision": "confirm", "reason": "user confirmed"}
 {"ts": 1793951502.756288, "session_id": "bc8b1fb0e363703947ba8cafc5545e54", "target": "edge_token_a9e0cde399a17d8e", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
 {"ts": 1793951608.0143523, "session_id": "bc8b1fb0e363703947ba8cafc5545e54", "target": "edge_token_a9e0cde399a17d8e", "tool_name": "edge_delete_device", "decision": "allow", "reason": ""}
+{"ts": 1794274364.4477794, "session_id": "8a2f282ae6b045e0da830d424f228752", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1794287410.0789027, "session_id": "397ee4a17edbc05b652f098e129b312f", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794295308.7196236, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区、技能目录与配置的额外目录，当前路径越界"}
+{"ts": 1794295311.335058, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794295387.9506721, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794295393.830038, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794295537.2321844, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "2f78a5805ba7", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1794295850.996017, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "2f78a5805ba7", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1794295860.7240646, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "2f78a5805ba7", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1794295895.217198, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "2f78a5805ba7", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1794295954.4379625, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "2f78a5805ba7", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1794296346.846011, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "2f78a5805ba7", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1794296705.1635149, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "2f78a5805ba7", "tool_name": "edge_save_device_parameters", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1794296709.7603505, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "2f78a5805ba7", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1794296718.0556865, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "2f78a5805ba7", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1794296739.6234822, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "2f78a5805ba7", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1794296758.434384, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794296766.9484336, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794296778.2009633, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "12e092231d93", "tool_name": "edge_save_device_parameters", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1794296846.199477, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "12e092231d93", "tool_name": "edge_save_device_parameters", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1794296853.6203759, "session_id": "d61cdf3567386d57016ca263fbdfd5b7", "target": "12e092231d93", "tool_name": "edge_save_device_parameters", "decision": "allow", "reason": ""}
+{"ts": 1794297176.8224945, "session_id": "c30bcdf7b5f61d930695c2771f966c1f", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794297179.6366107, "session_id": "c30bcdf7b5f61d930695c2771f966c1f", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794297266.5561442, "session_id": "c30bcdf7b5f61d930695c2771f966c1f", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1794299725.704999, "session_id": "c30bcdf7b5f61d930695c2771f966c1f", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794299792.8924878, "session_id": "c30bcdf7b5f61d930695c2771f966c1f", "target": "82eaa31d662c", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1794299819.396078, "session_id": "c30bcdf7b5f61d930695c2771f966c1f", "target": "82eaa31d662c", "tool_name": "edge_upsert_device", "decision": "deny", "reason": "写入需用户确认：请先在会话中播报将执行的操作与关键参数摘要（含影响台数），再请求用户回复行首 /确认 授权；不得自行假定已授权，不得以口令索要密码或验证码。"}
+{"ts": 1794299870.7122424, "session_id": "c30bcdf7b5f61d930695c2771f966c1f", "target": "82eaa31d662c", "tool_name": "edge_upsert_device", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1794299875.557438, "session_id": "c30bcdf7b5f61d930695c2771f966c1f", "target": "82eaa31d662c", "tool_name": "edge_upsert_device", "decision": "allow", "reason": ""}
+{"ts": 1794299913.5123096, "session_id": "c30bcdf7b5f61d930695c2771f966c1f", "target": "82eaa31d662c", "tool_name": "edge_mount_device", "decision": "allow", "reason": ""}
+{"ts": 1794365089.8987515, "session_id": "0bbf3038b1f57bbfbecfbd538ab3492a", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794365089.9915743, "session_id": "0bbf3038b1f57bbfbecfbd538ab3492a", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794365104.2112586, "session_id": "0bbf3038b1f57bbfbecfbd538ab3492a", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794365112.3266656, "session_id": "0bbf3038b1f57bbfbecfbd538ab3492a", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794365399.162421, "session_id": "0bbf3038b1f57bbfbecfbd538ab3492a", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794365412.702709, "session_id": "0bbf3038b1f57bbfbecfbd538ab3492a", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794365412.707186, "session_id": "0bbf3038b1f57bbfbecfbd538ab3492a", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794365518.8405492, "session_id": "0bbf3038b1f57bbfbecfbd538ab3492a", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794365518.8478158, "session_id": "0bbf3038b1f57bbfbecfbd538ab3492a", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794381157.9149306, "session_id": "a4a7004d95c5b354cdd2cae6e8012500", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794381163.5835574, "session_id": "a4a7004d95c5b354cdd2cae6e8012500", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}

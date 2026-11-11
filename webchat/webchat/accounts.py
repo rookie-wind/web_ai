@@ -19,7 +19,8 @@ from __future__ import annotations
 __all__ = ["Account", "AccountsStore", "AccountsConfigError"]
 
 import json
-from dataclasses import dataclass
+import os
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 
@@ -36,6 +37,8 @@ class Account:
     phone: str
     code: str
     enabled: bool
+    # 用户记住的自带 Qoder PAT（明文，ADR-0004；空表示未记住）
+    qoder_pat: str = ""
 
 
 def _parse_entry(entry: object, index: int) -> Account:
@@ -57,12 +60,16 @@ def _parse_entry(entry: object, index: int) -> Account:
         raise AccountsConfigError(f"账号库第 {index} 条 code 缺失或非法")
     if not isinstance(enabled, bool):
         raise AccountsConfigError(f"账号库第 {index} 条 enabled 必须为布尔值")
+    qoder_pat = entry.get("qoder_pat", "")
+    if not isinstance(qoder_pat, str):
+        raise AccountsConfigError(f"账号库第 {index} 条 qoder_pat 必须为字符串")
     return Account(
         username=username,
         password_hash=password_hash,
         phone=phone,
         code=code,
         enabled=enabled,
+        qoder_pat=qoder_pat,
     )
 
 
@@ -141,3 +148,44 @@ class AccountsStore:
         if self._config_error is not None:
             return None
         return self._accounts.get(username)
+
+    def set_qoder_pat(self, username: str, pat: str) -> None:
+        """记住用户自带 Qoder PAT（明文落盘，per-user，ADR-0004）。
+
+        账号库处于配置错误状态或账号不存在时抛 AccountsConfigError。
+        """
+        self._maybe_reload()
+        if self._config_error is not None:
+            raise self._config_error
+        account = self._accounts.get(username)
+        if account is None:
+            raise AccountsConfigError(f"账号不存在: {username}")
+        self._accounts[username] = replace(account, qoder_pat=pat)
+        self._persist()
+
+    def clear_qoder_pat(self, username: str) -> None:
+        """清除已记住的 Qoder PAT（下次需重新输入）。"""
+        self.set_qoder_pat(username, "")
+
+    def _persist(self) -> None:
+        """把当前账号库写回磁盘（明文，与既有 phone/code 同姿态）。"""
+        entries = [
+            {
+                "username": a.username,
+                "password_hash": a.password_hash,
+                "phone": a.phone,
+                "code": a.code,
+                "enabled": a.enabled,
+                "qoder_pat": a.qoder_pat,
+            }
+            for a in self._accounts.values()
+        ]
+        self.path.write_text(
+            json.dumps({"accounts": entries}, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        try:
+            os.chmod(self.path, 0o600)
+        except OSError:
+            pass  # Windows 等平台权限语义有限，尽力收紧
+        self._mtime_ns = self._stat_mtime()
