@@ -1,5 +1,5 @@
 HTTP Request: POST https://18091.chinadny.com/api/Auth/LoginByCode "HTTP/1.1 200 OK"
-INFO:     Started server process [48248]
+INFO:     Started server process [26136]
 INFO:     Waiting for application startup.
 StreamableHTTP session manager started
 INFO:     Application startup complete.
@@ -15,37 +15,51 @@ INFO:     Uvicorn running on http://127.0.0.1:8772 (Press CTRL+C to quit)
 [INFO]   Skills Download: http://127.0.0.1:8772/api/docs/export-skills-package
 [INFO]   Tools:         77 (read: 14, write: 32)
 [INFO]   Skills Dir:    E:\codeGIT\pca-mcp-server\agent_assets\skills
-[INFO]   Network IPs:   10.0.11.224:8772
+[INFO]   Network IPs:   10.38.144.93:8772, 10.0.11.224:8772
 
 [INFO] Browser opened: http://localhost:8772/
-INFO:     127.0.0.1:53691 - "GET / HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53690 - "GET /favicon.ico HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:53669 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53670 - "GET /favicon.ico HTTP/1.1" 401 Unauthorized
 HTTP Request: POST https://18091.chinadny.com/api/Protocol/GetSysClassifyList "HTTP/1.1 200 OK"
 HTTP Request: POST https://18091.chinadny.com/api/Protocol/GetProtocolDeviceTypeList "HTTP/1.1 200 OK"
 HTTP Request: POST https://18091.chinadny.com/api/Protocol/GetSysBrandList "HTTP/1.1 200 OK"
 HTTP Request: POST https://18091.chinadny.com/api/Protocol/GetProtocolInfos "HTTP/1.1 200 OK"
-INFO:     127.0.0.1:53691 - "GET /api/showcase/data HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54674 - "POST /api/mcp-token/mint HTTP/1.1" 200 OK
-Created new transport with session ID: 620c5f00b38b468b9744f29bf0159259
-INFO:     127.0.0.1:54677 - "POST /mcp HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54679 - "POST /mcp HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:54680 - "GET /mcp HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54681 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53669 - "GET /api/showcase/data HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53815 - "POST /api/mcp-token/mint HTTP/1.1" 200 OK
+Created new transport with session ID: fd5ed8706ec745f88602c3ae2ba7ae29
+INFO:     127.0.0.1:53824 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53825 - "POST /mcp HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:53826 - "GET /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53827 - "POST /mcp HTTP/1.1" 200 OK
 Processing request of type CallToolRequest
 HTTP Request: POST https://18091.chinadny.com/api/Auth/LoginByCode "HTTP/1.1 200 OK"
-INFO:     127.0.0.1:54685 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53952 - "POST /mcp HTTP/1.1" 200 OK
 Processing request of type ListToolsRequest
-Terminating session: 620c5f00b38b468b9744f29bf0159259
-INFO:     127.0.0.1:54686 - "DELETE /mcp HTTP/1.1" 200 OK
-Created new transport with session ID: 6cc960c3fd944c0faf76d79bc0eed0c1
-INFO:     127.0.0.1:54724 - "POST /mcp HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54724 - "POST /mcp HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:54724 - "GET /mcp HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54725 - "POST /mcp HTTP/1.1" 200 OK
+Terminating session: fd5ed8706ec745f88602c3ae2ba7ae29
+INFO:     127.0.0.1:53953 - "DELETE /mcp HTTP/1.1" 200 OK
+Created new transport with session ID: ecb7c9749e6b4b39a7951707857f85be
+INFO:     127.0.0.1:54136 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54136 - "POST /mcp HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:54136 - "GET /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54137 - "POST /mcp HTTP/1.1" 200 OK
 Processing request of type ListPromptsRequest
-INFO:     127.0.0.1:54725 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54137 - "POST /mcp HTTP/1.1" 200 OK
 Processing request of type ListToolsRequest
-INFO:     127.0.0.1:54725 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54137 - "POST /mcp HTTP/1.1" 200 OK
 Processing request of type ListResourcesRequest
-[INFO] 服务端回归状态: PASSED, 用例数: 776
-INFO:     127.0.0.1:55990 - "POST /api/mcp-token/revoke HTTP/1.1" 200 OK
+[INFO] 服务端回归状态: INTERRUPTED, 用例数: None
+INFO:     127.0.0.1:57101 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST https://18091.chinadny.com/api/Protocol/GetProtocolDeviceTypeList "HTTP/1.1 200 OK"
+HTTP Request: POST https://18091.chinadny.com/api/Protocol/GetSysBrandList "HTTP/1.1 200 OK"
+HTTP Request: POST https://18091.chinadny.com/api/Protocol/GetProtocolModelList "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57103 - "GET /api/archive/templates/2e954caccff96c47882dbe46ade48ea0?owner=5ef131ff16eccf7476ea16ff6f58b8c4d28b25d68f80100941f7fe5fd470d29d HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57101 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+INFO:     127.0.0.1:57778 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://10.0.11.89:7500/authorityManageServer/manage/action/getRSAKey/v1 "HTTP/1.1 200 OK"
+HTTP Request: POST http://10.0.11.89:7500/authorityManageServer/manage/action/login/v1 "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57778 - "POST /mcp HTTP/1.1" 200 OK
+Processing request of type CallToolRequest
+HTTP Request: POST http://10.0.11.89:7500/devArchManager/doc/get/getDeviceTree/v1 "HTTP/1.1 200 OK"

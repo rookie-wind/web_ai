@@ -3,6 +3,7 @@
 
 import { api, uploadFile, fetchBlob, setToken, getToken, hasToken } from "./api.js";
 import { openEventStream, bindAuth } from "./sse.js";
+import { renderAgentHtml, enhanceMermaidBlocks } from "./render.js";
 
 bindAuth(getToken);
 
@@ -43,6 +44,7 @@ function newTurnState() {
     agentBubble: null, agentText: "", agentVisible: false,
     hadToolCall: false, lastTool: "", toolEls: {}, lastToolGroup: null,
     turnGroup: null,   // 本轮工具调用统一折叠容器（懒建）
+    renderTimer: null, // 流式节流渲染定时器（design D3）
   };
 }
 
@@ -65,9 +67,54 @@ function notify(msg, isError = false, sticky = false) {
   if (!sticky) { notify._t = setTimeout(() => { el.textContent = ""; }, 6000); }
 }
 
-function autoscroll() {
+// 滚动锚定（design D3）：距底超阈值视为上翻，不强制拉底；贴底恢复跟随
+const AUTOSCROLL_THRESHOLD_PX = 120;
+
+function nearBottom(box) {
+  return box.scrollHeight - box.scrollTop - box.clientHeight
+    < AUTOSCROLL_THRESHOLD_PX;
+}
+
+// ── 助手消息富渲染（design D3）：节流重渲染 + 结束时最终精确渲染 ──
+
+const RENDER_THROTTLE_MS = 300;
+
+function scheduleAgentRender() {
+  const t = state.turn;
+  if (t.renderTimer) { return; }
+  t.renderTimer = setTimeout(() => {
+    t.renderTimer = null;
+    flushAgentRender();
+  }, RENDER_THROTTLE_MS);
+}
+
+function flushAgentRender() {
+  // markdown → 消毒 → 注入当前助手气泡；任一环节失败降级纯文本；
+  // mermaid 块异步增强（懒加载，strict 模式）
+  const t = state.turn;
+  if (!t.agentBubble || !t.agentVisible) { return; }
   const box = $("#messages");
-  box.scrollTop = box.scrollHeight;
+  const stick = nearBottom(box);
+  try {
+    t.agentBubble.innerHTML = renderAgentHtml(t.agentText);
+    enhanceMermaidBlocks(t.agentBubble);
+  } catch (_) {
+    t.agentBubble.textContent = t.agentText;
+  }
+  if (stick) { box.scrollTop = box.scrollHeight; }
+}
+
+function cancelAgentRenderTimer() {
+  const t = state.turn;
+  if (t.renderTimer) { clearTimeout(t.renderTimer); t.renderTimer = null; }
+}
+
+function push(node) {
+  const box = $("#messages");
+  const stick = nearBottom(box); // 先取贴底态再入树（新节点会改变 scrollHeight）
+  box.appendChild(node);
+  if (stick) { box.scrollTop = box.scrollHeight; }
+  return node;
 }
 
 function el(tag, cls, text) {
@@ -77,11 +124,44 @@ function el(tag, cls, text) {
   return node;
 }
 
-function push(node) {
-  $("#messages").appendChild(node);
-  autoscroll();
-  return node;
+// 代码块复制（事件委托）：内容取自消毒后 DOM 文本（与源码一致）；
+// Clipboard API 需安全上下文，非安全上下文回退 execCommand
+function copyViaExec(text) {
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    ta.remove();
+    return ok;
+  } catch (_) {
+    return false;
+  }
 }
+
+function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text).then(() => true)
+      .catch(() => copyViaExec(text));
+  }
+  return Promise.resolve(copyViaExec(text));
+}
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".btn-code-copy");
+  if (!btn) { return; }
+  const block = btn.closest(".code-block");
+  const codeEl = block ? block.querySelector("pre code") : null;
+  if (!codeEl) { return; }
+  copyText(String(codeEl.textContent || "")).then((ok) => {
+    if (!ok) { notify("复制失败", true); return; }
+    btn.textContent = "已复制";
+    setTimeout(() => { btn.textContent = "复制"; }, 1500);
+  });
+});
 
 // ── 轮次进行中"转圈"指示（渲染在消息流外的 #pending-cards） ──
 
@@ -531,7 +611,19 @@ $("#msg-input").addEventListener("keydown", (e) => {
 $("#msg-input").addEventListener("input", () => {
   const ta = $("#msg-input");
   ta.style.height = "auto";
-  ta.style.height = Math.min(ta.scrollHeight, 160) + "px";
+  ta.style.height = Math.min(ta.scrollHeight, 120) + "px";
+});
+
+// 占位符双态（design D5）：失焦紧凑短文案，聚焦展开完整前缀释义
+// （MODIFIED requirement：语义可达 + 紧凑形态）
+const PLACEHOLDER_COMPACT = "输入消息，Enter 发送；可选前缀 /web /xlpa";
+const PLACEHOLDER_FULL = "输入消息，Enter 发送（无会话时请先新建）；可选前缀：/web 强制网页检索、/xlpa 强制协议助手（默认自动判断）";
+$("#msg-input").addEventListener("focus", () => {
+  $("#msg-input").placeholder = PLACEHOLDER_FULL;
+});
+$("#msg-input").addEventListener("blur", () => {
+  // 输入非空时占位符本就不显示，直接恢复紧凑态无副作用
+  $("#msg-input").placeholder = PLACEHOLDER_COMPACT;
 });
 
 // 上传通道按扩展名自动匹配：选错通道会把 PDF 当建档表格代理，得到上游 400。
@@ -664,13 +756,13 @@ function applyEvent(ev) {
       const text = ev.payload.text || "";
       if (!text) { break; }
       if (ev.payload.role === "user") {
+        // 用户消息保持纯文本（design D8，不按 markdown 解释）
         push(el("div", "bubble user", text));
       } else {
         if (!t.agentBubble) { t.agentBubble = push(el("div", "bubble agent", "")); }
-        t.agentBubble.textContent += text;
         t.agentText += text;
         t.agentVisible = true;
-        autoscroll();
+        scheduleAgentRender(); // 节流富渲染：未闭合语法按文本兜底
       }
       break;
     }
@@ -716,6 +808,8 @@ function applyEvent(ev) {
         `任务已中止${tasks ? `（已请求中止 ${tasks} 个服务端批次）` : ""}；已完成的写入不会回滚`));
       hideBusy();
       setTurnActive(false);
+      cancelAgentRenderTimer();
+      flushAgentRender(); // 中止前把已到达文本精确渲染，不丢内容
       state.turn = newTurnState();
       // 中止：清空本轮被阻塞的续跑待办（避免向已终止的轮次补发）。
       delete state.pendingContinuations[ev.session_id];
@@ -1150,6 +1244,8 @@ function finishTurn(ev) {
   const t = state.turn;
   const turn = ev.payload.turn;
   const ms = ev.payload.duration_ms;
+  cancelAgentRenderTimer();
+  flushAgentRender(); // 最终精确渲染：修正流式期间未闭合语法的临时形态
   hideBusy(); // 本轮结束：收起"任务进行中"转圈
   if (t.turnGroup) {
     t.turnGroup.summary.textContent =

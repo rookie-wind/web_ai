@@ -6,6 +6,8 @@ API 侧行为不变由既有 test_account_auth.py 等覆盖；本文件只验证
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 
 from webchat.api import create_app
@@ -73,11 +75,16 @@ def test_static_assets_available(ui_client):
 
 
 def test_prefix_hint_in_composer(ui_client):
-    """输入区提示可选路由前缀（不强制、不拦截输入）。"""
+    """输入区提示可选路由前缀：失焦紧凑短文案，完整释义经聚焦展开。"""
     body = ui_client.get("/").text
-    assert "/web 强制网页检索" in body
-    assert "/xlpa 强制协议助手" in body
-    assert "可选前缀" in body
+    app_js = ui_client.get("/static/js/app.js").text
+    # 紧凑形态：短文案含前缀关键字与可选语义
+    assert "可选前缀 /web /xlpa" in body
+    # 完整释义经聚焦展开可达（MODIFIED requirement：语义不丢失）
+    assert "/web 强制网页检索" in app_js
+    assert "/xlpa 强制协议助手" in app_js
+    assert "默认自动判断" in app_js
+    assert "必须使用前缀" not in body + app_js
 
 
 def test_guard_notice_rendering_marker(ui_client):
@@ -435,6 +442,115 @@ def test_send_stop_toggle(ui_client) -> None:
     assert 'id="btn-abort"' not in body
     assert "abortTurn" in app_js
     assert "is-stop" in app_js
+
+
+def test_vendor_assets_available(ui_client) -> None:
+    """第三方渲染库经 /static/vendor 同源分发，文件头记录来源与版本。"""
+    for path in (
+        "/static/vendor/marked.esm.js",
+        "/static/vendor/purify.es.mjs",
+        "/static/vendor/highlight.min.js",
+        "/static/vendor/mermaid.min.js",
+    ):
+        resp = ui_client.get(path)
+        assert resp.status_code == 200, path
+        # vendored 头注释：来源 URL + 版本号（web-ui-content-security 要求）
+        assert "vendored from" in resp.text[:500], path
+
+
+def test_index_references_vendor_and_no_cdn(ui_client) -> None:
+    """index.html 引用同源 vendor；页面与前端脚本无外部 CDN 引用。"""
+    body = ui_client.get("/").text
+    assert "/static/vendor/highlight.min.js" in body
+    app_js = ui_client.get("/static/js/app.js").text
+    render_js = ui_client.get("/static/js/render.js").text
+    for text, label in ((body, "index.html"), (app_js, "app.js"),
+                        (render_js, "render.js")):
+        for cdn in ("cdn.jsdelivr.net", "unpkg.com", "cdnjs.cloudflare.com",
+                    "registry.npmmirror.com"):
+            assert cdn not in text, f"{label}: {cdn}"
+
+
+def test_rich_render_pipeline_markers(ui_client) -> None:
+    """富渲染管线 marker：消毒链、mermaid strict+懒加载、节流与最终渲染、锚定。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    render_js = ui_client.get("/static/js/render.js").text
+    # 消毒链（render.js）：marked 产出 → DOMPurify 白名单 → 注入
+    assert "marked.parse" in render_js
+    assert "DOMPurify.sanitize" in render_js
+    assert "SANITIZE_OPTIONS" in render_js
+    # mermaid：strict 安全模式 + 懒加载（动态注入同源 vendor script）
+    assert 'securityLevel: "strict"' in render_js
+    assert "/static/vendor/mermaid.min.js" in render_js
+    assert 'createElement("script")' in render_js
+    # 代码块复制按钮（白名单保留标签，事件委托处理点击）
+    assert "btn-code-copy" in render_js
+    # app.js：节流重渲染 + 最终精确渲染 + 滚动锚定；用户消息仍纯文本
+    assert "RENDER_THROTTLE_MS" in app_js
+    assert "function flushAgentRender" in app_js
+    assert "function nearBottom" in app_js
+    assert 'el("div", "bubble user", text)' in app_js
+
+
+ADAPTER_PATH = (Path(__file__).resolve().parents[1]
+                / "webchat" / "sdk_runtime" / "adapter.py")
+
+
+def test_system_append_output_convention() -> None:
+    """系统提示追加段包含输出格式约定（表格 markdown / 流程 mermaid）。"""
+    src = ADAPTER_PATH.read_text(encoding="utf-8")
+    assert "markdown 表格" in src
+    assert "mermaid" in src
+
+
+def test_sanitize_whitelist_svg_markers(ui_client) -> None:
+    """消毒白名单补全 marker：dy/dx 定位属性与 foreignObject 边标签容器。"""
+    render_js = ui_client.get("/static/js/render.js").text
+    # SVG 定位属性（多行标签逐行定位）与基线类防御性补充
+    for attr in ('"dy"', '"dx"', '"dominant-baseline"', '"startoffset"'):
+        assert attr in render_js, attr
+    # 边标签容器：mermaid v11.4.1 边标签唯一产出路径，内部递归消毒
+    assert '"foreignObject"' in render_js
+
+
+def test_figure_threshold_fit_markers(ui_client) -> None:
+    """图阈值混合适配 marker：常量、归一化、可发现性提示。"""
+    render_js = ui_client.get("/static/js/render.js").text
+    assert "FIGURE_FIT_MAX_WIDTH" in render_js
+    assert "is-scrollable" in render_js
+    assert "左右滑动查看" in render_js
+    css = ui_client.get("/static/app.css").text
+    assert ".is-scrollable" in css
+    assert "figure-scroll-hint" in css
+
+
+def test_composer_compact_markers(ui_client) -> None:
+    """composer 紧凑 marker：占位符双态、1 行初始、间距收紧、16px 底线。"""
+    body = ui_client.get("/").text
+    app_js = ui_client.get("/static/js/app.js").text
+    css = ui_client.get("/static/app.css").text
+    # 失焦短文案与单行初始
+    assert 'rows="1"' in body
+    assert "PLACEHOLDER_COMPACT" in app_js
+    # 自适应增高上限收紧
+    assert "ta.scrollHeight, 120" in app_js
+    # 间距收紧
+    attach_block = css.split(".attach-btn {", 1)[1].split("}", 1)[0]
+    assert "width: 30px" in attach_block
+    assert "height: 30px" in attach_block
+    select_block = css.split(".compose-toolbar select {", 1)[1].split("}", 1)[0]
+    assert "max-width: 150px" in select_block
+    # 16px 反缩放契约保留
+    media = css.split("@media (max-width: 640px) {", 1)[1]
+    assert "font-size: 16px" in media
+
+
+def test_system_append_figure_layout_convention() -> None:
+    """系统提示含图布局紧凑规则（TB 方向 / 泳道 / 节点文案精简）。"""
+    src = ADAPTER_PATH.read_text(encoding="utf-8")
+    assert "TB" in src
+    assert "泳道" in src
+    assert "10 字" in src
 
 
 def test_mobile_16px_antizoom(ui_client) -> None:

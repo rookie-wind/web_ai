@@ -89,6 +89,66 @@ class EchoHandle:
             (out_dir / "smoke_report.txt").write_text(
                 "冒烟产物内容\nOK\n", encoding="utf-8",
             )
+        # 富内容冒烟：命中关键词产 markdown 表格/代码块/mermaid/注入样例，
+        # 分两次 text_delta 送达以覆盖前端节流渲染路径
+        rich_lines = []
+        if "表格" in prompt or "富" in prompt:
+            rich_lines += [
+                "| 寄存器 | 地址 | 类型 | 单位 |",
+                "|---|---|---|---|",
+                "| Ua | 0x00 | float | V |",
+                "| Ub | 0x02 | float | V |",
+                "",
+            ]
+        if "宽表格" in prompt:
+            cols = [f"列{i}" for i in range(1, 16)]
+            row = [f"值{i}" for i in range(1, 16)]
+            rich_lines += [
+                "| " + " | ".join(cols) + " |",
+                "|" + "---|" * len(cols),
+                "| " + " | ".join(row) + " |",
+                "",
+            ]
+        if "代码" in prompt or "富" in prompt:
+            rich_lines += ["```json", '{"points": [{"name": "Ua", "addr": 0}]}', "```", ""]
+        if "大图" in prompt:
+            # 多行 CJK 标签 + 边标签：复现“文字漂出节点框”的定位类缺陷
+            rich_lines += [
+                "```mermaid",
+                "flowchart TB",
+                '    A["监控端<br/>（电脑/XLPA）"] -->|"Modbus RTU 主动上报<br/>（短连接）"| B["网关机"]',
+                '    B -->|"MQTT publish<br/>（内部 JSON → 平台格式）"| C["边缘后端(:7500)"]',
+                '    C -->|"返回结果（rttCode=0）"| D["平台（MQTT）"]',
+                "```",
+                "",
+            ]
+        if "泳道图" in prompt:
+            # 宽横向链路：自然宽 > 700px，验证阈值适配的横滚 + 提示条分支
+            rich_lines += [
+                "```mermaid",
+                "flowchart LR",
+                '    A["监控端（电脑/XLPA 客户端）"] -->|"Modbus RTU 主动上报/报警（短连接）"| B["网关机（Modbus 网关）"]',
+                '    B -->|"MQTT publish（内部 JSON → 平台格式）"| C["边缘后端（:7500 服务）"]',
+                '    C -->|"返回结果（rttCode=0）"| D["平台（MQTT 消息总线）"]',
+                "```",
+                "",
+            ]
+        if "流程图" in prompt or "富" in prompt:
+            rich_lines += ["```mermaid", "flowchart LR; A[上传] --> B[提取]; B --> C[建档];", "```", ""]
+        if "坏图" in prompt or "富" in prompt:
+            rich_lines += ["```mermaid", "flowchart LR; A --> this is (bad", "```", ""]
+        if "注入" in prompt or "富" in prompt:
+            rich_lines += [
+                "<script>window.__xss_executed=1</script>",
+                '<img src=x onerror="window.__xss_img=1">',
+                "[坏链接](javascript:alert(1))",
+                "",
+            ]
+        if rich_lines:
+            text = "\n".join(rich_lines)
+            mid = max(1, len(text) // 2)
+            yield WEvent(type="text_delta", payload={"text": text[:mid]})
+            yield WEvent(type="text_delta", payload={"text": text[mid:]})
         yield WEvent(type="text_delta", payload={"text": f"[echo] {prompt}\n（冒烟桩实例）"})
         yield WEvent(type="turn_done", payload={})
 

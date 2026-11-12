@@ -45,8 +45,8 @@
       <div id="pending-cards" class="pending-cards"></div>
       <form id="compose-form" class="compose">
         <div id="attachment-chips" class="attachment-chips"></div>
-        <textarea id="msg-input" rows="2"
-                  placeholder="输入消息，Enter 发送（无会话时请先新建）；可选前缀：/web 强制网页检索、/xlpa 强制协议助手（默认自动判断）"></textarea>
+        <textarea id="msg-input" rows="1"
+                  placeholder="输入消息，Enter 发送；可选前缀 /web /xlpa"></textarea>
         <div class="compose-toolbar">
           <button type="button" id="btn-attach" class="attach-btn" title="添加文件">＋</button>
           <input id="upload-file" type="file" class="hidden" multiple>
@@ -84,6 +84,10 @@
   </form>
 </div>
 
+<!-- 第三方渲染库经同源 vendor 分发（web-ui-content-security）：hljs 为
+     UMD 常载（全局 hljs）；marked/DOMPurify 由 render.js 以 ESM 引入；
+     mermaid 由 render.js 按需懒加载 -->
+<script src="/static/vendor/highlight.min.js"></script>
 <script type="module" src="/static/js/app.js"></script>
 </body>
 </html>

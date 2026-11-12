@@ -14,6 +14,7 @@ from __future__ import annotations
 __all__ = ["create_app", "AppState"]
 
 import asyncio
+import mimetypes
 import os
 from contextlib import asynccontextmanager, suppress
 from dataclasses import dataclass
@@ -50,6 +51,21 @@ from .skills import load_catalog
 PlatformLoginImpl = Callable[
     [str, str, str, httpx.AsyncBaseTransport | None], Awaitable[dict]
 ]
+
+# 内容安全策略（web-ui-content-security）：脚本仅同源；样式放行内联
+# （图形渲染库运行时注入内联样式）；图片允许 data:（图形产物）；
+# 连接仅同源（SSE/fetch）。script 不设显式指令，回落 default-src 'self'。
+CSP_POLICY = (
+    "default-src 'self'; "
+    "style-src 'self' 'unsafe-inline'; "
+    "img-src 'self' data:; "
+    "connect-src 'self'"
+)
+
+# Windows 注册表常把 .mjs 映射为 text/plain；StaticFiles 按扩展名猜 MIME，
+# 模块脚本会被浏览器 strict MIME 校验拒载（冒烟实测）。显式登记正确类型。
+mimetypes.add_type("text/javascript", ".mjs")
+mimetypes.add_type("text/javascript", ".js")
 
 LOGIN_FAILED_DETAIL = "用户名或密码错误"
 PLATFORM_FAILED_DETAIL = "平台凭据绑定失败（手机号尾号 {tail}）"
@@ -144,6 +160,14 @@ def create_app(
                     await task
 
     app = FastAPI(title="xlpa-webchat", version="0.1.0", lifespan=lifespan)
+
+    @app.middleware("http")
+    async def csp_headers(request: Request, call_next: Callable) -> object:
+        """全部响应下发 CSP（web-ui-content-security，含异常响应）。"""
+        response = await call_next(request)
+        response.headers.setdefault("Content-Security-Policy", CSP_POLICY)
+        return response
+
     events = EventStore(settings.events_dir)
     audit = GateAuditLog(settings.gate_audit_path)
     grants = GrantStore(ttl_seconds=settings.grant_ttl)

@@ -561,3 +561,10 @@
 {"ts": 1794365518.8478158, "session_id": "0bbf3038b1f57bbfbecfbd538ab3492a", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
 {"ts": 1794381157.9149306, "session_id": "a4a7004d95c5b354cdd2cae6e8012500", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
 {"ts": 1794381163.5835574, "session_id": "a4a7004d95c5b354cdd2cae6e8012500", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794469670.8535388, "session_id": "2cd19de39eb9c736568b377259623528", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1794470669.3905725, "session_id": "2cd19de39eb9c736568b377259623528", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1794470922.7832558, "session_id": "2cd19de39eb9c736568b377259623528", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794471399.5167773, "session_id": "2cd19de39eb9c736568b377259623528", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "deny", "reason": "开辟边缘会话需在确认卡片内填写凭据后重试"}
+{"ts": 1794471412.898208, "session_id": "2cd19de39eb9c736568b377259623528", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
+{"ts": 1794471415.3264453, "session_id": "2cd19de39eb9c736568b377259623528", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
+{"ts": 1794472250.8797305, "session_id": "2cd19de39eb9c736568b377259623528", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
