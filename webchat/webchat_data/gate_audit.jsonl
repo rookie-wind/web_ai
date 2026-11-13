@@ -568,3 +568,25 @@
 {"ts": 1794471412.898208, "session_id": "2cd19de39eb9c736568b377259623528", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "confirm", "reason": "user confirmed"}
 {"ts": 1794471415.3264453, "session_id": "2cd19de39eb9c736568b377259623528", "target": "edge_get_token", "tool_name": "edge_get_token", "decision": "allow", "reason": ""}
 {"ts": 1794472250.8797305, "session_id": "2cd19de39eb9c736568b377259623528", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794539420.434003, "session_id": "fde7615274f78619e8323fbef902c41e", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794539512.983698, "session_id": "fde7615274f78619e8323fbef902c41e", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794539512.9886827, "session_id": "fde7615274f78619e8323fbef902c41e", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794539534.6823184, "session_id": "fde7615274f78619e8323fbef902c41e", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区、技能目录与配置的额外目录，当前路径越界"}
+{"ts": 1794539534.6889307, "session_id": "fde7615274f78619e8323fbef902c41e", "target": "Read", "tool_name": "Read", "decision": "deny", "reason": "仅允许读取会话工作区、技能目录与配置的额外目录，当前路径越界"}
+{"ts": 1794539753.5105386, "session_id": "fde7615274f78619e8323fbef902c41e", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794539753.515868, "session_id": "fde7615274f78619e8323fbef902c41e", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794539753.5212724, "session_id": "fde7615274f78619e8323fbef902c41e", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794539842.9436462, "session_id": "fde7615274f78619e8323fbef902c41e", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794540490.8224723, "session_id": "fde7615274f78619e8323fbef902c41e", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1794541478.8572307, "session_id": "bb79e99ccd6e49cc1ad06abeea83b969", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1794541534.6528482, "session_id": "bb79e99ccd6e49cc1ad06abeea83b969", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1794541534.6568809, "session_id": "bb79e99ccd6e49cc1ad06abeea83b969", "target": "WebSearch", "tool_name": "WebSearch", "decision": "allow", "reason": "web search allowed"}
+{"ts": 1794550703.747068, "session_id": "fde7615274f78619e8323fbef902c41e", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794550780.5409324, "session_id": "fde7615274f78619e8323fbef902c41e", "target": "Write", "tool_name": "Write", "decision": "allow", "reason": "workspace output write"}
+{"ts": 1794555134.2840772, "session_id": "b7507f926a1feef1bd6ba080b70e5ed9", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794555142.96534, "session_id": "b7507f926a1feef1bd6ba080b70e5ed9", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794555154.1471279, "session_id": "b7507f926a1feef1bd6ba080b70e5ed9", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794555192.8955224, "session_id": "b7507f926a1feef1bd6ba080b70e5ed9", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794555197.7975812, "session_id": "b7507f926a1feef1bd6ba080b70e5ed9", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794555203.26433, "session_id": "b7507f926a1feef1bd6ba080b70e5ed9", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
+{"ts": 1794555210.0522647, "session_id": "b7507f926a1feef1bd6ba080b70e5ed9", "target": "Read", "tool_name": "Read", "decision": "allow", "reason": "read allowed"}
