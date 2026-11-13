@@ -730,10 +730,12 @@ function applyEvent(ev) {
       if (ev.payload.username) { push(el("div", "sys-line", "会话已开始")); }
       break;
     case "session_ready":
-      // 初始化完成：解锁输入区并加载模型清单（重放路径同样生效）
+      // 初始化完成：解锁输入区、加载模型清单，并刷新会话列表
+      // （否则列表行停留在创建时的 creating 快照，持续显示“初始化中…”）
       setSessionInit("ready");
       notify("会话已就绪");
       loadModels(ev.session_id);
+      refreshSessions();
       break;
     case "session_failed": {
       const p = ev.payload || {};

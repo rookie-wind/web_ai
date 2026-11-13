@@ -553,6 +553,13 @@ def test_system_append_figure_layout_convention() -> None:
     assert "10 字" in src
 
 
+def test_session_ready_refreshes_session_list(ui_client) -> None:
+    """session_ready 事件处理必须刷新会话列表：列表行“初始化中…”翻转为就绪。"""
+    app_js = ui_client.get("/static/js/app.js").text
+    block = app_js.split('case "session_ready":', 1)[1].split("break;", 1)[0]
+    assert "refreshSessions()" in block
+
+
 def test_mobile_16px_antizoom(ui_client) -> None:
     """移动端媒体查询内表单控件 16px；不以 maximum-scale 禁用缩放；select 占位。"""
     css = ui_client.get("/static/app.css").text
