@@ -59,6 +59,13 @@ logs/
 # 验证资产（开发过程产物，不进用户包）
 validation/
 
+# webchat 运行时数据（事件流与会话工作区，不入版本控制）
+webchat/webchat_data/events/
+webchat/webchat_data/workspaces/
+
+# 冒烟取证截图（开发过程产物）
+.screenshots/
+
 # 项目整理辅助脚本与基线
 _build_action_list.py
 _run_action_list.py
